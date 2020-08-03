@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.SNS201.mapper.PostMapper"> <!-- mybatis는 namespace필수!! -->
+
+    <insert id="insertPost" parameterType="Post">
+        INSERT INTO post(
+        link,
+        postContent,
+        memberNo,
+        postDate,
+        missionNo
+        ) VALUES (
+        #{link},
+        #{postContent},
+        #{memberNo},
+        now(),
+        #{missionNo}
+        )
+
+    </insert>
+    <select id="selectPost" resultType="Post">
+        SELECT      *
+          FROM      post
+         ORDER BY   postNo
+    </select>
+    <select id="selectPostByNo" resultType="Post">
+        SELECT  p.*, m.nickname AS nickname
+          FROM  post p, member m
+         WHERE  p.memberNo = m.memberNo AND postNo = #{postNo}
+    </select>
+
+    <update id="updatePost" parameterType="Post">
+        UPDATE  post
+           SET  link        = #{link},
+                postContent = #{postContent},
+                postDate    = now()
+         WHERE  postNo      = #{postNo}
+    </update>
+
+    <delete id="deletePost" parameterType="int">
+        DELETE
+          FROM  post
+         WHERE  postNo = #{postNo}
+    </delete>
+
+</mapper>

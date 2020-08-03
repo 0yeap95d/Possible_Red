@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.SNS201.mapper.MissionMapper"> <!-- mybatis는 namespace필수!! -->
+    <select id="selectMission" resultType="Mission">
+        SELECT *
+         FROM mission
+        ORDER BY missionNo
+    </select>
+
+    <select id="selectMissionByNo" resultType="Mission">
+        SELECT *
+         FROM mission
+        WHERE missionNo = #{missionNo}
+    </select>
+    
+    <insert id="insertMission" parameterType="Mission">
+        INSERT INTO mission(
+            missionTitle,
+            startDate,
+            endDate,
+            isStart,
+            memberNo,
+            point,
+            minusPoint,
+            cutCnt,
+            joinMem
+        ) VALUES (
+            #{missionTitle},
+            #{startDate},
+            #{endDate},
+            #{isStart},
+            #{memberNo},
+            #{point},
+            #{minusPoint},
+            #{cutCnt},
+            #{joinMem}
+        )
+    </insert>
+    
+    <update id="updateMission" parameterType="Mission">
+        UPDATE mission
+            SET missionTitle    = #{missionTitle},
+                startDate       = #{startDate},
+                endDate         = #{endDate},
+                isStart         = #{isStart},
+                point           = #{point},
+                minusPoint      = #{minusPoint},
+                cutCnt          = #{cutCnt},
+                joinMem         = #{joinMem}
+    </update>
+
+    <delete id="deleteMission" parameterType="int">
+        DELETE FROM mission WHERE missionNo = #{missionNo}
+    </delete>
+</mapper>
