@@ -11,7 +11,11 @@
         <p>Misson Title</p>
         <p>Content</p>
         <p>Hashtag</p>
-        <p style="text-align:right">좋아요 : 30</p>
+        <div>
+          <h4 @click="good" v-show="like"><i class="fas fa-heart" style="color:crimson;"></i></h4>
+          <h4 @click="good" v-show="!like"><i class="fas fa-heart" style="color:palegoldenrod;"></i></h4>
+          <p style="text-align:right">좋아요 : 30</p>
+        </div>
         <p>댓글 : 3</p>
         <p>작성자 : 해똘뜨</p>
         <p>작성일 : Date</p>
@@ -25,8 +29,18 @@ import Navbar from '../../components/common/navbar.vue'
 
 export default {
     name:'post',
+    data(){
+      return{
+        like:false,
+      }
+    },
     components:{
       Navbar,
+    },
+    methods:{
+      good(){
+        this.like=!this.like
+      }
     }
 }
 </script>
@@ -37,6 +51,6 @@ export default {
     margin-right:10%;
   }
   .pictures{
-    
+
   }
 </style>
