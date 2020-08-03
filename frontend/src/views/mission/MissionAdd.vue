@@ -52,8 +52,8 @@
         />
       </div>
 
+      <label for="joinMem">참여 인원</label>
       <div class="input-with-label">
-        <label for="joinMem">참여 인원</label>
         <select v-model="joinMem" id="joinMem">
           <option disabled value>미션 침여 인원을 설정하세요.</option>
           <option>1</option>
@@ -68,6 +68,14 @@
           <option>10</option>
         </select>
       </div>
+      <br /><br />
+      <div>
+        <button class="btn-bottom" @click="missionRegister">
+          미션 등록하기
+        </button>
+      </div>
+      <div>{{ this.range.start }}</div>
+      <div>{{ this.range.end }}</div>
     </div>
     <Footer />
   </div>
@@ -92,11 +100,31 @@ export default {
       minusPoint: 0,
       cutCnt: 0,
       joinMem: "",
+      startDate: "",
+      endDate: "",
       range: {},
       date: null,
     };
   },
-  methods: {},
+  methods: {
+    missionRegister() {
+      let { missionTitle, point, minusPoint, cutCnt, joinMem } = this;
+      let startDate = this.range.start;
+      let endDate = this.range.end;
+
+      let data = {
+        missionTitle,
+        point,
+        minusPoint,
+        cutCnt,
+        joinMem,
+        startDate,
+        endDate,
+      };
+
+      console.log(this.data);
+    },
+  },
 };
 </script>
 
