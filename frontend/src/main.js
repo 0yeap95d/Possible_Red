@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+import moment from 'moment';
+import VueMomentJS from 'vue-momentjs';
 import VueRouter from 'vue-router';
 import routes from './routes'
 import store from './vuex/store'
@@ -11,6 +13,8 @@ import VueSession from 'vue-session'
 var sessionOptions = {
     persist: true
   }
+
+Vue.use(VueMomentJS, moment);
 Vue.use(VueSession, sessionOptions)
 Vue.config.productionTip = false
 
