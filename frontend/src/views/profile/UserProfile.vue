@@ -1,7 +1,7 @@
 <template>
   <div>
       <ProfileHeader></ProfileHeader>
-      <ProfileInfo headerTitle="user.nickname"></ProfileInfo>
+      <ProfileInfo headerTitle="상태 메세지"></ProfileInfo>
       <ProfileBody></ProfileBody>
       <Footer></Footer>
   </div>

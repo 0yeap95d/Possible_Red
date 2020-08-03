@@ -1,16 +1,23 @@
 <template>
   <div class>
-    <div class="box" style="background: #BDBDBD;">
-      <img class="profile" src="../../assets/images/profile_default.png">
-    </div>
+    <div class="d-flex">
+      <div class="box" style="background: #BDBDBD;">
+        <img class="profile" src="../../assets/images/profile_default.png">
+      </div>
 
-    <button class="menu" v-if="!isBack"></button>
-    <h4 class="title">
+      <div class=info>      
+        <span class=info_num>게시글: nn</span>
+        <span class=info_num>팔로워: nn</span>
+        <span class=info_num>팔로잉: nn</span>
+      </div>
+    
+    </div>
+    
+    <p class="title">
       {{headerTitle}}
-    </h4>
-    <button v-if="isBack" class="back">
-      <i class="fas fa-chevron-left"></i>
-    </button>
+    </p>
+
+
 
     <button v-if="rightText" class="right-text" :class="{disabled:isDisabled}" :disabled="isDisabled">
       {{rightText}}
@@ -39,5 +46,17 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.title {
+  margin-left: 3%;
+  margin-top: 5%;
+}
+.info {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
+.info_num {
+  margin-left: 5%;
 }
 </style>
