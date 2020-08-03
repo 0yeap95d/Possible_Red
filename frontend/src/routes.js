@@ -10,6 +10,7 @@ import Terms from './views/user/Terms.vue'
 import Search from './views/search/Search.vue'
 import Posts from './views/post/Posts.vue'
 import Comments from './views/post/Comments.vue'
+import UserProfile from './views/profile/UserProfile.vue'
 
 export default [
 
@@ -64,4 +65,10 @@ export default [
         name : 'Comments',
         component : Comments
     }
+
+    {
+        path : '/profile',
+        name : 'UserProfile',
+        component : UserProfile
+    },
 ]
