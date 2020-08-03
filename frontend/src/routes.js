@@ -9,6 +9,7 @@ import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
 import Comments from "./views/post/Comments.vue";
 import MissionAdd from "./views/mission/MissionAdd.vue";
+import UserProfile from './views/profile/UserProfile.vue';
 
 export default [
   {
@@ -65,5 +66,10 @@ export default [
     path: "/missionadd",
     name: "MissionAdd",
     component: MissionAdd,
+  },
+  {
+    path : '/profile',
+    name : 'UserProfile',
+    component : UserProfile
   },
 ];
