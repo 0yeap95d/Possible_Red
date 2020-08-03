@@ -4,6 +4,7 @@ import FeedMain from "./views/feed/IndexFeed.vue";
 import Components from "./views/Components.vue";
 import FindPwd from "./views/user/FindPwd.vue";
 import ChangePwd from "./views/user/ChangePwd.vue";
+import ChangeUser from './views/user/ChangeUser.vue'
 import Terms from "./views/user/Terms.vue";
 import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
@@ -41,6 +42,11 @@ export default [
     path: "/changepwd",
     name: "ChangePwd",
     component: ChangePwd,
+  },
+  {
+    path : '/changeuser',
+    name : 'ChangeUser',
+    component : ChangeUser,
   },
   {
     path: "/terms",
