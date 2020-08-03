@@ -8,7 +8,8 @@ import FindPwd from './views/user/FindPwd.vue'
 import ChangePwd from './views/user/ChangePwd.vue'
 import Terms from './views/user/Terms.vue'
 import Search from './views/search/Search.vue'
-import Post from './views/post/post.vue'
+import Posts from './views/post/Posts.vue'
+import Comments from './views/post/Comments.vue'
 
 export default [
 
@@ -54,8 +55,13 @@ export default [
         component : Search
     },
     {
-        path : '/post',
-        name : 'Post',
-        component : Post
+        path : '/posts',
+        name : 'Posts',
+        component : Posts
     },
+    {
+        path : '/comments',
+        name : 'Comments',
+        component : Comments
+    }
 ]

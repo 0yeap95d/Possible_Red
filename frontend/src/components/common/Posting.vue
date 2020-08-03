@@ -1,8 +1,5 @@
 <template>
   <div>
-      <Navbar />
-      <br>
-      <br>
       <div class="instabox">
         <div class="pictures">
           <img src="https://picsum.photos/200" alt="">
@@ -17,16 +14,16 @@
           <p style="text-align:right">좋아요 : 30</p>
         </div>
         <p>댓글 : 3</p>
+        <button @click="comment" class="morecomment">댓글 더보기</button>
         <p>작성자 : 해똘뜨</p>
         <p>작성일 : Date</p>
+        <hr>
       </div>
 
   </div>
 </template>
 
 <script>
-import Navbar from '../../components/common/navbar.vue'
-
 export default {
     name:'post',
     data(){
@@ -34,12 +31,12 @@ export default {
         like:false,
       }
     },
-    components:{
-      Navbar,
-    },
     methods:{
       good(){
         this.like=!this.like
+      },
+      comment(){
+          this.$router.push('/Comments')
       }
     }
 }
@@ -49,8 +46,11 @@ export default {
   .instabox{
     margin-left:10%;
     margin-right:10%;
+    margin-top:10%;
+    margin-bottom:10%;
   }
-  .pictures{
-
+  .morecomment{
+      background-color:black;
+      color:white;
   }
 </style>
