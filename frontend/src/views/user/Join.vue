@@ -1,4 +1,3 @@
-
 <!--
     가입하기는 기본적인 폼만 제공됩니다
     기능명세에 따라 개발을 진행하세요.
@@ -10,17 +9,32 @@
     <h1>가입하기</h1>
     <div class="form-wrap">
       <div class="input-with-label">
-        <input v-model="nickname" id="nickname" placeholder="닉네임을 입력하세요." type="text" />
+        <input
+          v-model="nickname"
+          id="nickname"
+          placeholder="닉네임을 입력하세요."
+          type="text"
+        />
         <label for="nickname">닉네임</label>
       </div>
 
       <div class="input-with-label">
-        <input v-model="email" id="email" placeholder="이메일을 입력하세요." type="text" />
+        <input
+          v-model="email"
+          id="email"
+          placeholder="이메일을 입력하세요."
+          type="text"
+        />
         <label for="email">이메일</label>
       </div>
 
       <div class="input-with-label">
-        <input v-model="pwd" id="pwd" :type="passwordType" placeholder="비밀번호를 입력하세요." />
+        <input
+          v-model="pwd"
+          id="pwd"
+          :type="passwordType"
+          placeholder="비밀번호를 입력하세요."
+        />
         <label for="pwd">비밀번호</label>
       </div>
 
@@ -40,13 +54,11 @@
       <span>약관을 동의합니다.</span>
     </label>
 
-    <br>
-    <br>
+    <br />
+    <br />
     <router-link to="/terms" class="btn--text">약관보기</router-link>
 
-    <button 
-        class="btn-bottom"
-        @click="onRegister">가입하기</button>
+    <button class="btn-bottom" @click="onRegister">가입하기</button>
     <Footer />
   </div>
 </template>
@@ -60,31 +72,29 @@ import Footer from "../../components/common/footer.vue";
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
   },
   methods: {
     onRegister() {
-      let { email, pwd, nickname} = this;
-        let data = {
-          email,
-          pwd,
-          nickname
-        };
+      let { email, pwd, nickname } = this;
+      let data = {
+        email,
+        pwd,
+        nickname,
+      };
 
-        UserApi.requestRegister(
-          data,
-          res => {
-            //통신을 통해 전달받은 값 콘솔에 출력
-            //console.log(res);
-            console.log(res.data);
+      UserApi.requestRegister(
+        data,
+        (res) => {
+          //통신을 통해 전달받은 값 콘솔에 출력
+          //console.log(res);
+          console.log(res.data);
 
-            this.$router.push("/");
-          },
-          error => {
-          }
-        );
-      
-    }
+          this.$router.push("/");
+        },
+        (error) => {}
+      );
+    },
   },
   data: () => {
     return {
@@ -99,15 +109,13 @@ export default {
         pwd: false,
         nickname: false,
         passwordConfirm: false,
-        term: false
+        term: false,
       },
       isSubmit: false,
       passwordType: "password",
       passwordConfirmType: "password",
-      termPopup: false
+      termPopup: false,
     };
-  }
+  },
 };
 </script>
-
-
