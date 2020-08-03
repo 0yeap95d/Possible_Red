@@ -1,0 +1,103 @@
+<!-- https://vuejsexamples.com/simple-and-clean-calendar-written-in-vue-js/ -->
+<template>
+  <div>
+    <Navbar />
+    <h1>create mission</h1>
+    <div class="form-wrap">
+      <div class="input-with-label">
+        <label for="missionTitle">미션 이름</label>
+        <input
+          v-model="missionTitle"
+          id="missionTitle"
+          placeholder="미션 제목을 입력하세요."
+          type="text"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label>미션 수행 기간</label>
+        <v-range-selector
+          :start-date.sync="range.start"
+          :end-date.sync="range.end"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label for="point">배당 포인트</label>
+        <input
+          v-model="point"
+          id="point"
+          placeholder="미션 입장 포인트를 입력하세요."
+          type="text"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label for="minusPoint">차감 포인트</label>
+        <input
+          v-model="minusPoint"
+          id="minusPoint"
+          placeholder="미션 미수행시 차감될 포인트를 입력하세요."
+          type="text"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label for="cutCnt">커트라인</label>
+        <input
+          v-model="cutCnt"
+          id="cutCnt"
+          placeholder="최소 미션 미수행 숫자를 입력하세요."
+          type="text"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label for="joinMem">참여 인원</label>
+        <select v-model="joinMem" id="joinMem">
+          <option disabled value>미션 침여 인원을 설정하세요.</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+      </div>
+    </div>
+    <Footer />
+  </div>
+</template>
+
+<script>
+import Navbar from "../../components/common/navbar.vue";
+import Footer from "../../components/common/footer.vue";
+import VRangeSelector from "../../components/common/vl-range-selector";
+import "../../components/css/vuelendar.scss";
+
+export default {
+  components: {
+    Navbar,
+    Footer,
+    VRangeSelector,
+  },
+  data() {
+    return {
+      missionTitle: "",
+      point: 0,
+      minusPoint: 0,
+      cutCnt: 0,
+      joinMem: "",
+      range: {},
+      date: null,
+    };
+  },
+  methods: {},
+};
+</script>
+
+<style></style>
