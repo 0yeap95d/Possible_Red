@@ -1,8 +1,6 @@
 <!-- https://vuejsexamples.com/simple-and-clean-calendar-written-in-vue-js/ -->
 <template>
   <div>
-    <Navbar />
-    <h1>create mission</h1>
     <div class="form-wrap">
       <div class="input-with-label">
         <label for="missionTitle">미션 이름</label>
@@ -66,15 +64,11 @@
 </template>
 
 <script>
-import Navbar from "../common/Navbar.vue";
-import Footer from "../common/Footer.vue";
 import VRangeSelector from "../common/vl-range-selector";
 import "../css/vuelendar.scss";
 
 export default {
   components: {
-    Navbar,
-    Footer,
     VRangeSelector,
   },
   created() {
