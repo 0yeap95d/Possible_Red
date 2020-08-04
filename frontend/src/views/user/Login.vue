@@ -27,7 +27,7 @@
           type="password"
           v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
           id="password"
-          @keyup.enter="Login"
+          @keyup.enter="onLogin"
           placeholder="비밀번호를 입력하세요."
         />
         <label for="password">비밀번호</label>
@@ -55,7 +55,7 @@
           <div class="bar"></div>
         </div>
         <div class="wrap">
-          <p>비밀번호를 잊으셨나요?</p>
+          <p @click="findpwd">비밀번호를 잊으셨나요?</p>
         </div>
         <div class="wrap">
           <p>아직 회원이 아니신가요?</p>
@@ -147,7 +147,7 @@ export default {
               
               // 요청 처리 후 버튼 활성화
               this.isSubmit = true;
-              this.$router.push("/feed/main");
+              this.$router.push("/posts");
             }
 
             // 로그인 실패
@@ -162,6 +162,9 @@ export default {
           }
         );
       }
+    },
+    findpwd(){
+      this.$router.push("/findpwd");
     }
   },
   data: () => {

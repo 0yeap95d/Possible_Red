@@ -33,7 +33,7 @@
 
       <button
         class="btn btn--back btn--submit"
-        @click="onLogin"
+        @click="pwdchanged"
         :disabled="!isSubmit"
         :class="{disabled : !isSubmit}"
       >확인</button>
@@ -95,6 +95,10 @@ export default {
       });
       this.isSubmit = isSubmit;
     },
+    pwdchanged(){
+      //console.log("안녕")
+      this.$router.push("/");
+    }
   },
 
  data() {

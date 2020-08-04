@@ -25,6 +25,7 @@ Vue.use(IconsPlugin)
 
 const router = new VueRouter({
     routes,
+    mode:'history'
 });
 
 new Vue({
@@ -32,5 +33,6 @@ new Vue({
     store,
     render: h => h(App),
 }).$mount('#app');
+
 
 
