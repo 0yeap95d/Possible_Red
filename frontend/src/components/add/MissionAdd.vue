@@ -56,10 +56,9 @@
       <br />
       <br />
       <div>
-        <button class="btn-bottom" @click="missionRegister">미션 등록하기</button>
+        <button class="submit_button btn-bottom" @click="missionRegister">미션 등록하기</button>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -103,4 +102,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.submit_button {
+  margin-bottom: 3rem;
+}
+</style>
