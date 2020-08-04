@@ -3,28 +3,28 @@
     <div class="footer_eong">
       <ul>
         <li class="li_footer_eong">
-          <button class="btn_class">
-            <i class="far fa-heart"></i>
+          <button class="btn_class" @click="post">
+           <i class="fas fa-clipboard"></i> <!--Post-->
           </button>
         </li>
         <li class="li_footer_eong">
-          <button class="btn_class">
-            <i class="fas fa-user-circle"></i>
+          <button class="btn_class" @click="mission">
+            <i class="fas fa-clipboard-check"></i> <!--Mission-->
           </button>
         </li>
         <li class="li_footer_eong">
-          <button class="btn_class">
-            <i class="far fa-calendar-alt"></i>
+          <button class="btn_class" @click="writing">
+            <i class="fas fa-pencil-alt"></i> <!--글쓰기-->
           </button>
         </li>
         <li class="li_footer_eong">
           <button class="btn_class" @click="onSearch">
-            <i class="far fa-calendar-alt"></i>
+            <i class="fas fa-search"></i> <!--검색-->
           </button>
         </li>
         <li class="li_footer_eong">
-          <button class="btn_class">
-            <i class="far fa-calendar-alt"></i>
+          <button class="btn_class" @click="profile">
+            <i class="fas fa-user-circle"></i> <!--유저정보-->
           </button>
         </li>
       </ul>
@@ -35,8 +35,20 @@
 <script>
 export default {
   methods: {
+    post(){
+      this.$router.push("/posts");
+    },
+    mission(){
+
+    },
+    writing(){
+
+    },
     onSearch() {
       this.$router.push("/search");
+    },
+    profile(){
+      this.$router.push("/profile");
     }
   }
 };
