@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import Navbar from "../../components/common/navbar.vue";
-import Footer from "../../components/common/footer.vue";
+import Navbar from "../../components/common/Navbar.vue";
+import Footer from "../../components/common/Footer.vue";
 import VRangeSelector from "../../components/common/vl-range-selector";
 import "../../components/css/vuelendar.scss";
 
