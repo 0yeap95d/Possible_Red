@@ -10,4 +10,6 @@ public interface FollowService {
     public List<Follow> findAllFollowYou();
     public boolean addFollow(Follow follow);
     public boolean removeFollow(int followNo);
+    public Integer countFollowMe(int memberNo);
+    public Integer countFollowYou(int memberNo);
 }

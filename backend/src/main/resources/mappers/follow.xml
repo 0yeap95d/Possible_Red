@@ -39,4 +39,16 @@
 		    )
 	</delete>
 
+	<select id="countFollowMe" parameterType="int" resultType="INTEGER">
+		SELECT  COUNT(*)
+		  FROM  follow
+		 WHERE  you = #{memberNo}
+	</select>
+
+	<select id="countFollowYou" parameterType="int" resultType="INTEGER">
+		SELECT  COUNT(*)
+		  FROM  follow
+		 WHERE  me = #{memberNo}
+	</select>
+
 </mapper>

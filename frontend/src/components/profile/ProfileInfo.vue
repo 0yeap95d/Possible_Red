@@ -6,30 +6,79 @@
       </div>
 
       <div class=info>      
-        <span class=info_num>게시글: nn</span>
-        <span class=info_num>팔로워: nn</span>
-        <span class=info_num>팔로잉: nn</span>
+        <span class=info_num>게시글: </span>
+        <span class=info_num>팔로워: {{follower}}</span>
+        <span class=info_num>팔로잉: {{following}}</span>
       </div>
     
     </div>
     
     <p class="title">
-      {{headerTitle}}
+      {{user.email}},
+      {{user.stateMent}},
+      {{user.memberNo}},
+      {{user.nickname}},
+      {{user.point}},
+      {{user.pwd}},
     </p>
 
 
 
-    <button v-if="rightText" class="right-text" :class="{disabled:isDisabled}" :disabled="isDisabled">
+    <!-- <button v-if="rightText" class="right-text" :class="{disabled:isDisabled}" :disabled="isDisabled">
       {{rightText}}
-    </button>
+    </button> -->
   </div>
 </template>
 
 <script>
 
+import FollowApi from "../../api/FollowApi";
+
 export default {
     name: "ProfileInfo",
-    props : ['headerTitle', 'isBack', 'isSearch', 'rightText', 'isDisabled'],
+    created() {
+      console.log("created")
+        this.user = this.$session.get('user');
+    },
+    beforeMount(){
+      console.log("beforMount")
+      console.log(this.user);
+      this.getCountFollower()
+      this.getCountFollowing()
+    },
+    methods: {
+      getCountFollower() {
+        FollowApi.requestCountFollower(
+          this.user.memberNo,
+          res => {
+            console.log(res);
+            this.follower = res.data
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      },
+      getCountFollowing() {
+        FollowApi.requestCountFollowing(
+          this.user.memberNo,
+          res => {
+            console.log(res);
+            this.following = res.data
+          },
+          error => {
+            console.log(error);
+          }
+        )
+      }
+    },
+    data() {
+        return {
+            user: Object,
+            follower: 0,
+            following: 0
+        }
+    }
 }
 </script>
 
