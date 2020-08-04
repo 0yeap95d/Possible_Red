@@ -34,4 +34,10 @@ public class FollowServiceImpl implements FollowService {
     public boolean removeFollow(int followNo) {
         return mapper.deleteFollow(followNo) == 1;
     }
+
+    @Override
+    public Integer countFollowMe(int memberNo) { return mapper.countFollowMe(memberNo); }
+
+    @Override
+    public Integer countFollowYou(int memberNo) { return mapper.countFollowYou(memberNo); }
 }

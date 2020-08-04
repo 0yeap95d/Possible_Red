@@ -12,4 +12,6 @@ public interface FollowMapper {
     public List<Follow> selectFollowYou();
     public int insertFollow(Follow follow);
     public int deleteFollow(int followNo);
+    public Integer countFollowMe(int memberNo);
+    public Integer countFollowYou(int memberNo);
 }

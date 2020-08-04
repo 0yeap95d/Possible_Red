@@ -52,7 +52,7 @@ public class FollowAPIController {
     }
 
     @ApiOperation(value = " 새로운 사용자를 팔로우한다. 그리고 그 사용자의 번호를 반환한다.", response = String.class)
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<String> addFollow(@RequestBody Follow follow) throws Exception {
         logger.info("5-------------addFollow-----------------------------" + follow);
         if(followService.addFollow(follow)) return new ResponseEntity<String>("success", HttpStatus.OK);
@@ -67,5 +67,22 @@ public class FollowAPIController {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
         return new ResponseEntity<String>("fail",HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value = "나를 팔로우하는 사용자의 수를 반환한다.", response = Integer.class)
+    @GetMapping("/follower/{memberNo}")
+    public ResponseEntity<Integer> countFollowMe(@PathVariable int memberNo) throws Exception {
+        logger.info("countFollowMe | " + memberNo);
+        Integer count = followService.countFollowMe(memberNo);
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "내가 팔로잉하는 사용자의 수를 반환한다.", response = Integer.class)
+    @GetMapping("/following/{memberNo}")
+    public ResponseEntity<Integer> countFollowYou(@PathVariable int memberNo) throws Exception {
+        logger.info("countFollowYou | " + memberNo);
+        Integer count = followService.countFollowYou(memberNo);
+        return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
 }
