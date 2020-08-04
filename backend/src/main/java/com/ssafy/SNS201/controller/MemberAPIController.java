@@ -53,7 +53,16 @@ public class MemberAPIController {
         );
     }
 
-    @ApiOperation(value = " 새로운 사용자의 정보를 입력한다. 그리고 그 사용자의 번호를 반환한다.", response = String.class)
+    @ApiOperation(value = "이메일이 일치하는 사용자의 번호를 반환한다.", response = Member.class)
+    @GetMapping("email/{email}")
+    public ResponseEntity<Member> findMemberByEmail(@PathVariable String email) throws Exception {
+        logger.info("findMemberByEmail | " + email);
+        return new ResponseEntity<Member>(
+                memberService.findMemberByEmail(email), HttpStatus.OK
+        );
+    }
+
+    @ApiOperation(value = " 새로운 사용자의 정보를 입력한다.", response = String.class)
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
