@@ -60,18 +60,16 @@
       <div>
         <button class="btn-bottom" @click="missionRegister">미션 등록하기</button>
       </div>
-      <div>{{ this.range.start }}</div>
-      <div>{{ this.range.end }}</div>
     </div>
     <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from "../../components/common/Navbar.vue";
-import Footer from "../../components/common/Footer.vue";
-import VRangeSelector from "../../components/common/vl-range-selector";
-import "../../components/css/vuelendar.scss";
+import Navbar from "../common/Navbar.vue";
+import Footer from "../common/Footer.vue";
+import VRangeSelector from "../common/vl-range-selector";
+import "../css/vuelendar.scss";
 
 export default {
   components: {
