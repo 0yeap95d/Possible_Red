@@ -25,6 +25,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Member findMemberByEmail(String email) {
+        return mapper.selectMemberByEmail(email);
+    }
+
+    @Override
     public boolean addMember(Member member) { return mapper.insertMember(member); }
 
     @Override

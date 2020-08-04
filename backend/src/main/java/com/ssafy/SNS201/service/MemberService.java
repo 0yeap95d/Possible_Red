@@ -7,6 +7,7 @@ import java.util.List;
 public interface MemberService {
     public List<Member> findAllMembers();
     public Member findMemberByNo(int memberNo);
+    public Member findMemberByEmail(String Email);
     public boolean addMember(Member member);
     public boolean modifyMember(Member member);
     public boolean removeMember(int memberNo);

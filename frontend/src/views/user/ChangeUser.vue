@@ -1,11 +1,9 @@
 <template>
   <div class="user" id="changeUser">
-    
-    <div class="wrap components-page p-1">
+    <div class="wrapC">
+      <div class="wrap components-page p-1">
       <HeaderComponent headerTitle="계정설정" :isBack="true" />
     </div>
-    
-    <div class="wrapC">
       <div class="input-with-label">
         <input
           disabled
