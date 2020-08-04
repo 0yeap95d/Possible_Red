@@ -1,13 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <b-tabs content-class="mt-3">
+    <b-tabs content-class="mt-3" class="menu_tab">
         <b-tab title="미션">
             <MissionAdd class="p-3"></MissionAdd>
         </b-tab>
         <b-tab title="인증" active>
             <p>I'm the second tab</p>
-            <PostAdd></PostAdd>
+            <PostAdd class="p-3"></PostAdd>
         </b-tab>
     </b-tabs>
     <Footer />
@@ -32,5 +32,7 @@ export default {
 </script>
 
 <style>
-
+.menu_tab {
+    margin-bottom: 7rem;
+}
 </style>

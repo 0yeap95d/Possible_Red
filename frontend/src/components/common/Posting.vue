@@ -42,7 +42,7 @@ export default {
           this.$router.push('/Comments')
       },
       infiniteHandler($state){
-        this.$http.get(api+(this.limit+10)) //api에 url삽입
+        this.$http.get(""+(this.limit+10)) //api에 url삽입
           .then(response=>{
             setTimeout(()=>{ //스크롤을 페이징을 띄우기 위한 시간 지연(1초)
               if(response.data.length){
@@ -66,7 +66,7 @@ export default {
       InfiniteLoading,
     },
     created(){
-      this.$http.get(api+this.limit)
+      this.$http.get(""+this.limit)
         .then((response)=>{
           this.users=response.data
         })
