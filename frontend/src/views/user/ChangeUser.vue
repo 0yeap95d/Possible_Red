@@ -73,7 +73,7 @@ import * as EmailValidator from "email-validator";
 import PV from "password-validator";
 import UserApi from "../../api/UserApi";
 import HeaderComponent from "../../components/common/Header.vue";
-import Footer from "../../components/common/footer.vue";
+import Footer from "../../components/common/Footer.vue";
 import LargeButton from "../../components/common/ButtonLarge";
 
 export default {

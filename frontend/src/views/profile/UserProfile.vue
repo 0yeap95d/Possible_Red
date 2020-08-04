@@ -1,9 +1,9 @@
 <template>
   <div>
-      <ProfileHeader></ProfileHeader>
-      <ProfileInfo headerTitle="상태 메세지"></ProfileInfo>
-      <ProfileBody></ProfileBody>
-      <Footer></Footer>
+      <ProfileHeader />
+      <ProfileInfo headerTitle="상태 메세지" />
+      <ProfileBody />
+      <Footer />
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import ProfileBody from "../../components/profile/ProfileBody.vue";
 import ProfileHeader from "../../components/profile/ProfileHeader.vue";
 import ProfileInfo from "../../components/profile/ProfileInfo.vue";
-import Footer from "../../components/common/footer.vue";
+import Footer from "../../components/common/Footer.vue";
 import "../../assets/css/components.scss";
 
 export default {    

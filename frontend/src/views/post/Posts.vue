@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Navbar from '../../components/common/navbar.vue'
+import Navbar from '../../components/common/Navbar.vue'
 import Posting from '../../components/common/Posting.vue'
 
 export default {

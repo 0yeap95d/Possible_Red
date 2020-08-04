@@ -74,8 +74,8 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/user/snsLogin/Google.vue";
 import UserApi from "../../api/UserApi";
-import Navbar from "../../components/common/navbar.vue";
-import Footer from "../../components/common/footer.vue";
+import Navbar from "../../components/common/Navbar.vue";
+import Footer from "../../components/common/Footer.vue";
 
 export default {
   components: {

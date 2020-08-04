@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Navbar from '../../components/common/navbar.vue'
-import CommentFooter from '../../components/common/comment/CommentFooter.vue'
-import CommentList from '../../components/common/comment/CommentList.vue'
-import CommentInput from '../../components/common/comment/CommentInput.vue'
+import Navbar from '../../components/common/Navbar.vue'
+import CommentFooter from '../../components/comment/CommentFooter.vue'
+import CommentList from '../../components/comment/CommentList.vue'
+import CommentInput from '../../components/comment/CommentInput.vue'
 
 export default {
     name:'Comments',
@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body{
     text-align:center;
     background-color:#F6F6F8;

@@ -7,7 +7,7 @@
 
 <script>
 import SearchBar from "../../components/common/Searchbar.vue";
-import Footer from "../../components/common/footer.vue";
+import Footer from "../../components/common/Footer.vue";
 import "../../components/css/user.scss";
 
 export default {
