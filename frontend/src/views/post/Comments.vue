@@ -8,6 +8,7 @@
       <CommentInput v-on:addComment="addComment" />
       <CommentList v-bind:propsdata="comments" @removeComment="removeComment" />
       <CommentFooter v-on:removeAll="clearAll" />
+      <Footer />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import Navbar from '../../components/common/Navbar.vue'
 import CommentFooter from '../../components/comment/CommentFooter.vue'
 import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
+import Footer from '../../components/common/Footer.vue'
 
 export default {
     name:'Comments',
@@ -23,7 +25,8 @@ export default {
         Navbar,
         CommentFooter,
         CommentList,
-        CommentInput
+        CommentInput,
+        Footer,
     },
     data(){
         return{
