@@ -42,7 +42,7 @@ export default {
 
     },
     writing(){
-
+      this.$router.push("/add");
     },
     onSearch() {
       this.$router.push("/search");
