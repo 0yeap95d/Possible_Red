@@ -6,17 +6,17 @@
 
     <insert id="insertPost" parameterType="Post">
         INSERT INTO post(
-        link,
-        postContent,
-        memberNo,
-        postDate,
-        missionNo
+            postPhoto,
+            postContent,
+            memberNo,
+            postDate,
+            missionNo
         ) VALUES (
-        #{link},
-        #{postContent},
-        #{memberNo},
-        now(),
-        #{missionNo}
+            #{postPhoto},
+            #{postContent},
+            #{memberNo},
+            now(),
+            #{missionNo}
         )
 
     </insert>
@@ -33,7 +33,7 @@
 
     <update id="updatePost" parameterType="Post">
         UPDATE  post
-           SET  link        = #{link},
+           SET  postPhoto   = #{postPhoto},
                 postContent = #{postContent},
                 postDate    = now()
          WHERE  postNo      = #{postNo}

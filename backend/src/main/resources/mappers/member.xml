@@ -39,7 +39,8 @@
         UPDATE  member
            SET  pwd         = #{pwd},
                 nickname    = #{nickname},
-                stateMent   = #{stateMent}
+                stateMent   = #{stateMent},
+                memberPhoto = #{memberPhoto}
          WHERE  memberNo    = #{memberNo}
     </update>
 

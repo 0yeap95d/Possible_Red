@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface HashtagMapper {
-    public List<Hashtag> selectHashtag(int missionNo);
+    public List<Hashtag> selectHashtag(int postNo);
     public boolean insertHashtag(Hashtag hashtag);
     public boolean deleteHashtag(int hashtagNo);
 }

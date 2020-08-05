@@ -10,6 +10,7 @@ public class Member {
     private String nickname;
     private int point;
     private String stateMent;
+    private String memberPhotho;
 
     public int getMemberNo() {
         return memberNo;
@@ -35,6 +36,8 @@ public class Member {
         return stateMent;
     }
 
+    public String getMemberPhotho() { return memberPhotho; }
+
     public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
@@ -59,6 +62,8 @@ public class Member {
         this.stateMent = stateMent;
     }
 
+    public void setMemberPhotho(String memberPhotho) { this.memberPhotho = memberPhotho; }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -68,6 +73,7 @@ public class Member {
                 ", nickname='" + nickname + '\'' +
                 ", point=" + point +
                 ", stateMent='" + stateMent + '\'' +
+                ", memberPhotho='" + memberPhotho + '\'' +
                 '}';
     }
 }

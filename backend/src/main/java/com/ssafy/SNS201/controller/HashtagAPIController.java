@@ -25,11 +25,11 @@ public class HashtagAPIController {
     @Autowired
     HashtagService hashtagService;
 
-    @ApiOperation(value = "해당 미션의 모든 해시태그 정보를 반환한다.", response = List.class)
-    @GetMapping("{missionNo}")
-    public ResponseEntity<List<Hashtag>> findAllHashtags(@PathVariable int missionNo) throws Exception {
-        logger.info("findAllHashtags | missionNo |" + missionNo);
-        List<Hashtag> hashtags = hashtagService.findAllHashtags(missionNo);
+    @ApiOperation(value = "해당 게시글의 모든 해시태그 정보를 반환한다.", response = List.class)
+    @GetMapping("{postNo}")
+    public ResponseEntity<List<Hashtag>> findAllHashtags(@PathVariable int postNo) throws Exception {
+        logger.info("findAllHashtags | postNo |" + postNo);
+        List<Hashtag> hashtags = hashtagService.findAllHashtags(postNo);
         return new ResponseEntity<List<Hashtag>>(hashtags, HttpStatus.OK);
     }
 

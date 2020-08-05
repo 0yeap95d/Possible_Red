@@ -7,18 +7,16 @@
     <select id="selectHashtag" resultType="Hashtag">
 		SELECT  *
 		  FROM  hashtag
-		 WHERE  missionNo    = #{missionNo}
+		 WHERE  postNo    = #{postNo}
 	</select>
 
     <insert id="insertHashtag" parameterType="Hashtag">
         INSERT INTO hashtag(
-            missionNo,
-            hashtagContent,
-            hashtagCnt
+            postNo,
+            hashtagContent
         ) VALUES (
-            #{missionNo},
-            #{hashtagContent},
-            1
+            #{postNo},
+            #{hashtagContent}
         )
     </insert>
 
