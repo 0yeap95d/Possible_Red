@@ -1,15 +1,25 @@
 <template>
   <div>
-      <h1>Not Found!!!!</h1>
+    <Navbar />
+    <div class="components-page">
+        <ToastComponent toastTitle="Oops!!! Page Not Found" :isCancel="true" />
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import ToastComponent from "../components/common/Toast";
+import Navbar from "../components/common/Navbar.vue";
+import "../assets/css/components.scss";
 
-}
+export default {
+  name: "NotFound",
+  components: {
+    ToastComponent,
+    Navbar,
+  }
+};
 </script>
 
-<style>
-
+<style scoped>
 </style>

@@ -3,7 +3,7 @@
         <h5>
             {{toastTitle}}
         </h5>
-        <button v-if="isCancel">
+        <button v-if="isCancel" @click="goBack">
             취소
         </button>
     </div>
@@ -13,5 +13,8 @@
     export default {
         name: "toast",
         props : ['toastTitle', 'isError', 'isCancel'],
+        methods: {
+            goBack(){ this.$router.go(-1) },
+        }
     }
 </script>
