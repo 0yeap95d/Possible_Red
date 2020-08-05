@@ -36,7 +36,15 @@ public class MissionAPIController {
         return new ResponseEntity<List<Mission>>(missions, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "모든 미션의 상세 정보를 반환한다", response = Member.class)
+    @ApiOperation(value = "어떤 사용자가 진행중인 미션의 리스트를 반환한다", response = List.class)
+    @GetMapping("member/{memberNo}")
+    public ResponseEntity<List<Mission>> findMissionByMember(@PathVariable int memberNo) throws Exception{
+        logger.debug("-----------mission find by memberNo-----------");
+        return new ResponseEntity<List<Mission>>(
+                missionService.findMissionByMember(memberNo), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "어떤 미션의 상세 정보를 반환한다", response = Member.class)
     @GetMapping("/{missionNo}")
     public ResponseEntity<Mission> findMissionByNo(@PathVariable int missionNo) throws Exception{
         logger.debug("-----------mission find by no-----------");
