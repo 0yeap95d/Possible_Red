@@ -15,8 +15,8 @@ public class HashtagServiceImpl implements HashtagService{
     private HashtagMapper mapper;
 
     @Override
-    public List<Hashtag> findAllHashtags(int missionNo) {
-        return mapper.selectHashtag(missionNo);
+    public List<Hashtag> findAllHashtags(int postNo) {
+        return mapper.selectHashtag(postNo);
     }
 
     @Override

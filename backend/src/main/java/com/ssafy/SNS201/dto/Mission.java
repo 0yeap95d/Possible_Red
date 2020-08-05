@@ -13,84 +13,120 @@ public class Mission {
     private int minusPoint;
     private int cutCnt;
     private int joinMem; // count
-
-    public void setMissionNo(int missionNo) {
-        this.missionNo = missionNo;
-    }
-
-    public void setMissionTitle(String missionTitle) {
-        this.missionTitle = missionTitle;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setStart(boolean start) {
-        isStart = start;
-    }
-
-    public void setMemberNo(int memberNo) {
-        this.memberNo = memberNo;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
-    public void setMinusPoint(int minusPoint) {
-        this.minusPoint = minusPoint;
-    }
-
-    public void setCutCnt(int cutCnt) {
-        this.cutCnt = cutCnt;
-    }
-
-    public void setJoinMem(int joinMem) {
-        this.joinMem = joinMem;
-    }
+    private String missionPhoto;
+    private String missionCat;
 
     public int getMissionNo() {
         return missionNo;
+    }
+
+    public void setMissionNo(int missionNo) {
+        this.missionNo = missionNo;
     }
 
     public String getMissionTitle() {
         return missionTitle;
     }
 
+    public void setMissionTitle(String missionTitle) {
+        this.missionTitle = missionTitle;
+    }
+
     public Date getStartDate() {
         return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public boolean isStart() {
         return isStart;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
     }
 
     public int getMemberNo() {
         return memberNo;
     }
 
+    public void setMemberNo(int memberNo) {
+        this.memberNo = memberNo;
+    }
+
     public int getPoint() {
         return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     public int getMinusPoint() {
         return minusPoint;
     }
 
+    public void setMinusPoint(int minusPoint) {
+        this.minusPoint = minusPoint;
+    }
+
     public int getCutCnt() {
         return cutCnt;
     }
 
+    public void setCutCnt(int cutCnt) {
+        this.cutCnt = cutCnt;
+    }
+
     public int getJoinMem() {
         return joinMem;
+    }
+
+    public void setJoinMem(int joinMem) {
+        this.joinMem = joinMem;
+    }
+
+    public String getMissionPhoto() {
+        return missionPhoto;
+    }
+
+    public void setMissionPhoto(String missionPhoto) {
+        this.missionPhoto = missionPhoto;
+    }
+
+    public String getMissionCat() {
+        return missionCat;
+    }
+
+    public void setMissionCat(String missionCat) {
+        this.missionCat = missionCat;
+    }
+
+    @Override
+    public String toString() {
+        return "Mission{" +
+                "missionNo=" + missionNo +
+                ", missionTitle='" + missionTitle + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", isStart=" + isStart +
+                ", memberNo=" + memberNo +
+                ", point=" + point +
+                ", minusPoint=" + minusPoint +
+                ", cutCnt=" + cutCnt +
+                ", joinMem=" + joinMem +
+                ", missionPhoto='" + missionPhoto + '\'' +
+                ", missionCat='" + missionCat + '\'' +
+                '}';
     }
 }
