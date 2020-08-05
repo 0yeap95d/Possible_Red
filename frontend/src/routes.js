@@ -11,6 +11,7 @@ import Posts from "./views/post/Posts.vue";
 import Comments from "./views/post/Comments.vue";
 import UserProfile from './views/profile/UserProfile.vue';
 import Add from './views/add/Add.vue';
+import NotFound from './views/NotFound.vue';
 
 export default [
   {
@@ -78,4 +79,9 @@ export default [
     name : 'Add',
     component : Add
   },
+  {
+    path : '/notfound',
+    name : 'NotFound',
+    component : NotFound 
+  }
 ];
