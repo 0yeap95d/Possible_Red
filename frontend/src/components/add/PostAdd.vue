@@ -1,12 +1,20 @@
 <template>
   <div>
     <div class="form-wrap">
+      <!-- 여기에 v-for써서 미션리스트 셀렉트박스로 보여주기 -->
+      <select v-model="post.missionNo" id="missionNo">
+        <option disabled value>게시글을 올릴 미션을 선택하세요.</option>
+        <option v-for="item in missionList" :key="item.etag" value>{{item.missionTitle}}</option>
+      </select>
+      <br />
       <div class="input-with-label">
-        <input
+        <textarea
           v-model="post.postContent"
           id="postContent"
           placeholder="내용을 입력하세요"
           type="text"
+          cols="80%"
+          rows="10"
         />
       </div>
       <div>
@@ -17,10 +25,22 @@
 </template>
 
 <script>
+import MemberApi from "../../api/MemberApi";
 export default {
   created() {
-    console.log(this.$session.get("user").memberNo);
-    this.mission.memberNo = this.$session.get("user").memberNo;
+    console.log("포스트 " + this.$session.get("user").memberNo);
+    this.post.memberNo = this.$session.get("user").memberNo;
+
+    //지금 접속해 있는 사람의 아이디를 기반으로 참여하고있는 미션 리스트 가져오기
+    MemberApi.requestMissionByMember(
+      this.post.memberNo,
+      (res) => {
+        // 연결 성공하면 여기로 와서 리스트 뽑아냄
+        this.missionList = res.data;
+        console.log(this.missionList);
+      },
+      (error) => {}
+    );
   },
   data() {
     return {
@@ -30,6 +50,7 @@ export default {
         postContent: "",
         missionNo: 0,
       },
+      missionList: [],
     };
   },
   methods: {
@@ -38,4 +59,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.submit_button {
+  margin-bottom: 3rem;
+}
+</style>
