@@ -24,6 +24,7 @@ export default [
     name: "Join",
     component: Join,
   },
+
   {
     path: "/feed/main",
     name: "FeedMain",

@@ -82,7 +82,7 @@ export default {
     KakaoLogin,
     GoogleLogin,
     Navbar,
-    Footer
+    Footer,
   },
   created() {
     this.component = this;
