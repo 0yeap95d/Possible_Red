@@ -1,4 +1,4 @@
-<!-- https://www.it-swarm.dev/ko/javascript/vuejs%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%A9%EB%8B%88%EA%B9%8C/834852226/ -->
+<!-- https://kanetami.tistory.com/97 -->
 <template>
   <div>
     <div class="form-wrap">
@@ -12,14 +12,14 @@
         >{{item.missionTitle}}</option>
       </select>
       <br />
-      <div>
-        <!--input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" /-->
-        <img class="profile-image" :src="post.postPhoto" />
 
-        <div v-if="!post.postPhoto">
-          <input type="file" round class="change-profile-image" @change="onFileChange" />
+      <div>
+        <input v-on:change="$fileSelect()" type="file" ref="imgFile" />
+        <div v-if="post.postPhoto">
+          <img :src="preView" />
         </div>
       </div>
+
       <br />
       <div class="input-with-label">
         <textarea
@@ -65,36 +65,26 @@ export default {
         missionNo: 0,
       },
       missionList: [],
+      preView: "",
     };
   },
   methods: {
     postRegister() {
       console.log(this.post);
     },
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (e) => {
-        this.previewImage = e.target.result;
-        console.log(this.previewImage);
-      };
-    },
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) {
-        return;
-      }
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var reader = new FileReader();
-      var vm = this;
 
-      reader.onload = (e) => {
-        vm.post.postPhoto = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    $fileSelect: function fileSelect() {
+      this.post.postPhoto = this.$refs.imgFile.files[0];
+      // 미리보기
+      this.preView = URL.createObjectURL(this.$refs.imgFile.files[0]);
+    },
+
+    $executeSave: function $executeSave() {
+      var formData = new FormData();
+      formData.append(""); // 컨트롤러 넘길 정보
+      if (this.post.postPhoto != "") {
+        formData.append("imgFile", this.post.postPhoto);
+      }
     },
   },
 };
