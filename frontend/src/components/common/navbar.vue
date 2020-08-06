@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="wrap">
     <b-navbar toggleable="lg" type="dark" variant="info">
-        
         <b-navbar-nav>
             <b-nav-item>
                 <img src="../../assets/images/펭수프로필.jpg" alt="" class="pengsu" v-b-toggle.sidebar-footer>
@@ -30,9 +29,9 @@
                     <li class="text"><i class="fas fa-coins"></i>&nbsp;내 포인트</li>
                 </ul>
             </div>
-            
         </div>
     </b-sidebar>
+    <br>
     </div>
 </template>
 
@@ -43,15 +42,11 @@ export default {
 </script>
 
 <style scoped>
-    .searchbutton{
-        color:white;
-        height:30px;
-    }
     .pengsu{
         width:50px;
         height:40px;
-        margin-top:5px;
-        margin-bottom:5px;
+        margin-top:3px;
+        margin-bottom:3px;
     }
     .btn{
         padding:0.125rem 0.25rem;
@@ -89,5 +84,11 @@ export default {
     }
     .text{
         margin-bottom:20px;
+    }
+    .navbar{
+        padding : 4px 8px;
+    }
+    a.nav-link{
+        padding:0px;
     }
 </style>

@@ -12,6 +12,7 @@ import Comments from "./views/post/Comments.vue";
 import UserProfile from './views/profile/UserProfile.vue';
 import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
+import MissionMain from './views/mission/MissionMain.vue';
 
 export default [
   {
@@ -84,5 +85,11 @@ export default [
     path : '/notfound',
     name : 'NotFound',
     component : NotFound 
+  }
+  ,
+  {
+    path : '/missionmain',
+    name : 'MissionMain',
+    component : MissionMain
   }
 ];
