@@ -1,4 +1,3 @@
-<!-- https://www.it-swarm.dev/ko/javascript/vuejs%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%A9%EB%8B%88%EA%B9%8C/834852226/ -->
 <!-- https://kanetami.tistory.com/97 -->
 <template>
   <div>
