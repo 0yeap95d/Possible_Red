@@ -44,6 +44,23 @@ public class MissionAPIController {
                 missionService.findMissionByMember(memberNo), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "입력된 검색어가 이름에 포함된 미션의 리스트를 반환한다", response = List.class)
+    @GetMapping("search/{word}")
+    public ResponseEntity<List<Mission>> findMissionByTitle(@PathVariable String word) throws Exception{
+        logger.debug("-----------mission find by title-----------");
+//        if (word.contains("#")) {
+//
+//        } else if (word.contains("@")) {
+//
+//        } else {
+//            return new ResponseEntity<List<Mission>>(
+//                    missionService.findMissionByTitle(word), HttpStatus.OK);
+//        }
+
+        return new ResponseEntity<List<Mission>>(
+                missionService.findMissionByTitle(word), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "어떤 미션의 상세 정보를 반환한다", response = Member.class)
     @GetMapping("/{missionNo}")
     public ResponseEntity<Mission> findMissionByNo(@PathVariable int missionNo) throws Exception{
