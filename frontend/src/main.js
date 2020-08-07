@@ -9,6 +9,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueSession from 'vue-session'
+import vuetify from './plugins/vuetify';
 
 var sessionOptions = {
     persist: true
@@ -31,7 +32,8 @@ const router = new VueRouter({
 new Vue({
     router,
     store,
-    render: h => h(App),
+    vuetify,
+    render: h => h(App)
 }).$mount('#app');
 
 
