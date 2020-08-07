@@ -4,7 +4,7 @@
     2. 서치바에 들어온 단어 search API로 보내기
 -->
 <template>
-  <div>
+  <div class="wrapC">
     <b-form-tags no-outer-focus class="mb-2">
       <!--template v-slot="{ tags, inputAttrs, inputHandlers, tagVariant, addTag, removeTag }"-->
       <b-input-group class="mb-2">
@@ -30,6 +30,7 @@
       </div-->
       <!--/template-->
     </b-form-tags>
+    <v-app></v-app>
   </div>
 </template>
 
