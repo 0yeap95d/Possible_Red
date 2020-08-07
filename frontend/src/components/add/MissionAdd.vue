@@ -1,7 +1,7 @@
 <!-- https://vuejsexamples.com/simple-and-clean-calendar-written-in-vue-js/ -->
 <template>
   <div>
-    <div class="form-wrap">
+    <div class="form-wrap mission-adds">
       <div class="input-with-label">
         <label for="missionTitle">미션 이름</label>
         <input
@@ -105,5 +105,8 @@ export default {
 <style>
 .submit_button {
   margin-bottom: 3rem;
+}
+.mission-adds {
+  margin-bottom: 7.5rem;
 }
 </style>

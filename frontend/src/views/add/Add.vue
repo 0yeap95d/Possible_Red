@@ -7,8 +7,7 @@
       </v-tab>
 
       <v-tab
-        :key="item2"
-      >
+        :key="item2">
         인증
       </v-tab>
 
@@ -57,3 +56,6 @@ export default {
     }
 }
 </script>
+
+<style>
+</style>

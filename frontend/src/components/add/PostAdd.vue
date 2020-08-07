@@ -1,7 +1,7 @@
 <!-- https://kanetami.tistory.com/97 -->
 <template>
   <div>
-    <div class="form-wrap">
+    <div class="form-wrap post-adds">
       <!-- 여기에 v-for써서 미션리스트 셀렉트박스로 보여주기 -->
       <p>
         게시글을 올릴 미션을 선택하세요 →
@@ -119,5 +119,8 @@ export default {
 <style>
 .submit_button {
   margin-bottom: 3rem;
+}
+.post-adds {
+  margin-bottom: 7.5rem;
 }
 </style>
