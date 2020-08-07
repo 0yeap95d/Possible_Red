@@ -7,6 +7,7 @@ import java.util.List;
 public interface MissionService {
     public List<Mission> findMission();
     public List<Mission> findMissionByMember(int memberNo);
+    public List<Mission> findMissionByTitle(String word);
     public Mission findMissionByNo(int missionNo);
     public boolean addMission(Mission mission);
     public boolean modifyMission(Mission mission);

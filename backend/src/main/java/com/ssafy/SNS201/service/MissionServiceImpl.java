@@ -24,6 +24,11 @@ public class MissionServiceImpl implements MissionService{
     }
 
     @Override
+    public List<Mission> findMissionByTitle(String word) {
+        return mapper.selectMissionByTitle(word);
+    }
+
+    @Override
     public Mission findMissionByNo(int missionNo) {
         return mapper.selectMissionByNo(missionNo);
     }

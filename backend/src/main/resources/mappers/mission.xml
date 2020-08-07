@@ -26,6 +26,12 @@
           FROM  mission
          WHERE  missionNo = #{missionNo}
     </select>
+
+    <select id="selectMissionByTitle" resultType="Mission">
+        SELECT  *
+          FROM  mission
+         WHERE  missionTitle LIKE CONCAT('%',#{word},'%')
+    </select>
     
     <insert id="insertMission" parameterType="Mission">
         INSERT INTO mission(
