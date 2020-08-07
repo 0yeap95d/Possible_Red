@@ -72,5 +72,7 @@ export default {
 </script>
 
 <style scoped>
-    
+    .theme--dark.v-app-bar.v-toolbar.v-sheet{
+        background-color:deeppink;
+    }
 </style>
