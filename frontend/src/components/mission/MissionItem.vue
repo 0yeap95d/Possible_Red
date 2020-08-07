@@ -2,7 +2,7 @@
     <div class="wrapC">
         <v-card
             class="mx-auto"
-            max-width="400"
+            
         >
             <v-img
             class="white--text align-end"

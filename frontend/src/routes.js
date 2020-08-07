@@ -13,6 +13,7 @@ import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
 import MissionMain from './views/mission/MissionMain.vue';
 import AddOrigin from './views/add/Add_origin.vue';
+import PostDetail from './views/post/PostDetail.vue';
 
 export default [
   {
@@ -91,5 +92,10 @@ export default [
     path : '/addorigin',
     name : 'AddOrigin',
     component : AddOrigin
+  },
+  {
+    path : '/postdetail',
+    name : 'PostDetail',
+    component : PostDetail
   },
 ];

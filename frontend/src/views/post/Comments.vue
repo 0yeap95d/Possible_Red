@@ -1,6 +1,5 @@
 <template>
   <div>
-      <Navbar />
       <header>
           <h1 style="color:#2f3b52; font-weight:900; margin:2.5rem 0 1.5rem; text-align:center">댓글 창</h1>
       </header>
@@ -13,7 +12,6 @@
 </template>
 
 <script>
-import Navbar from '../../components/common/Navbar.vue'
 import CommentFooter from '../../components/comment/CommentFooter.vue'
 import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
@@ -22,7 +20,6 @@ import Footer from '../../components/common/Footer.vue'
 export default {
     name:'Comments',
     components:{
-        Navbar,
         CommentFooter,
         CommentList,
         CommentInput,
