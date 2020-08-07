@@ -1,7 +1,6 @@
 
 <template>
   <div class="user" id="login">
-    <Navbar />
     <div class="wrapC">
       <h1>
         로그인을 하고 나면
@@ -63,7 +62,6 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -74,15 +72,11 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/user/snsLogin/Google.vue";
 import UserApi from "../../api/UserApi";
-import Navbar from "../../components/common/Navbar.vue";
-import Footer from "../../components/common/Footer.vue";
 
 export default {
   components: {
     KakaoLogin,
     GoogleLogin,
-    Navbar,
-    Footer,
   },
   created() {
     this.component = this;

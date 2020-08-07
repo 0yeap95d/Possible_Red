@@ -6,6 +6,7 @@
 
 <script>
 import "./components/css/style.scss";
+import "./components/css/user.scss";
 
 export default {
   name: 'app',

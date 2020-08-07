@@ -5,7 +5,6 @@ import Components from "./views/Components.vue";
 import FindPwd from "./views/user/FindPwd.vue";
 import ChangePwd from "./views/user/ChangePwd.vue";
 import ChangeUser from './views/user/ChangeUser.vue'
-import Terms from "./views/user/Terms.vue";
 import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
 import Comments from "./views/post/Comments.vue";
@@ -50,11 +49,6 @@ export default [
     path : '/changeuser',
     name : 'ChangeUser',
     component : ChangeUser,
-  },
-  {
-    path: "/terms",
-    name: "Terms",
-    component: Terms,
   },
   {
     path: "/search",
