@@ -16,7 +16,7 @@
     "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
     "babel-preset-env": "^1.7.0",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.4.3",
     "email-validator": "^2.0.4",

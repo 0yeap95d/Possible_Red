@@ -13,7 +13,7 @@
 
 <script>
 import Navbar from '../../components/common/Navbar.vue'
-import Posting from '../../components/common/Posting.vue'
+import Posting from '../../components/post/Posting.vue'
 import Footer from '../../components/common/Footer.vue'
 import PostApi from '../../api/PostApi'
 import InfiniteLoading from 'vue-infinite-loading'

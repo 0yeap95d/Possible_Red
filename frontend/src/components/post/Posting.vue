@@ -15,6 +15,9 @@
         </div>
         <p>댓글 : 3</p>
         <button @click="comment" class="morecomment">댓글 더보기</button>
+        <v-btn class="mx-2" fab dark color="indigo" @click="postdetail">
+          <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
         <p>작성자 : </p>
         <p>작성일 : {{this.posts.postDate}}</p>
         <hr>
@@ -43,8 +46,12 @@ export default {
         console.log(this.posts)
       },
       comment(){
-          this.$router.push('/Comments')
+        this.$router.push('/Comments')
       },
+      postdetail(){
+        this.$router.push('/PostDetail')
+      },
+      
       // infiniteHandler($state){
       //   this.$http.get("http://localhost:8080/sns201/post/all"+(this.limit+10)) //api에 url삽입
       //     .then(response=>{
