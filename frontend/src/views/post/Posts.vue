@@ -2,11 +2,11 @@
   <div>
       <Navbar />
       <Posting 
-        v-for="posts in posts"
-        :key="posts"
-        :posts="posts"
+        v-for="lists in lists"
+        :key="lists"
+        :lists="lists"
       />
-      <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
+      <infinite-loading @infinite="infiniteHandler" spinner="default"></infinite-loading>
       <Footer />
   </div>
 </template>
@@ -30,26 +30,20 @@ export default {
       infiniteHandler($state){
         setTimeout(() => {
           const temp = [];
-                // for (let i = this.posts.length + 1; i <= this.posts.length + 5; i++) {
-                //   console.log(i)
-                  // temp.push(i);
-                // }
-          if(temp.length){
-            console.log(temp.length)
-            this.posts = this.posts.concat(temp);
-            console.log(this.posts)
-            $state.loaded();
-            console.log(this.posts.length/10)
-            if(this.posts.length/10==0){
-              $state.complete(); //데이터가 없으면 로딩 끝
-            }
-          } else {
-            $state.complete();
-          }
-        }, 4000);
+                for (let i = this.limit; i < this.limit + 5; i++) {
+                  console.log(i)
+                  temp.push(this.posts[i]);
+
+                }
+                this.limit += 5;
+                this.lists = this.lists.concat(temp);
+                console.log(this.lists)
+                $state.loaded();
+                if(this.lists[this.limit-1] == null){
+                  $state.complete();
+                }
+        }, 2000);
       },
-      
-      
     },
     created() {
       console.log(this.data);
@@ -63,29 +57,12 @@ export default {
           console.log("error");
         }
       )
-      console.log(this.$session.get("user"));
-
-      console.log(this.data);
-      PostApi.requestSelectPostByNo(
-        res => {
-          console.log(res);
-          console.log("success");
-          this.post=res.data;
-        },
-        error => {
-          console.log("error");
-        }
-      )
-      console.log(this.$session.get("user"));
     },
     data() {
       return {
-        // link:"",
-        // postContent:"",
-        // postDate:"",
         posts: [],
-        post: []
-        // limit: 0
+        lists: [],
+        limit: 0
       }
     }
 }
