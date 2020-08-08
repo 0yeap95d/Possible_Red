@@ -19,17 +19,30 @@
         <label for="email">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
       </div>
+      <div v-if="!isEmailOK">
+        <!-- 이메일 인증 X -->
+        <button @click="sendMail">인증번호 받기</button>
 
-      <!--  -->
-      <div class="wrap components-page">
-        <LargeButton 
-          text="확인" 
-          :isBackground="isSubmit"
-          @click.native="onSubmit"
-          :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}" />
+        <div class="input-with-label">
+          <input v-model="randNum" id="randNum" placeholder="인증번호를 입력하세요" type="text" />
+          <label for="randNum">인증번호</label>
+        </div>
+        <br />
+        <button @click="isSameNum">인증하기</button>
       </div>
 
+      <div v-else>
+        <!-- 이메일 인증이 확인되면 버튼 생성 -->
+        <div class="wrap components-page">
+          <LargeButton
+            text="확인"
+            :isBackground="isSubmit"
+            @click.native="onSubmit"
+            :disabled="!isSubmit"
+            :class="{disabled : !isSubmit}"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,22 +53,60 @@ import * as EmailValidator from "email-validator";
 import HeaderComponent from "../../components/common/Header.vue";
 import LargeButton from "../../components/common/ButtonLarge";
 import UserApi from "../../api/UserApi";
+import EmailApi from "../../api/EmailApi";
 
 export default {
- name: "FindPwd",
+  name: "FindPwd",
 
- components: {
-   HeaderComponent,
-   LargeButton
- },
+  components: {
+    HeaderComponent,
+    LargeButton,
+  },
 
- watch: {
-    email: function(v) {
+  data() {
+    return {
+      email: "",
+      error: {
+        email: false,
+      },
+      isSubmit: false,
+      isEmailOK: false, // 메일인증이 됐는지 안됐는지
+      randNum: "", // 내가 입력하는 인증번호
+      num: "", // 받아오는 인증번호
+    };
+  },
+
+  watch: {
+    email: function (v) {
       this.checkForm();
-    }
+    },
   },
 
   methods: {
+    sendMail() {
+      //console.log(this.isEmailOK);
+      EmailApi.requestRandomNumber(
+        this.email,
+        (res) => {
+          this.num = res.data;
+          //console.log(this.num);
+          alert("인증번호가 발송되었습니다.\n메일을 확인해주세요");
+        },
+        (error) => {
+          alert("메일을 정확히 입력해주세요");
+        }
+      );
+    },
+    isSameNum() {
+      console.log("randNum : " + this.randNum);
+      console.log("num : " + this.num);
+      if (this.randNum == this.num) {
+        alert("이메일 인증이 완료되었습니다");
+        this.isEmailOK = true;
+      } else {
+        alert("인증번호를 정확하게 입력해주세요");
+      }
+    },
     checkForm() {
       // email 유효성 검사
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
@@ -63,7 +114,7 @@ export default {
       else this.error.email = false;
 
       let isSubmit = true;
-      Object.values(this.error).map(v => {
+      Object.values(this.error).map((v) => {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
@@ -72,48 +123,35 @@ export default {
     onSubmit() {
       UserApi.requestEmailCheck(
         this.email,
-        res => {
+        (res) => {
           // console.log(res);
           // 입력된 이메일이 존재하지 않을 때
           if (res.data == 0) {
-            console.log("Email does not exist")
+            console.log("Email does not exist");
             this.isSubmit = false;
-            this.error.email = "일치하는 이메일이 없습니다."
+            this.error.email = "일치하는 이메일이 없습니다.";
             // 피드백 필요
-          } 
-          
+          }
+
           // 입력된 이메일 존재할 때
           else {
-            console.log("Email check completed")
+            console.log("Email check completed");
             // 반환받은 멤버정보를 전달
-            this.$router.push({ 
-              name: "ChangePwd", 
-              params: { "member": res.data }
+            this.$router.push({
+              name: "ChangePwd",
+              params: { member: res.data },
             });
           }
         },
-        error => {
-          console.log(error)
+        (error) => {
+          console.log(error);
           // error page 이동 추가해야함
         }
-      )
-
+      );
     },
   },
-
- data() {
-   return {
-      email: "",
-      error: {
-        email: false,
-      },
-      isSubmit: false,
-   };
- },
-
 };
 </script>
 
 <style>
-
 </style>
