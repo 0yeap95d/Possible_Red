@@ -17,6 +17,10 @@
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
+                
+                <Mission />
+                
+               
 
                 <v-navigation-drawer
                 v-model="drawer"
@@ -101,6 +105,7 @@
 
 <script>
 import '../../components/css/style.css';
+import Mission from '../../components/my/mission.vue';
 
 export default {
     data: () => ({
@@ -108,6 +113,7 @@ export default {
         activeBtn:1,
     }),
     components:{
+        Mission,
         
     },
     methods:{
@@ -186,5 +192,12 @@ export default {
         min-width:100px;
         width: 100%;
         margin: 0 auto;
+    }
+    .mx-auto.overflow-hidden.missions.v-card.v-sheet.theme--light.white{
+        min-width:100%;
+        min-height:50%;
+    }
+    .wrap{
+        min-height:100%;
     }
 </style>

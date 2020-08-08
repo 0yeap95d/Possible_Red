@@ -43,22 +43,22 @@
                             </div>        
                         </div>
                         <hr>
-                        <v-list-item>
-                            <v-list-item-icon>
+                        <v-list-item @click="mymission">
+                            <v-list-item-icon >
                                 <i class="far fa-list-alt"></i>
                             </v-list-item-icon>
                             <v-list-item-title>내가 참여한 미션</v-list-item-title>
                         </v-list-item>
 
-                        <v-list-item>
-                            <v-list-item-icon>
+                        <v-list-item @click="mypost">
+                            <v-list-item-icon >
                                 <i class="fas fa-user-edit"></i>
                             </v-list-item-icon>
                             <v-list-item-title>내가 쓴 글</v-list-item-title>
                         </v-list-item>
 
-                        <v-list-item>
-                            <v-list-item-icon>
+                        <v-list-item @click="mypoint">
+                            <v-list-item-icon >
                                 <i class="fas fa-coins"></i>
                             </v-list-item-icon>
                             <v-list-item-title>내 포인트</v-list-item-title>
@@ -130,6 +130,15 @@ export default {
         },
         profile(){
             this.$router.push("/profile");
+        },
+        mymission(){
+            this.$router.push("/mymission");
+        },
+        mypost(){
+            this.$router.push("/mypost");
+        },
+        mypoint(){
+            this.$router.push("/mypoint");
         }
     }
 }
