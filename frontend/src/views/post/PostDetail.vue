@@ -18,6 +18,7 @@
 
                 <!--넣고 싶은거 넣으세요~-->
                 <PostingDetailCard />
+                
                 <div class="wrapC">
                     <Comments />
                 </div>
@@ -184,5 +185,8 @@ export default {
         min-width:100px;
         width: 100%;
         margin: 0 auto;
+    }
+    .v-application--wrap{
+        height:auto;
     }
 </style>

@@ -14,7 +14,6 @@
           <p style="text-align:right">좋아요 : 30</p>
         </div>
         <p>댓글 : 3</p>
-        <button @click="comment" class="morecomment">댓글 더보기</button>
         <v-btn class="mx-2" fab dark color="indigo" @click="postdetail">
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
@@ -45,9 +44,7 @@ export default {
         this.like=!this.like
         console.log(this.posts)
       },
-      comment(){
-        this.$router.push('/Comments')
-      },
+      
       postdetail(){
         this.$router.push('/PostDetail')
       },
