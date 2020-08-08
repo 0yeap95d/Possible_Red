@@ -30,6 +30,8 @@ public class MemberAPIController {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
+    private static final String defaultImage = "../../../../resuources/default.jpg";
+
     @Autowired
     private MemberService memberService;
 
@@ -62,10 +64,23 @@ public class MemberAPIController {
         );
     }
 
+    @ApiOperation(value = " 해당 사용자의 정보를 삭제한다.", response = String.class)
+    @DeleteMapping("{memberNo}")
+    public ResponseEntity<String> removeMember(@PathVariable int memberNo) throws Exception {
+        logger.info("removeMember | " + memberNo);
+        if (memberService.removeMember(memberNo)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
+    }
+
+
     @ApiOperation(value = " 새로운 사용자의 정보를 입력한다.", response = String.class)
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
+        member.setMemberPhotho(defaultImage);
+
         if(memberService.addMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
@@ -82,13 +97,4 @@ public class MemberAPIController {
         return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = " 해당 사용자의 정보를 삭제한다.", response = String.class)
-    @DeleteMapping("{memberNo}")
-    public ResponseEntity<String> removeMember(@PathVariable int memberNo) throws Exception {
-        logger.info("removeMember | " + memberNo);
-        if (memberService.removeMember(memberNo)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
-    }
 }

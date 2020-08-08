@@ -10,33 +10,7 @@ public class Member {
     private String nickname;
     private int point;
     private String stateMent;
-    private String memberPhotho;
-
-    public int getMemberNo() {
-        return memberNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public int getPoint() {
-        return point;
-    }
-
-    public String getStateMent() {
-        return stateMent;
-    }
-
-    public String getMemberPhotho() { return memberPhotho; }
+    private String memberPhoto;
 
     public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
@@ -62,7 +36,37 @@ public class Member {
         this.stateMent = stateMent;
     }
 
-    public void setMemberPhotho(String memberPhotho) { this.memberPhotho = memberPhotho; }
+    public void setMemberPhotho(String memberPhotho) {
+        this.memberPhoto = memberPhotho;
+    }
+
+    public int getMemberNo() {
+        return memberNo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public String getStateMent() {
+        return stateMent;
+    }
+
+    public String getMemberPhotho() {
+        return memberPhoto;
+    }
 
     @Override
     public String toString() {
@@ -73,7 +77,7 @@ public class Member {
                 ", nickname='" + nickname + '\'' +
                 ", point=" + point +
                 ", stateMent='" + stateMent + '\'' +
-                ", memberPhotho='" + memberPhotho + '\'' +
+                ", memberPhoto='" + memberPhoto + '\'' +
                 '}';
     }
 }

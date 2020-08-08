@@ -26,12 +26,14 @@
             email,
             pwd,
             nickname,
-            point
+            point,
+            memberPhoto
         ) VALUES (
             #{email},
             #{pwd},
             #{nickname},
-            0
+            0,
+            #{memberPhoto}
         )
     </insert>
 
