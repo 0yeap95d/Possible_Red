@@ -13,16 +13,9 @@ const requestSelectPostByNo = (data, callback, errorCallback) => {
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
-    var params = {
-        memberNo: data.memberNo,
-        postPhoto: data.postPhoto,
-        postContent: data.postContent,
-        missionNo: data.missionNo,
-    };
-
     console.log("post" + data);
 
-    Axios.post("http://localhost:8080/sns201/post", params)
+    Axios.post("http://localhost:8080/sns201/post", data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
