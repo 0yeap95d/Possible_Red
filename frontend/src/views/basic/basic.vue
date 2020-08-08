@@ -85,7 +85,7 @@
 
                 <v-btn @click="search">
                 <span>Search</span>
-                <v-icon>fa-search</v-icon>
+                <v-icon>mdi-magnify</v-icon>
                 </v-btn>
 
                 <v-btn @click="profile">

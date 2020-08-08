@@ -12,11 +12,15 @@
                 >
                 <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>Title</v-toolbar-title>
+                <v-toolbar-title>My Post</v-toolbar-title>
                 </v-app-bar>
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
+                <div class="wrapC">
+                    <MyPost />
+                </div>
+                
 
                 <v-navigation-drawer
                 v-model="drawer"
@@ -85,7 +89,7 @@
 
                 <v-btn @click="search">
                 <span>Search</span>
-                <v-icon>fa-search</v-icon>
+                <v-icon>mdi-magnify</v-icon>
                 </v-btn>
 
                 <v-btn @click="profile">
@@ -101,6 +105,7 @@
 
 <script>
 import '../../components/css/style.css';
+import MyPost from '../../components/my/post.vue';
 
 export default {
     data: () => ({
@@ -108,6 +113,7 @@ export default {
         activeBtn:1,
     }),
     components:{
+        MyPost,
         
     },
     methods:{
@@ -186,5 +192,8 @@ export default {
         min-width:100px;
         width: 100%;
         margin: 0 auto;
+    }
+    .v-card.v-sheet.theme--light{
+        min-width:100%;
     }
 </style>
