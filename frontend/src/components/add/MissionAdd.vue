@@ -37,8 +37,8 @@
         <input v-model="mission.cutCnt" id="cutCnt" placeholder="최소 미션 미수행 숫자를 입력하세요." type="text" />
       </div>
 
-      <label for="joinMem">참여 인원</label>
       <div class="input-with-label">
+        <label for="joinMem">참여 인원</label>
         <select v-model="mission.joinMem" id="joinMem">
           <option disabled value>미션 침여 인원을 설정하세요.</option>
           <option>1</option>
@@ -65,6 +65,7 @@
 <script>
 import VRangeSelector from "../common/vl-range-selector";
 import "../css/vuelendar.scss";
+import MissionApi from "../../api/MissionApi.js";
 
 export default {
   components: {
@@ -93,10 +94,34 @@ export default {
     };
   },
   methods: {
+    getDateFullString() {
+      let today = new Date();
+      let year = today.getFullYear(); // 년도
+      let month = today.getMonth() + 1; // 월
+      let date = today.getDate(); // 날짜
+      if (month < 10) month = "0" + month;
+      if (date < 10) date = "0" + date;
+      return year + "-" + month + "-" + date;
+    },
     missionRegister() {
       this.mission.startDate = this.range.start;
       this.mission.endDate = this.range.end;
       console.log(this.mission);
+      // 여기서 시작 날짜랑 오늘 날짜 비교해서 시작 == 오늘이면 isStart는 바로 true로 해주기
+      let today = this.getDateFullString();
+      console.log(today);
+      console.log(this.mission.startDate);
+      if (today == this.mission.startDate) {
+        this.mission.isStart = true;
+      }
+
+      MissionApi.requestMissionRegister(
+        this.mission,
+        (res) => {
+          this.$router.push("/mymission");
+        },
+        (error) => {}
+      );
     },
   },
 };
