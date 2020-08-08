@@ -1,6 +1,7 @@
 package com.ssafy.SNS201.dto;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 

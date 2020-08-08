@@ -7,9 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.Document;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +70,17 @@ public class PostAPIController {
 
     @ApiOperation(value = "게시글을 작성한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> addPost(@RequestBody Post post) {
-        logger.debug("addPost");
+    public ResponseEntity<String> addPost(
+            @RequestPart("postImg") MultipartFile file,
+            @RequestParam (value = "post") Post post) throws IOException {
+        logger.info("addPost | " + post.toString());
+        logger.info(file.toString());
+
+        String originalFileName = file.getOriginalFilename();
+        post.setPostPhoto("C:/Image/" + originalFileName);
+        File dest = new File("C:/Image/" + originalFileName);
+        file.transferTo(dest);
+
         if (postService.addPost(post)){
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
