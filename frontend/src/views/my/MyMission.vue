@@ -12,16 +12,17 @@
                 >
                 <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>Title</v-toolbar-title>
+                <v-toolbar-title>My Mission</v-toolbar-title>
                 </v-app-bar>
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
                 
-                <Mission />
+                <div class="wrapC">
+                    <Mission />
+                </div>
                 
-               
-
+                
                 <v-navigation-drawer
                 v-model="drawer"
                 absolute
@@ -89,7 +90,7 @@
 
                 <v-btn @click="search">
                 <span>Search</span>
-                <v-icon>fa-search</v-icon>
+                <v-icon>mdi-magnify</v-icon>
                 </v-btn>
 
                 <v-btn @click="profile">
@@ -196,8 +197,5 @@ export default {
     .mx-auto.overflow-hidden.missions.v-card.v-sheet.theme--light.white{
         min-width:100%;
         min-height:50%;
-    }
-    .wrap{
-        min-height:100%;
     }
 </style>

@@ -12,11 +12,28 @@
                 >
                 <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>Title</v-toolbar-title>
+                <v-toolbar-title>My Point</v-toolbar-title>
                 </v-app-bar>
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
+                <div class="wrapC">
+                    <h1>희정님의 <br> 잔여 포인트는 10,000P 입니다.</h1>
+                    <div class="text-center">
+                        <v-app>
+                            <v-btn
+                            class="ma-2"
+                            :loading="loading"
+                            :disabled="loading"
+                            color="#4DD0E1"
+                            
+                            @click="loader = 'loading'"
+                            >
+                            포인트 충전
+                            </v-btn>
+                        </v-app>
+                    </div>
+                </div>
 
                 <v-navigation-drawer
                 v-model="drawer"
@@ -85,7 +102,7 @@
 
                 <v-btn @click="search">
                 <span>Search</span>
-                <v-icon>fa-search</v-icon>
+                <v-icon>mdi-magnify</v-icon>
                 </v-btn>
 
                 <v-btn @click="profile">
@@ -106,6 +123,12 @@ export default {
     data: () => ({
         drawer: false,
         activeBtn:1,
+        loader: null,
+        loading: false,
+        loading2: false,
+        loading3: false,
+        loading4: false,
+        loading5: false,
     }),
     components:{
         
@@ -135,7 +158,15 @@ export default {
         mypoint(){
             this.$router.push("/mypoint");
         }
-    }
+    },
+    watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
+        setTimeout(() => (this[l] = false), 3000)
+        this.loader = null
+      },
+    },
 }
 </script>
 
