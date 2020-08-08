@@ -203,9 +203,9 @@ export default {
       passwordConfirmType: "password",
       termPopup: false,
       dialog: false,
-      isEmailOK: false,
-      randNum: "",
-      num: "",
+      isEmailOK: false, // 메일인증이 됐는지 안됐는지
+      randNum: "", // 내가 입력하는 인증번호
+      num: "", // 받아오는 인증번호
     };
   },
   methods: {
