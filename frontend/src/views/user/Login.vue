@@ -92,12 +92,12 @@ export default {
       .letters();
   },
   watch: {
-    password: function(v) {
+    password: function (v) {
       this.checkForm();
     },
-    email: function(v) {
+    email: function (v) {
       this.checkForm();
-    }
+    },
   },
   methods: {
     checkForm() {
@@ -113,7 +113,7 @@ export default {
       else this.error.password = false;
 
       let isSubmit = true;
-      Object.values(this.error).map(v => {
+      Object.values(this.error).map((v) => {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
@@ -123,7 +123,7 @@ export default {
         let { email, password } = this;
         let data = {
           email,
-          password
+          password,
         };
 
         //요청 후에는 버튼 비활성화
@@ -131,35 +131,39 @@ export default {
 
         UserApi.requestLogin(
           data,
-          res => {
+          (res) => {
             console.log(res);
 
             // 로그인 성공
             if (res.status === 200) {
               // session에 로그인 회원 정보 저장
-              this.$session.set('user', res.data);
-              
+              this.$session.set("user", res.data);
+
               // 요청 처리 후 버튼 활성화
               this.isSubmit = true;
               this.$router.push("/posts");
             }
 
             // 로그인 실패
+            else if (res.status === 204) {
+              alert("비밀번호를 확인해주세요!!!");
+              this.isSubmit = true;
+            }
+            // 로그인 실패
             else {
               this.isSubmit = true;
             }
-
           },
-          error => {
+          (error) => {
             //요청이 끝나면 버튼 활성화
             this.isSubmit = true;
           }
         );
       }
     },
-    findpwd(){
+    findpwd() {
       this.$router.push("/findpwd");
-    }
+    },
   },
   data: () => {
     return {
@@ -168,12 +172,12 @@ export default {
       passwordSchema: new PV(),
       error: {
         email: false,
-        passowrd: false
+        passowrd: false,
       },
       isSubmit: false,
-      component: this
+      component: this,
     };
-  }
+  },
 };
 </script>
 
