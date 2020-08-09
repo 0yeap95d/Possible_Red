@@ -30,7 +30,6 @@
       </div-->
       <!--/template-->
     </b-form-tags>
-    <v-app></v-app>
   </div>
 </template>
 
