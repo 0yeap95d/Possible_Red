@@ -23,6 +23,7 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+window.Kakao.init("17192a390f9ec22f4306d86eb483491c");
 
 const router = new VueRouter({
     routes,

@@ -6,9 +6,13 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.HashMap;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -17,7 +21,7 @@ public class LoginAPIController {
     private static final Logger logger = LoggerFactory.getLogger(LoginAPIController.class);
 
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
 
     @ApiOperation(value = "이메일과 비밀번호가 일치하는 사용자 정보를 반환한다.", response = Member.class)
     @PostMapping
