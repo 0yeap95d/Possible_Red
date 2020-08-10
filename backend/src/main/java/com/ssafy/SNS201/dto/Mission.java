@@ -16,6 +16,16 @@ public class Mission {
     private String missionPhoto;
     private String missionCat;
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    private String description;
+
     public int getMissionNo() {
         return missionNo;
     }

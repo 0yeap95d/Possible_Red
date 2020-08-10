@@ -45,7 +45,8 @@
             cutCnt,
             joinMem,
             missionPhoto,
-            missionCat
+            missionCat,
+            description
         ) VALUES (
             #{missionTitle},
             #{startDate},
@@ -57,7 +58,8 @@
             #{cutCnt},
             #{joinMem},
             #{missionPhoto},
-            #{missionCat}
+            #{missionCat},
+            #{description}
         )
     </insert>
     
@@ -72,7 +74,8 @@
                 cutCnt          = #{cutCnt},
                 joinMem         = #{joinMem},
                 missionPhoto    = #{missionPhoto},
-                missionCat      = #{missionCat}
+                missionCat      = #{missionCat},
+                description     = #{description}
     </update>
 
     <delete id="deleteMission" parameterType="int">
