@@ -19,6 +19,7 @@
                         <v-list-item-content>
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item-content>
+
                     </v-list-item>
 
                     <v-divider
@@ -42,6 +43,7 @@
         {
           action: 'Mission1',
           title: '조깅 30분이상',
+          not_participation_count: '1',
         },
         {
           divider: true,
@@ -49,6 +51,7 @@
         {
           action: 'Mission2',
           title: '야식 안 먹기',
+          not_participation_count:'0',
         },
         {
           divider: true,
@@ -56,12 +59,13 @@
         {
           action: 'Mission3',
           title: '알고리즘 문제 3개씩',
+          not_participation_count:'2',
         },
       ],
     }),
     methods:{
         gotomission(){
-            this.$router.push("/missionmain");
+            this.$router.push("/missiondetail");
         }
     }
   }

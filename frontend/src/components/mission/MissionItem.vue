@@ -19,7 +19,6 @@
         <v-btn color="orange" text>신청하기</v-btn>
       </v-card-actions>
     </v-card-->
-
     <v-card class="mx-auto" v-for="mission in missions" :key="mission.etag" :item="mission">
       <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg">
         <v-card-title>매일 조깅하기</v-card-title>
@@ -34,7 +33,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="orange" text>자세히</v-btn>
+        <v-btn color="orange" text @click="gotomissiondetail">자세히</v-btn>
 
         <v-btn color="orange" text>신청하기</v-btn>
       </v-card-actions>
@@ -47,5 +46,15 @@ export default {
   props: {
     missions: [],
   },
+  methods:{
+    gotomissiondetail(){
+      this.$router.push('/missiondetail');
+    }
+  }
 };
 </script>
+<style>
+ .mx-auto.v-card.v-sheet.theme--light{
+   margin-bottom:30px;
+ }
+</style>
