@@ -12,4 +12,5 @@ public interface MissionService {
     public boolean addMission(Mission mission);
     public boolean modifyMission(Mission mission);
     public boolean removeMission(int missionNo);
+    public List<Mission> findMissionByCategory(String missionCat);
 }
