@@ -1,60 +1,59 @@
 <template>
-    <v-app>
-        <v-card
-            color="red lighten-2"
-            dark
-        >
-            <v-card-title class="headline red lighten-3">
-            POSSIBLE RED?! 
-            </v-card-title>
-            <v-card-text>
-            <v-autocomplete
-                v-model="model"
-                :items="items"
-                :loading="isLoading"
-                :search-input.sync="search"
-                color="white"
-                hide-no-data
-                hide-selected
-                item-text="Description"
-                item-value="API"
-                label=""
-                placeholder="검색 방법 : 포스트내용, @사용자, #해시태그"
-                prepend-icon="mdi-database-search"
-                return-object
-            ></v-autocomplete>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-expand-transition>
-            <v-list v-if="model" class="red lighten-3">
-                <v-list-item
-                v-for="(field, i) in fields"
-                :key="i"
-                >
-                <v-list-item-content>
-                    <v-list-item-title v-text="field.value"></v-list-item-title>
-                    <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-                </v-list-item-content>
-                </v-list-item>
-            </v-list>
-            </v-expand-transition>
-            <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-                :disabled="!model"
-                color="grey darken-3"
-                @click="model = null"
+  <div>
+    <v-card
+        color="red lighten-2"
+        dark
+    >
+      <v-card-text>
+      <v-autocomplete
+          v-model="model"
+          :items="items"
+          :loading="isLoading"
+          :search-input.sync="search"
+          color="white"
+          hide-no-data
+          hide-selected
+          item-text="Description"
+          item-value="API"
+          label=""
+          placeholder="검색 방법 : 포스트내용, @사용자, #해시태그"
+          prepend-icon="mdi-database-search"
+          return-object
+      ></v-autocomplete>
+      <SearchCategoryBar />
+      </v-card-text>
+        <v-divider></v-divider>
+        <v-expand-transition>
+        <v-list v-if="model" class="red lighten-3">
+            <v-list-item
+            v-for="(field, i) in fields"
+            :key="i"
             >
-                Clear
-                <v-icon right>mdi-close-circle</v-icon>
-            </v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-app>
-  
+            <v-list-item-content>
+                <v-list-item-title v-text="field.value"></v-list-item-title>
+                <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
+            </v-list-item-content>
+            </v-list-item>
+        </v-list>
+        </v-expand-transition>
+        <v-card-actions class="search-space">
+        <v-spacer></v-spacer>
+        <v-btn
+            :disabled="!model"
+            color="grey darken-3"
+            @click="model = null"
+        >
+            Clear
+            <v-icon right>mdi-close-circle</v-icon>
+        </v-btn>
+        </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
+import SearchCategoryBar from "./SearchCategoryBar.vue";
+
   export default {
     data: () => ({
       descriptionLimit: 60,
@@ -103,6 +102,9 @@
           .finally(() => (this.isLoading = false))
       },
     },
+    components: {
+    SearchCategoryBar,
+  },
   }
 </script>
 <style scoped>
@@ -114,5 +116,8 @@
   }
   .v-card.v-sheet.theme--dark.red.lighten-2{
       background-color:#26C6DA !important;
+  }
+  .search-space {
+    margin: 0;
   }
 </style>
