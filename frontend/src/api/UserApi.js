@@ -38,6 +38,7 @@ const requestRegister = (data, callback, errorCallback) => {
 }
 
 const requestUpdate = (data, callback, errorCallback) => {
+    console.log(data);
     Axios.put('http://localhost:8080/sns201/member', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
@@ -60,7 +61,7 @@ const UserApi = {
     requestRegister: (data, callback, errorCallback) => requestRegister(data, callback, errorCallback),
     requestUpdate: (data, callback, errorCallback) => requestUpdate(data, callback, errorCallback),
     requestEmailCheck: (data, callback, errorCallback) => requestEmailCheck(data, callback, errorCallback),
-    requestMemberByNo: (data, callback, errorCallback) => requestMemberByNo(data, callback, errorCallback)
+    requestMemberByNo: (data, callback, errorCallback) => requestMemberByNo(data, callback, errorCallback),
 }
 
 export default UserApi
