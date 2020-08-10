@@ -49,11 +49,18 @@ const requestEmailCheck = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 }
 
+const requestMemberByNo = (data, callback, errorCallback) => {
+    Axios.get('http://localhost:8080/sns201/member/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestRegister: (data, callback, errorCallback) => requestRegister(data, callback, errorCallback),
     requestUpdate: (data, callback, errorCallback) => requestUpdate(data, callback, errorCallback),
-    requestEmailCheck: (data, callback, errorCallback) => requestEmailCheck(data, callback, errorCallback)
+    requestEmailCheck: (data, callback, errorCallback) => requestEmailCheck(data, callback, errorCallback),
+    requestMemberByNo: (data, callback, errorCallback) => requestMemberByNo(data, callback, errorCallback)
 }
 
 export default UserApi
