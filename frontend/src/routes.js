@@ -9,6 +9,7 @@ import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
 import Comments from "./views/post/Comments.vue";
 import UserProfile from './views/profile/UserProfile.vue';
+import Profile from './views/profile/Profile.vue';
 import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
 import MissionMain from './views/mission/MissionMain.vue';
@@ -76,6 +77,11 @@ export default [
     path : '/profile',
     name : 'UserProfile',
     component : UserProfile
+  },
+  {
+    path : '/profile2',
+    name : 'Profile',
+    component : Profile
   },
   {
     path : '/add',
