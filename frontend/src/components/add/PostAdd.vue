@@ -17,7 +17,7 @@
       <br />
 
       <div>
-        <input v-on:change="$fileSelect()" type="file" ref="postImg" />
+        <input v-on:change="fileSelect()" type="file" ref="postImg" />
         <div v-if="postImg">
           <img :src="preView" />
         </div>
@@ -63,9 +63,13 @@ export default {
   data() {
     return {
       post: {
+        postNo: 0,
         memberNo: 0,
+        postDate: Object,
+        postPhoto: "",
         postContent: "",
         missionNo: 0,
+        postImg: "",
       },
       postImg: "",
       missionList: [],
@@ -74,22 +78,9 @@ export default {
   },
   methods: {
     postRegister() {
-      var formData = new FormData();
-
-      //  if (this.post.missionNo === 0) {
-      //   alert("미션을 입력하세요!");
-      //   return;
-      // } else if (!this.post.postPhoto) {
-      //   alert("사진을 입력하세요!");
-      //   return;
-      // } else if (!this.post.postContent) {
-      //   alert("내용을 입력하세요!");
-      //   return;
-      // }
-
-      formData.append("postImg", this.postImg);
-      formData.append("post", this.post);
-      console.log(this.post);
+      this.post.postImg = this.postImg;
+      var formData = new FormData ()
+      formData.append('post', this.post);
 
       PostApi.requestInsertPost(
         formData,
@@ -101,41 +92,12 @@ export default {
       );
     },
 
-    $fileSelect: function fileSelect() {
+    fileSelect() {
       this.postImg = this.$refs.postImg.files[0];
       // 미리보기
       this.preView = URL.createObjectURL(this.$refs.postImg.files[0]);
     },
 
-    // $executeSave: function $executeSave() {
-    //   var formData = new FormData();
-    //   formData.append(""); // 컨트롤러 넘길 정보
-
-    //   //  if (this.post.missionNo === 0) {
-    //   //   alert("미션을 입력하세요!");
-    //   //   return;
-    //   // } else if (!this.post.postPhoto) {
-    //   //   alert("사진을 입력하세요!");
-    //   //   return;
-    //   // } else if (!this.post.postContent) {
-    //   //   alert("내용을 입력하세요!");
-    //   //   return;
-    //   // }
-
-    //   formData.append("postImg", this.postImg);
-    //   formData.append("post", this.post);
-    //   console.log("where");
-
-    //   PostApi.requestInsertPost(
-    //     formData,
-    //     (res) => {
-    //       console.log("포스트 등록완료!");
-    //       //this.$router.push("/add");
-    //     },
-    //     (error) => {}
-    //   );
-      
-    // },
   },
 };
 </script>

@@ -33,7 +33,6 @@ export default {
                 for (let i = this.limit; i < this.limit + 5; i++) {
                   console.log(i)
                   temp.push(this.posts[i]);
-
                 }
                 this.limit += 5;
                 this.lists = this.lists.concat(temp);
