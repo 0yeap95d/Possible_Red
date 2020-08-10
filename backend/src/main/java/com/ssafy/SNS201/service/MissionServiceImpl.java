@@ -48,5 +48,10 @@ public class MissionServiceImpl implements MissionService{
         return mapper.deleteMission(missionNo) == 1;
     }
 
+    @Override
+    public List<Mission> findMissionByCategory(String missionCat) {
+        return mapper.selectMissionByCategory(missionCat);
+    }
+
 
 }

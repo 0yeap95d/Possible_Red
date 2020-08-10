@@ -78,4 +78,10 @@
     <delete id="deleteMission" parameterType="int">
         DELETE FROM mission WHERE missionNo = #{missionNo}
     </delete>
+
+    <select id="selectMissionByCategory" resultType="Mission">
+        SELECT *
+         FROM mission
+        WHERE missionCat = #{missionCat};
+    </select>
 </mapper>

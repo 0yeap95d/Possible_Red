@@ -95,4 +95,14 @@ public class MissionAPIController {
             return new ResponseEntity<String>("success",HttpStatus.OK);
         return new ResponseEntity<String>("fail",HttpStatus.NO_CONTENT);
     }
+
+    @ApiOperation(value = "카테고리별 미션 리스트를 반환한다.", response = List.class)
+    @GetMapping("category/{missionCat}")
+    public ResponseEntity<List<Mission>> findMissionByCategory(@PathVariable String missionCat) throws Exception{
+        logger.debug("-----------mission find by category-----------");
+        List<Mission> missions = missionService.findMissionByCategory(missionCat);
+        if(missions.isEmpty())
+            return new ResponseEntity<List<Mission>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<List<Mission>>(missions, HttpStatus.OK);
+    }
 }

@@ -14,4 +14,5 @@ public interface MissionMapper {
     public int insertMission(Mission mission);
     public int updateMission(Mission mission);
     public int deleteMission(int missionNo);
+    public List<Mission> selectMissionByCategory(String missionCat);
 }
