@@ -7,9 +7,11 @@
 
           <v-toolbar-title>Mission</v-toolbar-title>
         </v-app-bar>
-        <br />
+        <br>
 
         <MissionItem :missions="missionList" />
+        <br>
+        
         <!--미션 props를 MissionItem으로 넘김-->
 
         <v-navigation-drawer v-model="drawer" absolute temporary>

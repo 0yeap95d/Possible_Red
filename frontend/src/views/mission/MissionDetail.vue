@@ -12,17 +12,13 @@
                 >
                 <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>POST_TITLE 불러오기</v-toolbar-title>
+                <v-toolbar-title>MISSION_TITLE 불러오기</v-toolbar-title>
                 </v-app-bar>
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
-                <PostingDetailCard />
-                
-                <div class="wrapC">
-                    <Comments />
-                </div>
-
+                <MissionDetailCard />
+            
                 <v-navigation-drawer
                 v-model="drawer"
                 absolute
@@ -107,7 +103,8 @@
 <script>
 import '../../components/css/style.css';
 import PostingDetailCard from '../../components/post/PostingDetailCard.vue';
-import Comments from '../../views/post/Comments.vue';
+import MissionDetailCard from '../../components/mission/MissionDetailCard.vue';
+
 
 export default {
     data: () => ({
@@ -115,8 +112,7 @@ export default {
         activeBtn:1,
     }),
     components:{
-        PostingDetailCard,
-        Comments,
+        MissionDetailCard,
     },
     methods:{
         post(){

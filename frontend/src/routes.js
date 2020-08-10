@@ -14,6 +14,7 @@ import NotFound from './views/NotFound.vue';
 import MissionMain from './views/mission/MissionMain.vue';
 import AddOrigin from './views/add/Add_origin.vue';
 import PostDetail from './views/post/PostDetail.vue';
+import MissionDetail from './views/mission/MissionDetail.vue';
 import MyMission from './views/my/MyMission.vue';
 import MyPost from './views/my/MyPost.vue';
 import MyPoint from './views/my/MyPoint.vue';
@@ -105,6 +106,11 @@ export default [
     path : '/mymission',
     name : 'MyMission',
     component : MyMission
+  },
+  {
+    path : '/missiondetail',
+    name : 'MissionDetail',
+    component : MissionDetail
   },
   {
     path : '/mypost',
