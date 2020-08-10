@@ -6,8 +6,15 @@ const requestCategory = (callback, errorCallback) => {
         .catch(error => errorCallback(error))
 };
 
+const requestMissionByCategory = (data, callback, errorCallback) => {
+    Axios.get('http://localhost:8080/sns201/mission/category/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 const SearchApi = {
     requestCategory: (data, callback, errorCallback) => requestCategory(data, callback, errorCallback),
+    requestMissionByCategory: (data, callback, errorCallback) => requestMissionByCategory(data, callback, errorCallback),
 };
 
 export default SearchApi

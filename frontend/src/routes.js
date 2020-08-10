@@ -18,6 +18,7 @@ import MissionDetail from './views/mission/MissionDetail.vue';
 import MyMission from './views/my/MyMission.vue';
 import MyPost from './views/my/MyPost.vue';
 import MyPoint from './views/my/MyPoint.vue';
+import SearchByCategory from './views/search/SearchByCategory'
 
 export default [
   {
@@ -121,5 +122,10 @@ export default [
     path : '/mypoint',
     name : 'MyPoint',
     component : MyPoint
+  },
+  {
+    path : '/searchByCategory',
+    name : 'SearchByCategory',
+    component : SearchByCategory
   },
 ];
