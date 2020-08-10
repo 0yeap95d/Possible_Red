@@ -40,7 +40,6 @@ export default {
 
 <style>
 .search-category {
-  margin-top: 1rem;
-  margin-bottom: 5rem;
+  margin: 0;
 }
 </style>
