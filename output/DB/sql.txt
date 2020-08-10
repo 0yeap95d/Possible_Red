@@ -177,3 +177,4 @@ CREATE TABLE Category
 ALTER TABLE Category COMMENT '미션 카테고리';
 
 
+ALTER TABLE mission ADD description VARCHAR(255) NOT NULL; -- 컬럼추가
