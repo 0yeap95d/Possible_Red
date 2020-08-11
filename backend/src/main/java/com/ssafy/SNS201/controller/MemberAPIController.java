@@ -79,7 +79,7 @@ public class MemberAPIController {
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
-        member.setMemberPhotho(defaultImage);
+        member.setMemberPhoto(defaultImage);
 
         if(memberService.addMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
