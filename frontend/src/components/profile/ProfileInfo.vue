@@ -1,12 +1,12 @@
 <template>
-  <div class>
+  <div style="background-color: white;">
     <div class="d-flex">
       <div class="box" style="background: #BDBDBD;">
         <img class="profile" :src="user.memberPhoto">
       </div>
 
       <div class=info>      
-        <span class=info_num>게시글: </span>
+        <span class=info_num>게시글: 10</span>
         <span class=info_num>팔로워: {{follower}}</span>
         <span class=info_num>팔로잉: {{following}}</span>
       </div>
@@ -14,7 +14,8 @@
     
     </div>
     
-    <p class="title">
+    <p class="stat">
+      상태메세지 입니다.
       {{user.email}},
       {{user.stateMent}},
       {{user.memberNo}},
@@ -101,7 +102,7 @@ export default {
     height: 100%;
     object-fit: cover;
 }
-.title {
+.stat {
   margin-left: 3%;
   margin-top: 5%;
 }
