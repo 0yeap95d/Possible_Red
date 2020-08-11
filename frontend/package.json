@@ -28,6 +28,7 @@
     "sweetalert": "^2.1.2",
     "vue": "^2.6.11",
     "vue-infinite-loading": "^2.4.5",
+    "vue-kakao-login": "^1.0.5",
     "vue-moment": "^4.1.0",
     "vue-momentjs": "^1.0.0",
     "vue-month-picker": "^1.2.6",

@@ -45,7 +45,7 @@
           <div class="bar"></div>
         </div>
 
-        <kakaoLogin :component="component" />
+        <KakaoLogin :component="component"/>
         <GoogleLogin :component="component" />
       </div>
       <div class="add-option">
@@ -72,6 +72,15 @@ import * as EmailValidator from "email-validator";
 import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/user/snsLogin/Google.vue";
 import UserApi from "../../api/UserApi";
+
+let onSuccess = (data) => {
+  console.log(data)
+  console.log("success")
+}
+let onFailure = (data) => {
+  console.log(data)
+  console.log("failure")
+}
 
 export default {
   components: {
@@ -132,7 +141,7 @@ export default {
         UserApi.requestLogin(
           data,
           (res) => {
-            console.log(res);
+            console.log(res.data);
 
             // 로그인 성공
             if (res.status === 200) {
@@ -164,6 +173,8 @@ export default {
     findpwd() {
       this.$router.push("/findpwd");
     },
+    onSuccess,
+    onFailure
   },
   data: () => {
     return {
