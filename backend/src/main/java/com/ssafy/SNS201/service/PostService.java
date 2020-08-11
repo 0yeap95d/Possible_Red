@@ -10,4 +10,5 @@ public interface PostService {
     Post findPostByNo(int postNo);
     boolean modifyPost(Post p);
     boolean removePost(int postNo);
+    List<Post> findPostByMemberNo(int memberNo);
 }
