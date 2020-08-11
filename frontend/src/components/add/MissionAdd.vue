@@ -93,6 +93,7 @@ import VRangeSelector from "../common/vl-range-selector";
 import "../css/vuelendar.scss";
 import MissionApi from "../../api/MissionApi.js";
 import SearchApi from "../../api/SearchApi.js";
+import EntryApi from "../../api/EntryApi.js";
 
 export default {
   components: {
@@ -177,10 +178,32 @@ export default {
         }
       }
       console.log(this.mission.missionCat);
+
       MissionApi.requestMissionRegister(
         this.mission,
         (res) => {
           console.log("미션 등록 완료!");
+          // 엔트리 등록
+          let entry = {
+            memberNo: 0,
+            missionNo: 0,
+            reward: 0,
+            nonCnt: 0,
+          };
+          entry.memberNo = this.mission.memberNo;
+          entry.missionNo = res.data;
+          console.log("지금 들어갈 미션 넘버 : " + res.data);
+          entry.reward = 0;
+          entry.nonCnt = 0;
+          EntryApi.requestEntryRegister(
+            entry,
+            (resentry) => {
+              console.log("엔트리 등록 완료");
+            },
+            (error) => {
+              console.log("엔트리 등록 안됐음");
+            }
+          );
           this.$router.push("/mymission");
         },
         (error) => {}

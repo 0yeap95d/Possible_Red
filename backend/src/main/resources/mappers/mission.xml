@@ -87,4 +87,9 @@
          FROM mission
         WHERE missionCat = #{missionCat};
     </select>
+
+    <select id="selectMaxCount" resultType="int">
+        SELECT MAX(missionNo)
+         FROM mission;
+    </select>
 </mapper>

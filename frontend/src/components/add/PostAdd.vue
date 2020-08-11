@@ -46,7 +46,7 @@ import MissionApi from "../../api/MissionApi"; // 멤버넘버별 포스트 받�
 import PostApi from "../../api/PostApi";
 export default {
   created() {
-    console.log("포스트 " + this.$session.get("user").memberNo);
+    console.log("포스트Add 유저 넘버 : " + this.$session.get("user").memberNo);
     this.post.memberNo = this.$session.get("user").memberNo;
 
     //지금 접속해 있는 사람의 아이디를 기반으로 참여하고있는 미션 리스트 가져오기
@@ -54,8 +54,9 @@ export default {
       this.post.memberNo,
       (res) => {
         // 연결 성공하면 여기로 와서 리스트 뽑아냄
+        console.log(res.data);
         this.missionList = res.data;
-        //console.log(this.missionList);
+        console.log(this.missionList);
       },
       (error) => {}
     );
@@ -79,8 +80,8 @@ export default {
   methods: {
     postRegister() {
       this.post.postImg = this.postImg;
-      var formData = new FormData ()
-      formData.append('post', this.post);
+      var formData = new FormData();
+      formData.append("post", this.post);
 
       PostApi.requestInsertPost(
         formData,
@@ -97,7 +98,6 @@ export default {
       // 미리보기
       this.preView = URL.createObjectURL(this.$refs.postImg.files[0]);
     },
-
   },
 };
 </script>
