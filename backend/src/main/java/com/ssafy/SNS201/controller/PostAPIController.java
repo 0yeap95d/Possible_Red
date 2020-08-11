@@ -72,7 +72,8 @@ public class PostAPIController {
     @PostMapping
     public ResponseEntity<String> addPost(
             @RequestPart("postImg") MultipartFile file,
-            @RequestParam (value = "post") Post post) throws IOException {
+            Post post
+    ) throws IOException {
         logger.info("addPost | " + post.toString());
         logger.info(file.toString());
 
