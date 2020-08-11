@@ -27,26 +27,41 @@
                 </div>
               </div>
               <hr />
-              <v-list-item @click="mymission">
+               <v-list-item @click="mymission">
                 <v-list-item-icon>
                   <i class="far fa-list-alt"></i>
                 </v-list-item-icon>
-                <v-list-item-title>내가 참여한 미션</v-list-item-title>
+                <p class="jua" >내가 참여한 미션</p>
               </v-list-item>
 
               <v-list-item @click="mypost">
-                <v-list-item-icon>
-                  <i class="fas fa-user-edit"></i>
-                </v-list-item-icon>
-                <v-list-item-title>내가 쓴 글</v-list-item-title>
+                  <v-list-item-icon >
+                      <i class="fas fa-user-edit"></i>
+                  </v-list-item-icon>
+                  <p class="jua">내가 쓴 글</p>
               </v-list-item>
 
               <v-list-item @click="mypoint">
-                <v-list-item-icon>
-                  <i class="fas fa-coins"></i>
-                </v-list-item-icon>
-                <v-list-item-title>내 포인트</v-list-item-title>
+                  <v-list-item-icon >
+                      <i class="fas fa-coins"></i>
+                  </v-list-item-icon>
+                  <p class="jua">내 포인트</p>
               </v-list-item>
+
+              <v-list-item @click="myaccount">
+                  <v-list-item-icon >
+                      <i class="fas fa-users-cog"></i>
+                  </v-list-item-icon>
+                  <p class="jua">내 계정설정</p>
+              </v-list-item>
+
+              <v-list-item @click="kakaologout">
+                  <v-list-item-icon >
+                      <i class="fas fa-sign-out-alt"></i>
+                  </v-list-item-icon>
+                  <p class="jua">로그아웃</p>
+              </v-list-item>
+
             </v-list-item-group>
           </v-list>
         </v-navigation-drawer>
@@ -85,7 +100,6 @@
 import ProfileBody from "../../components/profile/ProfileBody.vue";
 import ProfileHeader from "../../components/profile/ProfileHeader.vue";
 import ProfileInfo from "../../components/profile/ProfileInfo.vue";
-import Footer from "../../components/common/Footer.vue";
 import "../../assets/css/components.scss";
 
 export default {    
@@ -199,8 +213,9 @@ export default {
   background-color:whitesmoke !important;
 }
 .v-toolbar__title{
-  font-family: 'Luckiest Guy', 'D2Coding', cursive;
+  font-family: 'Jua', sans-serif;
   font-size:x-large
 }
+
 
 </style>

@@ -12,7 +12,7 @@
                 >
                 <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-                <v-toolbar-title>Title</v-toolbar-title>
+                <v-toolbar-title >Title</v-toolbar-title>
                 </v-app-bar>
                 <br>
 
@@ -43,22 +43,37 @@
                             <v-list-item-icon >
                                 <i class="far fa-list-alt"></i>
                             </v-list-item-icon>
-                            <v-list-item-title>내가 참여한 미션</v-list-item-title>
+                            <p class="jua">내가 참여한 미션</p>
                         </v-list-item>
 
                         <v-list-item @click="mypost">
                             <v-list-item-icon >
                                 <i class="fas fa-user-edit"></i>
                             </v-list-item-icon>
-                            <v-list-item-title>내가 쓴 글</v-list-item-title>
+                            <p class="jua">내가 쓴 글</p>
                         </v-list-item>
 
                         <v-list-item @click="mypoint">
                             <v-list-item-icon >
                                 <i class="fas fa-coins"></i>
                             </v-list-item-icon>
-                            <v-list-item-title>내 포인트</v-list-item-title>
+                            <p class="jua">내 포인트</p>
                         </v-list-item>
+
+                        <v-list-item @click="myaccount">
+                            <v-list-item-icon >
+                                <i class="fas fa-users-cog"></i>
+                            </v-list-item-icon>
+                            <p class="jua">내 계정설정</p>
+                        </v-list-item>
+
+                        <v-list-item @click="logout">
+                            <v-list-item-icon >
+                                <i class="fas fa-sign-out-alt"></i>
+                            </v-list-item-icon>
+                            <p class="jua">로그아웃</p>
+                        </v-list-item>
+
                         </v-list-item-group>
                     </v-list>
                 </v-navigation-drawer>
@@ -92,6 +107,7 @@
                 <span>Profile</span>
                 <v-icon>mdi-account</v-icon>
                 </v-btn>
+
             </v-bottom-navigation>
             
         </v-app>
@@ -111,6 +127,18 @@ export default {
         
     },
     methods:{
+        kakaoLogout() {
+            this.$session.destroy();
+            window.Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function(res) { console.log(res) },
+                fail: function(err) { console.log(err) },
+            })
+            window.Kakao.Auth.logout(function() {
+            alert('로그아웃 완료!')
+            })
+            this.$router.push("/");
+        },
         post(){
             this.$router.push("/posts");
         },
@@ -134,14 +162,17 @@ export default {
         },
         mypoint(){
             this.$router.push("/mypoint");
-        }
+        },
+        myaccount(){
+            this.$router.push("/changeuser");
+        },
     }
 }
 </script>
 
 <style scoped>
     .theme--dark.v-app-bar.v-toolbar.v-sheet{
-        background-color:paleturquoise;
+        background-color:linear-gradient(to left , #f48fb1, #3949ab);
     }
     .thumbnail{
         position:relative;
@@ -186,5 +217,18 @@ export default {
         min-width:100px;
         width: 100%;
         margin: 0 auto;
+    }.white{
+    background-color:whitesmoke !important;
+    }
+    .v-toolbar__title{
+    font-family: 'Luckiest Guy', cursive;
+    font-size:x-large;
+    }
+    .jua{
+    font-family: 'Jua', sans-serif;
+    }
+    .v-application .deep-purple--text.text--accent-4{
+        color:white !important;
+        background: navy !important;
     }
 </style>

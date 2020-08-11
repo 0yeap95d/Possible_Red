@@ -213,5 +213,18 @@ export default {
     }.v-app-bar__nav-icon.v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default{
         float:right;
         margin-right:0px;
+    }.white{
+    background-color:whitesmoke !important;
+    }
+    .v-toolbar__title{
+    font-family: 'Jua', sans-serif;
+    font-size:x-large;
+    }
+    .jua{
+    font-family: 'Jua', sans-serif;
+    }
+    .v-application .deep-purple--text.text--accent-4{
+    color:white !important;
+    background: navy !important;
     }
 </style>
