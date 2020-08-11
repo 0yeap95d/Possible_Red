@@ -40,7 +40,7 @@
         methods: {
             kakaoLogin() {
                 window.Kakao.Auth.login({
-                    scope : 'account_email',
+                    scope : 'account_email profile',
                     success: this.GetMe,
                 });
             },
@@ -49,6 +49,7 @@
                 window.Kakao.API.request({
                     url:'/v2/user/me',
                     success : res => {
+                        console.log(res.kakao_account.profile);
                         const kakao_account = res.kakao_account;
                         const member = {
                             email: kakao_account.email,

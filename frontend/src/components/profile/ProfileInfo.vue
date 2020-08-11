@@ -2,7 +2,7 @@
   <div class>
     <div class="d-flex">
       <div class="box" style="background: #BDBDBD;">
-        <img class="profile" src="../../assets/images/profile_default.png">
+        <img class="profile" :src="user.memberPhoto">
       </div>
 
       <div class=info>      
@@ -10,6 +10,7 @@
         <span class=info_num>팔로워: {{follower}}</span>
         <span class=info_num>팔로잉: {{following}}</span>
       </div>
+      
     
     </div>
     
@@ -27,6 +28,7 @@
     <!-- <button v-if="rightText" class="right-text" :class="{disabled:isDisabled}" :disabled="isDisabled">
       {{rightText}}
     </button> -->
+    
   </div>
 </template>
 
@@ -36,16 +38,19 @@ import FollowApi from "../../api/FollowApi";
 
 export default {
     name: "ProfileInfo",
+
     created() {
       console.log("created")
         this.user = this.$session.get('user');
     },
+
     beforeMount(){
       console.log("beforMount")
       console.log(this.user);
       this.getCountFollower()
       this.getCountFollowing()
     },
+
     methods: {
       getCountFollower() {
         FollowApi.requestCountFollower(
@@ -70,7 +75,7 @@ export default {
             console.log(error);
           }
         )
-      }
+      },
     },
     data() {
         return {
