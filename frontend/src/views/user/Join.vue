@@ -1,52 +1,55 @@
 <template>
   <div class="wrapC">
-    <div class="wrap components-page p-1">
-      <HeaderComponent headerTitle="회원가입" :isBack="true" />
-    </div>
+      <div class="wrap components-page p-1">
+        <HeaderComponent headerTitle="Sign In" :isBack="true" />
+      </div>
+    
 
-    <div class="input-with-label">
+    <div class="input-with-label jua">
       <input v-model="email" id="email" placeholder="이메일을 입력하세요." type="text" />
-      <label for="email">이메일</label>
+      <label for="email" class="jua">이메일</label>
     </div>
 
     <div v-if="!isEmailOK">
       <!-- 이메일 인증 X -->
-      <button @click="sendMail">인증번호 받기</button>
+      <button @click="sendMail" class="sign">인증번호 받기</button>
+      <br>
+      <br>
 
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input v-model="randNum" id="randNum" placeholder="인증번호를 입력하세요" type="text" />
-        <label for="randNum">인증번호</label>
+        <label for="randNum" class="jua">인증번호</label>
       </div>
-      <br />
-      <button @click="isSameNum">인증하기</button>
+      <br /> 
+      <button @click="isSameNum" class="sign">인증하기</button>
     </div>
 
     <div v-else>
       <div class="form-wrap">
-        <div class="input-with-label">
+        <div class="input-with-label jua">
           <input v-model="nickname" id="nickname" placeholder="닉네임을 입력하세요." type="text" />
-          <label for="nickname">닉네임</label>
+          <label for="nickname" class="jua">닉네임</label>
         </div>
 
-        <div class="input-with-label">
+        <div class="input-with-label jua">
           <input v-model="pwd" id="pwd" :type="passwordType" placeholder="비밀번호를 입력하세요." />
-          <label for="pwd">비밀번호</label>
+          <label for="pwd"  class="jua">비밀번호</label>
         </div>
 
-        <div class="input-with-label">
+        <div class="input-with-label jua">
           <input
             v-model="passwordConfirm"
             :type="passwordConfirmType"
             id="password-confirm"
             placeholder="비밀번호를 다시한번 입력하세요."
           />
-          <label for="password-confirm">비밀번호 확인</label>
+          <label for="password-confirm" class="jua">비밀번호 확인</label>
         </div>
       </div>
 
       <label>
         <input v-model="isTerm" type="checkbox" id="term" />
-        <span>약관을 동의합니다.</span>
+        <span  class="jua">약관을 동의합니다.</span>
       </label>
       <br />
       <br />
@@ -54,13 +57,13 @@
         <v-row justify="center">
           <v-dialog v-model="dialog" width="600px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on">약관보기</v-btn>
+              <v-btn color="#01579B" dark v-bind="attrs" v-on="on">약관보기</v-btn>
             </template>
             <v-card>
               <v-card-title>
-                <span class="headline">POSSIBLE RED 이용약관</span>
+                <span class="headline jua">POSSIBLE RED 이용약관</span>
               </v-card-title>
-              <v-card-text>
+              <v-card-text class="jua">
                 <br />
                 <p>제1조(목적)</p>
                 <p>본 회원약관은 Possible Red(이하 '갑'라 한다)이 운영하는 인터넷관련 서비스(이하 '서비스'라 한다)를 이용함에 있어 관리자와 이용자(이하 '회원'라 한다)의 권리, 의무 및 책임사항을 규정함을 목적으로 한다.</p>
@@ -169,7 +172,7 @@
       </v-app>
     </div>
 
-    <button class="btn-bottom" @click="onRegister">가입하기</button>
+    <button class="btn-bottom sign2" @click="onRegister" >가입하기</button>
   </div>
 </template>
 
@@ -256,3 +259,22 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .jua{
+    font-family: 'Jua', sans-serif;
+    
+  }
+  .components-page .header-default{
+    font-family: 'Luckiest Guy', cursive;
+  }
+  .sign{
+    font-family: 'Jua', sans-serif;
+    margin-left:2%;
+    color:navy;
+    
+  }
+  .sign2{
+    font-family: 'Jua', sans-serif;
+    background:linear-gradient(to right , #f48fb1, #3949ab);
+  }
+</style>
