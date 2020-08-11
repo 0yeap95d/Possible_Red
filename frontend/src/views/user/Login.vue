@@ -211,5 +211,6 @@ export default {
   .btn.btn--back.btn--login.jua{
     background:linear-gradient(to left , #f48fb1, #3949ab);
   }
+
 </style>
 
