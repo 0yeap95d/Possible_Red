@@ -69,13 +69,13 @@ public class MissionAPIController {
                 missionService.findMissionByNo(missionNo), HttpStatus.OK);
     }
 
-    @ApiOperation(value = " 새로운 미션의 정보를 입력한다. 그리고 성공여부를 반환한다.", response = String.class)
+    @ApiOperation(value = " 새로운 미션의 정보를 입력한다. 그리고 미션 번호를 반환한다.", response = String.class)
     @PostMapping()
-    public ResponseEntity<String> addMission(@RequestBody Mission mission) throws Exception{
+    public ResponseEntity<Integer> addMission(@RequestBody Mission mission) throws Exception{
         logger.debug("-----------mission add-----------");
         if(missionService.addMission(mission))
-            return new ResponseEntity<String>("success",HttpStatus.OK);
-        return new ResponseEntity<String>("fail",HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Integer>(missionService.findMissionMaxCount(),HttpStatus.OK);
+        return new ResponseEntity<Integer>(-1,HttpStatus.NO_CONTENT);
     }
 
     @ApiOperation(value = " 미션 정보를 수정한다. 그리고 성공여부를 반환한다.", response = String.class)
