@@ -2,9 +2,9 @@
   <div class="user" id="changeUser">
     <div class="wrapC">
       <div class="wrap components-page p-1">
-      <HeaderComponent headerTitle="계정설정" :isBack="true" />
+      <HeaderComponent headerTitle="Account Settings" :isBack="true" />
     </div>
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           disabled
           id="email"
@@ -12,22 +12,22 @@
           placeholder="이메일을 입력하세요."
           type="text"
         />
-        <label for="email">이메일</label>
+        <label for="email" class="jua">이메일</label>
       </div>
 
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           id="nickname"
           v-model="user.nickname"
           placeholder="닉네임"
           type="text"
         />
-        <label for="nickname">닉네임</label>
+        <label for="nickname" class="jua">닉네임</label>
         <!-- 닉네임 중복체크 -->
         <!-- <div class="error-text" v-if="error.email">{{error.email}}</div> -->
       </div>
 
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           id="password"
           v-model="user.pwd"
@@ -35,20 +35,20 @@
           placeholder="비밀번호"
           type="password"
         />
-        <label for="password">비밀번호</label>
+        <label for="password" class="jua">비밀번호</label>
         
         <!-- 패스워드 유효성체크 -->
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           id="stateMent"
           v-model="user.stateMent"
           placeholder="상태메세지"
           type="text"
         />
-        <label for="stateMent">상태메세지</label>
+        <label for="stateMent" class="jua">상태메세지</label>
       </div>
 
       <div class="wrap components-page">
@@ -61,7 +61,6 @@
       </div>
 
     </div>
-    <div><Footer /></div>
   </div>
 </template>
 
@@ -71,18 +70,17 @@ import * as EmailValidator from "email-validator";
 import PV from "password-validator";
 import UserApi from "../../api/UserApi";
 import HeaderComponent from "../../components/common/Header.vue";
-import Footer from "../../components/common/Footer.vue";
 import LargeButton from "../../components/common/ButtonLarge";
 
 export default {
  name: "ChangeUser",
  components: {
    HeaderComponent,
-   Footer,
    LargeButton
  },
  created() {
    this.user = this.$session.get('user');
+    console.log("~~~~~~~~~~"+this.user.memberNo)
 
    this.passwordSchema
       .is()
@@ -119,16 +117,17 @@ export default {
     },
 
     updateUser() {
-      console.log(this.user);
+      console.log("000000000000"+this.user);
       UserApi.requestUpdate(
         this.user,
         res => {
-          console.log(res);
+          console.log(res.data);
           if (res.data === "success") {
             console.log("modify user success");
             
             this.isSubmit = false;
             // 결과페이지로 이동 
+            this.$router.push('/posts')
 
           } else {
             console.log("modify user fail");
@@ -164,5 +163,7 @@ export default {
 </script>
 
 <style>
-
+.jua{
+    font-family: 'Jua', sans-serif;
+  }
 </style>
