@@ -1,64 +1,74 @@
 
 <template>
-  <div class="user" id="login">
-    <div class="wrapC">
-      <h1>
-        로그인을 하고 나면
-        <br />좋은 일만 있을 거예요.
-      </h1>
+  <div class="back">
+    <div class="user" id="login" >
+      <div class="wrapC">
+        <h1 style="font-family: 'Luckiest Guy', cursive; font-weight:lighter; color:rgb(34,34,34)">
+          Login
+        </h1>
 
-      <div class="input-with-label">
-        <input
-          v-model="email"
-          v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
-          @keyup.enter="Login"
-          id="email"
-          placeholder="이메일을 입력하세요."
-          type="text"
-        />
-        <label for="email">이메일</label>
-        <div class="error-text" v-if="error.email">{{error.email}}</div>
-      </div>
-
-      <div class="input-with-label">
-        <input
-          v-model="password"
-          type="password"
-          v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
-          id="password"
-          @keyup.enter="onLogin"
-          placeholder="비밀번호를 입력하세요."
-        />
-        <label for="password">비밀번호</label>
-        <div class="error-text" v-if="error.password">{{error.password}}</div>
-      </div>
-      <button
-        class="btn btn--back btn--login"
-        @click="onLogin"
-        :disabled="!isSubmit"
-        :class="{disabled : !isSubmit}"
-      >로그인</button>
-
-      <div class="sns-login">
-        <div class="text">
-          <p>SNS 간편 로그인</p>
-          <div class="bar"></div>
+        <div class="input-with-label jua">
+          <input
+            v-model="email"
+            v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
+            @keyup.enter="Login"
+            id="email"
+            placeholder="이메일을 입력하세요."
+            type="text"
+          />
+          <label for="email" class="jua">이메일</label>
+          <div class="error-text" v-if="error.email">{{error.email}}</div>
         </div>
 
-        <KakaoLogin :component="component"/>
-        <GoogleLogin :component="component" />
-      </div>
-      <div class="add-option">
-        <div class="text">
-          <p>혹시</p>
-          <div class="bar"></div>
+        <div class="input-with-label jua">
+          <input
+            v-model="password"
+            type="password"
+            v-bind:class="{error : error.password, complete:!error.password&&password.length!==0}"
+            id="password"
+            @keyup.enter="onLogin"
+            placeholder="비밀번호를 입력하세요."
+          />
+          <label for="password" class="jua">비밀번호</label>
+          <div class="error-text" v-if="error.password">{{error.password}}</div>
         </div>
-        <div class="wrap">
-          <p @click="findpwd">비밀번호를 잊으셨나요?</p>
+        <button
+          class="btn btn--back btn--login jua"
+          style="color:white; font-size:large;"
+          @click="onLogin"
+          :disabled="!isSubmit"
+          :class="{disabled : !isSubmit}"
+        >로그인</button> 
+
+        <div class="sns-login">
+          <div class="text">
+            <p class="jua" style="font-size:large;">SNS 간편 로그인</p>
+            <div class="bar"></div>
+          </div>
+
+          <KakaoLogin :component="component"/>
+          <GoogleLogin :component="component" />
         </div>
-        <div class="wrap">
-          <p>아직 회원이 아니신가요?</p>
-          <router-link to="/user/join" class="btn--text">가입하기</router-link>
+        <div class="add-option">
+          <div class="text">
+            <p class="jua" style="font-size:large;">혹시</p>
+            <div class="bar"></div>
+            <br>
+            <br>
+            <br>
+          </div>
+          
+          <div class="wrap">
+            <p @click="findpwd" class="jua" style="font-size:large;">비밀번호를 잊으셨나요?</p>
+            <br>
+            <br>
+            <br>
+          </div>
+          
+          <div class="wrap">
+            <p class="jua" style="font-size:large;">아직 회원이 아니신가요?</p>
+            <router-link to="/user/join" class="btn--text jua"><i class="fas fa-user-plus"></i>&nbsp;가입하기</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -191,5 +201,15 @@ export default {
   },
 };
 </script>
-
+<style scoped>
+  .jua{
+    font-family: 'Jua', sans-serif;
+  }
+  .btn.btn--back.btn--login.jua.disabled{
+    background:linear-gradient(to right , #f48fb1, #3949ab);
+  }
+  .btn.btn--back.btn--login.jua{
+    background:linear-gradient(to left , #f48fb1, #3949ab);
+  }
+</style>
 

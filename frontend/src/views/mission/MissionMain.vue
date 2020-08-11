@@ -185,7 +185,7 @@ export default {
 }
 .v-toolbar__title{
   font-family: 'Luckiest Guy', cursive;
-  font-size:x-large
+  font-size:x-large;
 }
 
 </style>
