@@ -3,6 +3,7 @@
       <ProfileHeader />
       <ProfileInfo headerTitle="상태 메세지" />
       <ProfileBody />
+      <button @click="kakaoLogout">로그아웃</button>
       <Footer />
   </div>
 </template>
@@ -24,6 +25,20 @@ export default {
     },
     created() {
         this.user = this.$session.get('user');
+    },
+    methods: {
+        kakaoLogout() {
+          this.$session.destroy();
+          window.Kakao.API.request({
+              url: '/v1/user/unlink',
+              success: function(res) { console.log(res) },
+              fail: function(err) { console.log(err) },
+          })
+          window.Kakao.Auth.logout(function() {
+            alert('로그아웃 완료!')
+          })
+          this.$router.push("/");
+        }
     },
     data() {
         return {
