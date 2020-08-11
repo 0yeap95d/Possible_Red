@@ -3,11 +3,37 @@
   <div>
     <div class="form-wrap mission-adds">
       <div class="input-with-label">
+        <v-btn
+          small
+          v-for="cat in category"
+          :key="cat.categoryNo"
+          @click="toggleSwitch(cat.categoryNo)"
+          class="ma-2 mx-1"
+          color="indigo"
+          outlined
+        >
+          <!-- 여기 밑에 버튼들 true/false 각각 색 다르게 해줘 -->
+          <p v-if="isOn[cat.categoryNo]" text-color="red">{{cat.categoryContent}}</p>
+          <p v-else background="red">{{cat.categoryContent}}</p>
+        </v-btn>
+      </div>
+
+      <div class="input-with-label">
         <label for="missionTitle">미션 이름</label>
         <input
           v-model="mission.missionTitle"
           id="missionTitle"
           placeholder="미션 제목을 입력하세요."
+          type="text"
+        />
+      </div>
+
+      <div class="input-with-label">
+        <label for="description">설명</label>
+        <input
+          v-model="mission.description"
+          id="description"
+          placeholder="미션을 간단하게 설명해주세요."
           type="text"
         />
       </div>
@@ -66,6 +92,7 @@
 import VRangeSelector from "../common/vl-range-selector";
 import "../css/vuelendar.scss";
 import MissionApi from "../../api/MissionApi.js";
+import SearchApi from "../../api/SearchApi.js";
 
 export default {
   components: {
@@ -74,6 +101,7 @@ export default {
   created() {
     console.log(this.$session.get("user").memberNo);
     this.mission.memberNo = this.$session.get("user").memberNo;
+    this.getCategoryList();
   },
   data() {
     return {
@@ -89,11 +117,40 @@ export default {
         joinMem: 0,
         missionPhoto: "",
         missionCat: "",
+        description: "",
       },
       range: {},
+      category: [],
+      isOn: [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ],
     };
   },
   methods: {
+    toggleSwitch(num) {
+      this.isOn[num] = !this.isOn[num];
+      console.log(this.isOn);
+    },
+    getCategoryList() {
+      SearchApi.requestCategory(
+        (res) => {
+          // console.log(res.data);
+          this.category = res.data;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    },
     getDateFullString() {
       let today = new Date();
       let year = today.getFullYear(); // 년도
@@ -114,10 +171,16 @@ export default {
       if (today == this.mission.startDate) {
         this.mission.isStart = true;
       }
-
+      for (var i = 0; i < 10; i++) {
+        if (this.isOn[i]) {
+          this.mission.missionCat += i;
+        }
+      }
+      console.log(this.mission.missionCat);
       MissionApi.requestMissionRegister(
         this.mission,
         (res) => {
+          console.log("미션 등록 완료!");
           this.$router.push("/mymission");
         },
         (error) => {}
