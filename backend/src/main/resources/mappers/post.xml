@@ -45,4 +45,10 @@
          WHERE  postNo = #{postNo}
     </delete>
 
+    <select id="selectPostByMemberNo" resultType="Post">
+        SELECT *
+         FROM post
+        WHERE memberNo = #{memberNo}
+    </select>
+
 </mapper>

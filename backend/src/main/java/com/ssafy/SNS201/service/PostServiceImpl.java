@@ -35,4 +35,9 @@ public class PostServiceImpl implements PostService{
     public boolean removePost(int postNo) {
         return mapper.deletePost(postNo);
     }
+
+    @Override
+    public List<Post> findPostByMemberNo(int memberNo) {
+        return mapper.selectPostByMemberNo(memberNo);
+    }
 }
