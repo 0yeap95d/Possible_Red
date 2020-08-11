@@ -180,8 +180,7 @@ export default {
   min-width: 100px;
   width: 100%;
   margin: 0 auto;
-}
-.mx-auto.overflow-hidden.missions.v-card.v-sheet.theme--light.white{
+}.white{
   background-color:whitesmoke !important;
 }
 .v-toolbar__title{
