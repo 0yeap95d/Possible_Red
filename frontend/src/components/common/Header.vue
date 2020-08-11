@@ -6,7 +6,7 @@
             <i class="fas fa-chevron-left"></i>
         </button>
 
-        <h4 class="title">
+        <h4 class="title lucky">
             {{headerTitle}}
         </h4>
 
@@ -29,3 +29,9 @@
         }
     }
 </script>
+
+<style>
+.lucky{
+    font-family: 'Luckiest Guy', cursive;
+  }
+</style>
