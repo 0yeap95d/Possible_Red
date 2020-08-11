@@ -12,60 +12,60 @@ public class Member {
     private String stateMent;
     private String memberPhoto;
 
-    public void setMemberNo(int memberNo) {
-        this.memberNo = memberNo;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
-    public void setStateMent(String stateMent) {
-        this.stateMent = stateMent;
-    }
-
-    public void setMemberPhotho(String memberPhotho) {
-        this.memberPhoto = memberPhotho;
-    }
-
     public int getMemberNo() {
         return memberNo;
+    }
+
+    public void setMemberNo(int memberNo) {
+        this.memberNo = memberNo;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPwd() {
         return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getNickname() {
         return nickname;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public int getPoint() {
         return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     public String getStateMent() {
         return stateMent;
     }
 
-    public String getMemberPhotho() {
+    public void setStateMent(String stateMent) {
+        this.stateMent = stateMent;
+    }
+
+    public String getMemberPhoto() {
         return memberPhoto;
+    }
+
+    public void setMemberPhoto(String memberPhoto) {
+        this.memberPhoto = memberPhoto;
     }
 
     @Override
