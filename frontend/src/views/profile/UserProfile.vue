@@ -123,7 +123,7 @@ export default {
           alert('로그아웃 완료!')
         })
         this.$router.push("/");
-      }
+      },
       post() {
         this.$router.push("/posts");
       },
