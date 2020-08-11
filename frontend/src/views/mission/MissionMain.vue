@@ -93,6 +93,7 @@ export default {
   }),
   components: {
     MissionItem,
+
   },
   created() {
     MissionApi.requestAllMission(
@@ -135,7 +136,7 @@ export default {
 
 <style scoped>
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
-  background-color: paleturquoise;
+  background:linear-gradient(to left , #f48fb1, #3949ab);
 }
 .thumbnail {
   position: relative;
@@ -179,5 +180,12 @@ export default {
   min-width: 100px;
   width: 100%;
   margin: 0 auto;
+}.white{
+  background-color:whitesmoke !important;
 }
+.v-toolbar__title{
+  font-family: 'Luckiest Guy', cursive;
+  font-size:x-large
+}
+
 </style>
