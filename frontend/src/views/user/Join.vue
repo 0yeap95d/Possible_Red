@@ -262,7 +262,6 @@ export default {
 <style scoped>
   .jua{
     font-family: 'Jua', sans-serif;
-    
   }
   .components-page .header-default{
     font-family: 'Luckiest Guy', cursive;
@@ -271,7 +270,6 @@ export default {
     font-family: 'Jua', sans-serif;
     margin-left:2%;
     color:navy;
-    
   }
   .sign2{
     font-family: 'Jua', sans-serif;

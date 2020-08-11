@@ -4,11 +4,11 @@
       
       <!-- header -->
       <div class="wrap components-page p-1">
-        <HeaderComponent headerTitle="패스워드 변경" :isBack="true"/>
+        <HeaderComponent headerTitle="Change Password" :isBack="true"/>
       </div>
 
       <!-- new password -->
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           v-model="password"
           type="password"
@@ -16,12 +16,12 @@
           id="password"
           placeholder="비밀번호를 입력하세요."
         />
-        <label for="password">비밀번호</label>
+        <label for="password" class="jua">비밀번호</label>
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
       <!-- check password -->
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           v-model="passwordChk"
           type="password"
@@ -29,7 +29,7 @@
           id="passwordChk"
           placeholder="비밀번호를 한번 더 입력하세요."
         />
-        <label for="password">비밀번호 확인</label>
+        <label for="password" class="jua">비밀번호 확인</label>
         <div class="error-text" v-if="error.passwordChk">{{error.passwordChk}}</div>
       </div>
 
@@ -40,7 +40,7 @@
           :isBackground="isSubmit"
           @click.native="pwdchanged"
           :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}" />
+          :class="{disabled : !isSubmit}"  />
       </div>
 
     </div>
@@ -152,5 +152,21 @@ export default {
 </script>
 
 <style>
-
+.jua{
+    font-family: 'Jua', sans-serif;
+  }
+.btn-default.noneBackground.disabled{
+    font-family: 'Jua', sans-serif;
+    color:white;
+    background:linear-gradient(to right , #f48fb1, #3949ab);
+    border-color:white;
+    border-radius:5px;
+  }
+  .components-page .btn-default{
+    font-family: 'Jua', sans-serif;
+    color:white;
+    border-color:white;
+    border-radius:5px;
+    background:linear-gradient(to left , #f48fb1, #3949ab);
+  }
 </style>
