@@ -59,7 +59,7 @@
           </div>
           
           <div class="wrap">
-            <p @click="findpwd" class="jua" style="font-size:large;">비밀번호를 잊으셨나요?</p>
+            <p @click="findpwd" class="jua" style="font-size:large; color:navy">비밀번호를 잊으셨나요?</p>
             <br>
             <br>
             <br>
@@ -207,9 +207,13 @@ export default {
   }
   .btn.btn--back.btn--login.jua.disabled{
     background:linear-gradient(to right , #f48fb1, #3949ab);
+    border-color:white;
+    border-radius:5px;
   }
   .btn.btn--back.btn--login.jua{
     background:linear-gradient(to left , #f48fb1, #3949ab);
+    border-color:white;
+    border-radius:5px;
   }
 
 </style>

@@ -3,11 +3,11 @@
     <div class="wrapC">
       <!-- header -->
       <div class="wrap components-page p-1">
-        <HeaderComponent headerTitle="패스워드 찾기" :isBack="true" />
+        <HeaderComponent headerTitle="Find Password" :isBack="true" />
       </div>
 
       <!-- email input -->
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <input
           v-model="email"
           v-bind:class="{error : error.email, complete:!error.email&&email.length!==0}"
@@ -16,19 +16,19 @@
           placeholder="이메일을 입력하세요."
           type="text"
         />
-        <label for="email">이메일</label>
+        <label for="email" class="jua">이메일</label>
         <div class="error-text" v-if="error.email">{{error.email}}</div>
       </div>
       <div v-if="!isEmailOK">
         <!-- 이메일 인증 X -->
-        <button @click="sendMail">인증번호 받기</button>
+        <button @click="sendMail" class="sign">인증번호 받기</button>
 
-        <div class="input-with-label">
+        <div class="input-with-label jua">
           <input v-model="randNum" id="randNum" placeholder="인증번호를 입력하세요" type="text" />
-          <label for="randNum">인증번호</label>
+          <label for="randNum" class="jua">인증번호</label>
         </div>
         <br />
-        <button @click="isSameNum">인증하기</button>
+        <button @click="isSameNum" class="sign">인증하기</button>
       </div>
 
       <div v-else>
@@ -154,4 +154,12 @@ export default {
 </script>
 
 <style>
+.jua{
+    font-family: 'Jua', sans-serif;
+}
+.sign{
+    font-family: 'Jua', sans-serif;
+    margin-left:2%;
+    color:navy;
+  }
 </style>
