@@ -13,11 +13,10 @@ const requestSelectPostByNo = (data, callback, errorCallback) => {
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
-    console.log("post | " + data);
-
+    console.log("api에 보이는 데이터 : " + data);
     Axios.post("http://localhost:8080/sns201/post", data, {
         headers: {
-            'Content-Type' : 'multipart/form-data'
+            'Content-Type': 'multipart/form-data'
         }
     })
         .then((res) => callback(res))

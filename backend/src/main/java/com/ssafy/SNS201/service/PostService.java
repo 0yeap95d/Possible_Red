@@ -1,6 +1,7 @@
 package com.ssafy.SNS201.service;
 
 import com.ssafy.SNS201.dto.Post;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

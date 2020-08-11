@@ -66,7 +66,7 @@ export default {
       post: {
         postNo: 0,
         memberNo: 0,
-        postDate: Object,
+        // postDate: Object,
         postPhoto: "",
         postContent: "",
         missionNo: 0,
@@ -79,15 +79,21 @@ export default {
   },
   methods: {
     postRegister() {
+      console.log("이미지 " + this.postImg);
       this.post.postImg = this.postImg;
       var formData = new FormData();
-      formData.append("post", this.post);
+      formData.append("postImg", this.postImg);
+      // formData.append("postPhoto", this.postImg);
+      formData.append("memberNo", this.post.memberNo);
+      formData.append("postContent", this.post.postContent);
+      formData.append("missionNo", this.post.missionNo);
 
+      console.log("널이냐 ? " + this.post.postContent);
       PostApi.requestInsertPost(
         formData,
         (res) => {
           console.log("포스트 등록완료!");
-          //this.$router.push("/add");
+          this.$router.push("/posts");
         },
         (error) => {}
       );
