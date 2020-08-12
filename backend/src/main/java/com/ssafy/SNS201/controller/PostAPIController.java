@@ -87,6 +87,7 @@ public class PostAPIController {
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
+
     @ApiOperation(value = "멤버 번호를 통해 게시글을 조회한다.", response = List.class)
     @GetMapping("/member/{memberNo}")
     public ResponseEntity<List<Post>> findPostByMemberNo(@PathVariable int memberNo){
@@ -94,4 +95,10 @@ public class PostAPIController {
         return new ResponseEntity<List<Post>>(postService.findPostByMemberNo(memberNo), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "미션별 포스트 리스트를 반환한다.", response = List.class)
+    @GetMapping("/mission/{missionNo}")
+    public ResponseEntity<List<Post>> findPostByMissionNo(@PathVariable int missionNo){
+        logger.debug("findPostByMissionNo");
+        return new ResponseEntity<List<Post>>(postService.findPostByMissionNo(missionNo), HttpStatus.OK);
+    }
 }
