@@ -218,6 +218,7 @@ export default {
   margin-bottom: 3rem;
 }
 .mission-adds {
-  margin-bottom: 7.5rem;
+  margin-bottom: 0rem;
+  padding-bottom: 3rem;
 }
 </style>
