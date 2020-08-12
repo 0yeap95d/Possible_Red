@@ -1,16 +1,12 @@
 <template>
   <div style="background-color: white;">
     <div class="d-flex">
-      <!-- <div class="box my-auto" style="background: #BDBDBD; margin-right: 20%">
-        <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto">
-        <img v-else class="profile" src="../../assets/images/profile_default.png">
-      </div> -->
-
       <div class="thumbnail-wrapper my-auto">
         <div class="thumbnail">
           <div class="centered">
-            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto">
+            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto" alt="안뜸">
             <img v-else class="profile" src="../../assets/images/profile_default.png">
+            <!-- <img class="profile" :src="require('../../assets/images/jjon.jpg')"> -->
           </div>
         </div>
       </div>
