@@ -1,18 +1,15 @@
 <template>
   <div class="wrap">
     <v-app>
-      <v-card class="mx-auto overflow-hidden missions" color="white">
-        <v-app-bar color="deep-purlple" dark>
+      <v-card class="overflow-hidden" color="white">
+        <v-app-bar color="deep-purlple" dark style="box-shadow: none;">
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
           <v-toolbar-title>{{user.nickname}}</v-toolbar-title>
         </v-app-bar>
-        <br>
 
-        <ProfileInfo headerTitle="상태 메세지" />
+        <ProfileInfo class="pt-3" />
         <ProfileBody />
-        <button @click="kakaoLogout">로그아웃</button>
-        <br>
         
         <!--미션 props를 MissionItem으로 넘김-->
 
@@ -214,7 +211,7 @@ export default {
 }
 .v-toolbar__title{
   font-family: 'Jua', sans-serif;
-  font-size:x-large
+  font-size:x-large;
 }
 
 
