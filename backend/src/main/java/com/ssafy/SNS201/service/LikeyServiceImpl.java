@@ -19,6 +19,11 @@ public class LikeyServiceImpl implements LikeyService{
     }
 
     @Override
+    public boolean findIsLikey(Likey likey) {
+        return mapper.selectIsLikey(likey) == 1;
+    }
+
+    @Override
     public List<Likey> findLikeyByPostNo(int postNo) {
         return mapper.selectLikeyByPostNo(postNo);
     }
@@ -29,8 +34,8 @@ public class LikeyServiceImpl implements LikeyService{
     }
 
     @Override
-    public boolean removeLikey(int likeyNo) {
-        return mapper.deleteLikey(likeyNo) == 1;
+    public boolean removeLikey(Likey likey) {
+        return mapper.deleteLikey(likey) == 1;
     }
 
 }
