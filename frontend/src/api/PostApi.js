@@ -7,7 +7,7 @@ const requestSelectPost = (callback, errorCallback) => {
 };
 
 const requestSelectPostByNo = (data, callback, errorCallback) => {
-    Axios.get("http://localhost:8080/sns201/post" + data)
+    Axios.get("http://localhost:8080/sns201/post/" + data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };

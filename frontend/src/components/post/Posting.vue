@@ -14,7 +14,7 @@
           <p style="text-align:right">좋아요 : {{this.likeCnt}}</p>
         </div>
         <p>댓글 : 3</p>
-        <v-btn class="mx-2" fab dark color="indigo" @click="postdetail">
+        <v-btn class="mx-2" fab dark color="indigo" @click="postdetail(lists.postNo)">
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
         <p>작성자 : {{this.writer.nickname}}</p>
@@ -30,7 +30,7 @@ import UserApi from '../../api/UserApi'
 import LikeApi from '../../api/LikeApi'
 
 export default {
-    name:'post',
+    name:'Posting',
     props: {
       lists:Array,
     },
@@ -104,8 +104,13 @@ export default {
         }
       },
       
-      postdetail(){
-        this.$router.push('/PostDetail')
+      postdetail(num){
+        this.$router.push({
+          name: "PostDetail",
+          params: {
+            num: num,
+          }
+        })
       },
     },
     components:{
