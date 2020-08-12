@@ -13,6 +13,7 @@
   },
   "main": "babel.config.js",
   "dependencies": {
+    "@vue/cli": "^4.5.3",
     "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
     "babel-preset-env": "^1.7.0",

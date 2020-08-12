@@ -18,7 +18,7 @@
                 ></v-img>
 
                 <v-card-text>
-                    <span>이제 4일 남아따~~~</span>
+                    <span>이제 4일 남아따~~~ {{list.memberNo}}</span>
                     <br>
                     <span>#풍경 #운동</span>
                 </v-card-text>
@@ -27,8 +27,9 @@
                 <v-btn
                     text
                     color="deep-purple accent-4"
+                    @click="insertFollow()"
                 >
-                    Follow
+                    Follow 
                 </v-btn>
                 <v-btn
                     text
@@ -44,11 +45,46 @@
                     <v-icon>mdi-share-variant</v-icon>
                 </v-btn>
                 </v-card-actions>
+                <button @click="test">test</button>
             </v-card>
         </v-app>
     </div>
 </template>
+<script>
+import FollowApi from "../../api/FollowApi"
 
+export default {
+    name:'PostingDetailCard',
+    props: {
+      list:Object,
+    },
+    data() {
+        return {
+        }
+    },
+    created(){
+        console.log(this.list.memberNo);
+        console.log(this.$session.get("user").memberNo);
+    },
+    methods: {
+        insertFollow(){
+            FollowApi.requestFollowRegister(
+                {
+                    'me': this.$session.get("user").memberNo,
+                    'you': this.list.memberNo,
+                },
+                (res) => {
+                    console.log('여기오니?')
+                    ;
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+        }
+    }
+}
+</script>
 <style>
     .v-application--wrap{
         height:auto

@@ -17,7 +17,7 @@
                 <br>
 
                 <!--넣고 싶은거 넣으세요~-->
-                <PostingDetailCard />
+                <PostingDetailCard :list='list'/>
                 
                 <div class="wrapC">
                     <Comments />
@@ -108,11 +108,27 @@
 import '../../components/css/style.css';
 import PostingDetailCard from '../../components/post/PostingDetailCard.vue';
 import Comments from '../../views/post/Comments.vue';
+import PostApi from '../../api/PostApi';
 
 export default {
+    created() {
+        this.num = this.$route.params.num;
+        PostApi.requestSelectPostByNo(
+            this.num,
+            (res) => {
+                console.log(res.data);
+                this.list = res.data;
+            },
+            (error) => {
+                console.log("error")
+            }
+        )
+    },
     data: () => ({
         drawer: false,
         activeBtn:1,
+        num: 0,
+        list: []
     }),
     components:{
         PostingDetailCard,
