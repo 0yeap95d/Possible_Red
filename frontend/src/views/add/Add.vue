@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card>
+    <v-card style="margin-bottom: 10rem; box-shadow: none;">
       <v-tabs v-model="tab" background-color="primary" dark>
       <v-tab :key="item1">
         미션
