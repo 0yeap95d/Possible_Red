@@ -44,4 +44,14 @@ public class Likey {
     public void setPushDate(Date pushDate) {
         this.pushDate = pushDate;
     }
+
+    @Override
+    public String toString() {
+        return "Likey{" +
+                "likeyNo=" + likeyNo +
+                ", memberNo=" + memberNo +
+                ", postNo=" + postNo +
+                ", pushDate=" + pushDate +
+                '}';
+    }
 }
