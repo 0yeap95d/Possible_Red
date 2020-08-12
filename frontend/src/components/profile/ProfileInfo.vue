@@ -1,34 +1,45 @@
 <template>
   <div style="background-color: white;">
     <div class="d-flex">
-      <div class="box" style="background: #BDBDBD;">
-        <img class="profile" :src="user.memberPhoto">
+      <div class="box my-auto" style="background: #BDBDBD; margin-right: 20%">
+        <!-- <img class="profile" :src="user.memberPhoto"> -->
+        <img class="profile" src="../../assets/images/profile_default.png">
       </div>
 
-      <div class=info>      
-        <span class=info_num>게시글: 10</span>
-        <span class=info_num>팔로워: {{follower}}</span>
-        <span class=info_num>팔로잉: {{following}}</span>
-      </div>
-      
+      <v-list nav dense>
+        <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4" class="d-flex justify-content-around">
+
+          <v-list-item class="mb-0 mx-1">
+              <div>
+                <p>10</p>
+                <p>포스트</p>
+              </div>
+          </v-list-item>
+
+          <v-list-item class="mb-0 mx-1">
+            <div>
+              <p>{{follower}}</p>
+              <p>팔로우</p>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="mb-0 mx-1">
+            <div>
+              <p>{{following}}</p>
+              <p>팔로잉</p>
+            </div>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list> 
     
     </div>
-    
-    <p class="stat">
-      상태메세지 입니다.
-      {{user.email}},
-      {{user.stateMent}},
-      {{user.memberNo}},
-      {{user.nickname}},
-      {{user.point}},
-      {{user.pwd}},
+
+    <p v-if="user.stateMent" class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">
+      {{user.stateMent}}
     </p>
-
-
-
-    <!-- <button v-if="rightText" class="right-text" :class="{disabled:isDisabled}" :disabled="isDisabled">
-      {{rightText}}
-    </button> -->
+    <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">
+      상태 메세지 입니다.
+    </p>
     
   </div>
 </template>
@@ -88,14 +99,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .box {
-    margin-top: 5%;
-    margin-left: 5%;
     width: 15%;
     height: 15%; 
     border-radius: 70%;
     overflow: hidden;
+    margin-left: 5%;
 }
 .profile {
     width: 100%;
@@ -103,15 +113,19 @@ export default {
     object-fit: cover;
 }
 .stat {
-  margin-left: 3%;
+  margin-left: 5%;
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 .info {
   width: 80%;
   text-align: center;
   margin: auto;
 }
-.info_num {
-  margin-left: 5%;
+
+.v-application p {
+  margin-bottom: 0;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
 }
 </style>

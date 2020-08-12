@@ -1,17 +1,17 @@
 <template>
   <div>
-    <v-card>
+    <v-card style="box-shadow: none; padding-top:3%">
       <v-tabs
         background-color="white"
         color="deep-purple accent-4"
         centered
       >
-        <v-tab :key="item1">
+        <v-tab :key="item1" style="font-family: 'Jua', sans-serif;">
           포스트
         </v-tab>
 
         <v-tab
-          :key="item2">
+          :key="item2" style="font-family: 'Jua', sans-serif;">
           미션
         </v-tab>
 
