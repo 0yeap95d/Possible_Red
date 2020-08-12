@@ -43,4 +43,10 @@ public class PostServiceImpl implements PostService{
         return mapper.selectPostByMemberNo(memberNo);
     }
 
+    @Override
+    public List<Post> findPostByMissionNo(int missionNo) {
+        return mapper.selectPostByMissionNo(missionNo);
+    }
+
+
 }

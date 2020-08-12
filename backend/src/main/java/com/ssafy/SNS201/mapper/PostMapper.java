@@ -13,4 +13,5 @@ public interface PostMapper {
     boolean updatePost(Post post);
     boolean deletePost(int postNo);
     List<Post> selectPostByMemberNo(int memberNo);
+    List<Post> selectPostByMissionNo(int missionNo);
 }

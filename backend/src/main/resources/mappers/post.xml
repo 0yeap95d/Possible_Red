@@ -51,4 +51,10 @@
         WHERE memberNo = #{memberNo}
     </select>
 
+    <select id="selectPostByMissionNo" resultType="Post">
+        SELECT *
+         FROM post
+        WHERE missionNo = #{missionNo}
+    </select>
+
 </mapper>
