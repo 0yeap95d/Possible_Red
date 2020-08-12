@@ -111,13 +111,14 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
   .v-card__title.headline.red.lighten-3{
     color:white;
   }
-  .v-application .red.lighten-3{
-      background-color:#80DEEA !important;
-  }
+  
   .v-card.v-sheet.theme--dark.red.lighten-2{
-      background-color:#26C6DA !important;
+    background:linear-gradient(to bottom , #f48fb1, #3949ab) !important;
   }
   .search-space {
     margin: 0;
+  }
+  .jua{
+    font-family: 'Jua', sans-serif;
   }
 </style>

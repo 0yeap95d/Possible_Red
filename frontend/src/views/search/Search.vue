@@ -84,4 +84,6 @@ export default {
   bottom: 0;
   height: 3rem;
 }
+
+
 </style>
