@@ -3,7 +3,7 @@
   <div>
     <div class="form-wrap post-adds">
       <!-- 여기에 v-for써서 미션리스트 셀렉트박스로 보여주기 -->
-      <p>
+      <p class="jua">
         게시글을 올릴 미션을 선택하세요 →
         <select v-model="post.missionNo" id="missionNo">
           <option disabled selected>게시글을 올릴 미션을 선택하세요.</option>
@@ -17,20 +17,20 @@
       <br />
 
       <div>
-        <input v-on:change="fileSelect()" type="file" ref="postImg" />
+        <input class="jua_small" v-on:change="fileSelect()" type="file" ref="postImg" />
         <div v-if="postImg">
           <img :src="preView" />
         </div>
       </div>
 
       <br />
-      <div class="input-with-label">
+      <div class="input-with-label jua">
         <textarea
           v-model="post.postContent"
           id="postContent"
           placeholder="내용을 입력하세요"
           type="text"
-          cols="80%"
+          cols="39%"
           rows="10"
         />
       </div>
@@ -114,5 +114,12 @@ export default {
 }
 .post-adds {
   margin-bottom: 7.5rem;
+}
+.jua{
+  font-family: 'Jua', sans-serif;
+}
+.jua_small{
+  font-size:medium;
+  font-family: 'Jua', sans-serif;
 }
 </style>
