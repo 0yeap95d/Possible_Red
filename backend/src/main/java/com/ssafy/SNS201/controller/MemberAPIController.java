@@ -1,4 +1,5 @@
 package com.ssafy.SNS201.controller;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -9,17 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
@@ -31,6 +26,7 @@ public class MemberAPIController {
     private static final String FAIL = "fail";
 
     private static final String defaultImage = "../../../../resuources/default.jpg";
+    // 이거 수정하기 
 
     @Autowired
     private MemberService memberService;
@@ -89,8 +85,21 @@ public class MemberAPIController {
 
     @ApiOperation(value = " 사용자의 정보를 수정한다.", response = String.class)
     @PutMapping
-    public ResponseEntity<String> modifyMember(@RequestBody Member member) throws Exception {
+    public ResponseEntity<String> modifyMember(Member member,
+            @RequestPart("memberImg") MultipartFile file ) throws Exception {
         logger.info("modifyMember | " + member);
+
+        // 여기에서 이미지 작업 해야함
+
+        String originalFileName = file.getOriginalFilename();
+        File dest = new File("C:/Image/profile/" + originalFileName);
+        file.transferTo(dest); // 왜 이미지 저장이 안되는거지,,?ㅠ
+
+        if(originalFileName.length() == 0)
+            member.setMemberPhoto(null);
+        else
+            member.setMemberPhoto("C:/Image/profile/" + originalFileName);
+
         if (memberService.modifyMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
