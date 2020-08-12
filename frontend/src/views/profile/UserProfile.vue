@@ -159,6 +159,9 @@ export default {
       mypoint() {
         this.$router.push("/mypoint");
       },
+      myaccount(){
+        this.$router.push("/changeuser");
+      },
     },
 } 
 </script>

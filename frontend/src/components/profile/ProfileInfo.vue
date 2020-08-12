@@ -1,9 +1,14 @@
 <template>
   <div style="background-color: white;">
     <div class="d-flex">
-      <div class="box my-auto" style="background: #BDBDBD; margin-right: 20%">
-        <img class="profile" :src="user.memberPhoto" />
-        <!-- <img class="profile" src="../../assets/images/profile_default.png"> -->
+      <div class="thumbnail-wrapper my-auto">
+        <div class="thumbnail">
+          <div class="centered">
+            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto" alt="안뜸">
+            <img v-else class="profile" src="../../assets/images/profile_default.png">
+            <!-- <img class="profile" :src="require('../../assets/images/jjon.jpg')"> -->
+          </div>
+        </div>
       </div>
 
       <v-list nav dense>
@@ -100,10 +105,42 @@ export default {
 </script>
 
 <style scoped>
+.thumbnail-wrapper {
+  width:25%;
+  margin-left: 5%;
+  margin-right: 15%;
+}
+.thumbnail {
+  position: relative;
+  padding-top: 100%;
+  border-radius: 80%;
+  overflow: hidden;
+}
+.thumbnail .centered {
+  position: absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transform: translate(50%,50%); 
+  -ms-transform: translate(50%,50%); 
+  transform: translate(50%,50%); 
+  }
+.thumbnail .centered img { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  max-width: 100%; 
+  height: auto; 
+  -webkit-transform: translate(-50%,-50%); 
+  -ms-transform: translate(-50%,-50%); 
+  transform: translate(-50%,-50%); 
+}
+/* 
 .box {
   width: 15%;
-  height: 15%;
-  border-radius: 70%;
+  height: 15%; 
+  border-radius: 50%;
   overflow: hidden;
   margin-left: 5%;
 }
@@ -111,7 +148,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
+} */
 .stat {
   margin-left: 5%;
   margin-top: 5%;
