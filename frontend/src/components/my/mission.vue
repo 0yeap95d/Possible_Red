@@ -16,8 +16,22 @@
                           <v-img src= 'https://picsum.photos/400' alt="" ></v-img>
                           <br>
                           <v-list-item-title class="jua">{{ item.title }}</v-list-item-title>
+                          <v-card-actions class="white justify-center">
+                          <v-btn
+                            v-for="(social, i) in socials"
+                            :key="i"
+                            :color="social.color"
+                            class="white--text"
+                            fab
+                            icon
+                            small
+                          >
+                            <v-icon>{{ social.icon }}</v-icon>
+                          </v-btn>
+                        </v-card-actions>
                         </v-list-item-action>
-                    
+
+                        
                     </v-list-item>
                     
                     <v-divider
@@ -27,7 +41,9 @@
                     ></v-divider>
                     </template>
                 </v-list>
-                </v-card>
+
+                
+              </v-card>
             </v-col>
         
     </div>
@@ -58,6 +74,20 @@
           active: 'https://picsum.photos/400',
           title: '알고리즘 문제 3개씩',
           not_participation_count:'2',
+        },
+      ],
+       socials: [
+        {
+          icon: 'mdi-facebook',
+          color: 'indigo',
+        },
+        {
+          icon: 'mdi-linkedin',
+          color: 'cyan darken-1',
+        },
+        {
+          icon: 'mdi-instagram',
+          color: 'red lighten-3',
         },
       ],
     }),
