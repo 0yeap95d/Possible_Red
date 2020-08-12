@@ -2,26 +2,15 @@
   <div class="user" id="changeUser">
     <div class="wrapC">
       <div class="wrap components-page p-1">
-      <HeaderComponent headerTitle="Account Settings" :isBack="true" />
-    </div>
+        <HeaderComponent headerTitle="Account Settings" :isBack="true" />
+      </div>
       <div class="input-with-label jua">
-        <input
-          disabled
-          id="email"
-          v-model="user.email"
-          placeholder="이메일을 입력하세요."
-          type="text"
-        />
+        <input disabled id="email" v-model="user.email" placeholder="이메일을 입력하세요." type="text" />
         <label for="email" class="jua">이메일</label>
       </div>
 
       <div class="input-with-label jua">
-        <input
-          id="nickname"
-          v-model="user.nickname"
-          placeholder="닉네임"
-          type="text"
-        />
+        <input id="nickname" v-model="user.nickname" placeholder="닉네임" type="text" />
         <label for="nickname" class="jua">닉네임</label>
         <!-- 닉네임 중복체크 -->
         <!-- <div class="error-text" v-if="error.email">{{error.email}}</div> -->
@@ -29,6 +18,7 @@
 
       <div class="input-with-label jua">
         <input
+          disabled
           id="password"
           v-model="user.pwd"
           v-bind:class="{error : error.password, complete:!error.password&&user.pwd.length!==0}"
@@ -36,30 +26,32 @@
           type="password"
         />
         <label for="password" class="jua">비밀번호</label>
-        
+
         <!-- 패스워드 유효성체크 -->
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
 
       <div class="input-with-label jua">
-        <input
-          id="stateMent"
-          v-model="user.stateMent"
-          placeholder="상태메세지"
-          type="text"
-        />
+        <input id="stateMent" v-model="user.stateMent" placeholder="상태메세지" type="text" />
         <label for="stateMent" class="jua">상태메세지</label>
       </div>
 
+      <div class="input-with-label jua">
+        <input v-on:change="fileSelect()" type="file" ref="memberImg" />
+        <div v-if="memberImg">
+          <img :src="preView" />
+        </div>
+      </div>
+
       <div class="wrap components-page">
-        <LargeButton 
-          text="수정하기" 
+        <LargeButton
+          text="수정하기"
           :isBackground="isSubmit"
           @click.native="updateUser"
           :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}" />
+          :class="{disabled : !isSubmit}"
+        />
       </div>
-
     </div>
   </div>
 </template>
@@ -73,16 +65,16 @@ import HeaderComponent from "../../components/common/Header.vue";
 import LargeButton from "../../components/common/ButtonLarge";
 
 export default {
- name: "ChangeUser",
- components: {
-   HeaderComponent,
-   LargeButton
- },
- created() {
-   this.user = this.$session.get('user');
-    console.log("~~~~~~~~~~"+this.user.memberNo)
+  name: "ChangeUser",
+  components: {
+    HeaderComponent,
+    LargeButton,
+  },
+  created() {
+    this.user = this.$session.get("user");
+    console.log("~~~~~~~~~~" + this.user.stateMent);
 
-   this.passwordSchema
+    this.passwordSchema
       .is()
       .min(8)
       .is()
@@ -91,79 +83,91 @@ export default {
       .digits()
       .has()
       .letters();
- },
+  },
 
- watch: {
-    'user.pwd': function(v) {
+  watch: {
+    "user.pwd": function (v) {
       this.checkForm();
-    }
+    },
   },
 
   methods: {
+    fileSelect() {
+      this.memberImg = this.$refs.memberImg.files[0];
+      // 미리보기
+      this.preView = URL.createObjectURL(this.$refs.memberImg.files[0]);
+    },
     checkForm() {
       if (
         this.user.pwd.length >= 0 &&
         !this.passwordSchema.validate(this.user.pwd)
       )
-      this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
+        this.error.password = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.password = false;
 
       let isSubmit = true;
-      Object.values(this.error).map(v => {
+      Object.values(this.error).map((v) => {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
       console.log(isSubmit);
     },
-
     updateUser() {
-      console.log("000000000000"+this.user);
+      console.log("이미지 " + this.postImg);
+      this.user.memberImg = this.memberImg;
+      var formData = new FormData();
+      formData.append("memberImg", this.memberImg);
+      formData.append("memberNo", this.user.memberNo);
+      formData.append("email", this.user.email);
+      formData.append("nickname", this.user.nickname);
+      formData.append("point", this.user.point);
+      formData.append("pwd", this.user.pwd);
+      formData.append("stateMent", this.user.stateMent);
+
       UserApi.requestUpdate(
-        this.user,
-        res => {
+        formData,
+        (res) => {
           console.log(res.data);
           if (res.data === "success") {
             console.log("modify user success");
-            
-            this.isSubmit = false;
-            // 결과페이지로 이동 
-            this.$router.push('/posts')
 
+            this.isSubmit = false;
+            // 결과페이지로 이동
+            this.$router.push("/profile");
           } else {
             console.log("modify user fail");
             // 에러페이지로 이동
           }
         },
-        error => {
-
-        }
-      )
-    }
+        (error) => {}
+      );
+    },
   },
 
- data() {
-   return {
+  data() {
+    return {
       user: {
         email: "",
         memberNo: 0,
         nickname: "",
         point: 0,
         pwd: "",
-        stateMent: ""
+        stateMent: "",
       },
       passwordSchema: new PV(),
       error: {
-        password: false
+        password: false,
       },
-      isSubmit: false
-   };
- },
-
+      isSubmit: false,
+      preView: "",
+      memberImg: "",
+    };
+  },
 };
 </script>
 
 <style>
-.jua{
-    font-family: 'Jua', sans-serif;
-  }
+.jua {
+  font-family: "Jua", sans-serif;
+}
 </style>
