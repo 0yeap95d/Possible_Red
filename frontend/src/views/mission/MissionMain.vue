@@ -108,7 +108,7 @@ export default {
     drawer: false,
     activeBtn: 1,
     missionList: [],
-    hover:false,
+    
   }),
   components: {
     MissionItem,
@@ -228,6 +228,9 @@ export default {
 .v-application .deep-purple--text.text--accent-4{
   color:white !important;
   background: navy !important;
+}
+.v-responsive__content{
+  background-color:transparent;
 }
 
 </style>

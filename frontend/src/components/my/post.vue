@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <v-app>
+    <div class="wrapC">
+        
             <v-row justify="center">
                 <v-col cols="12" sm="8" md="6">
                 <v-card>
@@ -30,16 +30,18 @@
                             <img :src="item.avatar">
                         </v-list-item-avatar>
                         <v-list-item-content>
-                            <v-list-item-title v-html="item.title"></v-list-item-title>
-                            <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                          
+                            <v-list-item-title v-html="item.title" class="jua"></v-list-item-title>
                         </v-list-item-content>
+                        
                         </v-list-item>
+                        
                     </template>
                     </v-list>
                 </v-card>
                 </v-col>
             </v-row>
-        </v-app>
+        
     </div>
 </template>
 
@@ -49,65 +51,57 @@
       return {
         items: [
           {
-            header: 'Today',
+            header: '조깅 매일 30분씩!',
           },
           { divider: true },
           {
             avatar: 'https://picsum.photos/250/300?image=660',
             title: '조깅 3일차',
-            subtitle:
-              "<span class='font-weight-bold'>Spike Lee</span> &mdash; I'll be in your neighborhood",
+            
           },
           {
             avatar: 'https://picsum.photos/250/300?image=821',
-            title: '알고리즘 5일차',
-            subtitle:
-              "<span class='font-weight-bold'>to Operations support</span> &mdash; Wish I could come.",
+            title: '조깅 2일차',
+            
           },
           {
             avatar: 'https://picsum.photos/250/300?image=783',
-            title: '다이어트 2일차',
-            subtitle:
-              "<span class='font-weight-bold'>Bella</span> &mdash; Do you have Paris recommendations",
+            title: '조깅 1일차',
+            
           },
           {
-            header: 'Yesterday',
+            header: '알고리즘 문제 매일 풀기!',
           },
           { divider: true },
           {
             avatar: 'https://picsum.photos/250/300?image=1006',
             title: '알고리즘 4일차',
-            subtitle:
-              "<span class='font-weight-bold'>LaToya</span> &mdash; Do you want to hang out?",
+            
           },
           {
             avatar: 'https://picsum.photos/250/300?image=146',
-            title: '다이어트 1일차',
-            subtitle:
-              "<span class='font-weight-bold'>Nancy</span> &mdash; Do you see what time it is?",
+            title: '알고리즘 3일차',
+            
           },
           {
-            header: 'Last Week',
+            header: '금연 한달동안!',
           },
           { divider: true },
           {
             avatar: 'https://picsum.photos/250/300?image=1008',
-            title: '조깅 2일차',
-            subtitle:
-              "<span class='font-weight-bold'>LaToya</span> &mdash; Do you want to hang out?",
+            title: '금연 25일차',
+            
           },
           {
             avatar: 'https://picsum.photos/250/300?image=839',
             title:
-              'Winter Porridge <span class="grey--text text--lighten-1"></span>',
-            subtitle:
-              "<span class='font-weight-bold'>cc: Daniel</span> &mdash; Tell me more...",
+              '금연 24일차',
+           
           },
           {
             avatar: 'https://picsum.photos/250/300?image=145',
-            title: 'Oui oui',
-            subtitle:
-              "<span class='font-weight-bold'>Nancy</span> &mdash; Do you see what time it is?",
+            title: '금연 23일차',
+            
           },
         ],
       }
@@ -119,3 +113,13 @@
     }
   }
 </script>
+<style>
+.jua{
+  font-family: 'Jua', sans-serif;
+  font-size:large;
+}
+.v-list-item.v-list-item--link.theme--light{
+  text-align:center;
+}
+
+</style>

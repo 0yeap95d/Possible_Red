@@ -3,8 +3,9 @@
     <v-app>
       <v-card class="mx-auto overflow-hidden missions" color="white">
         <v-app-bar color="deep-purlple" dark>
-          <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
+          
+          <HeaderComponent :isBack="true" />
+        
           <v-toolbar-title>{{mission.missionTitle}}</v-toolbar-title>
         </v-app-bar>
         <br />
@@ -13,54 +14,7 @@
         <div v-if="this.mission">
           <MissionDetailCard :mission="mission" />
         </div>
-        <v-navigation-drawer v-model="drawer" absolute temporary>
-          <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
-              <div class="px-3 py-2">
-                <div class="thumbnail">
-                  <div class="centered">
-                    <img src="../../assets/images/펭수프로필.jpg" />
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <v-list-item @click="mymission">
-                  <v-list-item-icon >
-                      <i class="far fa-list-alt"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내가 참여한 미션</p>
-              </v-list-item>
-
-              <v-list-item @click="mypost">
-                  <v-list-item-icon >
-                      <i class="fas fa-user-edit"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내가 쓴 글</p>
-              </v-list-item>
-
-              <v-list-item @click="mypoint">
-                  <v-list-item-icon >
-                      <i class="fas fa-coins"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내 포인트</p>
-              </v-list-item>
-
-              <v-list-item @click="myaccount">
-                  <v-list-item-icon >
-                      <i class="fas fa-users-cog"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내 계정설정</p>
-              </v-list-item>
-
-              <v-list-item @click="kakaologout">
-                  <v-list-item-icon >
-                      <i class="fas fa-sign-out-alt"></i>
-                  </v-list-item-icon>
-                  <p class="jua">로그아웃</p>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-navigation-drawer>
+        
       </v-card>
       <v-bottom-navigation v-model="bottomNav" black shift>
         <v-btn @click="post">
@@ -99,6 +53,7 @@ import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
 import MissionDetailCard from "../../components/mission/MissionDetailCard.vue";
 import MissionApi from "../../api/MissionApi";
 import UserApi from "../../api/UserApi";
+import HeaderComponent from "../../components/common/Header.vue";
 
 export default {
   data: () => ({
@@ -153,6 +108,7 @@ export default {
   },
   components: {
     MissionDetailCard,
+    HeaderComponent,
   },
   methods: {
     kakaoLogout() {
@@ -194,6 +150,7 @@ export default {
     myaccount(){
       this.$router.push("/changeuser");
     },
+    
   },
 };
 </script>
@@ -254,6 +211,7 @@ export default {
 .v-toolbar__title{
   font-family: 'Jua', sans-serif;
   font-size:x-large;
+  margin:0 0 0 20px;
 }
 .jua{
   font-family: 'Jua', sans-serif;
@@ -262,4 +220,18 @@ export default {
   color:white !important;
   background: navy !important;
 }
+.v-responsive__content{
+  background-color:rgb(34,34,34);
+  opacity:0.5;
+  color:white !important;
+  margin:0 0 0 20px;
+  height:30px;
+  width:10%;
+}
+.v-card__title{
+  font-family: 'Nanum Pen Script', cursive ;
+  font-size:xx-large;
+  padding:0 0 0 20px;
+}
+
 </style>

@@ -52,7 +52,7 @@ export default {
   },
 };
 </script>
-<style>
+<style >
 .mx-auto.v-card.v-sheet.theme--light {
   margin-bottom: 30px;
 }
@@ -61,5 +61,8 @@ export default {
 }
 .v-btn__content{
   font-family:'Jua', sans-serif;
+}
+.v-responsive__content{
+  background:transparent !important;
 }
 </style>

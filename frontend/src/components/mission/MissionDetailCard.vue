@@ -2,7 +2,7 @@
   <div class="wrapC">
     <v-card class="mx-auto">
       <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg">
-        <v-card-title class="missiontitle">{{mission.missionTitle}}</v-card-title>
+        
       </v-img>
 
       <v-card-subtitle
@@ -14,7 +14,6 @@
         <div class="jua">커트라인 : {{mission.cutCnt}}</div>
         <div class="jua">배당 포인트 : {{mission.point}}</div>
         <div class="jua">차감 포인트 : {{mission.minusPoint}}</div>
-        <div class="jua">방장 : {{mission.memberNo}}</div>
         <div class="jua">방장 : {{mission.master}}</div>
       </v-card-text>
 
@@ -35,12 +34,10 @@ export default {
 };
 </script>
 <style>
-.missiontitle{
-  font-family: 'Nanum Pen Script', cursive ;
-  font-size:x-large;
-  color:navy;
-}
+
 .jua{
   font-family: 'Jua', sans-serif;
   font-size:medium;
 }
+
+</style>
