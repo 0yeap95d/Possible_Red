@@ -8,7 +8,7 @@
 
       <v-tab
         :key="item2">
-        인증
+        게시글
       </v-tab>
 
       </v-tabs>
@@ -33,16 +33,41 @@
           </v-card-text>
           </v-card>
         </v-tab-item>
-
-
       </v-tabs-items>
     </v-card>
+    <v-bottom-navigation v-model="bottomNav" black shift>
+        <v-btn @click="post" >
+          <span>POST</span>
+          <v-icon>mdi-text</v-icon>
+        </v-btn>
+
+        <v-btn @click="mission">
+          <span>Mission</span>
+          <v-icon>mdi-clipboard</v-icon>
+        </v-btn>
+
+        <v-btn @click="writing">
+          <span>Writing</span>
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+
+        <v-btn @click="search">
+          <span>Search</span>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn @click="profile">
+          <span>Profile</span>
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
   </v-app>
 </template>
 
 <script>
 import MissionAdd from '../../components/add/MissionAdd.vue'
 import PostAdd from '../../components/add/PostAdd.vue'
+import "../../components/css/style.css";
 
 export default {
     data () {
@@ -53,9 +78,33 @@ export default {
     components:{
         MissionAdd,
         PostAdd,
+    },
+    methods:{
+      post() {
+      this.$router.push("/posts");
+    },
+    mission() {
+      this.$router.push("/missionmain");
+    },
+    writing() {
+      this.$router.push("/add");
+    },
+    search() {
+      this.$router.push("/search");
+    },
+    profile() {
+      this.$router.push("/profile");
+    },
     }
 }
 </script>
 
 <style>
+.v-bottom-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+}
 </style>

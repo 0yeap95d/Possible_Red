@@ -6,11 +6,12 @@
     >
       <v-card-text>
       <v-autocomplete
+          style="color:white;"
+          class="jua"
           v-model="model"
           :items="items"
           :loading="isLoading"
           :search-input.sync="search"
-          color="white"
           hide-no-data
           hide-selected
           item-text="Description"
@@ -30,7 +31,7 @@
             :key="i"
             >
             <v-list-item-content>
-                <v-list-item-title v-text="field.value"></v-list-item-title>
+                <v-list-item-title v-text="field.value" ></v-list-item-title>
                 <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
             </v-list-item-content>
             </v-list-item>
@@ -121,4 +122,5 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
   .jua{
     font-family: 'Jua', sans-serif;
   }
+
 </style>

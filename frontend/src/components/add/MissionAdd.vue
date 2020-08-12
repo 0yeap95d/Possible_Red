@@ -1,90 +1,93 @@
 <!-- https://vuejsexamples.com/simple-and-clean-calendar-written-in-vue-js/ -->
 <template>
-  <div>
-    <div class="form-wrap mission-adds">
-      <div class="input-with-label">
-        <v-btn
-          small
-          v-for="cat in category"
-          :key="cat.categoryNo"
-          @click="toggleSwitch(cat.categoryNo)"
-          class="ma-2 mx-1"
-          color="indigo"
-          outlined
-        >
-          <!-- 여기 밑에 버튼들 true/false 각각 색 다르게 해줘 -->
-          <p v-if="isOn[cat.categoryNo]" text-color="red">{{cat.categoryContent}}</p>
-          <p v-else background="red">{{cat.categoryContent}}</p>
-        </v-btn>
-      </div>
+  <div class="wrapC">
+    <v-app>
+      <div class="form-wrap mission-adds">
+        <div class="input-with-label">
+          <v-btn
+            small
+            v-for="cat in category"
+            :key="cat.categoryNo"
+            @click="toggleSwitch(cat.categoryNo)"
+            class="ma-2 mx-1"
+            outlined
+          >
+            <p class="categories my-auto">{{cat.categoryContent}}</p>
+          </v-btn>
+          
+          <hr><br>
+        </div>
+        
+        <div class="input-with-label jua">
+          <label for="missionTitle" class="jua" >미션 이름</label>
+          <input
+            v-model="mission.missionTitle"
+            id="missionTitle"
+            placeholder="미션 제목을 입력하세요."
+            type="text"
+          />
+        </div>
 
-      <div class="input-with-label">
-        <label for="missionTitle">미션 이름</label>
-        <input
-          v-model="mission.missionTitle"
-          id="missionTitle"
-          placeholder="미션 제목을 입력하세요."
-          type="text"
-        />
-      </div>
+        <div class="input-with-label jua">
+          <label for="description" class="jua">설명</label>
+          <input
+            v-model="mission.description"
+            id="description"
+            placeholder="미션을 간단하게 설명해주세요."
+            type="text"
+          />
+          <br><br><br>
+        </div>
 
-      <div class="input-with-label">
-        <label for="description">설명</label>
-        <input
-          v-model="mission.description"
-          id="description"
-          placeholder="미션을 간단하게 설명해주세요."
-          type="text"
-        />
-      </div>
+        <div class="input-with-label">
+          <label>미션 수행 기간</label>
+          <v-range-selector :start-date.sync="range.start" :end-date.sync="range.end" />
+        </div>
 
-      <div class="input-with-label">
-        <label>미션 수행 기간</label>
-        <v-range-selector :start-date.sync="range.start" :end-date.sync="range.end" />
-      </div>
+        <div class="input-with-label jua">
+          <label for="point" class="jua">배당 포인트</label>
+          <input v-model="mission.point" id="point" placeholder="미션 입장 포인트를 입력하세요." type="text" />
+        </div>
 
-      <div class="input-with-label">
-        <label for="point">배당 포인트</label>
-        <input v-model="mission.point" id="point" placeholder="미션 입장 포인트를 입력하세요." type="text" />
-      </div>
+        <div class="input-with-label jua">
+          <label for="minusPoint" class="jua">차감 포인트</label>
+          <input
+            v-model="mission.minusPoint"
+            id="minusPoint"
+            placeholder="미션 미수행시 차감될 포인트를 입력하세요."
+            type="text"
+          />
+        </div>
 
-      <div class="input-with-label">
-        <label for="minusPoint">차감 포인트</label>
-        <input
-          v-model="mission.minusPoint"
-          id="minusPoint"
-          placeholder="미션 미수행시 차감될 포인트를 입력하세요."
-          type="text"
-        />
-      </div>
+        <div class="input-with-label jua">
+          <label for="cutCnt" class="jua">커트라인</label>
+          <input v-model="mission.cutCnt" id="cutCnt" placeholder="최소 미션 미수행 숫자를 입력하세요." type="text" />
+        </div>
 
-      <div class="input-with-label">
-        <label for="cutCnt">커트라인</label>
-        <input v-model="mission.cutCnt" id="cutCnt" placeholder="최소 미션 미수행 숫자를 입력하세요." type="text" />
+        <div class="input-with-label jua">
+          <label for="joinMem" class="jua">참여 인원</label>
+            <select v-model="mission.joinMem" id="joinMem">
+            <option disabled value class="jua">미션 참여 인원을 설정하세요.</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            
+          </select>
+        </div>
+        <br />
+        <br />
+        <div>
+          <button class="submit_button btn-bottom" @click="missionRegister">미션 등록하기</button>
+        </div>
       </div>
-
-      <div class="input-with-label">
-        <label for="joinMem">참여 인원</label>
-        <select v-model="mission.joinMem" id="joinMem">
-          <option disabled value>미션 침여 인원을 설정하세요.</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-        </select>
-      </div>
-      <br />
-      <br />
-      <div>
-        <button class="submit_button btn-bottom" @click="missionRegister">미션 등록하기</button>
-      </div>
-    </div>
+    </v-app>
   </div>
 </template>
 
@@ -119,6 +122,7 @@ export default {
         missionPhoto: "",
         missionCat: "",
         description: "",
+        v0:true,
       },
       range: {},
       category: [],
@@ -220,5 +224,89 @@ export default {
 .mission-adds {
   margin-bottom: 0rem;
   padding-bottom: 3rem;
+}
+.v-slide-group__content{
+  background:linear-gradient(to left , #f48fb1, #3949ab);
+}
+.jua{
+  font-family: 'Jua', sans-serif;
+}
+.v-tab.v-tab--active{
+  font-family: 'Jua', sans-serif;
+  font-size:x-large;
+}
+.v-tab{
+  font-family: 'Jua', sans-serif;
+  font-size:middle;
+}
+.categories{
+  color:black !important;
+  font-family: 'Jua', sans-serif;
+  font-size:large;
+  display:inline-block;
+  vertical-align:middle;
+  height:100%; 
+}
+.v-btn:not(.v-btn--round).v-size--small{
+  border-color:white;
+}
+.ma-2.mx-1.v-btn.v-btn--depressed.v-btn--flat.v-btn--outlined.theme--light.v-size--small{
+  background:#ECEFF1;
+  
+}
+.v-ripple__container{
+  background:#f48fb1;
+}
+.v-btn__content{
+  color:white;
+}
+.vl-calendar-month__title{
+  font-family: 'Jua', sans-serif;
+  font-size:large;
+  color:#673AB7;
+}
+.vl-calendar-month__week-day{
+  font-family: 'Jua', sans-serif;
+  font-size:medium;
+  color:black;
+}
+.vl-calendar-month__day{
+  font-family: 'Jua', sans-serif;
+  font-size:medium;
+  color:#546E7A;
+}
+.vl-calendar-month__day:hover:not(.selected) {
+  background:black;
+}
+.vl-calendar-month__day.selected.selected--first.selected--last.disabled.disabled--first.disabled--last {
+  color:yellow;
+  background:black;
+  border:transparent;
+}
+.vl-calendar-month__day.selected.selected--first{
+  background:#f48fb1;
+}
+.vl-calendar-month__day.selected{
+  background:#EC407A;
+}
+.vl-calendar-month__day.selected.selected--last{
+  background:#880E4F;
+}
+label.jua{
+  margin : -4px 0 5px;
+  font-size:medium;
+}
+.input-with-label.jua{
+  text-align:right;
+}
+.submit_button.btn-bottom{
+  background:linear-gradient(to left , #f48fb1, #3949ab);
+  border-color:transparent;
+  border-radius:5px;
+  font-family:'Jua', sans-serif;
+  font-size:large;
+}
+.vl-calendar{
+  background-color:white
 }
 </style>

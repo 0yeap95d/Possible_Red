@@ -231,4 +231,7 @@ export default {
 .v-responsive__content {
   background-color: transparent;
 }
+.v-app-bar__nav-icon.v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default{
+  color:white !important;
+}
 </style>
