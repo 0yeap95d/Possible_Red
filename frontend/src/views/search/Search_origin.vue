@@ -1,7 +1,7 @@
 <template>
   <div class="wrap search-pg">
     <v-app>
-      <SearchBar3 class="search-bar"/>
+      <SearchBar2 class="search-bar"/>
       <v-bottom-navigation
           v-model="bottomNav"
           black
@@ -32,6 +32,9 @@
           <v-icon>mdi-account</v-icon>
           </v-btn>
       </v-bottom-navigation>
+
+      
+      <Footer />
     </v-app>
   </div>
 </template>
@@ -39,7 +42,7 @@
 <script>
 import "../../components/css/user.scss";
 import "../../components/css/style.css";
-import SearchBar3 from "../../components/search/Searchbar3.vue";
+import SearchBar2 from "../../components/search/Searchbar2.vue";
 
 export default {
   name: "Search",
@@ -47,7 +50,7 @@ export default {
     return {};
   },
   components: {
-    SearchBar3,
+    SearchBar2,
   },
   methods:{
     post(){
