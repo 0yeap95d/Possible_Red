@@ -237,4 +237,7 @@ export default {
     .jua{
     font-family: 'Jua', sans-serif;
     }
+    .v-icon.notranslate.mdi.mdi-menu.theme--dark{
+    color:white;
+    }
 </style>
