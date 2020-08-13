@@ -33,7 +33,7 @@ public class EmailAPIController {
     public ResponseEntity<String> addMember(@PathVariable String email) throws Exception {
         int random  = new Random().nextInt(900000)+123456;
         String toRandom = Integer.toString(random);
-        if(mailService.send("이메일 인증 번호",toRandom,email)) {
+        if(mailService.send("Team Possible Red - 이메일 인증 번호",toRandom,email)) {
             return new ResponseEntity<String>(toRandom, HttpStatus.OK);
         }
         else return new ResponseEntity<String>(FAIL, HttpStatus.OK);
