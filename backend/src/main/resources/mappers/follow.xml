@@ -3,17 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.SNS201.mapper.FollowMapper">
-    <select id="selectFollowMe" resultType="Follow">
+    <select id="selectFollowMe" resultType="Follow" parameterType="int">
 		SELECT  *
 		  FROM  follow
-		 WHERE  you = #{me}
+		 WHERE  you = #{memberNo}
 		 ORDER  BY followDate ASC
 	</select>
 
-    <select id="selectFollowYou" resultType="Follow">
+    <select id="selectFollowYou" resultType="Follow" parameterType="int">
 		SELECT  *
 		  FROM  follow
-		 WHERE  me = #{me}
+		 WHERE  me = #{memberNo}
 		 ORDER  BY followDate ASC
 	</select>
 

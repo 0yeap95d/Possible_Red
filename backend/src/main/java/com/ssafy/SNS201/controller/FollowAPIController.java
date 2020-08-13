@@ -29,10 +29,10 @@ public class FollowAPIController {
 
 
     @ApiOperation(value = "모든 팔로워의 정보를 반환한다.", response = List.class)
-    @GetMapping("/all/follower")
-    public ResponseEntity<List<Follow>> findAllFollowMe() throws Exception {
+    @GetMapping("/all/follower/{memberNo}")
+    public ResponseEntity<List<Follow>> findAllFollowMe(@PathVariable int memberNo) throws Exception {
         logger.info("1-------------findAllFollowMe-----------------------------"+new Date());
-        List<Follow> follows = followService.findAllFollowMe();
+        List<Follow> follows = followService.findAllFollowMe(memberNo);
         if (follows.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -41,10 +41,10 @@ public class FollowAPIController {
 
 
     @ApiOperation(value = "모든 팔로잉의 정보를 반환한다.", response = List.class)
-    @GetMapping("/all/following")
-    public ResponseEntity<List<Follow>> findAllFollowYou() throws Exception {
+    @GetMapping("/all/following/{memberNo}")
+    public ResponseEntity<List<Follow>> findAllFollowYou(@PathVariable int memberNo) throws Exception {
         logger.info("1-------------findAllFollowYou-----------------------------"+new Date());
-        List<Follow> follows = followService.findAllFollowYou();
+        List<Follow> follows = followService.findAllFollowYou(memberNo);
         if (follows.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
