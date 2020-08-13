@@ -1,62 +1,119 @@
-<!--
-  구현해야 할 작업
-    1. 서치 바 클릭하면 카탈로그 없어지기 => search.vue에서 하면 됨
-    2. 서치바에 들어온 단어 search API로 보내기
--->
 <template>
-  <div class="wrapC">
-    <b-form-tags no-outer-focus class="mb-2">
-      <!--template v-slot="{ tags, inputAttrs, inputHandlers, tagVariant, addTag, removeTag }"-->
-      <b-input-group class="mb-2">
-        <b-form-input
-          @keyup.enter="searchByKeyword()"
-          v-model="keyword"
+  <div class="pt-0">
+    <v-card
+        color="red lighten-2"
+        dark
+    >
+      <v-card-text>
+      <v-autocomplete
+          v-model="model"
+          :loading="isLoading"
+          :search-input.sync="search"
+          color="white"
+          hide-no-data
+          hide-selected
+          label=""
           placeholder="검색 방법 : 포스트내용, @사용자, #해시태그"
-          class="form-control"
-        ></b-form-input>
-        <b-input-group-append>
-          <b-button class="btn-search" @click="searchByKeyword()" variant="primary">🔍</b-button>
-        </b-input-group-append>
-      </b-input-group>
-      <!--div class="d-inline-block" style="font-size: 1.5rem;">
-            <b-form-tag
-              v-for="tag in tags"
-              @remove="removeTag(tag)"
-              :key="tag"
-              :title="tag"
-              :variant="tagVariant"
-              class="mr-1"
-            >{{ tag }}</b-form-tag>
-      </div-->
-      <!--/template-->
-    </b-form-tags>
+          prepend-icon="mdi-database-search"
+          return-object
+      ></v-autocomplete>
+      </v-card-text>
+    </v-card>
+    <SearchCategoryBar v-if="!isSearching" />
   </div>
 </template>
 
 <script>
-export default {
-  name: "SearchBar",
-  data() {
-    return {
-      keyword: "",
-    };
-  },
-  methods: {
-    searchByKeyword() {
-      if (!this.keyword) {
-        alert("검색할 단어를 입력해주세요!");
-        return;
-      }
-      console.log(this.keyword);
-      //Api 만든걸로 바로 넣어주면됨!
-    },
-  },
-};
-</script>
+import SearchCategoryBar from "./SearchCategoryBar.vue";
 
-<style>
-.btn-search {
-  height: 100%;
-  box-shadow: none;
-}
+  export default {
+    props: {
+      isSearching: Boolean
+    },
+    data() {
+      return {
+        descriptionLimit: 60,
+        entries: [],
+        isLoading: false,
+        model: null,
+        search: null,
+        searchItem: {
+          type: null,
+          keyword: null,
+        },
+      }
+    },
+    components: {
+      SearchCategoryBar,
+    },
+    methods: {
+      
+    },
+    watch: {
+      model (val) {
+        if (val != null) this.tab = 0
+        else this.tab = null
+      },
+      search (val) {
+        console.log("길이",this.search.length)
+
+        if (this.search.length > 0) {
+          this.searchItem.keyword = this.search
+          console.log("search:",this.search)
+          if (this.search[0]=='@') {
+            if (this.search.length >= 2){
+            console.log("uesr")
+            this.searchItem.type="user"
+            this.$emit('search-items', this.searchItem)
+            } else {
+              this.searchItem.type="none"
+              this.searchItem.keyword = ""
+              this.$emit('search-items', this.searchItem)
+            }
+          } else if (this.search[0]=="#"){
+            if (this.search.length >= 2){
+            console.log("hashtag")
+            this.searchItem.type="hashtag"
+            this.$emit('search-items', this.searchItem)
+            } else {
+              this.searchItem.type="none"
+              this.searchItem.keyword = ""
+              this.$emit('search-items', this.searchItem)
+            }
+          } else {
+            console.log("post")
+            this.searchItem.type="post"
+            this.$emit('search-items', this.searchItem)
+          }
+        }
+        else {
+          this.searchItem.type="none"
+          this.searchItem.keyword = ""
+          this.$emit('search-items', this.searchItem)
+        }
+      },
+    },
+  }
+</script>
+<style scoped>
+  .v-card__text{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .v-card__title.headline.red.lighten-3{
+    color:white;
+  }
+  
+  .v-card.v-sheet.theme--dark.red.lighten-2{
+    background:linear-gradient(to bottom , #f48fb1, #3949ab) !important;
+  }
+  .v-text-field{
+    margin-top: 0;
+  }
+  .search-space {
+    margin: 0;
+  }
+  .jua{
+    font-family: 'Jua', sans-serif;
+  }
 </style>
