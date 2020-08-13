@@ -17,13 +17,13 @@ public class FollowServiceImpl implements FollowService {
     private FollowMapper mapper;
 
     @Override
-    public List<Follow> findAllFollowMe() {
-        return mapper.selectFollowMe();
+    public List<Follow> findAllFollowMe(int memberNo) {
+        return mapper.selectFollowMe(memberNo);
     }
 
     @Override
-    public List<Follow> findAllFollowYou() {
-        return mapper.selectFollowYou();
+    public List<Follow> findAllFollowYou(int memberNo) {
+        return mapper.selectFollowYou(memberNo);
     }
 
     @Override
