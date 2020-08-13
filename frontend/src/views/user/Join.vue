@@ -91,9 +91,16 @@
               <v-btn color="#01579B" dark v-bind="attrs" v-on="on">약관보기</v-btn>
             </template>
             <v-card>
+              <div class="d-flex">
               <v-card-title>
                 <span class="headline jua">POSSIBLE RED 이용약관</span>
               </v-card-title>
+              
+                <v-btn icon dark @click="dialog = false">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </div>
+              
               <v-card-text class="jua">
                 <br />
                 <p>제1조(목적)</p>
@@ -192,11 +199,6 @@
                 </p>
                 <br />
               </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
-                <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
-              </v-card-actions>
             </v-card>
           </v-dialog>
         </v-row>
@@ -348,6 +350,7 @@ export default {
         email: "",
         pwd: "",
         nickname: "",
+        dialog:false,
       },
 
       pwdCheck: "",
@@ -386,5 +389,12 @@ export default {
   .sign2{
     font-family: 'Jua', sans-serif;
     background:linear-gradient(to right , #f48fb1, #3949ab);
+  }
+  .v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default::before{
+      position:absolute;
+  }
+  .rightbutton{
+    float:right;
+    margin:0 10% 0 0;
   }
 </style>
