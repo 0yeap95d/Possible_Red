@@ -83,15 +83,6 @@ import KakaoLogin from "../../components/user/snsLogin/Kakao.vue";
 import GoogleLogin from "../../components/user/snsLogin/Google.vue";
 import UserApi from "../../api/UserApi";
 
-let onSuccess = (data) => {
-  console.log(data)
-  console.log("success")
-}
-let onFailure = (data) => {
-  console.log(data)
-  console.log("failure")
-}
-
 export default {
   components: {
     KakaoLogin,
@@ -99,7 +90,6 @@ export default {
   },
   created() {
     this.component = this;
-
     this.passwordSchema
       .is()
       .min(8)
@@ -183,8 +173,6 @@ export default {
     findpwd() {
       this.$router.push("/findpwd");
     },
-    onSuccess,
-    onFailure
   },
   data: () => {
     return {

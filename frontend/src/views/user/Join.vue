@@ -1,49 +1,80 @@
 <template>
   <div class="wrapC">
-      <div class="wrap components-page p-1">
-        <HeaderComponent headerTitle="Sign In" :isBack="true" />
-      </div>
-    
 
+    <div class="wrap components-page p-1">
+      <HeaderComponent headerTitle="Sign In" :isBack="true" />
+    </div>
+    
+    <!-- 이메일 입력 -->
     <div class="input-with-label jua">
-      <input v-model="email" id="email" placeholder="이메일을 입력하세요." type="text" />
+      <input 
+        v-model="user.email"
+        v-bind:class="{
+          error : error.email, 
+          complete: !error.email&&user.email.length!==0
+        }"
+        id="email" 
+        placeholder="이메일을 입력하세요." 
+        type="text" 
+        :disabled="isEmailOK"
+      />
       <label for="email" class="jua">이메일</label>
+      <div class="error-text" v-if="error.email">{{error.email}}</div>
     </div>
 
+    <!-- 이메일 인증받기 전 -->
     <div v-if="!isEmailOK">
-      <!-- 이메일 인증 X -->
-      <button @click="sendMail" class="sign">인증번호 받기</button>
-      <br>
-      <br>
-
+      <button @click="sendMail" class="sign">인증번호 받기</button><br><br>
       <div class="input-with-label jua">
-        <input v-model="randNum" id="randNum" placeholder="인증번호를 입력하세요" type="text" />
+        <input 
+          v-model="randNum" 
+          id="randNum" 
+          placeholder="인증번호를 입력하세요" 
+          type="text" 
+        />
         <label for="randNum" class="jua">인증번호</label>
-      </div>
-      <br /> 
+      </div><br /> 
       <button @click="isSameNum" class="sign">인증하기</button>
     </div>
 
+    <!-- 이메일 인증받은 후  -->
     <div v-else>
       <div class="form-wrap">
+        
+        <!-- 닉네임 입력 -->
         <div class="input-with-label jua">
-          <input v-model="nickname" id="nickname" placeholder="닉네임을 입력하세요." type="text" />
+          <input 
+            v-model="user.nickname" 
+            id="nickname" 
+            v-bind:class="{error : error.nickname, complete:!error.nickname&&user.nickname.length!==0}"
+            placeholder="닉네임을 입력하세요." 
+            type="text" />
           <label for="nickname" class="jua">닉네임</label>
+          <div class="error-text" v-if="error.nickname">{{error.nickname}}</div>
         </div>
 
-        <div class="input-with-label jua">
-          <input v-model="pwd" id="pwd" :type="passwordType" placeholder="비밀번호를 입력하세요." />
-          <label for="pwd"  class="jua">비밀번호</label>
-        </div>
-
+        <!-- 패스워드 입력 -->
         <div class="input-with-label jua">
           <input
-            v-model="passwordConfirm"
-            :type="passwordConfirmType"
+            v-model="user.pwd" 
+            id="pwd" 
+            type="password"
+            v-bind:class="{error : error.pwd, complete:!error.pwd&&user.pwd.length!==0}"
+            placeholder="비밀번호를 입력하세요." />
+          <label for="pwd"  class="jua">비밀번호</label>
+          <div class="error-text" v-if="error.pwd">{{error.pwd}}</div>
+        </div>
+
+        <!-- 패스워드 재입력 -->
+        <div class="input-with-label jua">
+          <input
+            v-model="pwdCheck"
             id="password-confirm"
-            placeholder="비밀번호를 다시한번 입력하세요."
-          />
+            type="password"
+            v-bind:class="{error : error.pwdCheck, complete:!error.pwdCheck&&pwdCheck.length!==0}"
+            placeholder="비밀번호를 다시한번 입력하세요."/>
           <label for="password-confirm" class="jua">비밀번호 확인</label>
+          <div class="error-text" v-if="error.pwdCheck">{{error.pwdCheck}}</div>
         </div>
       </div>
 
@@ -172,11 +203,19 @@
       </v-app>
     </div>
 
-    <button class="btn-bottom sign2" @click="onRegister" >가입하기</button>
+    <button 
+      class="btn-bottom sign2" 
+      @click="onRegister"
+      :disabled="!isSubmit"
+      :class="{disabled : !isSubmit}" 
+    >가입하기</button>
+
   </div>
 </template>
 
 <script>
+import * as EmailValidator from "email-validator";
+import PV from "password-validator";
 import UserApi from "../../api/UserApi";
 import EmailApi from "../../api/EmailApi";
 import "../../components/css/user.scss";
@@ -186,39 +225,97 @@ export default {
   components: {
     HeaderComponent,
   },
-  data: () => {
-    return {
-      email: "",
-      pwd: "",
-      passwordConfirm: "",
-      nickname: "",
-      isTerm: false,
-      isLoading: false,
-      error: {
-        email: false,
-        pwd: false,
-        nickname: false,
-        passwordConfirm: false,
-        term: false,
-      },
-      isSubmit: false,
-      passwordType: "password",
-      passwordConfirmType: "password",
-      termPopup: false,
-      dialog: false,
-      isEmailOK: false, // 메일인증이 됐는지 안됐는지
-      randNum: "", // 내가 입력하는 인증번호
-      num: "", // 받아오는 인증번호
-    };
+
+  created() {
+    this.component = this;
+    this.passwordSchema
+      .is()
+      .min(8)
+      .is()
+      .max(100)
+      .has()
+      .digits()
+      .has()
+      .letters();
   },
+
+  watch: {
+    'user.email': function (v) { this.checkEmailForm(); },
+    'user.nickname': function (v) { this.checkNicknameForm(); },
+    'user.pwd': function (v) { this.checkPwdForm(); },
+    'pwdCheck': function (v) { this.checkPwdConfirm(); },
+    'isTerm': function (v) { this.checkIsTerm(); },
+  },
+
+
   methods: {
+
+    checkEmailForm() {
+      // 이메일 유효성 검사
+      console.log("email validate")
+      if (this.user.email.length >= 0 && !EmailValidator.validate(this.user. email))
+        this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
+    },
+
+    checkNicknameForm() {
+      console.log("nickname validate")
+      if (this.user.nickname.length >= 0 && this.user.nickname.length <= 2)
+        this.error.nickname = "닉네임은 2글자 이상만 가능합니다.";
+      else this.error.nickname = false;
+
+      if (( this.user.nickname.length > 0 && !this.error.nickname &&
+            this.user.pwd.length > 0 && !this.error.pwd && 
+            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+        this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+
+    checkPwdForm() {
+      // password 유효성 검사
+      console.log("password validate")
+      if (
+        this.user.pwd.length >= 0 &&
+        !this.passwordSchema.validate(this.user.pwd)
+      )
+        this.error.pwd = "영문,숫자 포함 8 자리이상이어야 합니다.";
+      else this.error.pwd = false;
+
+      if (( this.user.nickname.length > 0 && !this.error.nickname &&
+            this.user.pwd.length > 0 && !this.error.pwd && 
+            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+        this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+
+    checkPwdConfirm() {
+      // password 일치 검사
+      console.log("pwdConfirm")
+      if ( this.pwdCheck.length >= 0 && this.pwdCheck != this.user.pwd )
+        this.error.pwdCheck = "비밀번호가 일치하지 않습니다.";
+      else this.error.pwdCheck = false;
+
+      if (( this.user.nickname.length > 0 && !this.error.nickname &&
+            this.user.pwd.length > 0 && !this.error.pwd && 
+            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+        this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+
+    checkIsTerm() {
+      // 약관 동의 체크 검사
+      if (( this.user.nickname.length > 0 && !this.error.nickname &&
+            this.user.pwd.length > 0 && !this.error.pwd && 
+            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+        this.isSubmit = true;
+      else this.isSubmit = false;
+    },
+
     sendMail() {
-      //console.log(this.isEmailOK);
       EmailApi.requestRandomNumber(
-        this.email,
+        this.user.email,
         (res) => {
           this.num = res.data;
-          //console.log(this.num);
           alert("인증번호가 발송되었습니다.\n메일을 확인해주세요");
         },
         (error) => {
@@ -226,9 +323,8 @@ export default {
         }
       );
     },
+
     isSameNum() {
-      console.log("randNum : " + this.randNum);
-      console.log("num : " + this.num);
       if (this.randNum == this.num) {
         alert("이메일 인증이 완료되었습니다");
         this.isEmailOK = true;
@@ -236,26 +332,42 @@ export default {
         alert("인증번호를 정확하게 입력해주세요");
       }
     },
+
     onRegister() {
-      let { email, pwd, nickname } = this;
-      let data = {
-        email,
-        pwd,
-        nickname,
-      };
-
       UserApi.requestRegister(
-        data,
-        (res) => {
-          //통신을 통해 전달받은 값 콘솔에 출력
-          //console.log(res);
-          console.log(res.data);
-
-          this.$router.push("/");
-        },
+        this.user,
+        (res) => { this.$router.push("/"); },
         (error) => {}
       );
     },
+  },
+
+  data: () => {
+    return {
+      user: {
+        email: "",
+        pwd: "",
+        nickname: "",
+      },
+
+      pwdCheck: "",
+
+      error: {
+        email: false,
+        nickname: false,
+        pwd: false,
+        pwdCheck: false,
+      },
+
+      isSubmit: false,
+      isTerm: false,
+      dialog: false,
+      isEmailOK: false, // 메일인증이 됐는지 안됐는지
+      randNum: "", // 내가 입력하는 인증번호
+      num: "", // 받아오는 인증번호
+      passwordSchema: new PV(),
+      component: this,
+    };
   },
 };
 </script>
