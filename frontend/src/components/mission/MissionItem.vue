@@ -2,8 +2,11 @@
   <div class="wrapC">
     <v-card class="mx-auto" v-for="mission in missions" :key="mission.etag" :item="mission">
       <!-- 머여 : {{mission.start}} -->
-      <i v-if="mission.start" class="fas fa-cookie">🍪</i>
-      <i v-else class="fas fa-cookie-bite">{{mission.isStart}}</i>
+      <i
+        v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
+        class="fas fa-cookie"
+      ></i>
+      <i v-else-if="mission.start" class="fas fa-cookie-bite"></i>
 
       <v-img class="white--text align-end" height="200px" src="https://picsum.photos/400"></v-img>
 
@@ -25,6 +28,7 @@
   </div>
 </template>
 <script>
+import { now } from "moment";
 export default {
   name: "MissionItem",
   props: {
@@ -37,6 +41,19 @@ export default {
     };
   },
   methods: {
+    getCookie(sDate, eDate, today) {
+      /*
+        1. 시작날짜가 오늘날짜보다 이후이다 => 쿠키 있음 true
+        2. 끝나는 날짜가 오늘날짜보다 이전이다 => 쿠키 없음 false
+      */
+      if (today < sDate) {
+        console.log("쿠키있음");
+        return true;
+      } else if (eDate < today) {
+        console.log("쿠키없음");
+        return false;
+      }
+    },
     gotomissiondetail(num) {
       this.$router.push({
         name: "MissionDetail",
