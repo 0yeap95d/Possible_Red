@@ -216,6 +216,9 @@ export default {
   font-family: 'Jua', sans-serif;
   font-size:x-large;
 }
+.v-icon.notranslate.mdi.mdi-menu.theme--dark{
+  color:white;
+}
 
 
 </style>

@@ -104,6 +104,18 @@ export default {
 }
 </script>
 
-<style>
+<style >
+.v-slide-group__content{
+  background:white;
 
+}
+.v-tab.v-tab--active{
+  color:#8E24AA;
+}
+.v-tab{
+  color:#CE93D8;
+}
+.v-tabs-slider{
+  color:#CE93D8;
+}
 </style>
