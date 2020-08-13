@@ -27,6 +27,8 @@
         />
         <label for="password" class="jua">비밀번호</label>
 
+        <button @click="goFindPW()">비밀번호 변경하기</button>
+
         <!-- 패스워드 유효성체크 -->
         <div class="error-text" v-if="error.password">{{error.password}}</div>
       </div>
@@ -92,6 +94,9 @@ export default {
   },
 
   methods: {
+    goFindPW() {
+      this.$router.push("/findpwd");
+    },
     fileSelect() {
       this.memberImg = this.$refs.memberImg.files[0];
       // 미리보기
