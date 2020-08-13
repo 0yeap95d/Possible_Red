@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-card style="margin-bottom: 10rem; box-shadow: none;">
-      <v-tabs v-model="tab" background-color="primary" dark>
+      <v-tabs v-model="tab" >
       <v-tab :key="item1">
         미션
       </v-tab>
@@ -107,4 +107,5 @@ export default {
   bottom: 0;
   height: 3rem;
 }
+
 </style>

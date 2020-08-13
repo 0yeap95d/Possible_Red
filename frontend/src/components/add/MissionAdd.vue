@@ -11,7 +11,10 @@
             @click="toggleSwitch(cat.categoryNo)"
             class="ma-2 mx-1"
             outlined
-          >
+          > 
+            <div class="v-tabs-slider-wrapper" style="height:2px; left:118px; width;90px;">
+              <div class="v-tabs-slider"></div>
+            </div>
             <p class="categories my-auto">{{cat.categoryContent}}</p>
           </v-btn>
           
@@ -67,18 +70,17 @@
         <div class="input-with-label jua">
           <label for="joinMem" class="jua">참여 인원</label>
             <select v-model="mission.joinMem" id="joinMem">
-            <option disabled value class="jua">미션 참여 인원을 설정하세요.</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            
+              <option disabled value class="jua" style="text-align:center;">미션 참여 인원을 설정하세요.</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
           </select>
         </div>
         <br />
@@ -254,9 +256,7 @@ export default {
   background:#ECEFF1;
   
 }
-.v-ripple__container{
-  background:#f48fb1;
-}
+
 .v-btn__content{
   color:white;
 }
@@ -308,5 +308,9 @@ label.jua{
 }
 .vl-calendar{
   background-color:white
+}
+#joinMem{
+  margin:10px 10px;
+  float:left;
 }
 </style>

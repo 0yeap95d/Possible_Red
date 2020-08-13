@@ -1,6 +1,6 @@
 <!-- https://kanetami.tistory.com/97 -->
 <template>
-  <div>
+  <div class="wrapC">
     <div class="form-wrap post-adds">
       <!-- 여기에 v-for써서 미션리스트 셀렉트박스로 보여주기 -->
       <p class="jua">
@@ -30,7 +30,7 @@
           id="postContent"
           placeholder="내용을 입력하세요"
           type="text"
-          cols="39%"
+          cols="30%"
           rows="10"
         />
       </div>
@@ -121,5 +121,10 @@ export default {
 .jua_small{
   font-size:medium;
   font-family: 'Jua', sans-serif;
+}
+#postContent{
+  text-align:center;
+  float:left;
+  margin:10% 10%;
 }
 </style>
