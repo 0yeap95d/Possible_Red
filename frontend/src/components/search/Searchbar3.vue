@@ -7,14 +7,11 @@
       <v-card-text>
       <v-autocomplete
           v-model="model"
-          :items="items"
           :loading="isLoading"
           :search-input.sync="search"
           color="white"
           hide-no-data
           hide-selected
-          item-text="Description"
-          item-value="API"
           label=""
           placeholder="검색 방법 : 포스트내용, @사용자, #해시태그"
           prepend-icon="mdi-database-search"
@@ -38,8 +35,32 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
       search: null,
     }),
     components: {
-    SearchCategoryBar,
-  },
+      SearchCategoryBar,
+    },
+    methods: {
+      
+    },
+    watch: {
+      model (val) {
+        if (val != null) this.tab = 0
+        else this.tab = null
+      },
+      search (val) {
+        if (this.search.length > 0) {
+          console.log("search:",this.search)
+          if (this.search[0]=='@') {
+            console.log("사용자")
+          } else if (this.search[0]=="#"){
+            console.log("해시태그")
+          } else {
+            console.log("포스트 내용")
+          }
+        }
+        else {
+          return
+        }
+      },
+    },
   }
 </script>
 <style scoped>
