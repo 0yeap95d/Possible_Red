@@ -104,10 +104,16 @@ export default {
 }
 </script>
 
-<style >
+<style>
+
+.v-slide-group__content.v-tabs-bar__content{
+  background:transparent;
+}
+.v-application .deep-purple--text.text--accent-4{
+  color:#8E24AA;
+}
 .v-slide-group__content{
   background:white;
-
 }
 .v-tab.v-tab--active{
   color:#8E24AA;
@@ -116,6 +122,6 @@ export default {
   color:#CE93D8;
 }
 .v-tabs-slider{
-  color:#CE93D8;
+  color:#7E57C2;
 }
 </style>

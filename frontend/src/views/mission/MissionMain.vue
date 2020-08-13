@@ -234,4 +234,7 @@ export default {
 .v-app-bar__nav-icon.v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default{
   color:white !important;
 }
+.v-icon.notranslate.mdi.mdi-menu.theme--dark{
+  color:white;
+}
 </style>

@@ -107,5 +107,7 @@ export default {
   bottom: 0;
   height: 3rem;
 }
-
+.v-tab.v-tab--active{
+  color:blueviolet
+}
 </style>
