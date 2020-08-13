@@ -49,6 +49,7 @@ public class EntryAPIController {
     @PostMapping()
     public ResponseEntity<String> addEntry(@RequestBody Entry entry) throws Exception {
         logger.info("5-------------addEntry-----------------------------" + entry);
+        System.out.println(entry.toString());
         if(entryService.addEntry(entry)) return new ResponseEntity<String>("success", HttpStatus.OK);
         else return new ResponseEntity<String>("fail", HttpStatus.OK);
     }
@@ -71,5 +72,15 @@ public class EntryAPIController {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
         return new ResponseEntity<String>("fail",HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value = "본인이 참여할 수 있는지 없는지 여부를 판단한다.", response = String.class)
+    @GetMapping("/{memberNo}/{missionNo}")
+    public ResponseEntity<String> findCountByMemberNoAndMissionNo(@PathVariable int memberNo,@PathVariable int missionNo ) throws Exception {
+        logger.info("1-------------can i join this mission?-----------------------------"+new Date());
+        if (entryService.findCountByMemberNoAndMissionNo(memberNo,missionNo)==0) {
+            return new ResponseEntity<String>("success",HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
     }
 }
