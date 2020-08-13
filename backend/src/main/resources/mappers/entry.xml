@@ -40,4 +40,12 @@
 		DELETE FROM entry WHERE entryNo   = #{entryNo}
 	</delete>
 
+    <select id="selectCountByMemberNoAndMissionNo" resultType="int">
+        SELECT COUNT(*)
+         FROM entry
+        WHERE
+                memberNo = #{memberNo}
+            AND missionNo= #{missionNo};
+    </select>
+
 </mapper>

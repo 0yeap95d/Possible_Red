@@ -11,4 +11,5 @@ public interface EntryService {
     public boolean addEntry(Entry entry);
     public boolean modifyEntry(Entry entry);
     public boolean removeEntry(int entryNo);
+    public int findCountByMemberNoAndMissionNo(int memberNo, int missionNo);
 }
