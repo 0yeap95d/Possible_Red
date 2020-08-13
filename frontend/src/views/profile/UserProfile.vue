@@ -219,6 +219,9 @@ export default {
 .v-icon.notranslate.mdi.mdi-menu.theme--dark{
   color:white;
 }
+.v-slide-group__content.v-tabs-bar__content{
+  background-color:white;
+}
 
 
 </style>
