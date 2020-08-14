@@ -240,4 +240,5 @@ export default {
     .v-icon.notranslate.mdi.mdi-menu.theme--dark{
     color:white;
     }
+    
 </style>
