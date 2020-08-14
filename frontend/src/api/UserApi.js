@@ -51,6 +51,7 @@ const requestEmailCheck = (data, callback, errorCallback) => {
 }
 
 const requestMemberByNo = (data, callback, errorCallback) => {
+    // 사용자의 상세 정보를 반환한다.
     Axios.get('http://localhost:8080/sns201/member/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))

@@ -1,4 +1,5 @@
 <template>
+  <!-- 미션리스트에 하나하나 불러오기 위한 컴포넌트 -->
   <div class="wrapC">
     <v-card class="mx-auto" v-for="mission in missions" :key="mission.etag" :item="mission">
       <i
@@ -10,9 +11,8 @@
       <v-img class="white--text align-end" height="200px" src="https://picsum.photos/400"></v-img>
 
       <v-card-text class="text--primary">
-        <div class="jua">미션타이틀 : {{ mission.missionTitle }}</div>
-        <div class="jua">미션 넘버 ㅅㅂ : {{ mission.missionNo }}</div>
-        <div class="jua">참가할 멤버 : {{ mission.joinMem }}</div>
+        <div class="jua">미션 타이틀 : {{ mission.missionTitle }}</div>
+        <div class="jua">최대 인원 : {{ mission.joinMem }}</div>
         <div
           class="jua"
         >{{ $moment(mission.startDate).format('YYYY-MM-DD') }} ~ {{ $moment(mission.endDate).format('YYYY-MM-DD') }}</div>

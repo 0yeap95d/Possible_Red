@@ -24,11 +24,18 @@ const requestMissionRegister = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 } // 새로운 미션 정보 입력
 
+const requestMissionUpdate = (data, callback, errorCallback) => {
+    Axios.put('http://localhost:8080/sns201/mission', data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+} // 미션 업데이트
+
 const MissionApi = {
     requestAllMission: (callback, errorCallback) => requestAllMission(callback, errorCallback),
     requestMissionByMember: (data, callback, errorCallback) => requestMissionByMember(data, callback, errorCallback),
     requestMissionRegister: (data, callback, errorCallback) => requestMissionRegister(data, callback, errorCallback),
     requestMissionDetail: (data, callback, errorCallback) => requestMissionDetail(data, callback, errorCallback),
+    requestMissionUpdate: (data, callback, errorCallback) => requestMissionUpdate(data, callback, errorCallback),
 }
 
 export default MissionApi
