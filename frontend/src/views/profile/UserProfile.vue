@@ -95,7 +95,6 @@
 
 <script>
 import ProfileBody from "../../components/profile/ProfileBody.vue";
-import ProfileHeader from "../../components/profile/ProfileHeader.vue";
 import ProfileInfo from "../../components/profile/ProfileInfo.vue";
 import "../../assets/css/components.scss";
 

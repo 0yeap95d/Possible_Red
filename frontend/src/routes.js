@@ -9,7 +9,6 @@ import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
 import Comments from "./views/post/Comments.vue";
 import UserProfile from './views/profile/UserProfile.vue';
-import Profile from './views/profile/Profile.vue';
 import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
 import MissionMain from './views/mission/MissionMain.vue';
@@ -21,6 +20,7 @@ import MyPost from './views/my/MyPost.vue';
 import MyPoint from './views/my/MyPoint.vue';
 import SearchByCategory from './views/search/SearchByCategory'
 import MissionModify from './views/mission/MissionModify.vue';
+import ProfileFollow from './views/profile/ProfileFollow.vue';
 
 export default [
   {
@@ -80,11 +80,6 @@ export default [
     component: UserProfile
   },
   {
-    path: '/profile2',
-    name: 'Profile',
-    component: Profile
-  },
-  {
     path: '/add',
     name: 'Add',
     component: Add
@@ -139,5 +134,10 @@ export default [
     path: '/missionmodify',
     name: 'MissionModify',
     component: MissionModify
+  },
+  {
+    path: '/profilefollow',
+    name: 'ProfileFollow',
+    component: ProfileFollow
   },
 ];
