@@ -8,14 +8,14 @@
       <h4 @click="good" v-show="like" class="jua_big"><i class="fas fa-heart" style="color:crimson;"></i>&nbsp;&nbsp;&nbsp;{{this.likeCnt}}</h4>
       <h4 @click="good" v-show="!like" class="jua_big"><i class="fas fa-heart" style="color:palegoldenrod;"></i>&nbsp;&nbsp;&nbsp;{{this.likeCnt}}</h4>
     </div>
-    <span class="dohyeon">{{this.writer.nickname}}</span>
+    <span class="pen">{{this.writer.nickname}}</span>
 
     <span class="jua">&nbsp;&nbsp;{{this.lists.postContent}}</span>
     <p class="jua">#Hashtag</p>
     
-    <p class="jua" style="color:grey">댓글 3개 모두 보기</p>
-    
-    <p class="jua">작성일 : {{this.lists.postDate}}</p> 
+    <span class="jua" style="color:grey; font-weight:500; font-size:medium;" @click="postdetail(lists.postNo)">댓글 3개 모두 보기</span>
+
+    <p class="jua" style="font-size:small; ">{{$moment(this.lists.postDate).format("YYYY-MM-DD")}}</p> 
     <hr>
   </div>
 </template>
@@ -136,6 +136,12 @@ export default {
   .dohyeon{
     font-family: 'Do Hyeon', sans-serif;
     font-size:large;
+    color:navy;
+    font-weight:bold;
+  }
+  .pen{
+    font-family: 'Nanum Pen Script', cursive;
+    font-size:x-large;
     color:navy;
     font-weight:bold;
   }
