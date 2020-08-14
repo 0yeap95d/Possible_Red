@@ -19,7 +19,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img src="../../assets/images/펭수프로필.jpg" />
+                    <img :src="user.memberPhoto" />
                   </div>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                   <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="kakaologout">
+              <v-list-item @click="Logout">
                   <v-list-item-icon >
                       <i class="fas fa-sign-out-alt"></i>
                   </v-list-item-icon>
@@ -115,6 +115,7 @@ export default {
           user: {
               email: "",
               memberNo: 0,
+              memberPhoto: "",
               nickname: "",
               point: 0,
               pwd: "",
@@ -123,7 +124,7 @@ export default {
         }
     },
     methods: {
-      kakaoLogout() {
+      Logout() {
         this.$session.destroy();
         window.Kakao.API.request({
             url: '/v1/user/unlink',
