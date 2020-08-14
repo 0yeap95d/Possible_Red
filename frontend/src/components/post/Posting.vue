@@ -1,26 +1,22 @@
 <template>
-  <div>
-      <div class="instabox">
-        <div class="pictures">
-          <img src="https://picsum.photos/200" alt="">
-        </div>
-        <br>
-        <p>Misson Title</p>
-        <p>{{this.lists.postContent}}</p>
-        <p>Hashtag</p>
-        <div>
-          <h4 @click="good" v-show="like"><i class="fas fa-heart" style="color:crimson;"></i></h4>
-          <h4 @click="good" v-show="!like"><i class="fas fa-heart" style="color:palegoldenrod;"></i></h4>
-          <p style="text-align:right">좋아요 : {{this.likeCnt}}</p>
-        </div>
-        <p>댓글 : 3</p>
-        <v-btn class="mx-2" fab dark color="indigo" @click="postdetail(lists.postNo)">
-          <v-icon dark>mdi-plus</v-icon>
-        </v-btn>
-        <p>작성자 : {{this.writer.nickname}}</p>
-        <p>작성일 : {{this.lists.postDate}}</p>
-        <hr>
-      </div>
+  <div class="wrapC">
+    
+    <v-img src="https://picsum.photos/400" alt="" class="min_size" @click="postdetail(lists.postNo)"></v-img>
+    
+    <br>
+    <div>
+      <h4 @click="good" v-show="like" class="jua_big"><i class="fas fa-heart" style="color:crimson;"></i>&nbsp;&nbsp;&nbsp;{{this.likeCnt}}</h4>
+      <h4 @click="good" v-show="!like" class="jua_big"><i class="fas fa-heart" style="color:palegoldenrod;"></i>&nbsp;&nbsp;&nbsp;{{this.likeCnt}}</h4>
+    </div>
+    <span class="dohyeon">{{this.writer.nickname}}</span>
+
+    <span class="jua">&nbsp;&nbsp;{{this.lists.postContent}}</span>
+    <p class="jua">#Hashtag</p>
+    
+    <p class="jua" style="color:grey">댓글 3개 모두 보기</p>
+    
+    <p class="jua">작성일 : {{this.lists.postDate}}</p> 
+    <hr>
   </div>
 </template>
 
@@ -35,6 +31,7 @@ export default {
       lists:Array,
     },
     created() {
+
       // 사용자 정보 불러오기
       this.user = this.$session.get('user');
 
@@ -119,14 +116,27 @@ export default {
 </script>
 
 <style>
-  .instabox{
-    margin-left:10%;
-    margin-right:10%;
-    margin-top:10%;
-    margin-bottom:10%;
-  }
   .morecomment{
-      background-color:black;
-      color:white;
+    background-color:black;
+    color:white;
+  }
+  .pictures{
+    margin:2px 2px
+  }
+  .min_size{
+    min-width:328px;
+  }
+  .jua{
+    font-family: 'Jua', sans-serif;
+  }
+  .jua_big{
+    font-family: 'Jua', sans-serif;
+    font-size : large;
+  }
+  .dohyeon{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size:large;
+    color:navy;
+    font-weight:bold;
   }
 </style>

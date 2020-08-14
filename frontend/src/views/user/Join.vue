@@ -91,9 +91,14 @@
               <v-btn color="#01579B" dark v-bind="attrs" v-on="on">약관보기</v-btn>
             </template>
             <v-card>
-              <v-card-title>
-                <span class="headline jua">POSSIBLE RED 이용약관</span>
-              </v-card-title>
+              <div class="d-flex">
+                <v-card-title>
+                  <span class="headline jua">POSSIBLE RED 이용약관</span>
+                </v-card-title>
+                  <v-btn icon dark @click="dialog = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+              </div>
               <v-card-text class="jua">
                 <br />
                 <p>제1조(목적)</p>
