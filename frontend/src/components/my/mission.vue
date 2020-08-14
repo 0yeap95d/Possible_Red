@@ -1,50 +1,50 @@
 <template>
     <div class="wrapC">
         
-            <v-col cols="12" sm="6" offset-sm="3">
-                <v-card>
-                <v-subheader :inset="inset" >희정's</v-subheader>
+      <v-col cols="12" sm="6" offset-sm="3">
+          <v-card>
+          <v-subheader :inset="inset" >희정's</v-subheader>
 
-                <v-list>
-                    <template v-for="(item, index) in items">
-                    <v-list-item
-                        v-if="item.active"
-                        :key="item.title"
-                        @click="gotomission"
+          <v-list>
+              <template v-for="(item, index) in items">
+              <v-list-item
+                  v-if="item.active"
+                  :key="item.title"
+                  @click="gotomission"
+              >
+                  <v-list-item-action class="mx-auto">
+                    <v-img src= 'https://picsum.photos/400' alt="" ></v-img>
+                    <br>
+                    <v-list-item-title class="jua">{{ item.title }}</v-list-item-title>
+                    <v-card-actions class="white justify-center">
+                    <v-btn
+                      v-for="(social, i) in socials"
+                      :key="i"
+                      :color="social.color"
+                      class="white--text"
+                      fab
+                      icon
+                      small
                     >
-                        <v-list-item-action class="mx-auto">
-                          <v-img src= 'https://picsum.photos/400' alt="" ></v-img>
-                          <br>
-                          <v-list-item-title class="jua">{{ item.title }}</v-list-item-title>
-                          <v-card-actions class="white justify-center">
-                          <v-btn
-                            v-for="(social, i) in socials"
-                            :key="i"
-                            :color="social.color"
-                            class="white--text"
-                            fab
-                            icon
-                            small
-                          >
-                            <v-icon>{{ social.icon }}</v-icon>
-                          </v-btn>
-                        </v-card-actions>
-                        </v-list-item-action>
+                      <v-icon>{{ social.icon }}</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                  </v-list-item-action>
 
-                        
-                    </v-list-item>
-                    
-                    <v-divider
-                        v-else-if="item.divider"
-                        :key="index"
-                        :inset="inset"
-                    ></v-divider>
-                    </template>
-                </v-list>
+                  
+              </v-list-item>
+              
+              <v-divider
+                  v-else-if="item.divider"
+                  :key="index"
+                  :inset="inset"
+              ></v-divider>
+              </template>
+          </v-list>
 
-                
-              </v-card>
-            </v-col>
+          
+        </v-card>
+      </v-col>
         
     </div>
 </template>
@@ -109,5 +109,8 @@
   display:block;
   margin:0px auto;
 }
+.col-sm-6.offset-sm-3.col-12{
+        padding: 0;
+    }
 
 </style>
