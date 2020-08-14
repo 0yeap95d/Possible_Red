@@ -1,11 +1,11 @@
+<!--미션 디테일 하나만 뽑아와서 미션 디테일카드로 값 넘겨줌-->
 <template>
   <div class="wrap">
     <v-app>
       <v-card class="mx-auto overflow-hidden missions" color="white">
         <v-app-bar color="deep-purlple" dark>
-          
           <HeaderComponent :isBack="true" />
-        
+
           <v-toolbar-title>{{mission.missionTitle}}</v-toolbar-title>
         </v-app-bar>
         <br />
@@ -14,8 +14,10 @@
         <div v-if="this.mission">
           <MissionDetailCard :mission="mission" />
         </div>
-        
       </v-card>
+
+
+      
       <v-bottom-navigation v-model="bottomNav" black shift>
         <v-btn @click="post">
           <span>POST</span>
@@ -61,6 +63,7 @@ export default {
     activeBtn: 1,
     num: 0,
     mission: {
+      missionNo: 0,
       missionTitle: "",
       startDate: "",
       endDate: "",
@@ -76,21 +79,14 @@ export default {
     },
   }),
   created() {
-    this.num = this.$route.params.num;
+    this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
 
-    UserApi.requestMemberByNo(
-      this.num,
-      (res) => {
-        console.log(res.data);
-        console.log(res.data.nickname); // 찍혔어
-        this.mission.master = res.data.nickname;
-      },
-      (error) => {}
-    );
-
+    console.log("지금 찾아올 미션 넘버 : " + this.num);
     MissionApi.requestMissionDetail(
       this.num,
       (res) => {
+        console.log(res.data);
+        this.mission.missionNo = this.num;
         this.mission.missionTitle = res.data.missionTitle;
         this.mission.startDate = res.data.startDate;
         this.mission.endDate = res.data.endDate;
@@ -102,6 +98,15 @@ export default {
         this.mission.joinMem = res.data.joinMem;
         this.mission.missionPhoto = res.data.missionPhoto;
         this.mission.missionCat = res.data.missionCat;
+        UserApi.requestMemberByNo(
+          // 사용자의 상세 정보를 반환한다.
+          this.mission.memberNo,
+          (res) => {
+            this.mission.master = res.data.nickname;
+            console.log(this.mission.master);
+          },
+          (error) => {}
+        );
       },
       (error) => {}
     );
@@ -112,16 +117,20 @@ export default {
   },
   methods: {
     kakaoLogout() {
-        this.$session.destroy();
-        window.Kakao.API.request({
-            url: '/v1/user/unlink',
-            success: function(res) { console.log(res) },
-            fail: function(err) { console.log(err) },
-        })
-        window.Kakao.Auth.logout(function() {
-          alert('로그아웃 완료!')
-        })
-        this.$router.push("/");
+      this.$session.destroy();
+      window.Kakao.API.request({
+        url: "/v1/user/unlink",
+        success: function (res) {
+          console.log(res);
+        },
+        fail: function (err) {
+          console.log(err);
+        },
+      });
+      window.Kakao.Auth.logout(function () {
+        alert("로그아웃 완료!");
+      });
+      this.$router.push("/");
     },
     post() {
       this.$router.push("/posts");
@@ -147,17 +156,16 @@ export default {
     mypoint() {
       this.$router.push("/mypoint");
     },
-    myaccount(){
+    myaccount() {
       this.$router.push("/changeuser");
     },
-    
   },
 };
 </script>
 
 <style scoped>
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
-  background:linear-gradient(to left , #f48fb1, #3949ab);
+  background: linear-gradient(to left, #f48fb1, #3949ab);
 }
 .thumbnail {
   position: relative;
@@ -205,33 +213,32 @@ export default {
 .v-application--wrap {
   height: auto;
 }
-.white{
-  background-color:whitesmoke !important;
+.white {
+  background-color: whitesmoke !important;
 }
-.v-toolbar__title{
-  font-family: 'Jua', sans-serif;
-  font-size:x-large;
-  margin:0 0 0 20px;
+.v-toolbar__title {
+  font-family: "Jua", sans-serif;
+  font-size: x-large;
+  margin: 0 0 0 20px;
 }
-.jua{
-  font-family: 'Jua', sans-serif;
+.jua {
+  font-family: "Jua", sans-serif;
 }
-.v-application .deep-purple--text.text--accent-4{
-  color:white !important;
+.v-application .deep-purple--text.text--accent-4 {
+  color: white !important;
   background: navy !important;
 }
-.v-responsive__content{
-  background-color:rgb(34,34,34);
-  opacity:0.5;
-  color:white !important;
-  margin:0 0 0 20px;
-  height:30px;
-  width:10%;
+.v-responsive__content {
+  background-color: rgb(34, 34, 34);
+  opacity: 0.5;
+  color: white !important;
+  margin: 0 0 0 20px;
+  height: 30px;
+  width: 10%;
 }
-.v-card__title{
-  font-family: 'Nanum Pen Script', cursive ;
-  font-size:xx-large;
-  padding:0 0 0 20px;
+.v-card__title {
+  font-family: "Nanum Pen Script", cursive;
+  font-size: xx-large;
+  padding: 0 0 0 20px;
 }
-
 </style>

@@ -20,6 +20,7 @@ import MyMission from './views/my/MyMission.vue';
 import MyPost from './views/my/MyPost.vue';
 import MyPoint from './views/my/MyPoint.vue';
 import SearchByCategory from './views/search/SearchByCategory'
+import MissionModify from './views/mission/MissionModify.vue';
 
 export default [
   {
@@ -54,9 +55,9 @@ export default [
     component: ChangePwd,
   },
   {
-    path : '/changeuser',
-    name : 'ChangeUser',
-    component : ChangeUser,
+    path: '/changeuser',
+    name: 'ChangeUser',
+    component: ChangeUser,
   },
   {
     path: "/search",
@@ -74,64 +75,69 @@ export default [
     component: Comments,
   },
   {
-    path : '/profile',
-    name : 'UserProfile',
-    component : UserProfile
+    path: '/profile',
+    name: 'UserProfile',
+    component: UserProfile
   },
   {
-    path : '/profile2',
-    name : 'Profile',
-    component : Profile
+    path: '/profile2',
+    name: 'Profile',
+    component: Profile
   },
   {
-    path : '/add',
-    name : 'Add',
-    component : Add
+    path: '/add',
+    name: 'Add',
+    component: Add
   },
   {
-    path : '/notfound',
-    name : 'NotFound',
-    component : NotFound 
+    path: '/notfound',
+    name: 'NotFound',
+    component: NotFound
   }
   ,
   {
-    path : '/missionmain',
-    name : 'MissionMain',
-    component : MissionMain
+    path: '/missionmain',
+    name: 'MissionMain',
+    component: MissionMain
   },
   {
-    path : '/addorigin',
-    name : 'AddOrigin',
-    component : AddOrigin
+    path: '/addorigin',
+    name: 'AddOrigin',
+    component: AddOrigin
   },
   {
-    path : '/postdetail',
-    name : 'PostDetail',
-    component : PostDetail
+    path: '/postdetail',
+    name: 'PostDetail',
+    component: PostDetail
   },
   {
-    path : '/mymission',
-    name : 'MyMission',
-    component : MyMission
+    path: '/mymission',
+    name: 'MyMission',
+    component: MyMission
   },
   {
-    path : '/missiondetail',
-    name : 'MissionDetail',
-    component : MissionDetail
+    path: '/missiondetail',
+    name: 'MissionDetail',
+    component: MissionDetail
   },
   {
-    path : '/mypost',
-    name : 'MyPost',
-    component : MyPost
+    path: '/mypost',
+    name: 'MyPost',
+    component: MyPost
   },
   {
-    path : '/mypoint',
-    name : 'MyPoint',
-    component : MyPoint
+    path: '/mypoint',
+    name: 'MyPoint',
+    component: MyPoint
   },
   {
-    path : '/searchByCategory',
-    name : 'SearchByCategory',
-    component : SearchByCategory
+    path: '/searchByCategory',
+    name: 'SearchByCategory',
+    component: SearchByCategory
+  },
+  {
+    path: '/missionmodify',
+    name: 'MissionModify',
+    component: MissionModify
   },
 ];

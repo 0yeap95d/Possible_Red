@@ -76,6 +76,7 @@
                 missionPhoto    = #{missionPhoto},
                 missionCat      = #{missionCat},
                 description     = #{description}
+         WHERE  missionNo = #{missionNo} <!-- 이거 안넣은놈 누구냐 진짜 -->
     </update>
 
     <delete id="deleteMission" parameterType="int">
