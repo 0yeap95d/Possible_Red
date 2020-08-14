@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapC p-0">
     <v-card style="box-shadow: none; padding-top:3%">
       <v-tabs
         background-color="white"
@@ -49,10 +49,6 @@
               <v-list-item-content>
                 <v-list-item-title v-text="item.title" style="font-family: 'Jua', sans-serif;"></v-list-item-title>
               </v-list-item-content>
-
-              <v-list-item-icon>
-                <v-icon :color="item.active ? 'deep-purple accent-4' : 'grey'">{{ icons.mdiAccount }}</v-icon>
-              </v-list-item-icon>
             </v-list-item>
           </v-list>
         </v-tab-item>
@@ -64,13 +60,54 @@
 
 <script>
 import { mdiAccount } from '@mdi/js';
+import FollowApi from "../../api/FollowApi";
 
 export default {
   name: "ProfileFollow",
   components: {
   },
+  created() {
+    this.user = this.$session.get('user');
+    this.getFollowing(this.user.memberNo)
+    
+  },
+  methods: {
+    getFollower(num) {
+      FollowApi.requestAllFollowerByNo(
+        num,
+        (res) => {
+          console.log(res.data)
+        },
+        (error) =>{
+          console.log(error)
+        }
+
+      )
+    },
+    getFollowing(num) {
+      FollowApi.requestAllFollowingByNo(
+        num,
+        (res) => {
+          console.log(res.data)
+        },
+        (error) =>{
+          console.log(error)
+        }
+
+      )
+    }
+  },
   data() {
     return {
+      user: {
+        email: "",
+        memberNo: 0,
+        memberPhoto: "",
+        nickname: "",
+        point: 0,
+        pwd: "",
+        stateMent: ""
+      },
       items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
         { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
@@ -89,5 +126,4 @@ export default {
 </script>
 
 <style>
-
 </style>

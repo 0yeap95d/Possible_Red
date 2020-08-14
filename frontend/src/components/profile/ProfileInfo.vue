@@ -25,14 +25,14 @@
           </v-list-item>
 
           <v-list-item class="mb-0 mx-1">
-            <div>
+            <div @click="goFollow">
               <p>{{follower}}</p>
-              <p>팔로우</p>
+              <p>팔로워</p>
             </div>
           </v-list-item>
 
           <v-list-item class="mb-0 mx-1">
-            <div>
+            <div @click="goFollow">
               <p>{{following}}</p>
               <p>팔로잉</p>
             </div>
@@ -93,6 +93,9 @@ export default {
         }
       );
     },
+    goFollow() {
+      this.$router.push("/profilefollow");
+    }
   },
   data() {
     return {
