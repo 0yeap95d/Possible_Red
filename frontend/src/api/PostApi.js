@@ -1,20 +1,20 @@
 import Axios from "axios";
 
 const requestSelectPost = (callback, errorCallback) => {
-    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/all")
+    Axios.get("http://localhost:8080/sns201/post/all")
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestSelectPostByNo = (data, callback, errorCallback) => {
-    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/" + data)
+    Axios.get("http://localhost:8080/sns201/post/" + data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
     console.log("api에 보이는 데이터 : " + data);
-    Axios.post("http://i3d201.p.ssafy.io:8080/sns201/post", data, {
+    Axios.post("http://localhost:8080/sns201/post", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
