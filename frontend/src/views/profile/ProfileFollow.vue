@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapC p-0">
     <v-card style="box-shadow: none; padding-top:3%">
       <v-tabs
         background-color="white"
@@ -18,20 +18,16 @@
         <v-tab-item :key="item1">
           <v-list>
             <v-list-item
-              v-for="item in items"
-              :key="item.title"
+              v-for="item in followers"
+              :key="item.nickname"
             >
               <v-list-item-avatar>
-                <v-img :src="item.avatar"></v-img>
+                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-text="item.title" style="font-family: 'Jua', sans-serif;"></v-list-item-title>
+                <v-list-item-title v-text="item.nickname" style="font-family: 'Jua', sans-serif;"></v-list-item-title>
               </v-list-item-content>
-
-              <v-list-item-icon>
-                <v-icon :color="item.active ? 'deep-purple accent-4' : 'grey'">{{ icons.mdiAccount }}</v-icon>
-              </v-list-item-icon>
             </v-list-item>
           </v-list>
         </v-tab-item>
@@ -39,20 +35,16 @@
         <v-tab-item :key="item2">
           <v-list>
             <v-list-item
-              v-for="item in items"
-              :key="item.title"
+              v-for="item in followings"
+              :key="item.nickname"
             >
               <v-list-item-avatar>
-                <v-img :src="item.avatar"></v-img>
+                <v-img src="https://cdn.vuetifyjs.com/images/lists/3.jpg"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-text="item.title" style="font-family: 'Jua', sans-serif;"></v-list-item-title>
+                <v-list-item-title v-text="item.nickname" style="font-family: 'Jua', sans-serif;"></v-list-item-title>
               </v-list-item-content>
-
-              <v-list-item-icon>
-                <v-icon :color="item.active ? 'deep-purple accent-4' : 'grey'">{{ icons.mdiAccount }}</v-icon>
-              </v-list-item-icon>
             </v-list-item>
           </v-list>
         </v-tab-item>
@@ -64,13 +56,78 @@
 
 <script>
 import { mdiAccount } from '@mdi/js';
+import FollowApi from "../../api/FollowApi";
+import UserApi from "../../api/UserApi";
 
 export default {
   name: "ProfileFollow",
-  components: {
+  created() {
+    this.user = this.$session.get('user');
+    this.getFollowing(this.user.memberNo);
+    this.getFollower(this.user.memberNo);
+  },
+  methods: {
+    getFollower(num) {
+      FollowApi.requestAllFollowerByNo(
+        num,
+        (res) => {
+          console.log(res.data)
+          for ( let i in res.data ){ 
+            UserApi.requestMemberByNo(
+              res.data[i].me,
+              (res) => {
+                console.log(res.data)
+                this.followers.push(res.data)
+              },
+              (error) => {
+                console.log(error)
+              }
+            )
+          }
+        },
+        (error) =>{
+          console.log(error)
+        }
+
+      )
+    },
+    getFollowing(num) {
+      FollowApi.requestAllFollowingByNo(
+        num,
+        (res) => {
+          console.log(res.data)
+          for ( let i in res.data ){
+            UserApi.requestMemberByNo(
+              res.data[i].you,
+              (res) => {
+                console.log(res.data)
+                this.followings.push(res.data)
+              },
+              (error) => {
+                console.log(error)
+              }
+            )
+          }
+        },
+        (error) =>{
+          console.log(error)
+        }
+
+      )
+    }
   },
   data() {
     return {
+      active_tab : "",
+      user: {
+        email: "",
+        memberNo: 0,
+        memberPhoto: "",
+        nickname: "",
+        point: 0,
+        pwd: "",
+        stateMent: ""
+      },
       items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
         { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
@@ -83,11 +140,12 @@ export default {
       icons: {
         mdiAccount,
       },
+      followers: [],
+      followings: []
     }  
   },
 }
 </script>
 
 <style>
-
 </style>
