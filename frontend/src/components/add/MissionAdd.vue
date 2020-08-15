@@ -3,6 +3,7 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
+        
         <div class="input-with-label">
           <v-btn
             small
@@ -16,28 +17,26 @@
               <div class="v-tabs-slider"></div>
             </div>
             <p class="categories my-auto">{{cat.categoryContent}}</p>
-          </v-btn>
-          
-          <hr><br>
+          </v-btn><br>
         </div>
         
         <div class="input-with-label jua">
           <label for="missionTitle" class="jua" >미션 이름</label>
           <input
-            v-model="mission.missionTitle"
             id="missionTitle"
-            placeholder="미션 제목을 입력하세요."
             type="text"
+            v-model="mission.missionTitle"
+            placeholder="미션 제목을 입력하세요."
           />
         </div>
 
         <div class="input-with-label jua">
           <label for="description" class="jua">설명</label>
           <input
-            v-model="mission.description"
             id="description"
-            placeholder="미션을 간단하게 설명해주세요."
             type="text"
+            v-model="mission.description"
+            placeholder="미션을 간단하게 설명해주세요."
           />
           <br><br><br>
         </div>
@@ -45,6 +44,15 @@
         <div class="input-with-label">
           <label>미션 수행 기간</label>
           <v-range-selector :start-date.sync="range.start" :end-date.sync="range.end" />
+        </div>
+
+        <div class="wrap components-page p-0">
+          <select class="select-component jua">
+            <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
+            <option v-for="target in options" :value="target" :key="target.value">
+                {{target.title}}
+            </option>
+          </select>
         </div>
 
         <div class="input-with-label jua">
@@ -62,27 +70,12 @@
           />
         </div>
 
+        
         <div class="input-with-label jua">
           <label for="cutCnt" class="jua">커트라인</label>
           <input v-model="mission.cutCnt" id="cutCnt" placeholder="최소 미션 미수행 숫자를 입력하세요." type="text" />
         </div>
 
-        <div class="input-with-label jua">
-          <label for="joinMem" class="jua">참여 인원</label>
-            <select v-model="mission.joinMem" id="joinMem">
-              <option disabled value class="jua" style="text-align:center;">미션 참여 인원을 설정하세요.</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-          </select>
-        </div>
         <br />
         <br />
         <div>
@@ -105,7 +98,6 @@ export default {
     VRangeSelector,
   },
   created() {
-    console.log(this.$session.get("user").memberNo);
     this.mission.memberNo = this.$session.get("user").memberNo;
     this.getCategoryList();
   },
@@ -140,24 +132,31 @@ export default {
         false,
         false,
       ],
+
+      options: [
+        { value: "1", title: "1 명" },
+        { value: "2", title: "2 명" },
+        { value: "3", title: "3 명" },
+        { value: "4", title: "4 명" },
+        { value: "5", title: "5 명" },
+        { value: "6", title: "6 명" },
+        { value: "7", title: "7 명" },
+        { value: "8", title: "8 명" },
+        { value: "9", title: "9 명" },
+        { value: "10", title: "10 명" },
+      ]
     };
   },
   methods: {
-    toggleSwitch(num) {
-      this.isOn[num] = !this.isOn[num];
-      console.log(this.isOn);
-    },
+    toggleSwitch(num) { this.isOn[num] = !this.isOn[num]; },
+
     getCategoryList() {
       SearchApi.requestCategory(
-        (res) => {
-          // console.log(res.data);
-          this.category = res.data;
-        },
-        (error) => {
-          console.error(error);
-        }
+        (res) => { this.category = res.data; },
+        (error) => {console.error(error); }
       );
     },
+
     getDateFullString() {
       let today = new Date();
       let year = today.getFullYear(); // 년도
@@ -167,49 +166,38 @@ export default {
       if (date < 10) date = "0" + date;
       return year + "-" + month + "-" + date;
     },
+
     missionRegister() {
       this.mission.startDate = this.range.start;
       this.mission.endDate = this.range.end;
-      console.log(this.mission);
+
       // 여기서 시작 날짜랑 오늘 날짜 비교해서 시작 == 오늘이면 isStart는 바로 true로 해주기
       let today = this.getDateFullString();
-      console.log(today);
-      console.log(this.mission.startDate);
-      if (today == this.mission.startDate) {
+      
+      if (today == this.mission.startDate) 
         this.mission.isStart = true;
-      }
+      
       for (var i = 0; i < 10; i++) {
-        if (this.isOn[i]) {
+        if (this.isOn[i]) 
           this.mission.missionCat += i;
-        }
       }
-      console.log(this.mission.missionCat);
 
       MissionApi.requestMissionRegister(
         this.mission,
         (res) => {
-          console.log("미션 등록 완료!");
-          // 엔트리 등록
           let entry = {
-            memberNo: 0,
-            missionNo: 0,
+            memberNo: this.mission.memberNo,
+            missionNo: res.data,
             reward: 0,
             nonCnt: 0,
           };
-          entry.memberNo = this.mission.memberNo;
-          entry.missionNo = res.data;
-          console.log("지금 들어갈 미션 넘버 : " + res.data);
-          entry.reward = 0;
-          entry.nonCnt = 0;
+
           EntryApi.requestEntryRegister(
             entry,
-            (resentry) => {
-              console.log("엔트리 등록 완료");
-            },
-            (error) => {
-              console.log("엔트리 등록 안됐음");
-            }
+            (resentry) => { console.log("entry regist success"); },
+            (error) => { console.log("entry regist fail"); }
           );
+
           this.$router.push("/mymission");
         },
         (error) => {}

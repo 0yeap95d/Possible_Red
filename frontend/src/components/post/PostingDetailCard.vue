@@ -33,19 +33,38 @@
           </v-btn>
         </v-card-actions>
         <!--button @click="test">test</button-->
-        <v-btn
+        <div v-if="isSame(user.memberNo, post.memberNo)">
+          <v-btn color="#FF4081" text style="font-size:medium" @click="gotomodify(post.postNo)">수정하기</v-btn>
+
+          <v-dialog v-model="dialog" persistent max-width="290">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="#FF4081" text style="font-size:medium" v-bind="attrs" v-on="on">삭제하기</v-btn>
+            </template>
+            <v-card>
+              <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="green darken-1" text @click="returnpost()">Disagree</v-btn>
+                <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">Agree</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <!--v-btn
           v-if="isSame(user.memberNo, post.memberNo)"
           color="#FF4081"
           text
           style="font-size:medium"
-          @click="gotomodify(post.postNo)"
-        >수정하기</v-btn>
+          @click="gotodelete(post.postNo)"
+          >삭제하기</v-btn-->
+        </div>
       </v-card>
     </v-app>
   </div>
 </template>
 <script>
 import FollowApi from "../../api/FollowApi";
+import PostApi from "../../api/PostApi";
 
 export default {
   name: "PostingDetailCard",
@@ -69,6 +88,9 @@ export default {
     this.user = this.$session.get("user");
   },
   methods: {
+    returnpost() {
+      this.$router.push("/posts");
+    },
     isSame(itsMe, writer) {
       if (itsMe == writer) {
         // console.log("내가 쓴 글입니다.");
@@ -79,7 +101,6 @@ export default {
       }
     },
     gotomodify(num) {
-      console.log(num);
       this.$router.push({
         name: "PostModify",
         params: {
@@ -88,6 +109,10 @@ export default {
           nickname: this.user.nickname,
         },
       });
+    },
+    gotodelete(num) {
+      PostApi.requestPostDelete(num);
+      this.$router.push("/posts");
     },
     insertFollow() {
       FollowApi.requestFollowRegister(
