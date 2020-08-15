@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const requestLikeList = (data, callback, errorCallback) => {
-    Axios.get('http://i3d201.p.ssafy.io:8080/sns201/likey/' + data)
+    Axios.get('http://localhost:8080/sns201/likey/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
@@ -9,19 +9,19 @@ const requestLikeList = (data, callback, errorCallback) => {
 const requestIsLike = (data, callback, errorCallback) => {
     console.log("isLike");
     console.log(data);
-    Axios.post('http://i3d201.p.ssafy.io:8080/sns201/likey/islike', data)
+    Axios.post('http://localhost:8080/sns201/likey/islike', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestAddLike = (data, callback, errorCallback) => {
-    Axios.post('http://i3d201.p.ssafy.io:8080/sns201/likey', data)
+    Axios.post('http://localhost:8080/sns201/likey', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestRemoveLike = (data, callback, errorCallback) => {
-    Axios.post('http://i3d201.p.ssafy.io:8080/sns201/likey/delete', data)
+    Axios.post('http://localhost:8080/sns201/likey/delete', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
