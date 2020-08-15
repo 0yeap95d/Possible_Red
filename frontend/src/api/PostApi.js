@@ -13,7 +13,6 @@ const requestSelectPostByNo = (data, callback, errorCallback) => {
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
-    console.log("api에 보이는 데이터 : " + data);
     Axios.post("http://localhost:8080/sns201/post", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -22,6 +21,11 @@ const requestInsertPost = (data, callback, errorCallback) => {
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
+const requestPostUpdate = (data, callback, errorCallback) => {
+    Axios.put('http://localhost:8080/sns201/post', data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+} // 미션 업데이트
 
 const PostApi = {
     requestSelectPost: (data, callback, errorCallback) =>
@@ -30,6 +34,8 @@ const PostApi = {
         requestSelectPostByNo(data, callback, errorCallback),
     requestInsertPost: (data, callback, errorCallback) =>
         requestInsertPost(data, callback, errorCallback),
+    requestPostUpdate: (data, callback, errorCallback) =>
+        requestPostUpdate(data, callback, errorCallback),
 };
 
 export default PostApi;
