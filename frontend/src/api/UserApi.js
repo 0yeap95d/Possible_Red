@@ -17,7 +17,7 @@ const requestLogin = (data, callback, errorCallback) => {
 
     console.log(data);
 
-    Axios.post('http://i3d201.p.ssafy.io:8080/sns201/login', params)
+    Axios.post('http://localhost:8080/sns201/login', params)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 
@@ -32,27 +32,27 @@ const requestRegister = (data, callback, errorCallback) => {
 
     console.log(data);
 
-    Axios.post('http://i3d201.p.ssafy.io:8080/sns201/member', params)
+    Axios.post('http://localhost:8080/sns201/member', params)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestUpdate = (data, callback, errorCallback) => {
     console.log(data);
-    Axios.put('http://i3d201.p.ssafy.io:8080/sns201/member', data)
+    Axios.put('http://localhost:8080/sns201/member', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestEmailCheck = (data, callback, errorCallback) => {
-    Axios.get('http://i3d201.p.ssafy.io:8080/sns201/member/email/' + data)
+    Axios.get('http://localhost:8080/sns201/member/email/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestMemberByNo = (data, callback, errorCallback) => {
     // 사용자의 상세 정보를 반환한다.
-    Axios.get('http://i3d201.p.ssafy.io:8080/sns201/member/' + data)
+    Axios.get('http://localhost:8080/sns201/member/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
