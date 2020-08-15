@@ -27,6 +27,12 @@ const requestPostUpdate = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 } // 미션 업데이트
 
+const requestPostDelete = (data, callback, errorCallback) => {
+    Axios.delete('http://localhost:8080/sns201/post/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+} // 미션 삭제
+
 const PostApi = {
     requestSelectPost: (data, callback, errorCallback) =>
         requestSelectPost(data, callback, errorCallback),
@@ -36,6 +42,8 @@ const PostApi = {
         requestInsertPost(data, callback, errorCallback),
     requestPostUpdate: (data, callback, errorCallback) =>
         requestPostUpdate(data, callback, errorCallback),
+    requestPostDelete: (data, callback, errorCallback) =>
+        requestPostDelete(data, callback, errorCallback),
 };
 
 export default PostApi;
