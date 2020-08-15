@@ -44,8 +44,8 @@
               <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="green darken-1" text @click="returnpost()">Disagree</v-btn>
-                <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">Agree</v-btn>
+                <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">네</v-btn>
+                <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
