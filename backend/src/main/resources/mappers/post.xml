@@ -35,7 +35,7 @@
         UPDATE  post
            SET  postPhoto   = #{postPhoto},
                 postContent = #{postContent},
-                postDate    = now()
+                postDate    = #{postDate}
          WHERE  postNo      = #{postNo}
     </update>
 

@@ -49,7 +49,7 @@ public class PostAPIController {
     }
 
     @ApiOperation(value = "게시글 번호를 통해 게시글을 수정한다.", response = String.class)
-    @PutMapping("{no}")
+    @PutMapping()
     public ResponseEntity<String> modifyPost(@RequestBody Post post){
         logger.debug("modifyPost");
         if (postService.modifyPost(post)) {
