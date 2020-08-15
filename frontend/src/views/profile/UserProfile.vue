@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
       <v-card class="overflow-hidden" color="white">
         <v-app-bar color="deep-purlple" dark style="box-shadow: none;">
