@@ -1,6 +1,6 @@
 <template>
-    <select class="select-component">
-        <option :value="null" disabled selected>선택해주세요</option>
+    <select class="select-component jua">
+        <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
         <option v-for="target in options" :value="target" :key="target.value">
             {{target.title}}
         </option>
