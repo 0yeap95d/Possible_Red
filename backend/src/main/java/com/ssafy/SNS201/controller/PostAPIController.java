@@ -78,8 +78,8 @@ public class PostAPIController {
         logger.info(file.toString());
 
         String originalFileName = file.getOriginalFilename();
-        post.setPostPhoto("C:/Image/" + originalFileName);
-        File dest = new File("C:/Image/" + originalFileName);
+        post.setPostPhoto("/home/ubuntu/s03p13d201/backend/src/main/resources/pic/" + originalFileName);
+        File dest = new File("/home/ubuntu/s03p13d201/backend/src/main/resources/pic/" + originalFileName);
         file.transferTo(dest);
 
         if (postService.addPost(post)){
