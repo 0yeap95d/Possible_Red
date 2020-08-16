@@ -1,13 +1,13 @@
 import Axios from "axios";
 
 const requestCategory = (callback, errorCallback) => {
-    Axios.get('http://localhost:8080/sns201/category')
+    Axios.get('http://i3d201.p.ssafy.io:8080/sns201/category')
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 };
 
 const requestMissionByCategory = (data, callback, errorCallback) => {
-    Axios.get('http://localhost:8080/sns201/mission/category/' + data)
+    Axios.get('http://i3d201.p.ssafy.io:8080/sns201/mission/category/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }

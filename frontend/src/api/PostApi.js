@@ -1,19 +1,19 @@
 import Axios from "axios";
 
 const requestSelectPost = (callback, errorCallback) => {
-    Axios.get("http://localhost:8080/sns201/post/all")
+    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/all")
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestSelectPostByNo = (data, callback, errorCallback) => {
-    Axios.get("http://localhost:8080/sns201/post/" + data)
+    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/" + data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
-    Axios.post("http://localhost:8080/sns201/post", data, {
+    Axios.post("http://i3d201.p.ssafy.io:8080/sns201/post", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -22,13 +22,13 @@ const requestInsertPost = (data, callback, errorCallback) => {
         .catch((error) => errorCallback(error));
 };
 const requestPostUpdate = (data, callback, errorCallback) => {
-    Axios.put('http://localhost:8080/sns201/post', data)
+    Axios.put('http://i3d201.p.ssafy.io:8080/sns201/post', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 } // 미션 업데이트
 
 const requestPostDelete = (data, callback, errorCallback) => {
-    Axios.delete('http://localhost:8080/sns201/post/' + data)
+    Axios.delete('http://i3d201.p.ssafy.io:8080/sns201/post/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 } // 미션 삭제
