@@ -1,13 +1,13 @@
 <template>
-  <div class="inputBox shadow">
+  <div class="inputBox shadow jua">
       <input type="text" v-model="newComment" placeholder="Tell me your thinking" v-on:keyup.enter="addComment">
       <span class="addContainer" v-on:click="addComment">
           <i class="addBtn fas fa-plus" aria-hidden="true"></i>
       </span>
 
       <modal v-if="showModal" @close="showModal = false">
-          <h3 slot="header">경고</h3>
-          <h5 slot="body">댓글을 입력하세요!!!!! </h5>
+          <h3 slot="header" class="jua">경고</h3>
+          <h5 slot="body" class="jua">댓글을 입력하세요!!!!! </h5>
           <span slot="footer" @click="showModal = false">
               <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
           </span> 
@@ -72,5 +72,9 @@ export default {
     .addBtn{
         color:white;
         vertical-align:middle;
+    }
+    .jua{
+    font-family: 'Jua', sans-serif;
+    font-size:x-large;
     }
 </style>

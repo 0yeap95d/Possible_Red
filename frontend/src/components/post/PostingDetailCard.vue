@@ -12,18 +12,18 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-img src="https://picsum.photos/400" height="194"></v-img>
+        <v-img src="https://picsum.photos/400" height=auto></v-img>
 
         <v-card-text>
-          <span>{{post.postContent}}</span>
+          <span class="jua">{{post.postContent}}</span>
           <br />
-          <span>#풍경 #운동</span>
+          <span class="jua">#풍경 #운동</span>
           <!--해시태그-->
         </v-card-text>
 
         <v-card-actions>
-          <v-btn text color="deep-purple accent-4" @click="insertFollow()">Follow</v-btn>
-          <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+          <v-btn text color="deep-purple accent-4" @click="insertFollow()" >Follow</v-btn>
+          <v-btn text color="deep-purple accent-4" >{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
@@ -60,6 +60,7 @@
         </div>
       </v-card>
     </v-app>
+    <hr>
   </div>
 </template>
 <script>
@@ -129,6 +130,12 @@ export default {
 </script>
 <style>
 .v-application--wrap {
-  height: auto;
+  min-height:400px;
+}
+.jua{
+  font-family: 'Jua', sans-serif;
+}
+.v-list-item__title.headline{
+  font-family: 'Jua', sans-serif !important;
 }
 </style>

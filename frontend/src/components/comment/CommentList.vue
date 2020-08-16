@@ -2,7 +2,7 @@
     <div>
         <section>
             <transition-group name="list" tag="ul">
-                <li v-for="(comment,index) in propsdata" :key="comment" class="shadow">
+                <li v-for="(comment,index) in propsdata" :key="comment" class="shadow jua">
                     <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                     {{ comment }}
                     <span class="removeBtn" type="button" @click="removeComment(comment, index)">
@@ -57,5 +57,8 @@ export default {
     .list-enter, .list-leave-to{
         opacity:0;
         transform:translateY(30px);
+    }
+    .jua{
+    font-family: 'Jua', sans-serif;
     }
 </style>

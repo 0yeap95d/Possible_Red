@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <v-app>
-      <v-card class="mx-auto overflow-hidden missions" color="white">
+      <v-card class="mx-auto overflow-hidden missions" >
         <v-app-bar color="deep-purlple" dark>
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -11,34 +11,33 @@
 
         <!--넣고 싶은거 넣으세요~-->
         <div class="wrapC">
-          <h1>
+          <p class="jua" style="font-size:x-large;">
             {{user.nickname}}님의
             <br />
-            잔여 포인트는 {{user.point}}P 입니다.
-          </h1>
-          <v-text-field v-model="mypoint" readonly>{{mypoint}}</v-text-field>
+            잔여 포인트는 {{user.point}}P 입니다. 
+          </p>
+          <v-text-field v-model="mypoint" readonly style="min-width:330px;">{{mypoint}}</v-text-field>
           <div>
-            <button @click="plus50000()">+50,000</button>
-            <button @click="plus10000()">+10,000</button>
-            <button @click="plus5000()">+5,000</button>
-            <button @click="plus1000()">+1,000</button>
+            <button @click="plus50000()" class="jua" style="margin-right:10px">+50,000</button>
+            <button @click="plus10000()" class="jua" style="margin-right:10px">+10,000</button>
+            <button @click="plus5000()" class="jua" style="margin-right:10px">+5,000</button>
+            <button @click="plus1000()" class="jua">+1,000</button>
             <br />
-            <button @click="minus50000()">-50,000</button>
-            <button @click="minus10000()">-10,000</button>
-            <button @click="minus5000()">-5,000</button>
-            <button @click="minus1000()">-1,000</button>
+            <button @click="minus50000()" class="jua" style="margin-right:10px">-50,000</button>
+            <button @click="minus10000()" class="jua" style="margin-right:10px">-10,000</button>
+            <button @click="minus5000()" class="jua" >-5,000</button>
+            <button @click="minus1000()" class="jua">-1,000</button>
           </div>
-          <div class="text-center">
-            <v-app>
-              <v-btn
-                class="ma-2"
-                :loading="loading"
-                :disabled="loading"
-                color="#4DD0E1"
-                @click="updatePoint()"
-              >포인트 충전</v-btn>
-            </v-app>
-          </div>
+          
+            <v-btn
+              class="ma-2"
+              :loading="loading"
+              :disabled="loading"
+              color="#B388FF"
+              @click="updatePoint()"
+            >포인트 충전</v-btn>
+            
+          
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -308,9 +307,7 @@ export default {
   width: 100%;
   margin: 0 auto;
 }
-.white {
-  background-color: whitesmoke !important;
-}
+
 .v-toolbar__title {
   font-family: "Luckiest Guy", cursive;
   font-size: x-large;
@@ -320,5 +317,8 @@ export default {
 }
 .v-icon.notranslate.mdi.mdi-menu.theme--dark {
   color: white;
+}
+.wrapC{
+  min-height:500px;
 }
 </style>

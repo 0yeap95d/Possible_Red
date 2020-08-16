@@ -1,6 +1,6 @@
-<template>
+<template> 
   <div class="clearAllContainer">
-      <span class="clearAllBtn" @click="clearComment">Clear All</span>
+      <span class="clearAllBtn jua" @click="clearComment">Clear All</span>
   </div>
 </template>
 
