@@ -26,6 +26,7 @@ public class PostAPIController {
     private static final Logger logger = LoggerFactory.getLogger(PostAPIController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+    private static final String imagePath = "/home/ubuntu/s03p13d201/backend/src/main/resources/pic/";
 
     @Autowired
     PostService postService;
@@ -78,8 +79,8 @@ public class PostAPIController {
         logger.info(file.toString());
 
         String originalFileName = file.getOriginalFilename();
-        post.setPostPhoto("/home/ubuntu/s03p13d201/backend/src/main/resources/pic/" + originalFileName);
-        File dest = new File("/home/ubuntu/s03p13d201/backend/src/main/resources/pic/" + originalFileName);
+        post.setPostPhoto(imagePath + originalFileName);
+        File dest = new File(imagePath+ originalFileName);
         file.transferTo(dest);
 
         if (postService.addPost(post)){

@@ -12,7 +12,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-img src="https://picsum.photos/400" height=auto></v-img>
+        <img :src="imagePath" height="auto" />
 
         <v-card-text>
           <span class="jua">{{post.postContent}}</span>
@@ -22,8 +22,8 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn text color="deep-purple accent-4" @click="insertFollow()" >Follow</v-btn>
-          <v-btn text color="deep-purple accent-4" >{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+          <v-btn text color="deep-purple accent-4" @click="insertFollow()">Follow</v-btn>
+          <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
@@ -60,7 +60,7 @@
         </div>
       </v-card>
     </v-app>
-    <hr>
+    <hr />
   </div>
 </template>
 <script>
@@ -83,10 +83,20 @@ export default {
         pwd: "",
         stateMent: "",
       },
+      imagePath: "@",
+      index: 0,
+      imageSplit: [],
     };
   },
   created() {
     this.user = this.$session.get("user");
+
+    // this.imageSplit = this.post.postPhoto.split("/");
+    // this.index = this.imageSplit.length - 1;
+    // this.imagePath += this.imageSplit[this.index];
+    // console.log(this.imagePath);
+
+    this.imagePath += this.post.postPhoto;
   },
   methods: {
     returnpost() {
@@ -130,12 +140,12 @@ export default {
 </script>
 <style>
 .v-application--wrap {
-  min-height:400px;
+  min-height: 400px;
 }
-.jua{
-  font-family: 'Jua', sans-serif;
+.jua {
+  font-family: "Jua", sans-serif;
 }
-.v-list-item__title.headline{
-  font-family: 'Jua', sans-serif !important;
+.v-list-item__title.headline {
+  font-family: "Jua", sans-serif !important;
 }
 </style>

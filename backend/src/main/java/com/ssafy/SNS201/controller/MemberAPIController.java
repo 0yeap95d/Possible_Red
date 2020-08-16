@@ -24,6 +24,7 @@ public class MemberAPIController {
     public static final Logger logger = LoggerFactory.getLogger(MemberAPIController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+    private static final String imagePath = "/home/ubuntu/s03p13d201/backend/src/main/resources/pic/profile/";
 
     private static final String defaultImage = "../../../../resuources/default.jpg";
     // 이거 수정하기 
@@ -92,13 +93,13 @@ public class MemberAPIController {
         // 여기에서 이미지 작업 해야함
 
         String originalFileName = file.getOriginalFilename();
-        File dest = new File("C:/Image/profile/" + originalFileName);
+        File dest = new File(imagePath + originalFileName);
         file.transferTo(dest); // 왜 이미지 저장이 안되는거지,,?ㅠ
 
         if(originalFileName.length() == 0)
             member.setMemberPhoto(null);
         else
-            member.setMemberPhoto("C:/Image/profile/" + originalFileName);
+            member.setMemberPhoto(imagePath + originalFileName);
 
         if (memberService.modifyMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
