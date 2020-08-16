@@ -1,7 +1,7 @@
 <template>
   <div>
       <header>
-          <h1 style="color:#2f3b52; font-weight:900; margin:2.5rem 0 1.5rem; text-align:center">댓글 창</h1>
+          <h2 style="color:#2f3b52; font-weight:400; margin:2.5rem 0 1.5rem; text-align:center" class="lucky">Comments</h2>
       </header>
       <!--기존에 있는 댓글 보여주게하기 -->
       <CommentInput v-on:addComment="addComment" />
@@ -70,5 +70,8 @@ button{
 }
 .shadow{
     box-shadow:5px 10px 10px rgba(0,0,0,0.03)
+}
+.lucky{
+    font-family: 'Luckiest Guy', cursive ;
 }
 </style>
