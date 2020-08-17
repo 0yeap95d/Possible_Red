@@ -1,5 +1,6 @@
 package com.ssafy.SNS201.service;
 
+import com.ssafy.SNS201.dto.Hashtag;
 import com.ssafy.SNS201.dto.Member;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface MemberService {
     public boolean addMember(Member member);
     public boolean modifyMember(Member member);
     public boolean removeMember(int memberNo);
+    public List<Member> findAllMembersBySearch(String keyword);
 }

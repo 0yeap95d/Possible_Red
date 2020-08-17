@@ -41,4 +41,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean removeMember(int memberNo) {
         return mapper.deleteMember(memberNo);
     }
+
+    @Override
+    public List<Member> findAllMembersBySearch(String keyword) {
+        return mapper.selectMemberBySearch(keyword);
+    }
 }

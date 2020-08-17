@@ -1,5 +1,6 @@
 package com.ssafy.SNS201.service;
 
+import com.ssafy.SNS201.dto.Hashtag;
 import com.ssafy.SNS201.dto.Post;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,4 +14,5 @@ public interface PostService {
     boolean removePost(int postNo);
     List<Post> findPostByMemberNo(int memberNo);
     List<Post> findPostByMissionNo(int missionNo);
+    public List<Post> findAllPostsBySearch(String keyword);
 }

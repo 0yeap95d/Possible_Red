@@ -21,6 +21,12 @@
 		 WHERE  email       = #{email}
 	</select>
 
+    <select id="selectMemberBySearch" parameterType="String" resultType="Member">
+        SELECT  *
+          FROM  member
+         WHERE  nickname LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <insert id="insertMember" parameterType="Member">
         INSERT INTO member(
             email,
