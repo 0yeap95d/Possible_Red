@@ -10,7 +10,64 @@
         <br />
 
         <!--포스트 디테일 카드 여기있음!!-->
-        <PostingDetailCard :propsPost="postOne" />
+        <!-- <PostingDetailCard :propsPost="postOne" /> -->
+
+        <v-card class="mx-auto">
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img src="../../assets/images/background1.jpg"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="headline">by {{user.nickname}}</v-list-item-title>
+              <!--v-list-item-subtitle>by {{user.nickname}}</v-list-item-subtitle-->
+            </v-list-item-content>
+          </v-list-item>
+
+          <img :src="imagePath" height="auto" />
+
+          <v-card-text>
+            <span class="jua">{{post.postContent}}</span>
+            <br />
+            <span class="jua">#풍경 #운동</span>
+            <!--해시태그-->
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn text color="deep-purple accent-4" @click="insertFolglow()">Follow</v-btn>
+            <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn icon>
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+            <v-btn icon>
+              <v-icon>mdi-share-variant</v-icon>
+            </v-btn>
+          </v-card-actions>
+          <div v-if="isSame(user.memberNo, post.memberNo)">
+            <v-btn
+              color="#FF4081"
+              text
+              style="font-size:medium"
+              @click="gotomodify(post.postNo)"
+            >수정하기</v-btn>
+
+            <v-dialog v-model="dialog" persistent max-width="290">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="#FF4081" text style="font-size:medium" v-bind="attrs" v-on="on">삭제하기</v-btn>
+              </template>
+              <v-card>
+                <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">네</v-btn>
+                  <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+        </v-card>
+
+        <!-- <img :src="imagePath" height="auto" /> -->
 
         <div class="wrapC">
           <Comments />
@@ -101,9 +158,11 @@ import "../../components/css/style.css";
 import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
 import Comments from "../../views/post/Comments.vue";
 import PostApi from "../../api/PostApi";
+import FollowApi from "../../api/FollowApi";
 
 export default {
   created() {
+    this.user = this.$session.get("user");
     this.num = this.$route.params.num;
     PostApi.requestSelectPostByNo(
       this.num,
@@ -113,6 +172,12 @@ export default {
         this.postOne.postPhoto = res.data.postPhoto;
         this.postOne.postContent = res.data.postContent;
         this.postOne.mission = res.data.missionNo;
+
+        console.log(this.postOne.postPhoto);
+        this.imageSplit = this.postOne.postPhoto.split("/");
+        this.index = this.imageSplit.length - 1;
+        this.imagePath += this.imageSplit[this.index];
+        console.log(this.imagePath);
       },
       (error) => {}
     );
@@ -128,12 +193,51 @@ export default {
       postContent: "",
       missionNo: 0,
     },
+    imagePath: "http://i3d201.p.ssafy.io:8080/",
+    index: 0,
+    imageSplit: [],
   }),
   components: {
-    PostingDetailCard,
+    // PostingDetailCard,
     Comments,
   },
   methods: {
+    returnpost() {
+      this.$router.push("/posts");
+    },
+    isSame(itsMe, writer) {
+      if (itsMe == writer) {
+        // console.log("내가 쓴 글입니다.");
+        return true;
+      } else {
+        // console.log("내가 쓴 글이 아닙니다");
+        return false;
+      }
+    },
+    gotomodify(num) {
+      this.$router.push({
+        name: "PostModify",
+        params: {
+          // 포스트 넘버 넘기기
+          num: num,
+          nickname: this.user.nickname,
+        },
+      });
+    },
+    gotodelete(num) {
+      PostApi.requestPostDelete(num);
+      this.$router.push("/posts");
+    },
+    insertFollow() {
+      FollowApi.requestFollowRegister(
+        {
+          me: this.$session.get("user").memberNo,
+          you: this.post.memberNo,
+        },
+        (res) => {},
+        (error) => {}
+      );
+    },
     kakaoLogout() {
       this.$session.destroy();
       window.Kakao.API.request({
