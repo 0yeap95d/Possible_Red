@@ -13,6 +13,7 @@
         </v-list-item>
 
         <img :src="imagePath" height="auto" />
+        <p>{{this.imagePath}}</p>
 
         <v-card-text>
           <span class="jua">{{post.postContent}}</span>
@@ -32,7 +33,6 @@
             <v-icon>mdi-share-variant</v-icon>
           </v-btn>
         </v-card-actions>
-        <!--button @click="test">test</button-->
         <div v-if="isSame(user.memberNo, post.memberNo)">
           <v-btn color="#FF4081" text style="font-size:medium" @click="gotomodify(post.postNo)">수정하기</v-btn>
 
@@ -49,14 +49,6 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-
-          <!--v-btn
-          v-if="isSame(user.memberNo, post.memberNo)"
-          color="#FF4081"
-          text
-          style="font-size:medium"
-          @click="gotodelete(post.postNo)"
-          >삭제하기</v-btn-->
         </div>
       </v-card>
     </v-app>
@@ -70,7 +62,7 @@ import PostApi from "../../api/PostApi";
 export default {
   name: "PostingDetailCard",
   props: {
-    post: Object,
+    propsPost: Object,
   },
   data() {
     return {
@@ -83,20 +75,29 @@ export default {
         pwd: "",
         stateMent: "",
       },
-      imagePath: "@",
+      post: {
+        postNo: 0,
+        memberNo: 0,
+        postPhoto: "",
+        postContent: "",
+        missionNo: 0,
+      },
+      // imagePath: "../../../../../../var/www/html/image/",
+      imagePath: "../../../../../..",
       index: 0,
       imageSplit: [],
     };
   },
   created() {
     this.user = this.$session.get("user");
-
+    this.post = this.propsPost;
+    console.log(this.post.postPhoto);
+    this.imagePath += this.post.postPhoto;
+  },
+  beforeMount() {
     // this.imageSplit = this.post.postPhoto.split("/");
     // this.index = this.imageSplit.length - 1;
     // this.imagePath += this.imageSplit[this.index];
-    // console.log(this.imagePath);
-
-    this.imagePath += this.post.postPhoto;
   },
   methods: {
     returnpost() {

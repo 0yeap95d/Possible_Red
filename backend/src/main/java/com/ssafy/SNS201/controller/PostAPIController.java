@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.Document;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -26,7 +24,7 @@ public class PostAPIController {
     private static final Logger logger = LoggerFactory.getLogger(PostAPIController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
-    private static final String imagePath = "/home/ubuntu/s03p13d201/backend/src/main/resources/pic/";
+    private static final String imagePath = "/home/ubuntu/s03p13d201/backend/src/main/webapp/";
 
     @Autowired
     PostService postService;
