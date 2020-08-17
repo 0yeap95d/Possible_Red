@@ -12,6 +12,12 @@ const requestSelectPostByNo = (data, callback, errorCallback) => {
         .catch((error) => errorCallback(error));
 };
 
+const requestSelectPostByMember = (data, callback, errorCallback) => {
+    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/member/" + data)
+        .then((res) => callback(res))
+        .catch((error) => errorCallback(error));
+};
+
 const requestInsertPost = (data, callback, errorCallback) => {
     Axios.post("http://i3d201.p.ssafy.io:8080/sns201/post", data, {
         headers: {
@@ -21,6 +27,7 @@ const requestInsertPost = (data, callback, errorCallback) => {
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
+
 const requestPostUpdate = (data, callback, errorCallback) => {
     Axios.put('http://i3d201.p.ssafy.io:8080/sns201/post', data)
         .then(res => callback(res))
@@ -38,6 +45,8 @@ const PostApi = {
         requestSelectPost(data, callback, errorCallback),
     requestSelectPostByNo: (data, callback, errorCallback) =>
         requestSelectPostByNo(data, callback, errorCallback),
+    requestSelectPostByMember: (data, callback, errorCallback) =>
+        requestSelectPostByMember(data, callback, errorCallback),    
     requestInsertPost: (data, callback, errorCallback) =>
         requestInsertPost(data, callback, errorCallback),
     requestPostUpdate: (data, callback, errorCallback) =>
