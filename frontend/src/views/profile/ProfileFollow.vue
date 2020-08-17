@@ -119,7 +119,9 @@ export default {
     toProfile(num){
       this.$router.push({
         name: "OtherProfile",
-        params: { num: num },
+        params: { 
+          num: num, 
+        },
       });
     }
   },
