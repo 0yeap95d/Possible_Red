@@ -83,7 +83,7 @@ export default {
         missionNo: 0,
       },
       // imagePath: "../../../../../../var/www/html/image/",
-      imagePath: "../../../../../..",
+      imagePath: "http://i3d201.p.ssafy.io:8080/img/",
       index: 0,
       imageSplit: [],
     };
@@ -92,12 +92,11 @@ export default {
     this.user = this.$session.get("user");
     this.post = this.propsPost;
     console.log(this.post.postPhoto);
-    this.imagePath += this.post.postPhoto;
-  },
-  beforeMount() {
-    // this.imageSplit = this.post.postPhoto.split("/");
-    // this.index = this.imageSplit.length - 1;
-    // this.imagePath += this.imageSplit[this.index];
+    this.imageSplit = this.post.postPhoto.split("/");
+    this.index = this.imageSplit.length - 1;
+    this.imagePath += this.imageSplit[this.index];
+    console.log(this.imagePath);
+    // this.imagePath += this.post.postPhoto;
   },
   methods: {
     returnpost() {
