@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import CommentFooter from '../../components/comment/CommentFooter.vue'
 import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
 import Footer from '../../components/common/Footer.vue'
@@ -20,7 +19,6 @@ import Footer from '../../components/common/Footer.vue'
 export default {
     name:'Comments',
     components:{
-        CommentFooter,
         CommentList,
         CommentInput,
         Footer,
