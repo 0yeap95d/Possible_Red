@@ -2,8 +2,18 @@
   <div class="wrap search-pg">
     <v-app>
       <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching"/>
-      <SearchPost v-if="isPost" />
-      <SearchUser v-if="isUser" />
+      <SearchPost v-show="isPost" 
+                
+                 v-for="list in list"
+                  :key="list"
+                  :list="list"/>
+
+      <SearchUser v-show="isUser" 
+      
+                 v-for="memberList in memberList"
+                  :key="memberList"
+                  :memberList="memberList"
+                  />
 
       <v-bottom-navigation
           v-model="bottomNav"
@@ -45,6 +55,7 @@ import "../../components/css/style.css";
 import SearchBar from "../../components/search/Searchbar.vue";
 import SearchPost from "../../components/search/SearchPost.vue";
 import SearchUser from "../../components/search/SearchUser.vue";
+import SearchApi from "../../api/SearchApi";
 
 export default {
   name: "Search",
@@ -57,6 +68,8 @@ export default {
         type: null,
         keyword: null,
       },
+      list : [],
+      memberList: []
     };
   },
   components: {
@@ -87,10 +100,33 @@ export default {
         this.isPost = true;
         this.isUser = false;
         this.isSearching = true;
+        // console.log(this.searchItem);
+        SearchApi.requestPostBySearch(
+              this.searchItem.keyword,
+              (res) => {
+                console.log("post!")
+                this.list = res.data;
+                console.log(this.list)
+              },
+              (error) => {
+                console.log("error!")
+              }
+            )
       } else if (this.searchItem.type == "user") {
         this.isPost = false;
         this.isUser = true;
         this.isSearching = true;
+        SearchApi.requestMemberBySearch(
+              this.searchItem.keyword,
+              (res) => {
+                console.log("user!")
+                this.memberList = res.data;
+                console.log(this.memberList)
+              },
+              (error) => {
+                console.log("error!")
+              }
+        )
       } else if (this.searchItem.type == "none") {
         this.isPost = false;
         this.isUser = false;

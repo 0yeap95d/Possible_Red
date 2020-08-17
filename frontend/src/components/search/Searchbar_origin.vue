@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import SearchApi from '../../api/SearchApi';
 export default {
   name: "SearchBar",
   data() {
@@ -49,6 +50,39 @@ export default {
       }
       console.log(this.keyword);
       //Api 만든걸로 바로 넣어주면됨!
+      if (this.keyword[0] == '@') {
+         SearchApi.requestMemberBySearch(
+           this.keyword,
+           res => {
+             console.log("user!")
+           },
+           error => {
+             console.log("error!")
+           },
+         )
+      }
+      else if (this.keyword[0] == '#') {
+         SearchApi.requestHashtagBySearch(
+           this.keyword,
+           res => {
+             console.log("hashtag!")
+           },
+           error => {
+             console.log("error!")
+           },
+         )
+      }
+      else {
+         SearchApi.requestPostBySearch(
+           this.keyword,
+           res => {
+             console.log("post!")
+           },
+           error => {
+             console.log("error!")
+           },
+         )
+      }
     },
   },
 };

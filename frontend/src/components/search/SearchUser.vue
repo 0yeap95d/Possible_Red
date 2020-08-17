@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list>
+    <!-- <v-list>
       <v-list-item
         v-for="item in items"
         :key="item.title"
@@ -17,7 +17,9 @@
           <v-icon :color="item.active ? 'deep-purple accent-4' : 'grey'">{{ icons.mdiAccount }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
-    </v-list>
+    </v-list> -->
+    <p>사용자 닉네임 : {{this.memberList.nickname}}</p>
+    <hr>
   </div>
 </template>
 
@@ -26,6 +28,12 @@ import HeaderComponent from "../common/Header";
 import { mdiAccount } from '@mdi/js';
 export default {
   name: "SearchUser",
+  props:{
+    memberList:Array
+  },
+  created(){
+    console.log(this.list.memberNo)
+  },
   components: {
   },
   data() {

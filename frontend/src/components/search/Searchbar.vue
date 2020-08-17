@@ -37,6 +37,7 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
         isLoading: false,
         model: null,
         search: null,
+        str: null,
         searchItem: {
           type: null,
           keyword: null,
@@ -59,9 +60,10 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
 
         if (this.search.length > 0) {
           this.searchItem.keyword = this.search
-          console.log("search:",this.search)
+          
           if (this.search[0]=='@') {
             if (this.search.length >= 2){
+            this.searchItem.keyword = this.search.substring(1);
             console.log("uesr")
             this.searchItem.type="user"
             this.$emit('search-items', this.searchItem)
@@ -72,6 +74,7 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
             }
           } else if (this.search[0]=="#"){
             if (this.search.length >= 2){
+            this.searchItem.keyword = this.search.substring(1);
             console.log("hashtag")
             this.searchItem.type="hashtag"
             this.$emit('search-items', this.searchItem)

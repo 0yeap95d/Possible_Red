@@ -13,19 +13,19 @@ const requestMissionByCategory = (data, callback, errorCallback) => {
 }
 
 const requestMemberBySearch = (data, callback, errorCallback) => {
-    Axios.get('http://localhost:8080/search/member/' + data)
+    Axios.get('http://i3d201.p.ssafy.io:8080/search/member/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestHashtagBySearch = (data, callback, errorCallback) => {
-    Axios.get('http://localhost:8080/search/hashtag/' + data)
+    Axios.get('http://i3d201.p.ssafy.io:8080/search/hashtag/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
 
 const requestPostBySearch = (data, callback, errorCallback) => {
-    Axios.get('http://localhost:8080/search/post/' + data)
+    Axios.get('http://i3d201.p.ssafy.io:8080/search/post/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
