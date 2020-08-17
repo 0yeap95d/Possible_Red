@@ -55,7 +55,9 @@ import FollowApi from "../../api/FollowApi";
 
 export default {
   name: "ProfileInfo",
-
+  props: {
+    pnum: Number,
+  },
   created() {
     console.log("created");
     this.user = this.$session.get("user");
@@ -64,14 +66,20 @@ export default {
   beforeMount() {
     console.log("beforMount");
     console.log(this.user);
-    this.getCountFollower();
-    this.getCountFollowing();
+    console.log(this.pnum);
+    if (this.pnum) {
+      this.getCountFollower(this.pnum);
+      this.getCountFollowing(this.pnum);
+    } else {
+      this.getCountFollower(this.user.memberNo);
+      this.getCountFollowing(this.user.memberNo);
+    }
   },
 
   methods: {
-    getCountFollower() {
+    getCountFollower(num) {
       FollowApi.requestCountFollower(
-        this.user.memberNo,
+        num,
         (res) => {
           console.log(res);
           this.follower = res.data;
@@ -81,9 +89,9 @@ export default {
         }
       );
     },
-    getCountFollowing() {
+    getCountFollowing(num) {
       FollowApi.requestCountFollowing(
-        this.user.memberNo,
+        num,
         (res) => {
           console.log(res);
           this.following = res.data;
