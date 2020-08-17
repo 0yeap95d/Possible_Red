@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow jua">
-      <input type="text" v-model="this.comment.commentContent" placeholder="Tell me your thinking" v-on:keyup.enter="addComment">
+      <input type="text" v-model="comment.commentContent" placeholder="Tell me your thinking" v-on:keyup.enter="addComment">
       <span class="addContainer" v-on:click="addComment">
           <i class="addBtn fas fa-plus" aria-hidden="true"></i>
       </span>
@@ -36,22 +36,23 @@ export default {
     },
     methods:{
         addComment(){
-            //console.log(this.comment.commentContent);
             if(this.comment.commentContent!=""){ //인풋 박스의 입력 값이 있을 때만 저장
+                console.log("after"+this.comment.commentContent);
                 var value=this.comment.commentContent && this.comment.commentContent.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
                 this.$emit('addComment', value);
                 this.clearInput(); //인풋 박스의 입력 값을 초기화
-            }else{
-                this.showModal=!this.showModal;
-            }
-
-
-
-            CommentApi.requestAddComment(
-                this.comment,
+                ////////////////////////////////
+                CommentApi.requestAddComment(
+                    this.comment,
                 (res)=>{},
                 (error)=>{}
             )
+            }else{
+                this.showModal=!this.showModal;
+            }
+            console.log(this.comment)
+            console.log("before"+this.comment.commentContent);
+
            
         },
         clearInput(){
