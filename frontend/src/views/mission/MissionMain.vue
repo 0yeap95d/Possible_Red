@@ -20,7 +20,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img src="../../assets/images/펭수프로필.jpg" />
+                    <img :src="imagePath" />
                   </div>
                 </div>
               </div>
@@ -105,11 +105,19 @@ export default {
     drawer: false,
     activeBtn: 1,
     missionList: [],
+    user: Object,
+    imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    index: 0,
+    imageSplit: [],
   }),
   components: {
     MissionItem,
   },
   created() {
+    this.user = this.$session.get("user");
+    this.imageSplit = this.user.memberPhoto.split("/");
+    this.index = this.imageSplit.length - 1;
+    this.imagePath += this.imageSplit[this.index];
     MissionApi.requestAllMission(
       // 미션 전체 리스트 받아오기
       (res) => {
@@ -231,10 +239,10 @@ export default {
 .v-responsive__content {
   background-color: transparent;
 }
-.v-app-bar__nav-icon.v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default{
-  color:white !important;
+.v-app-bar__nav-icon.v-btn.v-btn--flat.v-btn--icon.v-btn--round.theme--dark.v-size--default {
+  color: white !important;
 }
-.v-icon.notranslate.mdi.mdi-menu.theme--dark{
-  color:white;
+.v-icon.notranslate.mdi.mdi-menu.theme--dark {
+  color: white;
 }
 </style>

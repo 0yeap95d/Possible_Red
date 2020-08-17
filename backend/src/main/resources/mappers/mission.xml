@@ -93,4 +93,10 @@
         SELECT MAX(missionNo)
          FROM mission;
     </select>
+
+    <select id="selectCountByMissionNo" resultType="int">
+        SELECT COUNT(*)
+         FROM entry
+        where missionNo = #{missionNo};
+    </select>
 </mapper>
