@@ -31,6 +31,12 @@
          WHERE  p.memberNo = m.memberNo AND postNo = #{postNo}
     </select>
 
+    <select id="selectPostBySearch" parameterType="String" resultType="Post">
+        SELECT  *
+          FROM  post
+         WHERE  postContent LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <update id="updatePost" parameterType="Post">
         UPDATE  post
            SET  postPhoto   = #{postPhoto},

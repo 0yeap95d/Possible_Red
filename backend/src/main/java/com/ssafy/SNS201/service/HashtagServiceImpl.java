@@ -29,4 +29,9 @@ public class HashtagServiceImpl implements HashtagService{
     public boolean removeHashtag(int hashtagNo) {
         return mapper.deleteHashtag(hashtagNo);
     }
+
+    @Override
+    public List<Hashtag> findAllHashtagsBySearch(String keyword) {
+        return mapper.selectHashtagBySearch(keyword);
+    }
 }

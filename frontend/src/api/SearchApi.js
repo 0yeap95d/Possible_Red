@@ -12,9 +12,30 @@ const requestMissionByCategory = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 }
 
+const requestMemberBySearch = (data, callback, errorCallback) => {
+    Axios.get('http://localhost:8080/sns201/search/member/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
+const requestHashtagBySearch = (data, callback, errorCallback) => {
+    Axios.get('http://localhost:8080/sns201/search/hashtag/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
+const requestPostBySearch = (data, callback, errorCallback) => {
+    Axios.get('http://localhost:8080/sns201/search/post/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 const SearchApi = {
     requestCategory: (data, callback, errorCallback) => requestCategory(data, callback, errorCallback),
     requestMissionByCategory: (data, callback, errorCallback) => requestMissionByCategory(data, callback, errorCallback),
+    requestMemberBySearch: (data, callback, errorCallback) => requestMemberBySearch(data, callback, errorCallback),
+    requestHashtagBySearch: (data, callback, errorCallback) => requestHashtagBySearch(data, callback, errorCallback),
+    requestPostBySearch: (data, callback, errorCallback) => requestPostBySearch(data, callback, errorCallback),
 };
 
 export default SearchApi

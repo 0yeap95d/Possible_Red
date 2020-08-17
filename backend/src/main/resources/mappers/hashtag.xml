@@ -10,6 +10,12 @@
 		 WHERE  postNo    = #{postNo}
 	</select>
 
+    <select id="selectHashtagBySearch" parameterType="String" resultType="Hashtag">
+        SELECT  *
+          FROM  hashtag
+         WHERE  hashtagContent LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <insert id="insertHashtag" parameterType="Hashtag">
         INSERT INTO hashtag(
             postNo,
@@ -25,5 +31,7 @@
 		  FROM  hashtag
 		 WHERE  hashtagNo   = #{hashtagNo}
 	</delete>
+
+
 
 </mapper>

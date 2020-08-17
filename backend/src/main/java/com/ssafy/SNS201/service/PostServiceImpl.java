@@ -48,5 +48,10 @@ public class PostServiceImpl implements PostService{
         return mapper.selectPostByMissionNo(missionNo);
     }
 
+    @Override
+    public List<Post> findAllPostsBySearch(String keyword) {
+        return mapper.selectPostBySearch(keyword);
+    }
+
 
 }
