@@ -8,7 +8,7 @@
           <v-toolbar-title>{{user.nickname}}</v-toolbar-title>
         </v-app-bar>
 
-        <ProfileInfo class="pt-3" :pnum="num"/>
+        <OtherProfileInfo class="pt-3" :other="user" :pnum="num" />
         <ProfileBody />
         
         <!--미션 props를 MissionItem으로 넘김-->
@@ -95,14 +95,14 @@
 
 <script>
 import ProfileBody from "../../components/profile/ProfileBody.vue";
-import ProfileInfo from "../../components/profile/ProfileInfo.vue";
+import OtherProfileInfo from "../../components/profile/OtherProfileInfo.vue";
 import "../../assets/css/components.scss";
 import UserApi from "../../api/UserApi";
 
 export default {    
     name: "OtherProfile",
     components: {
-        ProfileInfo,
+        OtherProfileInfo,
         ProfileBody,
     },
     created() {
@@ -131,7 +131,7 @@ export default {
               point: 0,
               pwd: "",
               stateMent: ""
-          }
+          },
         }
     },
     methods: {

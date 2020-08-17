@@ -4,7 +4,7 @@
       <div class="thumbnail-wrapper my-auto">
         <div class="thumbnail">
           <div class="centered">
-            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto" alt="안뜸">
+            <img v-if="other.memberPhoto" class="profile" :src="other.memberPhoto" alt="안뜸">
             <img v-else class="profile" src="../../assets/images/profile_default.png">
             <!-- <img class="profile" :src="require('../../assets/images/jjon.jpg')"> -->
           </div>
@@ -42,19 +42,28 @@
     </div>
 
     <p
-      v-if="user.stateMent"
+      v-if="other.stateMent"
       class="stat"
       style="font-family: 'Jua', sans-serif; text-align: left;"
-    >{{user.stateMent}}</p>
+    >{{other.stateMent}}</p>
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
+
+    <v-btn class="follow-btn" block color="primary" dark>Block Button</v-btn>
+
   </div>
 </template>
 
 <script>
 import FollowApi from "../../api/FollowApi";
+import UserApi from "../../api/UserApi";
 
 export default {
-  name: "ProfileInfo",
+  name: "OtherProfileInfo",
+  props: {
+    pnum: Number,
+    other: Object,
+    followerList: Array,
+  },
   created() {
     console.log("created");
     this.user = this.$session.get("user");
@@ -63,10 +72,11 @@ export default {
   beforeMount() {
     console.log("beforMount");
     console.log(this.user);
-
-    this.getCountFollower(this.user.memberNo);
-    this.getCountFollowing(this.user.memberNo);
-
+    console.log("친구번호:" + this.pnum);
+    if (this.pnum) {
+      this.getCountFollower(this.pnum);
+      this.getCountFollowing(this.pnum);
+    }
   },
 
   methods: {
@@ -171,6 +181,13 @@ export default {
   width: 80%;
   text-align: center;
   margin: auto;
+}
+.follow-btn {
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  padding-bottom: 5%;
 }
 
 .v-application p {
