@@ -25,13 +25,13 @@ const requestPostUpdate = (data, callback, errorCallback) => {
     Axios.put('http://i3d201.p.ssafy.io:8080/sns201/post', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
-} // 미션 업데이트
+} // 포스트 업데이트
 
 const requestPostDelete = (data, callback, errorCallback) => {
     Axios.delete('http://i3d201.p.ssafy.io:8080/sns201/post/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
-} // 미션 삭제
+} // 포스트 삭제
 
 const PostApi = {
     requestSelectPost: (data, callback, errorCallback) =>
