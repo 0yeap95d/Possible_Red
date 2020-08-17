@@ -74,8 +74,6 @@ export default {
   },
   created() {
     this.user = this.$session.get("user");
-    console.log("~~~~~~~~~~" + this.user.stateMent);
-
     this.passwordSchema
       .is()
       .min(8)
@@ -134,13 +132,16 @@ export default {
         (res) => {
           console.log(res.data);
           if (res.data === "success") {
-            console.log("modify user success");
-
+            // console.log("modify user success");
             this.isSubmit = false;
+            this.$session.destroy();
+
+            // 로그인 추가하기
+
             // 결과페이지로 이동
             this.$router.push("/profile");
           } else {
-            console.log("modify user fail");
+            // console.log("modify user fail");
             // 에러페이지로 이동
           }
         },
@@ -158,6 +159,7 @@ export default {
         point: 0,
         pwd: "",
         stateMent: "",
+        membetPhoto: "",
       },
       passwordSchema: new PV(),
       error: {

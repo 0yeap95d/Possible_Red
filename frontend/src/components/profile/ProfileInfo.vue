@@ -4,9 +4,7 @@
       <div class="thumbnail-wrapper my-auto">
         <div class="thumbnail">
           <div class="centered">
-            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto" alt="안뜸">
-            <img v-else class="profile" src="../../assets/images/profile_default.png">
-            <!-- <img class="profile" :src="require('../../assets/images/jjon.jpg')"> -->
+            <img v-if="user.memberPhoto" class="profile" :src="imagePath" alt="안뜸" />
           </div>
         </div>
       </div>
@@ -56,17 +54,15 @@ import FollowApi from "../../api/FollowApi";
 export default {
   name: "ProfileInfo",
   created() {
-    console.log("created");
     this.user = this.$session.get("user");
+    this.imageSplit = this.user.memberPhoto.split("/");
+    this.index = this.imageSplit.length - 1;
+    this.imagePath += this.imageSplit[this.index];
   },
 
   beforeMount() {
-    console.log("beforMount");
-    console.log(this.user);
-
     this.getCountFollower(this.user.memberNo);
     this.getCountFollowing(this.user.memberNo);
-
   },
 
   methods: {
@@ -112,6 +108,9 @@ export default {
       user: Object,
       follower: 0,
       following: 0,
+      imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+      index: 0,
+      imageSplit: [],
     };
   },
 };
@@ -119,7 +118,7 @@ export default {
 
 <style scoped>
 .thumbnail-wrapper {
-  width:25%;
+  width: 25%;
   margin-left: 5%;
   margin-right: 15%;
 }
@@ -131,23 +130,23 @@ export default {
 }
 .thumbnail .centered {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  -webkit-transform: translate(50%,50%); 
-  -ms-transform: translate(50%,50%); 
-  transform: translate(50%,50%); 
-  }
-.thumbnail .centered img { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  max-width: 100%; 
-  height: auto; 
-  -webkit-transform: translate(-50%,-50%); 
-  -ms-transform: translate(-50%,-50%); 
-  transform: translate(-50%,-50%); 
+  -webkit-transform: translate(50%, 50%);
+  -ms-transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
+}
+.thumbnail .centered img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 /* 
 .box {
