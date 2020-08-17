@@ -12,8 +12,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <img :src="imagePath" height="auto" />
-        <p>{{this.imagePath}}</p>
+        <!-- <img :src="imagePath" height="auto" /> -->
 
         <v-card-text>
           <span class="jua">{{post.postContent}}</span>
