@@ -12,64 +12,64 @@
         <!--포스트 디테일 카드 여기있음!!-->
         <!-- <PostingDetailCard :propsPost="postOne" /> -->
 
-        <v-card class="mx-auto">
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-img src="../../assets/images/background1.jpg"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="headline">by {{user.nickname}}</v-list-item-title>
-              <!--v-list-item-subtitle>by {{user.nickname}}</v-list-item-subtitle-->
-            </v-list-item-content>
-          </v-list-item>
+        <div class="wrapC">
+          <v-card class="mx-auto">
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-img src="../../assets/images/background1.jpg"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="headline">by {{user.nickname}}</v-list-item-title>
+                <!--v-list-item-subtitle>by {{user.nickname}}</v-list-item-subtitle-->
+              </v-list-item-content>
+            </v-list-item>
 
-          <img :src="imagePath" height="auto" />
+            <img :src="imagePath" height="auto" />
 
-          <v-card-text>
-            <span class="jua">{{post.postContent}}</span>
-            <br />
-            <span class="jua">#풍경 #운동</span>
-            <!--해시태그-->
-          </v-card-text>
+            <v-card-text>
+              <span class="jua">{{post.postContent}}</span>
+              <br />
+              <span class="jua">#풍경 #운동</span>
+              <!--해시태그-->
+            </v-card-text>
 
-          <v-card-actions>
-            <v-btn text color="deep-purple accent-4" @click="insertFolglow()">Follow</v-btn>
-            <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-share-variant</v-icon>
-            </v-btn>
-          </v-card-actions>
-          <div v-if="isSame(user.memberNo, post.memberNo)">
-            <v-btn
-              color="#FF4081"
-              text
-              style="font-size:medium"
-              @click="gotomodify(post.postNo)"
-            >수정하기</v-btn>
+            <v-card-actions>
+              <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>mdi-share-variant</v-icon>
+              </v-btn>
+            </v-card-actions>
+            <div v-if="isSame(user.memberNo, post.memberNo)">
+              <v-btn
+                color="#FF4081"
+                text
+                style="font-size:medium"
+                @click="gotomodify(post.postNo)"
+              >수정하기</v-btn>
 
-            <v-dialog v-model="dialog" persistent max-width="290">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="#FF4081" text style="font-size:medium" v-bind="attrs" v-on="on">삭제하기</v-btn>
-              </template>
-              <v-card>
-                <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">네</v-btn>
-                  <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </div>
-        </v-card>
+              <v-dialog v-model="dialog" persistent max-width="290">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn color="#FF4081" text style="font-size:medium" v-bind="attrs" v-on="on">삭제하기</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">네</v-btn>
+                    <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
+          </v-card>
 
         <!-- <img :src="imagePath" height="auto" /> -->
 
-        <div class="wrapC">
+        
           <Comments />
         </div>
 
