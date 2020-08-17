@@ -16,8 +16,6 @@
         </div>
       </v-card>
 
-
-      
       <v-bottom-navigation v-model="bottomNav" black shift>
         <v-btn @click="post">
           <span>POST</span>
@@ -81,7 +79,7 @@ export default {
   created() {
     this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
 
-    console.log("지금 찾아올 미션 넘버 : " + this.num);
+    // console.log("지금 찾아올 미션 넘버 : " + this.num);
     MissionApi.requestMissionDetail(
       this.num,
       (res) => {
