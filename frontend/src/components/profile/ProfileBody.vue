@@ -99,8 +99,33 @@
 </template>
 
 <script>
+
+import PostApi from "../../api/PostApi"
+import MissionApi from "../../api/MissionApi"
+
 export default {
     name: "ProfileBody",
+    created() {
+      this.user = this.$session.get("user");
+      PostApi.requestSelectPostByMember(
+        this.user.memberNo,
+        (res) => { this.myPost = res.data },
+        (error) => { console.log(error) }
+      )
+
+      MissionApi.requestMissionByMember(
+        this.user.memberNo,
+        (res) => { this.myMission = res.data },
+        (error) => {console.log(error)}
+      )
+    },
+    data() {
+      return {
+        user: Object,
+        myPost: [],
+        myMission: [],
+      }
+    }
 }
 </script>
 
