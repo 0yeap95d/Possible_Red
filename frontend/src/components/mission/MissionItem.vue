@@ -25,7 +25,7 @@
           v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
           color="pink"
           text
-          @click="entryJoin(mission.memberNo, user.memberNo, mission.missionNo)"
+          @click="entryJoin(mission.memberNo, user.memberNo, mission.missionNo,mission.joinMem)"
         >신청하기</v-btn>
       </v-card-actions>
     </v-card>
@@ -55,10 +55,11 @@ export default {
       },
       start: "",
       end: "",
+      entryNum: 0,
     };
   },
   methods: {
-    entryJoin(mNo, uNo, mm) {
+    entryJoin(mNo, uNo, mm, lastmem) {
       // 미션만든사람 멤버넘버, 지금 로그인한 사람 멤버넘버
       // 만약에 내가 만든 미션일경우 신청x
       if (mNo === uNo) {
@@ -69,33 +70,46 @@ export default {
         memberNo: uNo,
         missionNo: mm,
       };
-      EntryApi.reqeustCanIJoinThisMission(
-        data,
+      EntryApi.requestEntryCountByMissionNo(
+        mm, // 미션넘버로 카운팅해봤을때
         (res) => {
-          if (res.data === "success") {
-            let entry = {
-              memberNo: 0,
-              missionNo: 0,
-              reward: 0,
-              nonCnt: 0,
-            };
-            entry.memberNo = uNo;
-            entry.missionNo = mm;
-            entry.reward = 0;
-            entry.nonCnt = 0;
-            EntryApi.requestEntryRegister(
-              entry,
-              (resentry) => {
-                console.log("엔트리 등록 완료");
-                alert("미션에 참여합니다");
-              },
-              (error) => {
-                console.log("엔트리 등록 안됐음");
-              }
-            );
-            this.$router.push("/mymission");
+          this.entryNum = res.data;
+          console.log(this.entryNum);
+          if (this.entryNum == lastmem) {
+            alert("자리가 꽉 찼습니다!");
+            return;
           } else {
-            alert("이미 참여하고있는 미션입니다.");
+            EntryApi.reqeustCanIJoinThisMission(
+              data,
+              (res) => {
+                if (res.data === "success") {
+                  let entry = {
+                    memberNo: 0,
+                    missionNo: 0,
+                    reward: 0,
+                    nonCnt: 0,
+                  };
+                  entry.memberNo = uNo;
+                  entry.missionNo = mm;
+                  entry.reward = 0;
+                  entry.nonCnt = 0;
+                  EntryApi.requestEntryRegister(
+                    entry,
+                    (resentry) => {
+                      // console.log("엔트리 등록 완료");
+                      alert("미션에 참여합니다");
+                    },
+                    (error) => {
+                      console.log("엔트리 등록 안됐음");
+                    }
+                  );
+                  this.$router.push("/mymission");
+                } else {
+                  alert("이미 참여하고있는 미션입니다.");
+                }
+              },
+              (error) => {}
+            );
           }
         },
         (error) => {}
@@ -107,10 +121,10 @@ export default {
         2. 끝나는 날짜가 오늘날짜보다 이전이다 => 쿠키 없음 false
       */
       if (today < sDate) {
-        console.log("쿠키있음");
+        // console.log("쿠키있음");
         return true;
       } else if (eDate < today) {
-        console.log("쿠키없음");
+        // console.log("쿠키없음");
         return false;
       }
     },

@@ -6,7 +6,7 @@
       <v-card-subtitle
         class="pb-0 jua"
       >{{$moment(mission.startDate).format('YYYY-MM-DD')}} ~ {{$moment(mission.endDate).format('YYYY-MM-DD')}}</v-card-subtitle>
-      <v-card-text class="jua">참여인원 : {{mission.joinMem}}명 중 7명</v-card-text>
+      <v-card-text class="jua">참여인원 : {{mission.joinMem}}명 중 {{entryNum}}명</v-card-text>
 
       <v-card-text class="text--primary">
         <div class="jua">커트라인 : {{mission.cutCnt}}</div>
@@ -45,6 +45,14 @@ export default {
   },
   created() {
     this.user = this.$session.get("user");
+    EntryApi.requestEntryCountByMissionNo(
+      this.mission.missionNo,
+      (res) => {
+        this.entryNum = res.data;
+        console.log(this.entryNum);
+      },
+      (error) => {}
+    );
   },
   data() {
     return {
@@ -57,6 +65,7 @@ export default {
         pwd: "",
         stateMent: "",
       },
+      entryNum: 0,
     };
   },
   methods: {
@@ -70,12 +79,12 @@ export default {
       });
     },
     isSame(itsMe, writer) {
-      console.log("잇츠미 : " + itsMe + " writer : " + writer);
+      // console.log("잇츠미 : " + itsMe + " writer : " + writer);
       if (itsMe == writer) {
-        console.log("내가 쓴 글입니다.");
+        // console.log("내가 쓴 글입니다.");
         return true;
       } else {
-        console.log("내가 쓴 글이 아닙니다");
+        // console.log("내가 쓴 글이 아닙니다");
         return false;
       }
     },
@@ -107,7 +116,7 @@ export default {
             EntryApi.requestEntryRegister(
               entry,
               (resentry) => {
-                console.log("엔트리 등록 완료");
+                // console.log("엔트리 등록 완료");
                 alert("미션에 참여합니다");
               },
               (error) => {

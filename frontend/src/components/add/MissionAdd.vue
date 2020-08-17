@@ -3,7 +3,6 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
-        
         <div class="input-with-label">
           <v-btn
             small
@@ -12,16 +11,17 @@
             @click="toggleSwitch(cat.categoryNo)"
             class="ma-2 mx-1"
             outlined
-          > 
+          >
             <div class="v-tabs-slider-wrapper" style="height:2px; left:118px; width;90px;">
               <div class="v-tabs-slider"></div>
             </div>
             <p class="categories my-auto">{{cat.categoryContent}}</p>
-          </v-btn><br>
+          </v-btn>
+          <br />
         </div>
-        
+
         <div class="input-with-label jua">
-          <label for="missionTitle" class="jua" >미션 이름</label>
+          <label for="missionTitle" class="jua">미션 이름</label>
           <input
             id="missionTitle"
             type="text"
@@ -38,7 +38,9 @@
             v-model="mission.description"
             placeholder="미션을 간단하게 설명해주세요."
           />
-          <br><br><br>
+          <br />
+          <br />
+          <br />
         </div>
 
         <div class="input-with-label">
@@ -49,9 +51,7 @@
         <div class="wrap components-page p-0">
           <select class="select-component jua">
             <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
-            <option v-for="target in options" :value="target" :key="target.value">
-                {{target.title}}
-            </option>
+            <option v-for="target in options" :value="target" :key="target.value">{{target.title}}</option>
           </select>
         </div>
 
@@ -70,10 +70,14 @@
           />
         </div>
 
-        
         <div class="input-with-label jua">
           <label for="cutCnt" class="jua">커트라인</label>
-          <input v-model="mission.cutCnt" id="cutCnt" placeholder="최소 미션 미수행 숫자를 입력하세요." type="text" />
+          <input
+            v-model="mission.cutCnt"
+            id="cutCnt"
+            placeholder="최소 미션 미수행 숫자를 입력하세요."
+            type="text"
+          />
         </div>
 
         <br />
@@ -116,7 +120,7 @@ export default {
         missionPhoto: "",
         missionCat: "",
         description: "",
-        v0:true,
+        v0: true,
       },
       range: {},
       category: [],
@@ -134,26 +138,32 @@ export default {
       ],
 
       options: [
-        { value: "1", title: "1 명" },
-        { value: "2", title: "2 명" },
-        { value: "3", title: "3 명" },
-        { value: "4", title: "4 명" },
-        { value: "5", title: "5 명" },
-        { value: "6", title: "6 명" },
-        { value: "7", title: "7 명" },
-        { value: "8", title: "8 명" },
-        { value: "9", title: "9 명" },
-        { value: "10", title: "10 명" },
-      ]
+        { value: 1, title: "1 명" },
+        { value: 2, title: "2 명" },
+        { value: 3, title: "3 명" },
+        { value: 4, title: "4 명" },
+        { value: 5, title: "5 명" },
+        { value: 6, title: "6 명" },
+        { value: 7, title: "7 명" },
+        { value: 8, title: "8 명" },
+        { value: 9, title: "9 명" },
+        { value: 10, title: "10 명" },
+      ],
     };
   },
   methods: {
-    toggleSwitch(num) { this.isOn[num] = !this.isOn[num]; },
+    toggleSwitch(num) {
+      this.isOn[num] = !this.isOn[num];
+    },
 
     getCategoryList() {
       SearchApi.requestCategory(
-        (res) => { this.category = res.data; },
-        (error) => {console.error(error); }
+        (res) => {
+          this.category = res.data;
+        },
+        (error) => {
+          console.error(error);
+        }
       );
     },
 
@@ -173,13 +183,11 @@ export default {
 
       // 여기서 시작 날짜랑 오늘 날짜 비교해서 시작 == 오늘이면 isStart는 바로 true로 해주기
       let today = this.getDateFullString();
-      
-      if (today == this.mission.startDate) 
-        this.mission.isStart = true;
-      
+
+      if (today == this.mission.startDate) this.mission.isStart = true;
+
       for (var i = 0; i < 10; i++) {
-        if (this.isOn[i]) 
-          this.mission.missionCat += i;
+        if (this.isOn[i]) this.mission.missionCat += i;
       }
 
       MissionApi.requestMissionRegister(
@@ -194,8 +202,12 @@ export default {
 
           EntryApi.requestEntryRegister(
             entry,
-            (resentry) => { console.log("entry regist success"); },
-            (error) => { console.log("entry regist fail"); }
+            (resentry) => {
+              console.log("entry regist success");
+            },
+            (error) => {
+              console.log("entry regist fail");
+            }
           );
 
           this.$router.push("/mymission");
@@ -215,90 +227,89 @@ export default {
   margin-bottom: 0rem;
   padding-bottom: 3rem;
 }
-.v-slide-group__content{
-  background:linear-gradient(to left , #f48fb1, #3949ab);
+.v-slide-group__content {
+  background: linear-gradient(to left, #f48fb1, #3949ab);
 }
-.jua{
-  font-family: 'Jua', sans-serif;
+.jua {
+  font-family: "Jua", sans-serif;
 }
-.v-tab.v-tab--active{
-  font-family: 'Jua', sans-serif;
-  font-size:x-large;
+.v-tab.v-tab--active {
+  font-family: "Jua", sans-serif;
+  font-size: x-large;
 }
-.v-tab{
-  font-family: 'Jua', sans-serif;
-  font-size:middle;
+.v-tab {
+  font-family: "Jua", sans-serif;
+  font-size: middle;
 }
-.categories{
-  color:black !important;
-  font-family: 'Jua', sans-serif;
-  font-size:large;
-  display:inline-block;
-  vertical-align:middle;
-  height:100%; 
+.categories {
+  color: black !important;
+  font-family: "Jua", sans-serif;
+  font-size: large;
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
-.v-btn:not(.v-btn--round).v-size--small{
-  border-color:white;
+.v-btn:not(.v-btn--round).v-size--small {
+  border-color: white;
 }
-.ma-2.mx-1.v-btn.v-btn--depressed.v-btn--flat.v-btn--outlined.theme--light.v-size--small{
-  background:#ECEFF1;
-  
+.ma-2.mx-1.v-btn.v-btn--depressed.v-btn--flat.v-btn--outlined.theme--light.v-size--small {
+  background: #eceff1;
 }
 
-.v-btn__content{
-  color:white;
+.v-btn__content {
+  color: white;
 }
-.vl-calendar-month__title{
-  font-family: 'Jua', sans-serif;
-  font-size:large;
-  color:#673AB7;
+.vl-calendar-month__title {
+  font-family: "Jua", sans-serif;
+  font-size: large;
+  color: #673ab7;
 }
-.vl-calendar-month__week-day{
-  font-family: 'Jua', sans-serif;
-  font-size:medium;
-  color:black;
+.vl-calendar-month__week-day {
+  font-family: "Jua", sans-serif;
+  font-size: medium;
+  color: black;
 }
-.vl-calendar-month__day{
-  font-family: 'Jua', sans-serif;
-  font-size:medium;
-  color:#546E7A;
+.vl-calendar-month__day {
+  font-family: "Jua", sans-serif;
+  font-size: medium;
+  color: #546e7a;
 }
 .vl-calendar-month__day:hover:not(.selected) {
-  background:black;
+  background: black;
 }
 .vl-calendar-month__day.selected.selected--first.selected--last.disabled.disabled--first.disabled--last {
-  color:yellow;
-  background:black;
-  border:transparent;
+  color: yellow;
+  background: black;
+  border: transparent;
 }
-.vl-calendar-month__day.selected.selected--first{
-  background:#f48fb1;
+.vl-calendar-month__day.selected.selected--first {
+  background: #f48fb1;
 }
-.vl-calendar-month__day.selected{
-  background:#EC407A;
+.vl-calendar-month__day.selected {
+  background: #ec407a;
 }
-.vl-calendar-month__day.selected.selected--last{
-  background:#880E4F;
+.vl-calendar-month__day.selected.selected--last {
+  background: #880e4f;
 }
-label.jua{
-  margin : -4px 0 5px;
-  font-size:medium;
+label.jua {
+  margin: -4px 0 5px;
+  font-size: medium;
 }
-.input-with-label.jua{
-  text-align:right;
+.input-with-label.jua {
+  text-align: right;
 }
-.submit_button.btn-bottom{
-  background:linear-gradient(to left , #f48fb1, #3949ab);
-  border-color:transparent;
-  border-radius:5px;
-  font-family:'Jua', sans-serif;
-  font-size:large;
+.submit_button.btn-bottom {
+  background: linear-gradient(to left, #f48fb1, #3949ab);
+  border-color: transparent;
+  border-radius: 5px;
+  font-family: "Jua", sans-serif;
+  font-size: large;
 }
-.vl-calendar{
-  background-color:white
+.vl-calendar {
+  background-color: white;
 }
-#joinMem{
-  margin:10px 10px;
-  float:left;
+#joinMem {
+  margin: 10px 10px;
+  float: left;
 }
 </style>
