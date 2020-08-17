@@ -5,23 +5,20 @@
       </header>
       <!--기존에 있는 댓글 보여주게하기 -->
       <CommentInput v-on:addComment="addComment" />
-      <CommentList v-bind:propsdata="comments" @removeComment="removeComment" />
-      <CommentFooter v-on:removeAll="clearAll" />
-      <Footer />
+      <CommentList class="foot" v-bind:propsdata="comments" @removeComment="removeComment" />
+      
   </div>
 </template>
 
 <script>
 import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
-import Footer from '../../components/common/Footer.vue'
 
 export default {
     name:'Comments',
     components:{
         CommentList,
         CommentInput,
-        Footer,
     },
     data(){
         return{
@@ -72,5 +69,8 @@ button{
 }
 .lucky{
     font-family: 'Luckiest Guy', cursive ;
+}
+.foot{
+    margin-bottom:5rem;
 }
 </style>

@@ -24,7 +24,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <img :src="imagePath" height="auto" />
+            <img :src="imagePath" height="auto" style="min-width:100%"/>
 
             <v-card-text>
               <span class="jua">{{post.postContent}}</span>
@@ -345,4 +345,6 @@ export default {
   font-family: "Luckiest Guy", cursive;
   font-size: x-large;
 }
+
+
 </style>
