@@ -6,32 +6,32 @@
         color="deep-purple accent-4"
         centered
       >
-        <v-tab :key="item1" style="font-family: 'Jua', sans-serif;">
+        <v-tab style="font-family: 'Jua', sans-serif;">
           포스트
         </v-tab>
 
         <v-tab
-          :key="item2" style="font-family: 'Jua', sans-serif;">
+         style="font-family: 'Jua', sans-serif;">
           미션
         </v-tab>
 
-        <v-tab-item :key="item1">
+        <v-tab-item>
           <v-row style="padding:0 2%">
             <v-col cols="12" sm="6" offset-sm="3">
             <v-card>
                 <v-container fluid>
                 <v-row style="padding: 0;">
                     <v-col
-                    v-for="n in 10"
-                    :key="n"
+                    v-for="(post, i) in this.myPost"
+                    :key="i"
                     class="d-flex child-flex"
                     cols="4"
                     style="padding:1%;"
                     >
                     <v-card flat tile class="d-flex">
                         <v-img
-                        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                        @click="goPostDetail(post.postNo)"
+                        :src="post.postPhoto"
                         aspect-ratio="1"
                         class="grey lighten-2"
                         >
@@ -54,23 +54,22 @@
           </v-row>
         </v-tab-item>
 
-        <v-tab-item :key="item2">
+        <v-tab-item>
           <v-row style="padding:0 2%">
             <v-col cols="12" sm="6" offset-sm="3">
             <v-card>
                 <v-container fluid>
                 <v-row style="padding: 0;">
                     <v-col
-                    v-for="n in 12"
-                    :key="n"
+                    v-for="(mission, i) in this.myMission"
+                    :key="i"
                     class="d-flex child-flex"
                     cols="4"
                     style="padding:1%;"
                     >
                     <v-card flat tile class="d-flex">
                         <v-img
-                        :src="`https://picsum.photos/500/300?image=${n * 1 + 15}`"
-                        :lazy-src="`https://picsum.photos/10/6?image=${n * 1 + 15}`"
+                        :src="mission.missionPhoto"
                         aspect-ratio="1"
                         class="grey lighten-2"
                         >
@@ -109,21 +108,48 @@ export default {
       this.user = this.$session.get("user");
       PostApi.requestSelectPostByMember(
         this.user.memberNo,
-        (res) => { this.myPost = res.data },
+        (res) => { 
+          this.myPost = res.data;
+          for (let i in this.myPost) {
+            this.imageSplit = this.myPost[i].postPhoto.split("/");
+            this.index = this.imageSplit.length - 1;
+            this.myPost[i].postPhoto = this.imagePath + this.imageSplit[this.index];
+          }
+        },
         (error) => { console.log(error) }
       )
 
       MissionApi.requestMissionByMember(
         this.user.memberNo,
-        (res) => { this.myMission = res.data },
+        (res) => { 
+          this.myMission = res.data;
+          for (let i in this.myMission) {
+            this.imageSplit = this.myMission[i].missionPhoto.split("/");
+            this.index = this.imageSplit.length - 1;
+            this.myMission[i].missionPhoto = this.imagePath + this.imageSplit[this.index];
+          }
+        },
         (error) => {console.log(error)}
       )
+    },
+    methods: {
+      goPostDetail(num) {
+        this.$router.push({
+        name: "PostDetail",
+        params: {
+          num: num,
+        },
+      });
+      }
     },
     data() {
       return {
         user: Object,
         myPost: [],
         myMission: [],
+        imagePath: "http://i3d201.p.ssafy.io:8080/",
+        index: 0,
+        imageSplit: [],
       }
     }
 }
