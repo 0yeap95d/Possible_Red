@@ -22,6 +22,7 @@ import SearchByCategory from './views/search/SearchByCategory'
 import MissionModify from './views/mission/MissionModify.vue';
 import ProfileFollow from './views/profile/ProfileFollow.vue';
 import PostModify from './views/post/PostModify.vue';
+import OtherProfile from './views/profile/OtherProfile.vue';
 
 export default [
   {
@@ -145,5 +146,10 @@ export default [
     path: '/postmodify',
     name: 'PostModify',
     component: PostModify
+  },
+  {
+    path: '/otherprofile',
+    name: 'OtherProfile',
+    component: OtherProfile
   },
 ];

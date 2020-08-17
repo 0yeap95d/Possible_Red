@@ -20,6 +20,7 @@
             <v-list-item
               v-for="item in followers"
               :key="item.nickname"
+              @click="toProfile(item.memberNo)"
             >
               <v-list-item-avatar>
                 <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
@@ -114,6 +115,12 @@ export default {
         }
 
       )
+    },
+    toProfile(num){
+      this.$router.push({
+        name: "OtherProfile",
+        params: { num: num },
+      });
     }
   },
   data() {
