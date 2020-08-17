@@ -82,7 +82,7 @@ export default {
         postContent: "",
         missionNo: 0,
       },
-      imagePath: "http://i3d201.p.ssafy.io:8080/img/",
+      imagePath: "http://i3d201.p.ssafy.io:8080/",
       index: 0,
       imageSplit: [],
     };
