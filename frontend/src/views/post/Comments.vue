@@ -44,6 +44,7 @@ export default {
             //console.log(comment, index)
             localStorage.removeItem(comment);
             this.comments.splice(index,1);
+    
         },
     },
     created(){

@@ -18,10 +18,16 @@
 export default {
     methods:{
         removeComment(comment,index){
+            console.log(comment,index);
+            //this.$emit('removeComment', comment[0])
             this.$emit('removeComment', comment, index);
         }
     },
     props:['propsdata'],
+    beforeMount(){
+        console.log(this.propsdata[0]);
+    }
+
 }
 </script>
 

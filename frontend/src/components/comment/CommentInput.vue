@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow jua">
-      <input type="text" v-model="newComment" placeholder="Tell me your thinking" v-on:keyup.enter="addComment">
+      <input type="text" v-model="this.comment.commentContent" placeholder="Tell me your thinking" v-on:keyup.enter="addComment">
       <span class="addContainer" v-on:click="addComment">
           <i class="addBtn fas fa-plus" aria-hidden="true"></i>
       </span>
@@ -16,34 +16,55 @@
 </template>
 
 <script>
-import Modal from '../../components/common/Modal.vue'
+import Modal from '../../components/common/Modal.vue';
+import CommentApi from '../../api/CommentApi.js';
 
 export default {
+    props:[
+        'postNo',
+    ],
     data(){
         return{
             newComment:'',
-            showModal:false
+            showModal:false,
+            comment:{
+                commentContent: "",
+                memberNo: 0, //댓글작성자
+                postNo: 0, 
+            },
         }
     },
     methods:{
         addComment(){
-            //console.log(this.newComment);
-            if(this.newComment!=""){ //인풋 박스의 입력 값이 있을 때만 저장
-                var value=this.newComment && this.newComment.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
+            //console.log(this.comment.commentContent);
+            if(this.comment.commentContent!=""){ //인풋 박스의 입력 값이 있을 때만 저장
+                var value=this.comment.commentContent && this.comment.commentContent.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
                 this.$emit('addComment', value);
                 this.clearInput(); //인풋 박스의 입력 값을 초기화
             }else{
                 this.showModal=!this.showModal;
             }
+
+
+
+            CommentApi.requestAddComment(
+                this.comment,
+                (res)=>{},
+                (error)=>{}
+            )
            
         },
         clearInput(){
-            this.newComment=''
+            this.comment.commentContent=''
         }
     },
     components:{
         Modal:Modal
-    }
+    },
+    created(){
+        this.comment.memberNo=this.$session.get('user').memberNo
+        this.comment.postNo=this.$session.get('user').postNo
+    },
 }
 </script>
 
