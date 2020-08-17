@@ -11,13 +11,12 @@
 
       <v-list nav dense>
         <v-list-item-group
-          v-model="group"
           active-class="deep-purple--text text--accent-4"
           class="d-flex justify-content-around"
         >
           <v-list-item class="mb-0 mx-1">
             <div>
-              <p>10</p>
+              <p>{{postNum}}</p>
               <p>포스트</p>
             </div>
           </v-list-item>
@@ -50,6 +49,7 @@
 
 <script>
 import FollowApi from "../../api/FollowApi";
+import PostApi from "../../api/PostApi";
 
 export default {
   name: "ProfileInfo",
@@ -61,33 +61,31 @@ export default {
   },
 
   beforeMount() {
+    this.getCountPost(this.user.memberNo);
     this.getCountFollower(this.user.memberNo);
     this.getCountFollowing(this.user.memberNo);
   },
 
   methods: {
+    getCountPost(num) {
+      PostApi.requestSelectPostByMember(
+        num,
+        (res) => { this.postNum = res.data.length },
+        (error) => { console.log(error) }
+      )
+    },
     getCountFollower(num) {
       FollowApi.requestCountFollower(
         num,
-        (res) => {
-          console.log(res);
-          this.follower = res.data;
-        },
-        (error) => {
-          console.log(error);
-        }
+        (res) => { this.follower = res.data },
+        (error) => { console.log(error) }
       );
     },
     getCountFollowing(num) {
       FollowApi.requestCountFollowing(
         num,
-        (res) => {
-          console.log(res);
-          this.following = res.data;
-        },
-        (error) => {
-          console.log(error);
-        }
+        (res) => { this.following = res.data },
+        (error) => { console.log(error) }
       );
     },
     toFollower() {
@@ -106,6 +104,7 @@ export default {
   data() {
     return {
       user: Object,
+      postNum: 0,
       follower: 0,
       following: 0,
       imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
