@@ -17,7 +17,6 @@
           class="jua"
         >{{ $moment(mission.startDate).format('YYYY-MM-DD') }} ~ {{ $moment(mission.endDate).format('YYYY-MM-DD') }}</div>
       </v-card-text>
-      <v-card-subtitle class="pb-0">멤버넘버 : {{ mission.memberNo }}</v-card-subtitle>
 
       <v-card-actions>
         <v-btn color="#1A237E" text @click="gotomissiondetail(mission.missionNo)">자세히</v-btn>

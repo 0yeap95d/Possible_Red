@@ -105,4 +105,11 @@ public class MissionAPIController {
             return new ResponseEntity<List<Mission>>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<List<Mission>>(missions, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "미션별 참여 인원수를 반환한다.", response = Integer.class)
+    @GetMapping("count/{missionNo}")
+    public ResponseEntity<Integer> findMissionCountByMissionNo(@PathVariable int missionNo) throws Exception{
+        logger.debug("-----------counting entry by missionNo-----------");
+        return new ResponseEntity<Integer>(missionService.findMissionCountByMissionNo(missionNo), HttpStatus.OK);
+    }
 }

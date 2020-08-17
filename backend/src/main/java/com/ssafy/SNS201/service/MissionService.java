@@ -14,4 +14,5 @@ public interface MissionService {
     public boolean removeMission(int missionNo);
     public List<Mission> findMissionByCategory(String missionCat);
     public int findMissionMaxCount();
+    public int findMissionCountByMissionNo(int missionNo);
 }

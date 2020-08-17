@@ -58,5 +58,10 @@ public class MissionServiceImpl implements MissionService{
         return mapper.selectMaxCount();
     }
 
+    @Override
+    public int findMissionCountByMissionNo(int missionNo) {
+        return mapper.selectCountByMissionNo(missionNo);
+    }
+
 
 }
