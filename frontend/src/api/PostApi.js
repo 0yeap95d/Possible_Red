@@ -1,25 +1,25 @@
 import Axios from "axios";
 
 const requestSelectPost = (callback, errorCallback) => {
-    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/all")
+    Axios.get("http://i3d201.p.ssafy.io:8080/post/all")
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestSelectPostByNo = (data, callback, errorCallback) => {
-    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/" + data)
+    Axios.get("http://i3d201.p.ssafy.io:8080/post/" + data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestSelectPostByMember = (data, callback, errorCallback) => {
-    Axios.get("http://i3d201.p.ssafy.io:8080/sns201/post/member/" + data)
+    Axios.get("http://i3d201.p.ssafy.io:8080/post/member/" + data)
         .then((res) => callback(res))
         .catch((error) => errorCallback(error));
 };
 
 const requestInsertPost = (data, callback, errorCallback) => {
-    Axios.post("http://i3d201.p.ssafy.io:8080/sns201/post", data, {
+    Axios.post("http://i3d201.p.ssafy.io:8080/post", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -29,13 +29,13 @@ const requestInsertPost = (data, callback, errorCallback) => {
 };
 
 const requestPostUpdate = (data, callback, errorCallback) => {
-    Axios.put('http://i3d201.p.ssafy.io:8080/sns201/post', data)
+    Axios.put('http://i3d201.p.ssafy.io:8080/post', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 } // 포스트 업데이트
 
 const requestPostDelete = (data, callback, errorCallback) => {
-    Axios.delete('http://i3d201.p.ssafy.io:8080/sns201/post/' + data)
+    Axios.delete('http://i3d201.p.ssafy.io:8080/post/' + data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 } // 포스트 삭제
@@ -46,7 +46,7 @@ const PostApi = {
     requestSelectPostByNo: (data, callback, errorCallback) =>
         requestSelectPostByNo(data, callback, errorCallback),
     requestSelectPostByMember: (data, callback, errorCallback) =>
-        requestSelectPostByMember(data, callback, errorCallback),    
+        requestSelectPostByMember(data, callback, errorCallback),
     requestInsertPost: (data, callback, errorCallback) =>
         requestInsertPost(data, callback, errorCallback),
     requestPostUpdate: (data, callback, errorCallback) =>

@@ -24,9 +24,9 @@ public class MemberAPIController {
     public static final Logger logger = LoggerFactory.getLogger(MemberAPIController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
-    private static final String imagePath = "/home/ubuntu/backend/src/main/webapp/img/profile/";
+    private static final String imagePath = "/home/ubuntu/backend/src/main/webapp/profile/";
 
-    private static final String defaultImage = "/home/ubuntu/backend/src/main/webapp/profile/img/profile_default.png";
+    private static final String defaultImage = "/home/ubuntu/backend/src/main/webapp/profile/profile_default.png";
     // 이거 수정하기 
 
     @Autowired
