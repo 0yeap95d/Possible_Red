@@ -23,7 +23,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn text color="deep-purple accent-4" @click="insertFollow()">Follow</v-btn>
+          <v-btn text color="deep-purple accent-4" @click="insertFolglow()">Follow</v-btn>
           <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon>
@@ -82,7 +82,6 @@ export default {
         postContent: "",
         missionNo: 0,
       },
-      // imagePath: "../../../../../../var/www/html/image/",
       imagePath: "http://i3d201.p.ssafy.io:8080/img/",
       index: 0,
       imageSplit: [],
@@ -96,7 +95,6 @@ export default {
     this.index = this.imageSplit.length - 1;
     this.imagePath += this.imageSplit[this.index];
     console.log(this.imagePath);
-    // this.imagePath += this.post.postPhoto;
   },
   methods: {
     returnpost() {
