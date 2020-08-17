@@ -24,7 +24,7 @@ public class PostAPIController {
     private static final Logger logger = LoggerFactory.getLogger(PostAPIController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
-    private static final String imagePath = "/home/ubuntu/s03p13d201/backend/src/main/webapp/";
+    private static final String imagePath = "/home/ubuntu/backend/src/main/webapp/img/";
 
     @Autowired
     PostService postService;
