@@ -58,6 +58,7 @@ export default {
     this.imageSplit = this.user.memberPhoto.split("/");
     this.index = this.imageSplit.length - 1;
     this.imagePath += this.imageSplit[this.index];
+
   },
 
   beforeMount() {
@@ -91,13 +92,13 @@ export default {
     toFollower() {
       this.$router.push({
         name: "ProfileFollow",
-        params: { active_tab: 1 },
+        params: { user: this.user },
       });
     },
     toFollowing() {
       this.$router.push({
         name: "ProfileFollow",
-        params: { active_tab: 2 },
+        params: { user: this.user },
       });
     },
   },

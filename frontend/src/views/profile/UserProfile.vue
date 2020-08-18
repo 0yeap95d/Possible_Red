@@ -9,7 +9,7 @@
         </v-app-bar>
 
         <ProfileInfo class="pt-3" />
-        <ProfileBody />
+        <ProfileBody :user="this.user"/>
         
         <!--미션 props를 MissionItem으로 넘김-->
 
@@ -111,15 +111,7 @@ export default {
         return {
           drawer: false,
           activeBtn: 1,
-          user: {
-              email: "",
-              memberNo: 0,
-              memberPhoto: "",
-              nickname: "",
-              point: 0,
-              pwd: "",
-              stateMent: ""
-          }
+          user: {},
         }
     },
     methods: {
