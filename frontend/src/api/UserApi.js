@@ -47,12 +47,20 @@ const requestMemberByNo = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 }
 
+const requestUpdatePoint = (data, callback, errorCallback) => {
+    // 사용자의 포인트 업데이트
+    Axios.put('http://i3d201.p.ssafy.io:8080/member/point/' + data.memberNo + "/" + data.point)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 const UserApi = {
     requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
     requestRegister: (data, callback, errorCallback) => requestRegister(data, callback, errorCallback),
     requestUpdate: (data, callback, errorCallback) => requestUpdate(data, callback, errorCallback),
     requestEmailCheck: (data, callback, errorCallback) => requestEmailCheck(data, callback, errorCallback),
     requestMemberByNo: (data, callback, errorCallback) => requestMemberByNo(data, callback, errorCallback),
+    requestUpdatePoint: (data, callback, errorCallback) => requestUpdatePoint(data, callback, errorCallback),
 }
 
 export default UserApi
