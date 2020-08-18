@@ -40,6 +40,12 @@ const requestPostDelete = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 } // 포스트 삭제
 
+const requestPostByMission = (data, callback, errorCallback) => {
+    Axios.get('http://i3d201.p.ssafy.io:8080/post/mission/' + data)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+} // 미션별 포스트 리스트를 반환한다.
+
 const PostApi = {
     requestSelectPost: (data, callback, errorCallback) =>
         requestSelectPost(data, callback, errorCallback),
@@ -52,7 +58,9 @@ const PostApi = {
     requestPostUpdate: (data, callback, errorCallback) =>
         requestPostUpdate(data, callback, errorCallback),
     requestPostDelete: (data, callback, errorCallback) =>
-        requestPostDelete(data, callback, errorCallback),
+        requestPostDelete(data, callback, errorCallback),   
+    requestPostByMission: (data, callback, errorCallback) =>
+        requestPostByMission(data, callback, errorCallback),
 };
 
 export default PostApi;
