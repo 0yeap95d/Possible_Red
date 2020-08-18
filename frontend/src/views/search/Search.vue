@@ -4,9 +4,21 @@
       <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching"/>
       <SearchPost v-show="isPost" 
                 
-                 v-for="list in list"
+                 v-for="list in postList"
                   :key="list"
-                  :list="list"/>
+                  :list="list"
+          
+                  />
+
+       <SearchPost v-show="isHashtag" 
+                
+                 v-for="list in hashtagList"
+                  :key="list"
+                  :list="list"
+          
+                  />           
+
+                  
 
       <SearchUser v-show="isUser" 
       
@@ -63,13 +75,15 @@ export default {
     return {
       isPost:false,
       isUser:false,
+      isHashtag:false,
       isSearching:false,
       searchItem: {
         type: null,
         keyword: null,
       },
-      list : [],
-      memberList: []
+      postList : [],
+      memberList: [],
+      hashtagList: [],
     };
   },
   components: {
@@ -96,25 +110,29 @@ export default {
     searching(data){
       console.log(data)
       this.searchItem = data
-      if ((this.searchItem.type=="post") | (this.searchItem.type=="hashtag") ){
+      if (this.searchItem.type=="post") {
         this.isPost = true;
         this.isUser = false;
+        this.isHashtag = false;
         this.isSearching = true;
         // console.log(this.searchItem);
-        SearchApi.requestPostBySearch(
-              this.searchItem.keyword,
-              (res) => {
-                console.log("post!")
-                this.list = res.data;
-                console.log(this.list)
-              },
-              (error) => {
-                console.log("error!")
-              }
-            )
+          SearchApi.requestPostBySearch(
+                this.searchItem.keyword,
+                (res) => {
+                  console.log("post!")
+                  this.postList = res.data;
+                  console.log(this.postList)
+                },
+                (error) => {
+                  console.log("error!")
+                }
+              )
+        
+            
       } else if (this.searchItem.type == "user") {
         this.isPost = false;
         this.isUser = true;
+        this.isHashtag = false;
         this.isSearching = true;
         SearchApi.requestMemberBySearch(
               this.searchItem.keyword,
@@ -127,13 +145,32 @@ export default {
                 console.log("error!")
               }
         )
+      } else if (this.searchItem.type == "hashtag"){
+        this.isPost = false;
+        this.isUser = false;
+        this.isHashtag = true;
+        this.isSearching = true;
+        SearchApi.requestHashtagBySearch(
+                  this.searchItem.keyword,
+                  (res) => {
+                    console.log("hashtag!")
+                    this.hashtagList = res.data;
+                    console.log(this.hashtagList)
+                  },
+                  (error) => {
+                    console.log("error!")
+                  }
+            )
+
       } else if (this.searchItem.type == "none") {
         this.isPost = false;
         this.isUser = false;
+        this.isHashtag = false;
         this.isSearching = false;
       } else {
         this.isPost = false;
         this.isUser = false;
+        this.isHashtag = false;
         this.isSearching = false;
       }      
     },
