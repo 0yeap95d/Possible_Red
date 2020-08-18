@@ -15,8 +15,6 @@ const requestLogin = (data, callback, errorCallback) => {
         "stateMent": "",
     }
 
-    console.log(data);
-
     Axios.post('http://i3d201.p.ssafy.io:8080/login', params)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
@@ -24,15 +22,7 @@ const requestLogin = (data, callback, errorCallback) => {
 }
 
 const requestRegister = (data, callback, errorCallback) => {
-    var params = {
-        "email": data.email,
-        "nickname": data.nickname,
-        "pwd": data.pwd,
-    }
-
-    console.log(data);
-
-    Axios.post('http://i3d201.p.ssafy.io:8080/member', params)
+    Axios.post('http://i3d201.p.ssafy.io:8080/member', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }

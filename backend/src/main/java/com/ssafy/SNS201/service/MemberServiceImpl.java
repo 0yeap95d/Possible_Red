@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.List;
 
 @Service
@@ -45,5 +46,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> findAllMembersBySearch(String keyword) {
         return mapper.selectMemberBySearch(keyword);
+    }
+
+    @Override
+    public boolean modifyMemberPoint(int memberNo, int point) {
+        return mapper.updateMemberPoint(memberNo, point);
     }
 }

@@ -4,7 +4,7 @@
       <div class="thumbnail-wrapper my-auto">
         <div class="thumbnail">
           <div class="centered">
-            <img v-if="user.memberPhoto" class="profile" :src="imagePath" alt="안뜸" />
+            <img v-if="user.memberPhoto" class="profile" :src="user.memberPhoto" alt="안뜸" />
           </div>
         </div>
       </div>
@@ -55,10 +55,11 @@ export default {
   name: "ProfileInfo",
   created() {
     this.user = this.$session.get("user");
-    this.imageSplit = this.user.memberPhoto.split("/");
-    this.index = this.imageSplit.length - 1;
-    this.imagePath += this.imageSplit[this.index];
-
+    if (this.user.pwd != "") {
+      this.imageSplit = this.user.memberPhoto.split("/");
+      this.index = this.imageSplit.length - 1;
+      this.user.memberPhoto = this.imagePath + this.imageSplit[this.index];
+    }
   },
 
   beforeMount() {

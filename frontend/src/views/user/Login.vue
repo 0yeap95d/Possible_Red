@@ -111,13 +111,15 @@ export default {
   },
   methods: {
     Logout() {
-        this.$session.destroy();
-        window.Kakao.API.request({
-            url: '/v1/user/unlink',
-            success: function(res) { console.log(res) },
-            fail: function(err) { console.log(err) },
-        })
-        window.Kakao.Auth.logout(function() { console.log("session invalidate"); })
+        if (this.$session.get('user').email != "") {
+          this.$session.destroy();
+          window.Kakao.API.request({
+              url: '/v1/user/unlink',
+              success: function(res) { console.log(res) },
+              fail: function(err) { console.log(err) },
+          })
+          window.Kakao.Auth.logout(function() { console.log("session invalidate"); })  
+        }
     },
     checkForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))

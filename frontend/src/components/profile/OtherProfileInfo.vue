@@ -5,8 +5,6 @@
         <div class="thumbnail">
           <div class="centered">
             <img v-if="other.memberPhoto" class="profile" :src="other.memberPhoto" alt="안뜸">
-            <img v-else class="profile" src="../../assets/images/profile_default.png">
-            <!-- <img class="profile" :src="require('../../assets/images/jjon.jpg')"> -->
           </div>
         </div>
       </div>
@@ -65,6 +63,11 @@ export default {
   created() {
     this.user = this.$session.get("user");
     console.log(this.other);
+    if (this.other.pwd != "") {
+      this.imageSplit = this.other.memberPhoto.split("/");
+      this.index = this.imageSplit.length - 1;
+      this.other.memberPhoto = this.imagePath + this.imageSplit[this.index];
+    }
   },
 
   beforeMount() {
@@ -114,6 +117,9 @@ export default {
       postNum: 0,
       follower: 0,
       following: 0,
+      imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+      index: 0,
+      imageSplit: [],
     };
   },
 };
