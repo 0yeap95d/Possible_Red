@@ -16,7 +16,7 @@
           <v-card class="mx-auto">
             <v-list-item>
               <v-list-item-avatar>
-                <v-img :src="profileImagePath"></v-img>
+                <v-img src="../../assets/images/background1.jpg"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="headline">by {{user.nickname}}</v-list-item-title>
@@ -24,7 +24,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <img :src="imagePath" height="auto" style="min-width:100%" />
+            <img :src="imagePath" height="auto" style="min-width:100%"/>
 
             <v-card-text>
               <span class="jua">{{post.postContent}}</span>
@@ -34,10 +34,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                text
-                color="deep-purple accent-4"
-              >{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+              <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon>
                 <v-icon>mdi-heart</v-icon>
@@ -70,9 +67,10 @@
             </div>
           </v-card>
 
-          <!-- <img :src="imagePath" height="auto" /> -->
+        <!-- <img :src="imagePath" height="auto" /> -->
 
-          <PostComment :postNo="postOne.postNo" :comment-lists="comments" />
+        
+          <PostComment @removeComment="updateComment" @updateComment="updateComment" :postNo="postOne.postNo" :comment-lists="comments" />
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -81,7 +79,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img :src="profileImagePath" />
+                    <img src="../../assets/images/펭수프로필.jpg" />
                   </div>
                 </div>
               </div>
@@ -161,7 +159,7 @@ import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
 import PostComment from "../../views/post/PostComment.vue";
 import PostApi from "../../api/PostApi";
 import FollowApi from "../../api/FollowApi";
-import CommentApi from "../../api/CommentApi";
+import CommentApi from "../../api/CommentApi"
 
 export default {
   created() {
@@ -176,13 +174,11 @@ export default {
         this.postOne.postContent = res.data.postContent;
         this.postOne.mission = res.data.missionNo;
 
+        console.log(this.postOne.postPhoto);
         this.imageSplit = this.postOne.postPhoto.split("/");
         this.index = this.imageSplit.length - 1;
         this.imagePath += this.imageSplit[this.index];
-
-        this.profileImageSplit = this.user.memberPhoto.split("/");
-        this.profileIndex = this.profileImageSplit.length - 1;
-        this.profileImagePath += this.profileImageSplit[this.profileIndex];
+        console.log(this.imagePath);
       },
       (error) => {}
     );
@@ -202,11 +198,6 @@ export default {
     imagePath: "http://i3d201.p.ssafy.io:8080/",
     index: 0,
     imageSplit: [],
-
-    profileImagePath: "http://i3d201.p.ssafy.io:8080/profile/",
-    profileIndex: 0,
-    profileImageSplit: [],
-
     comments: [],
   }),
   components: {
@@ -297,13 +288,17 @@ export default {
       CommentApi.requestGetAllComment(
         num,
         (res) => {
-          console.log(res.data);
-          this.comments = res.data;
+          console.log(res.data)
+          this.comments = res.data
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
+    },
+    updateComment(){
+      console.log("업데이트한다.")
+      this.getComments(this.num)
     },
   },
 };
@@ -369,4 +364,6 @@ export default {
   font-family: "Luckiest Guy", cursive;
   font-size: x-large;
 }
+
+
 </style>
