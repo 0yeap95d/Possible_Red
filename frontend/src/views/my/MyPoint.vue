@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <v-app>
-      <v-card class="mx-auto overflow-hidden missions" >
+      <v-card class="mx-auto overflow-hidden missions">
         <v-app-bar color="deep-purlple" dark>
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -14,7 +14,7 @@
           <p class="jua" style="font-size:x-large;">
             {{user.nickname}}님의
             <br />
-            잔여 포인트는 {{user.point}}P 입니다. 
+            잔여 포인트는 {{user.point}}P 입니다.
           </p>
           <v-text-field v-model="mypoint" readonly style="min-width:330px;">{{mypoint}}</v-text-field>
           <div>
@@ -25,19 +25,17 @@
             <br />
             <button @click="minus50000()" class="jua" style="margin-right:10px">-50,000</button>
             <button @click="minus10000()" class="jua" style="margin-right:10px">-10,000</button>
-            <button @click="minus5000()" class="jua" >-5,000</button>
+            <button @click="minus5000()" class="jua">-5,000</button>
             <button @click="minus1000()" class="jua">-1,000</button>
           </div>
-          
-            <v-btn
-              class="ma-2"
-              :loading="loading"
-              :disabled="loading"
-              color="#B388FF"
-              @click="updatePoint()"
-            >포인트 충전</v-btn>
-            
-          
+
+          <v-btn
+            class="ma-2"
+            :loading="loading"
+            :disabled="loading"
+            color="#B388FF"
+            @click="updatePoint()"
+          >포인트 충전</v-btn>
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -120,7 +118,7 @@
 </template>
 
 
-<script>
+<script >
 import "../../components/css/style.css";
 import UserApi from "../../api/UserApi";
 
@@ -148,17 +146,77 @@ export default {
       stateMent: "",
     },
   }),
-  components: {},
   methods: {
     updatePoint() {
-      this.user.point += this.mypoint;
-      UserApi.requestUpdate(
-        this.user,
-        (res) => {
-          console.log(res.data);
-          this.$router.push("/mypoint");
+      // this.user.point += this.mypoint;
+      var IMP = window.IMP;
+      IMP.init("imp33126269"); // 맞음
+      IMP.request_pay(
+        {
+          pg: "kakao", // 결제방식
+          /*
+          'kakao':카카오페이, 
+          'html5_inicis':이니시스(웹표준결제),
+          'nice':나이스페이, 
+          'jtnet':제이티넷,
+          'uplus':LG유플러스, 
+          'danal':다날,
+          'payco':페이코,
+          'syrup':시럽페이, 
+          'paypal':페이팔
+          */
+          pay_method: "card",
+          merchant_uid:
+            "ORDER_POINT" + new Date().getTime() + this.user.nickname,
+          name: "PR Team point payment",
+          amount: this.mypoint,
+          buyer_email: this.user.email,
+          buyer_name: this.user.nickname,
         },
-        (error) => {}
+        (rsp) => {
+          console.log(rsp);
+          if (rsp.success) {
+            let memberNo = this.user.memberNo;
+            let point = this.user.point + this.mypoint;
+            let pointData = {
+              memberNo,
+              point,
+            };
+            UserApi.requestUpdatePoint(
+              pointData,
+              (res) => {
+                this.$session.destroy();
+
+                // 로그인 추가하기
+                let email = this.user.email;
+                let password = this.user.pwd;
+                let data = {
+                  email,
+                  password,
+                };
+                UserApi.requestLogin(
+                  data,
+                  (res) => {
+                    // 로그인 성공
+                    if (res.status === 200) {
+                      // session에 로그인 회원 정보 저장
+                      this.$session.set("user", res.data);
+                      alert("충전이 완료되었습니다 새로고침을 눌러주세요!");
+                      // 결과페이지로 이동
+                    } else {
+                      return;
+                    }
+                  },
+                  (error) => {}
+                ); // 로그인 끝
+              },
+              (error) => {}
+            );
+          } else {
+            // 결제 실패 시 로직,
+            // console.log("결제 완전 실패");
+          }
+        }
       );
     },
     plus50000() {
@@ -318,7 +376,7 @@ export default {
 .v-icon.notranslate.mdi.mdi-menu.theme--dark {
   color: white;
 }
-.wrapC{
-  min-height:500px;
+.wrapC {
+  min-height: 500px;
 }
 </style>
