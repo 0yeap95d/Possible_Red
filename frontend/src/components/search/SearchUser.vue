@@ -18,7 +18,7 @@
         </v-list-item-icon>
       </v-list-item>
     </v-list> -->
-    <p>사용자 닉네임 : {{this.memberList.nickname}}</p>
+    <p>검색되는 사용자 닉네임 : {{this.memberList.nickname}}</p>
     <hr>
   </div>
 </template>
