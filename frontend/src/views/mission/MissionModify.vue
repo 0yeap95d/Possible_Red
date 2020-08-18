@@ -2,8 +2,8 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
-        <p class="jua_big">{{ mission.missionTitle }} 수정하기 </p>
-        <br>
+        <p class="jua_big">{{ mission.missionTitle }} 수정하기</p>
+        <br />
         <div class="input-with-label">
           <v-btn
             small
@@ -53,9 +53,13 @@
 
         <!-- 미션 참여인원 일부러 뺀거니?! -->
         <div class="wrap components-page p-0">
-          <select class="select-component jua">
+          <select v-model="mission.joinMem" class="select-component jua">
             <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
-            <option v-for="target in options" :value="target" :key="target.value" >{{target.title}}</option>
+            <option
+              v-for="target in options"
+              :value="target.value"
+              :key="target.title"
+            >{{target.title}}</option>
           </select>
         </div>
 
@@ -83,14 +87,13 @@
             type="text"
           />
         </div>
-        
-        
+
         <div>
           <button class="submit_button btn-bottom" @click="modify">미션 수정하기</button>
         </div>
       </div>
       <v-bottom-navigation v-model="bottomNav" black shift>
-        <v-btn @click="post" >
+        <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
         </v-btn>
@@ -162,7 +165,7 @@ export default {
         false,
         false,
       ],
-      options:[
+      options: [
         { value: 1, title: "1 명" },
         { value: 2, title: "2 명" },
         { value: 3, title: "3 명" },
@@ -173,7 +176,7 @@ export default {
         { value: 8, title: "8 명" },
         { value: 9, title: "9 명" },
         { value: 10, title: "10 명" },
-      ]
+      ],
     };
   },
   created() {
@@ -202,8 +205,6 @@ export default {
           this.mission.missionCat += i;
         }
       }
-      console.log("=================");
-      console.log(this.mission);
 
       if (this.mission.missionTitle == "") {
         alert("미션 제목을 입력하세요.");
@@ -211,14 +212,13 @@ export default {
       } else if (this.mission.description == "") {
         alert("미션 설명을 입력하세요.");
         return;
-      } else if (this.mission.startDate == "") {
+      } else if (this.mission.startDate === undefined) {
         alert("미션 시작 날짜를 입력하세요.");
         return;
-      } else if (this.mission.end == "") {
+      } else if (this.mission.endDate === undefined) {
         alert("미션 끝나는 날을 입력하세요.");
         return;
       }
-
       MissionApi.requestMissionUpdate(
         this.mission,
         (res) => {
@@ -366,9 +366,9 @@ label.jua {
   margin: 10px 10px;
   float: left;
 }
-.jua_big{
+.jua_big {
   font-family: "Jua", sans-serif;
-  font-size:x-large;
+  font-size: x-large;
 }
 .v-bottom-navigation {
   position: fixed;
@@ -377,7 +377,7 @@ label.jua {
   bottom: 0;
   height: 3rem;
 }
-.footbottom{
-  margin-bottom:100px;
+.footbottom {
+  margin-bottom: 100px;
 }
 </style>

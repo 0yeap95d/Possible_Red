@@ -16,9 +16,6 @@
               <div class="v-tabs-slider"></div>
             </div>
             <p class="categories my-auto">{{cat.categoryContent}}</p>
-            
-            <v-icon :color="isOn[num] ? 'green' : 'blue'">mdi-record</v-icon>
-            
           </v-btn>
           <br />
         </div>
@@ -157,8 +154,6 @@ export default {
   methods: {
     toggleSwitch(num) {
       this.isOn[num] = !this.isOn[num];
-      console.log(this.isOn)
-    
     },
 
     getCategoryList() {
@@ -208,10 +203,10 @@ export default {
           EntryApi.requestEntryRegister(
             entry,
             (resentry) => {
-              console.log("entry regist success");
+              // console.log("entry regist success");
             },
             (error) => {
-              console.log("entry regist fail");
+              // console.log("entry regist fail");
             }
           );
 
@@ -317,5 +312,4 @@ label.jua {
   margin: 10px 10px;
   float: left;
 }
-
 </style>
