@@ -19,7 +19,7 @@
                 <!--넣고 싶은거 넣으세요~-->
                 
                 
-                <Mission />
+                <Mission :missions="missionList" />
                 
                 
                 
@@ -121,15 +121,37 @@
 <script>
 import '../../components/css/style.css';
 import Mission from '../../components/my/mission.vue';
+import MissionApi from '../../api/MissionApi.js';
 
 export default {
     data: () => ({
         drawer: false,
         activeBtn:1,
+        missionList:[],
+        user: {
+          email: "",
+          memberNo: 0,
+          memberPhoto: "",
+          nickname: "",
+          point: 0,
+          pwd: "",
+          stateMent: ""
+        },
     }),
     components:{
-        Mission,
-        
+        Mission,  
+    },
+    created(){
+      this.user = this.$session.get('user');
+      //console.log(this.user)
+      MissionApi.requestMissionByMember(
+        this.user.memberNo,
+        (res)=>{
+            this.missionList=res.data;
+            console.log(this.missionList[0].missionTitle);
+        },
+        (error)=>{}
+      );
     },
     methods:{
         kakaoLogout() {
