@@ -53,21 +53,15 @@ export default {
         CommentApi.requestAddComment(
           this.comments,
           (res)=>{
-            console.log("add 했다:" + res)
           },
           (error)=>{
-            console.log("에러남:" + error)
-          }
+            console.log(error)
+          },
         )
       },
     },
     created(){
       this.user = this.$session.get('user');
-      if (localStorage.length>0){
-          for (var i=0; i<localStorage.length;i++){
-              this.comments.push(localStorage.key(i));
-          }
-      }
     },
 }
 </script>
