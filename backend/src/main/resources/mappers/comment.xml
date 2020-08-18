@@ -5,9 +5,9 @@
 <mapper namespace="com.ssafy.SNS201.mapper.CommentMapper">
 
     <select id="selectComment" resultType="Comment">
-		SELECT  *
-		  FROM  comment
-		 WHERE  postNo    = #{postNo}
+		SELECT  c.*, m.nickname
+		  FROM  comment c, member m
+		 WHERE  postNo    = #{postNo} AND c.memberNo = m.memberNo
 	</select>
 
     <insert id="insertComment" parameterType="Comment">
