@@ -6,21 +6,15 @@
         color="deep-purple accent-4"
         centered
       >
-        <v-tab :key="item1" style="font-family: 'Jua', sans-serif;">
-          팔로워
-        </v-tab>
+        <v-tab style="font-family: 'Jua', sans-serif;">팔로워</v-tab>
+        <v-tab style="font-family: 'Jua', sans-serif;">팔로잉</v-tab>
 
-        <v-tab
-          :key="item2" style="font-family: 'Jua', sans-serif;">
-          팔로잉
-        </v-tab>
-
-        <v-tab-item :key="item1">
+        <v-tab-item>
           <v-list>
             <v-list-item
               v-for="item in followers"
               :key="item.nickname"
-              @click="toProfile(item.memberNo)"
+              @click="toProfile(item)"
             >
               <v-list-item-avatar>
                 <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
@@ -33,7 +27,7 @@
           </v-list>
         </v-tab-item>
 
-        <v-tab-item :key="item2">
+        <v-tab-item>
           <v-list>
             <v-list-item
               v-for="item in followings"
@@ -88,7 +82,8 @@ import UserApi from "../../api/UserApi";
 export default {
   name: "ProfileFollow",
   created() {
-    this.user = this.$session.get('user');
+    this.user = this.$route.params.user;
+    console.log(this.user);
     this.getFollowing(this.user.memberNo);
     this.getFollower(this.user.memberNo);
   },
@@ -97,55 +92,38 @@ export default {
       FollowApi.requestAllFollowerByNo(
         num,
         (res) => {
-          console.log(res.data)
           for ( let i in res.data ){ 
             UserApi.requestMemberByNo(
               res.data[i].me,
-              (res) => {
-                console.log(res.data)
-                this.followers.push(res.data)
-              },
-              (error) => {
-                console.log(error)
-              }
+              (res) => { this.followers.push(res.data) },
+              (error) => { console.log(error) }
             )
           }
         },
-        (error) =>{
-          console.log(error)
-        }
-
+        (error) =>{console.log(error)}
       )
     },
     getFollowing(num) {
       FollowApi.requestAllFollowingByNo(
         num,
-        (res) => {
-          console.log(res.data)
+        (res) => { 
           for ( let i in res.data ){
             UserApi.requestMemberByNo(
               res.data[i].you,
-              (res) => {
-                console.log(res.data)
-                this.followings.push(res.data)
-              },
-              (error) => {
-                console.log(error)
-              }
+              (res) => { this.followings.push(res.data) },
+              (error) => { console.log(error) }
             )
           }
         },
-        (error) =>{
-          console.log(error)
-        }
+        (error) =>{ console.log(error) }
 
       )
     },
-    toProfile(num){
+    toProfile(other){
       this.$router.push({
         name: "OtherProfile",
         params: { 
-          num: num, 
+          other: other, 
         },
       });
     },
@@ -168,15 +146,7 @@ export default {
   data() {
     return {
       active_tab : "",
-      user: {
-        email: "",
-        memberNo: 0,
-        memberPhoto: "",
-        nickname: "",
-        point: 0,
-        pwd: "",
-        stateMent: ""
-      },
+      user: {},
       items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
         { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },

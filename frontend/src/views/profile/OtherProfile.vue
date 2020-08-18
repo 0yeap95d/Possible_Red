@@ -5,17 +5,17 @@
         <v-app-bar color="deep-purlple" dark style="box-shadow: none;">
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-          <v-toolbar-title>{{user.nickname}}</v-toolbar-title>
+          <v-toolbar-title>{{other.nickname}}</v-toolbar-title>
         </v-app-bar>
 
-        <OtherProfileInfo class="pt-3" :other="user" :pnum="num" />
-        <ProfileBody />
+        <OtherProfileInfo class="pt-3" :other="this.other"/>
+        <ProfileBody :user="this.other"/>
         
         <!--미션 props를 MissionItem으로 넘김-->
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
@@ -63,7 +63,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -106,32 +106,16 @@ export default {
         ProfileBody,
     },
     created() {
-      this.num = this.$route.params.num
-      UserApi.requestMemberByNo(
-        this.$route.params.num,
-        (res) => {
-          console.log(res.data)
-          this.user = res.data
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
+      this.user = this.$session.get('user');
+      this.other = this.$route.params.other;
     },
     data() {
         return {
           drawer: false,
           activeBtn: 1,
           num: 0,
-          user: {
-              email: "",
-              memberNo: 0,
-              memberPhoto: "",
-              nickname: "",
-              point: 0,
-              pwd: "",
-              stateMent: ""
-          },
+          user: {},
+          other: {},
         }
     },
     methods: {
