@@ -7,7 +7,6 @@
       <CommentInput @addComment="addComment" />
       <!-- <CommentList class="foot" :comment-list="commentLists" @removeComment="removeComment" /> -->
       <CommentList class="foot" :comments="commentLists" />
-      <!-- <p v-for="comment in commentLists" :key="comment.commentNo">{{comment.commentContent}}</p> -->
       
   </div>
 </template>
@@ -15,11 +14,13 @@
 <script>
 import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
+import CommentApi from '../../api/CommentApi.js';
 
 export default {
     name:'PostComment',
     props: {
       commentLists : Array,
+      postNo: Number,
     },
     components:{
         CommentList,
@@ -27,32 +28,46 @@ export default {
     },
     data(){
         return{
-            comments:[]
+          comments:{
+            commentContent: "",
+            memberNo: 0,
+            postNo: 0,
+          },
+          user: {
+              email: "",
+              memberNo: 0,
+              memberPhoto: "",
+              nickname: "",
+              point: 0,
+              pwd: "",
+              stateMent: ""
+          },
         }
     },
     methods:{
-        addComment(comment){
-            //로컬 스토리지에 데이터를 추가하는 로직
-            localStorage.setItem(comment,comment);
-            this.comments.push(comment);
-        },
-        clearAll(){
-            localStorage.clear();
-            this.comments=[];
-        },
-        // removeComment(comment, index){
-        //     console.log(comment, index)
-        //     localStorage.removeItem(comment);
-        //     this.comments.splice(index,1);
-    
-        // },
+      addComment(comment){
+        console.log("댓글내용: " + comment)
+        this.comments.commentContent = comment
+        this.comments.memberNo = this.user.memberNo
+        this.comments.postNo = this.postNo
+        CommentApi.requestAddComment(
+          this.comments,
+          (res)=>{
+            console.log("add 했다:" + res)
+          },
+          (error)=>{
+            console.log("에러남:" + error)
+          }
+        )
+      },
     },
     created(){
-        if (localStorage.length>0){
-            for (var i=0; i<localStorage.length;i++){
-                this.comments.push(localStorage.key(i));
-            }
-        }
+      this.user = this.$session.get('user');
+      if (localStorage.length>0){
+          for (var i=0; i<localStorage.length;i++){
+              this.comments.push(localStorage.key(i));
+          }
+      }
     },
 }
 </script>

@@ -70,7 +70,7 @@
         <!-- <img :src="imagePath" height="auto" /> -->
 
         
-          <PostComment :comment-lists="comments" />
+          <PostComment :postNo="postOne.postNo" :comment-lists="comments" />
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
