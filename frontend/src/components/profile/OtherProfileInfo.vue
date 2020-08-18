@@ -13,13 +13,12 @@
 
       <v-list nav dense>
         <v-list-item-group
-          v-model="group"
           active-class="deep-purple--text text--accent-4"
           class="d-flex justify-content-around"
         >
           <v-list-item class="mb-0 mx-1">
             <div>
-              <p>10</p>
+              <p>{{postNum}}</p>
               <p>포스트</p>
             </div>
           </v-list-item>
@@ -56,70 +55,63 @@
 <script>
 import FollowApi from "../../api/FollowApi";
 import UserApi from "../../api/UserApi";
+import PostApi from "../../api/PostApi";
 
 export default {
   name: "OtherProfileInfo",
   props: {
-    pnum: Number,
-    other: Object,
-    followerList: Array,
+    other: {},
   },
   created() {
-    console.log("created");
     this.user = this.$session.get("user");
+    console.log(this.other);
   },
 
   beforeMount() {
-    console.log("beforMount");
-    console.log(this.user);
-    console.log("친구번호:" + this.pnum);
-    if (this.pnum) {
-      this.getCountFollower(this.pnum);
-      this.getCountFollowing(this.pnum);
-    }
+    this.getCountPost(this.other.memberNo);
+    this.getCountFollower(this.other.memberNo);
+    this.getCountFollowing(this.other.memberNo);
   },
 
   methods: {
+    getCountPost(num) {
+      PostApi.requestSelectPostByMember(
+        num,
+        (res) => { this.postNum = res.data.length },
+        (error) => { console.log(error) }
+      )
+    },
     getCountFollower(num) {
       FollowApi.requestCountFollower(
         num,
-        (res) => {
-          console.log(res);
-          this.follower = res.data;
-        },
-        (error) => {
-          console.log(error);
-        }
+        (res) => { this.follower = res.data },
+        (error) => { console.log(error) }
       );
     },
     getCountFollowing(num) {
       FollowApi.requestCountFollowing(
         num,
-        (res) => {
-          console.log(res);
-          this.following = res.data;
-        },
-        (error) => {
-          console.log(error);
-        }
+        (res) => { this.following = res.data },
+        (error) => { console.log(error) }
       );
     },
     toFollower() {
       this.$router.push({
         name: "ProfileFollow",
-        params: { active_tab: 1 },
+        params: { user: this.other },
       });
     },
     toFollowing() {
       this.$router.push({
         name: "ProfileFollow",
-        params: { active_tab: 2 },
+        params: { user: this.other },
       });
     },
   },
   data() {
     return {
       user: Object,
+      postNum: 0,
       follower: 0,
       following: 0,
     };

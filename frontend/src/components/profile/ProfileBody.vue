@@ -6,14 +6,8 @@
         color="deep-purple accent-4"
         centered
       >
-        <v-tab style="font-family: 'Jua', sans-serif;">
-          포스트
-        </v-tab>
-
-        <v-tab
-         style="font-family: 'Jua', sans-serif;">
-          미션
-        </v-tab>
+        <v-tab style="font-family: 'Jua', sans-serif;">포스트</v-tab>
+        <v-tab style="font-family: 'Jua', sans-serif;">미션</v-tab>
 
         <v-tab-item>
           <v-row style="padding:0 2%">
@@ -104,8 +98,12 @@ import MissionApi from "../../api/MissionApi"
 
 export default {
     name: "ProfileBody",
+    props: {
+      user: {},
+    },
     created() {
-      this.user = this.$session.get("user");
+      console.log("profilBody");
+      console.log(this.user);
       PostApi.requestSelectPostByMember(
         this.user.memberNo,
         (res) => { 
@@ -144,7 +142,6 @@ export default {
     },
     data() {
       return {
-        user: Object,
         myPost: [],
         myMission: [],
         imagePath: "http://i3d201.p.ssafy.io:8080/",
