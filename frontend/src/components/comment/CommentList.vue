@@ -26,16 +26,8 @@ export default {
     },
     methods:{
       removeComment(num){
-        CommentApi.requestCommentDelete(
-          num,
-          (res) => {
-            console.log("지웠다" + res)
-          },
-          (error) => {
-            console.log("못지웠다" + error)
-          }
-        )
-      }
+        this.$emit('removeComment', num)
+      },
     },
     data() {
       return {

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="post-comment">
       <header>
           <h2 style="color:#2f3b52; font-weight:400; margin:2.5rem 0 1.5rem; text-align:center" class="lucky">Comments</h2>
       </header>
       <!--기존에 있는 댓글 보여주게하기 -->
       <CommentInput @addComment="addComment" />
       <!-- <CommentList class="foot" :comment-list="commentLists" @removeComment="removeComment" /> -->
-      <CommentList class="foot" :comments="commentLists" />
+      <CommentList class="foot" :comments="commentLists" @removeComment="removeComment" />
       
   </div>
 </template>
@@ -23,26 +23,26 @@ export default {
       postNo: Number,
     },
     components:{
-        CommentList,
-        CommentInput,
+      CommentList,
+      CommentInput,
     },
     data(){
-        return{
-          comments:{
-            commentContent: "",
+      return{
+        comments:{
+          commentContent: "",
+          memberNo: 0,
+          postNo: 0,
+        },
+        user: {
+            email: "",
             memberNo: 0,
-            postNo: 0,
-          },
-          user: {
-              email: "",
-              memberNo: 0,
-              memberPhoto: "",
-              nickname: "",
-              point: 0,
-              pwd: "",
-              stateMent: ""
-          },
-        }
+            memberPhoto: "",
+            nickname: "",
+            point: 0,
+            pwd: "",
+            stateMent: ""
+        },
+      }
     },
     methods:{
       addComment(comment){
@@ -57,6 +57,19 @@ export default {
           (error)=>{
             console.log(error)
           },
+        );
+        this.$emit('updateComment')
+      },
+      removeComment(num){
+        CommentApi.requestCommentDelete(
+          num,
+          (res) => {
+            console.log("지웠다" + res)
+            this.$emit("removeComment")
+          },
+          (error) => {
+            console.log("못지웠다" + error)
+          }
         )
       },
     },

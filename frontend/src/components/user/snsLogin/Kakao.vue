@@ -49,7 +49,6 @@
                 window.Kakao.API.request({
                     url:'/v2/user/me',
                     success : res => {
-                        console.log(res.kakao_account.profile);
                         const kakao_account = res.kakao_account;
                         const member = {
                             email: kakao_account.email,
@@ -75,16 +74,8 @@
                                         (res) => { console.log("kakao regist success") },
                                         (error) => { console.log("kakao regist fail") }
                                     )
-                                } else {
-                                    member.memberNo = res.data.memberNo;
-                                    UserApi.requestUpdate(
-                                        member,
-                                        (res) => { console.log("kakao update success") },
-                                        (error) => { console.log("kakao update fail") }
-                                    )
                                 }
                                 this.$session.set("user", member);
-                                console.log(this.$session.get("user"))
                                 this.$router.push("/posts");
                             },
                             (error) => { console.log("kakao login fail"); }

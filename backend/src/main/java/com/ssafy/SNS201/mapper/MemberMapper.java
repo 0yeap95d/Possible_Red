@@ -14,4 +14,5 @@ public interface MemberMapper {
     public boolean updateMember(Member member);
     public boolean deleteMember(int memberNo);
     public List<Member> selectMemberBySearch(String keyword);
+    public boolean updateMemberPoint(int memberNo, int point);
 }

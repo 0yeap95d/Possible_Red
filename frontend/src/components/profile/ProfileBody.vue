@@ -9,6 +9,7 @@
         <v-tab style="font-family: 'Jua', sans-serif;">포스트</v-tab>
         <v-tab style="font-family: 'Jua', sans-serif;">미션</v-tab>
 
+
         <v-tab-item>
           <v-row style="padding:0 2%">
             <v-col cols="12" sm="6" offset-sm="3">

@@ -58,4 +58,10 @@
 		 WHERE  memberNo   = #{memberNo}
 	</delete>
 
+    <update id="updateMemberPoint" parameterType="int" >
+        UPDATE member
+        SET POINT = #{point}
+        WHERE memberNo = #{memberNo};
+    </update>
+
 </mapper>

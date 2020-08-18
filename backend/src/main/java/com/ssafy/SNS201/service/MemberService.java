@@ -13,4 +13,5 @@ public interface MemberService {
     public boolean modifyMember(Member member);
     public boolean removeMember(int memberNo);
     public List<Member> findAllMembersBySearch(String keyword);
+    public boolean modifyMemberPoint(int memberNo, int point);
 }
