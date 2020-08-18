@@ -4,8 +4,10 @@
           <h2 style="color:#2f3b52; font-weight:400; margin:2.5rem 0 1.5rem; text-align:center" class="lucky">Comments</h2>
       </header>
       <!--기존에 있는 댓글 보여주게하기 -->
-      <CommentInput v-on:addComment="addComment" />
-      <CommentList class="foot" v-bind:propsdata="comments" @removeComment="removeComment" />
+      <CommentInput @addComment="addComment" />
+      <!-- <CommentList class="foot" :comment-list="commentLists" @removeComment="removeComment" /> -->
+      <CommentList class="foot" :comments="commentLists" />
+      <!-- <p v-for="comment in commentLists" :key="comment.commentNo">{{comment.commentContent}}</p> -->
       
   </div>
 </template>
@@ -15,7 +17,10 @@ import CommentList from '../../components/comment/CommentList.vue'
 import CommentInput from '../../components/comment/CommentInput.vue'
 
 export default {
-    name:'Comments',
+    name:'PostComment',
+    props: {
+      commentLists : Array,
+    },
     components:{
         CommentList,
         CommentInput,
@@ -35,12 +40,12 @@ export default {
             localStorage.clear();
             this.comments=[];
         },
-        removeComment(comment, index){
-            //console.log(comment, index)
-            localStorage.removeItem(comment);
-            this.comments.splice(index,1);
+        // removeComment(comment, index){
+        //     console.log(comment, index)
+        //     localStorage.removeItem(comment);
+        //     this.comments.splice(index,1);
     
-        },
+        // },
     },
     created(){
         if (localStorage.length>0){

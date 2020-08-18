@@ -70,7 +70,7 @@
         <!-- <img :src="imagePath" height="auto" /> -->
 
         
-          <Comments />
+          <PostComment :comment-lists="comments" />
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -156,9 +156,10 @@
 <script>
 import "../../components/css/style.css";
 import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
-import Comments from "../../views/post/Comments.vue";
+import PostComment from "../../views/post/PostComment.vue";
 import PostApi from "../../api/PostApi";
 import FollowApi from "../../api/FollowApi";
+import CommentApi from "../../api/CommentApi"
 
 export default {
   created() {
@@ -181,6 +182,7 @@ export default {
       },
       (error) => {}
     );
+    this.getComments(this.num);
   },
   data: () => ({
     drawer: false,
@@ -196,10 +198,11 @@ export default {
     imagePath: "http://i3d201.p.ssafy.io:8080/",
     index: 0,
     imageSplit: [],
+    comments: [],
   }),
   components: {
     // PostingDetailCard,
-    Comments,
+    PostComment,
   },
   methods: {
     returnpost() {
@@ -280,6 +283,18 @@ export default {
     },
     myaccount() {
       this.$router.push("/changeuser");
+    },
+    getComments(num) {
+      CommentApi.requestGetAllComment(
+        num,
+        (res) => {
+          console.log(res.data)
+          this.comments = res.data
+        },
+        (error) => {
+          console.log(error)
+        },
+      )
     },
   },
 };

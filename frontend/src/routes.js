@@ -7,7 +7,7 @@ import ChangePwd from "./views/user/ChangePwd.vue";
 import ChangeUser from './views/user/ChangeUser.vue'
 import Search from "./views/search/Search.vue";
 import Posts from "./views/post/Posts.vue";
-import Comments from "./views/post/Comments.vue";
+import PostComment from "./views/post/PostComment.vue";
 import UserProfile from './views/profile/UserProfile.vue';
 import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
@@ -73,8 +73,8 @@ export default [
   },
   {
     path: "/comments",
-    name: "Comments",
-    component: Comments,
+    name: "PostComment",
+    component: PostComment,
   },
   {
     path: '/profile',
