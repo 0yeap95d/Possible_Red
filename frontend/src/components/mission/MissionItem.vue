@@ -5,8 +5,9 @@
       <i
         v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
         class="fas fa-cookie"
+        style="color:#795548"
       ></i>
-      <i v-else-if="mission.start" class="fas fa-cookie-bite"></i>
+      <i v-else-if="mission.start" class="fas fa-cookie-bite" style="color:#827717"></i>
 
       <v-img class="white--text align-end" height="200px" src="https://picsum.photos/400"></v-img>
 

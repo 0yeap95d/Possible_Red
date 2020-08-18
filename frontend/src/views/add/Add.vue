@@ -81,20 +81,20 @@ export default {
     },
     methods:{
       post() {
-      this.$router.push("/posts");
-    },
-    mission() {
-      this.$router.push("/missionmain");
-    },
-    writing() {
-      this.$router.push("/add");
-    },
-    search() {
-      this.$router.push("/search");
-    },
-    profile() {
-      this.$router.push("/profile");
-    },
+        this.$router.push("/posts");
+      },
+      mission() {
+        this.$router.push("/missionmain");
+      },
+      writing() {
+        this.$router.push("/add");
+      },
+      search() {
+        this.$router.push("/search");
+      },
+      profile() {
+        this.$router.push("/profile");
+      },
     }
 }
 </script>

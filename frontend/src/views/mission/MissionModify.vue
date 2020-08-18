@@ -2,6 +2,8 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
+        <p class="jua_big">{{ mission.missionTitle }} 수정하기 </p>
+        <br>
         <div class="input-with-label">
           <v-btn
             small
@@ -49,6 +51,14 @@
           <v-range-selector :start-date.sync="range.start" :end-date.sync="range.end" />
         </div>
 
+        <!-- 미션 참여인원 일부러 뺀거니?! -->
+        <div class="wrap components-page p-0">
+          <select class="select-component jua">
+            <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
+            <option v-for="target in options" :value="target" :key="target.value" >{{target.title}}</option>
+          </select>
+        </div>
+
         <div class="input-with-label jua">
           <label for="point" class="jua">배당 포인트</label>
           <input v-model="mission.point" id="point" placeholder="미션 입장 포인트를 입력하세요." type="text" />
@@ -64,7 +74,7 @@
           />
         </div>
 
-        <div class="input-with-label jua">
+        <div class="input-with-label jua footbottom">
           <label for="cutCnt" class="jua">커트라인</label>
           <input
             v-model="mission.cutCnt"
@@ -73,29 +83,38 @@
             type="text"
           />
         </div>
-
-        <div class="input-with-label jua">
-          <label for="joinMem" class="jua">참여 인원</label>
-          <select v-model="mission.joinMem" id="joinMem">
-            <option disabled value class="jua" style="text-align:center;">미션 참여 인원을 설정하세요.</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </div>
-        <br />
-        <br />
+        
+        
         <div>
           <button class="submit_button btn-bottom" @click="modify">미션 수정하기</button>
         </div>
       </div>
+      <v-bottom-navigation v-model="bottomNav" black shift>
+        <v-btn @click="post" >
+          <span>POST</span>
+          <v-icon>mdi-text</v-icon>
+        </v-btn>
+
+        <v-btn @click="missions">
+          <span>Mission</span>
+          <v-icon>mdi-clipboard</v-icon>
+        </v-btn>
+
+        <v-btn @click="writing">
+          <span>Writing</span>
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+
+        <v-btn @click="search">
+          <span>Search</span>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn @click="profile">
+          <span>Profile</span>
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
     </v-app>
   </div>
 </template>
@@ -103,6 +122,7 @@
 <script>
 import VRangeSelector from "../../components/common/vl-range-selector";
 import "../../components/css/vuelendar.scss";
+import "../../components/css/style.css";
 import MissionApi from "../../api/MissionApi.js";
 import SearchApi from "../../api/SearchApi.js";
 export default {
@@ -142,6 +162,18 @@ export default {
         false,
         false,
       ],
+      options:[
+        { value: 1, title: "1 명" },
+        { value: 2, title: "2 명" },
+        { value: 3, title: "3 명" },
+        { value: 4, title: "4 명" },
+        { value: 5, title: "5 명" },
+        { value: 6, title: "6 명" },
+        { value: 7, title: "7 명" },
+        { value: 8, title: "8 명" },
+        { value: 9, title: "9 명" },
+        { value: 10, title: "10 명" },
+      ]
     };
   },
   created() {
@@ -221,6 +253,21 @@ export default {
       if (month < 10) month = "0" + month;
       if (date < 10) date = "0" + date;
       return year + "-" + month + "-" + date;
+    },
+    post() {
+      this.$router.push("/posts");
+    },
+    missions() {
+      this.$router.push("/missionmain");
+    },
+    writing() {
+      this.$router.push("/add");
+    },
+    search() {
+      this.$router.push("/search");
+    },
+    profile() {
+      this.$router.push("/profile");
     },
   },
 };
@@ -318,5 +365,19 @@ label.jua {
 #joinMem {
   margin: 10px 10px;
   float: left;
+}
+.jua_big{
+  font-family: "Jua", sans-serif;
+  font-size:x-large;
+}
+.v-bottom-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+}
+.footbottom{
+  margin-bottom:100px;
 }
 </style>

@@ -177,7 +177,7 @@ export default {
   font-size: inherit;
   line-height: normal;
   vertical-align: middle;
-  background-color: #8e5dff;
+  background-color: #9575CD;
   cursor: pointer;
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
