@@ -1,7 +1,7 @@
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
-      <v-card class="mx-auto overflow-hidden missions" color="white">
+      <v-card class="mx-0 overflow-hidden missions" color="white">
         <v-app-bar color="deep-purlple" dark>
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -23,8 +23,14 @@
                 <!--v-list-item-subtitle>by {{user.nickname}}</v-list-item-subtitle-->
               </v-list-item-content>
             </v-list-item>
-
-            <img :src="imagePath" height="auto" style="min-width:100%"/>
+            <div>
+              <div class="thumbnail">
+                <div class="centered">
+                  <img :src="imagePath" />
+                </div>
+              </div>
+            </div>
+            <!-- <img :src="imagePath" height="auto" style="min-width:100%"/> -->
 
             <v-card-text>
               <span class="jua">{{post.postContent}}</span>
@@ -332,7 +338,6 @@ export default {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  border-radius: 50%;
   overflow: hidden;
 }
 .v-bottom-navigation {
