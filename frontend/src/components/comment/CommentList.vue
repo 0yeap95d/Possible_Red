@@ -1,32 +1,55 @@
 <template>
-    <div>
-        <section>
-            <transition-group name="list" tag="ul">
-                <li v-for="(comment,index) in propsdata" :key="comment" class="shadow jua">
-                    <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-                    {{ comment }}
-                    <span class="removeBtn" type="button" @click="removeComment(comment, index)">
-                        <i class="far fa-trash-alt" aria-hidden="true"></i>
-                    </span>
-                </li>
-            </transition-group>
-        </section>
-    </div>
+  <div>
+    <section>
+      <transition-group name="list" tag="ul">
+        <li v-for="comment in comments" :key="comment.commentNo" class="shadow jua">
+          <i class="checkBtn fas fa-check" aria-hidden="true"></i>
+          {{ comment.commentContent }}
+          <span v-if="comment.memberNo==user.memberNo" class="removeBtn" type="button" @click="removeComment(comment.commentNo)">
+              <i class="far fa-trash-alt" aria-hidden="true"></i>
+          </span>
+        </li>
+      </transition-group>
+    </section>
+  </div>
 </template>
 
 <script>
-export default {
-    methods:{
-        removeComment(comment,index){
-            console.log(comment,index);
-            this.$emit('removeComment', comment, index);
-        }
-    },
-    props:['propsdata'],
-    beforeMount(){
-        console.log(this.propsdata[0]);
-    }
+import CommentApi from "../../api/CommentApi"
 
+export default {
+    props:{
+      comments: Array,
+    },
+    created() {
+      this.user = this.$session.get('user');
+    },
+    methods:{
+      removeComment(num){
+        CommentApi.requestCommentDelete(
+          num,
+          (res) => {
+            console.log("지웠다" + res)
+          },
+          (error) => {
+            console.log("못지웠다" + error)
+          }
+        )
+      }
+    },
+    data() {
+      return {
+        user: {
+          email: "",
+          memberNo: 0,
+          memberPhoto: "",
+          nickname: "",
+          point: 0,
+          pwd: "",
+          stateMent: ""
+        },
+      }
+    },
 }
 </script>
 
