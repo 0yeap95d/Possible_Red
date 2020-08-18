@@ -12,7 +12,7 @@
 
         <!--넣고 싶은거 넣으세요~-->
         <div v-if="this.mission">
-          <MissionDetailCard :mission="mission" />
+          <MissionDetailCard :mission="mission" :num="num"/>
         </div>
       </v-card>
 
@@ -78,11 +78,11 @@ export default {
   }),
   created() {
     this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
-
-    // console.log("지금 찾아올 미션 넘버 : " + this.num);
+    console.log("지금 찾아올 미션 넘버 : " + this.num);
     MissionApi.requestMissionDetail(
       this.num,
       (res) => {
+        console.log("success")
         console.log(res.data);
         this.mission.missionNo = this.num;
         this.mission.missionTitle = res.data.missionTitle;
@@ -105,9 +105,15 @@ export default {
           },
           (error) => {}
         );
+        console.log("여기오니?")
+        
+        
       },
-      (error) => {}
+      (error) => {
+        console.log("error")
+      }
     );
+    
   },
   components: {
     MissionDetailCard,

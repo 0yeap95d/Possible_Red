@@ -1,50 +1,64 @@
 <template>
   <div class="wrapC">
-    <v-card class="mx-auto">
-      <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg"></v-img>
+    <v-app>
+      <v-card class="mx-auto">
+        <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg"></v-img>
+      
+        <v-card-subtitle
+          class="pb-0 jua"
+        >{{$moment(mission.startDate).format('YYYY-MM-DD')}} ~ {{$moment(mission.endDate).format('YYYY-MM-DD')}}</v-card-subtitle>
+        <v-card-text class="jua">참여인원 : {{mission.joinMem}}명 중 {{entryNum}}명</v-card-text>
 
-      <v-card-subtitle
-        class="pb-0 jua"
-      >{{$moment(mission.startDate).format('YYYY-MM-DD')}} ~ {{$moment(mission.endDate).format('YYYY-MM-DD')}}</v-card-subtitle>
-      <v-card-text class="jua">참여인원 : {{mission.joinMem}}명 중 {{entryNum}}명</v-card-text>
+        <v-card-text class="text--primary">
+          <div class="jua">커트라인 : {{mission.cutCnt}}</div>
+          <div class="jua">배당 포인트 : {{mission.point}}</div>
+          <div class="jua">차감 포인트 : {{mission.minusPoint}}</div>
+          <div class="jua">방장 : {{mission.master}}</div>
+        </v-card-text>
 
-      <v-card-text class="text--primary">
-        <div class="jua">커트라인 : {{mission.cutCnt}}</div>
-        <div class="jua">배당 포인트 : {{mission.point}}</div>
-        <div class="jua">차감 포인트 : {{mission.minusPoint}}</div>
-        <div class="jua">방장 : {{mission.master}}</div>
-      </v-card-text>
+        <v-card-actions
+          v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
+        >
+          <v-btn
+            color="#FF4081"
+            text
+            style="font-size:medium"
+            @click="entryJoin(mission.memberNo, user.memberNo, mission.missionNo)"
+          >신청하기</v-btn>
 
-      <v-card-actions
-        v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
-      >
-        <v-btn
-          color="#FF4081"
-          text
-          style="font-size:medium"
-          @click="entryJoin(mission.memberNo, user.memberNo, mission.missionNo)"
-        >신청하기</v-btn>
-
-        <v-btn
-          v-if="isSame(user.memberNo, mission.memberNo)"
-          color="#FF4081"
-          text
-          style="font-size:medium"
-          @click="gotomodify(mission.missionNo)"
-        >수정하기</v-btn>
-      </v-card-actions>
-    </v-card>
+          <v-btn
+            v-if="isSame(user.memberNo, mission.memberNo)"
+            color="#FF4081"
+            text
+            style="font-size:medium"
+            @click="gotomodify(mission.missionNo)"
+          >수정하기</v-btn>
+         
+        </v-card-actions>
+      </v-card>
+      
+    </v-app>
   </div>
 </template>
 <script>
 import EntryApi from "../../api/EntryApi.js";
+import PostApi from "../../api/PostApi";
+
+
 export default {
   name: "MissionDetailCard",
   props: {
     mission: Object,
+    num: Number,
   },
   created() {
     this.user = this.$session.get("user");
+
+    PostApi.requestPostByMission(
+          this.num,
+          (res) => { this.posts = res.data; },
+          (error) => { console.log("error") }
+        );
   },
   beforeMount() {
     EntryApi.requestEntryCountByMissionNo(
@@ -55,9 +69,11 @@ export default {
       },
       (error) => {}
     );
+    console.log("==============="+this.posts)
   },
   data() {
     return {
+      post: [],
       user: {
         // 현재 로그인한 유저 정보
         email: "",
@@ -154,4 +170,5 @@ export default {
   font-family: "Jua", sans-serif;
   font-size: medium;
 }
+
 </style>

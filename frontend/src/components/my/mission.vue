@@ -7,11 +7,12 @@
 
           <v-list>
             <template v-for="mission in missions">
-              <v-list-item :item="mission" :key="mission.etag" @click="gotomission">
+              <v-list-item :item="mission" :key="mission.etag" @click="gotomissiondetail(mission.missionNo)">
                 <v-list-item-action class="mx-auto">
                   <v-img src="https://picsum.photos/400" alt></v-img>
                   <br />
                   <v-list-item-title class="jua">{{ mission.missionTitle }}</v-list-item-title>
+
 
                   <v-card-actions class="white justify-center">
                     <v-btn
@@ -64,12 +65,19 @@ export default {
       },
     ],
   }),
-  methods: {
-    gotomission() {
-      this.$router.push("/missiondetail");
+
+  methods:{
+    gotomissiondetail(num){
+      this.$router.push({
+        name:"MissionDetail",
+        params:{
+          num:num,
+        },
+      });
     },
   },
-};
+}
+
 </script>
 
 <style>
