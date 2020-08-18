@@ -34,8 +34,22 @@
             :loading="loading"
             :disabled="loading"
             color="#B388FF"
-            @click="updatePoint()"
-          >포인트 충전</v-btn>
+            @click="updatePointByKakao()"
+          >카카오페이</v-btn>
+          <v-btn
+            class="ma-2"
+            :loading="loading"
+            :disabled="loading"
+            color="#B388FF"
+            @click="updatePointByPayco()"
+          >페이코</v-btn>
+          <v-btn
+            class="ma-2"
+            :loading="loading"
+            :disabled="loading"
+            color="#B388FF"
+            @click="updatePointByInicis()"
+          >이니시스</v-btn>
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -44,7 +58,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img src="../../assets/images/펭수프로필.jpg" />
+                    <img :src="profileImagePath" />
                   </div>
                 </div>
               </div>
@@ -125,6 +139,10 @@ import UserApi from "../../api/UserApi";
 export default {
   created() {
     this.user = this.$session.get("user");
+
+    this.profileImageSplit = this.user.memberPhoto.split("/");
+    this.profileIndex = this.profileImageSplit.length - 1;
+    this.profileImagePath += this.profileImageSplit[this.profileIndex];
   },
   data: () => ({
     mypoint: 0,
@@ -145,9 +163,52 @@ export default {
       pwd: "",
       stateMent: "",
     },
+
+    profileImagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    profileIndex: 0,
+    profileImageSplit: [],
   }),
   methods: {
-    updatePoint() {
+    mainMethod() {
+      // 포인트 업데이트 + 새로운 포인트 보여주기위한 로그인 세션만료 + 로그인
+      let memberNo = this.user.memberNo;
+      let point = this.user.point + this.mypoint;
+      let pointData = {
+        memberNo,
+        point,
+      };
+      UserApi.requestUpdatePoint(
+        pointData,
+        (res) => {
+          this.$session.destroy();
+
+          // 로그인 추가하기
+          let email = this.user.email;
+          let password = this.user.pwd;
+          let data = {
+            email,
+            password,
+          };
+          UserApi.requestLogin(
+            data,
+            (res) => {
+              // 로그인 성공
+              if (res.status === 200) {
+                // session에 로그인 회원 정보 저장
+                this.$session.set("user", res.data);
+                alert("충전이 완료되었습니다 새로고침을 눌러주세요!");
+                // 결과페이지로 이동
+              } else {
+                return;
+              }
+            },
+            (error) => {}
+          ); // 로그인 끝
+        },
+        (error) => {}
+      );
+    },
+    updatePointByKakao() {
       // this.user.point += this.mypoint;
       var IMP = window.IMP;
       IMP.init("imp33126269"); // 맞음
@@ -155,7 +216,6 @@ export default {
         {
           pg: "kakao", // 결제방식
           /*
-          'kakao':카카오페이, 
           'html5_inicis':이니시스(웹표준결제),
           'nice':나이스페이, 
           'jtnet':제이티넷,
@@ -174,44 +234,78 @@ export default {
           buyer_name: this.user.nickname,
         },
         (rsp) => {
-          console.log(rsp);
           if (rsp.success) {
-            let memberNo = this.user.memberNo;
-            let point = this.user.point + this.mypoint;
-            let pointData = {
-              memberNo,
-              point,
-            };
-            UserApi.requestUpdatePoint(
-              pointData,
-              (res) => {
-                this.$session.destroy();
-
-                // 로그인 추가하기
-                let email = this.user.email;
-                let password = this.user.pwd;
-                let data = {
-                  email,
-                  password,
-                };
-                UserApi.requestLogin(
-                  data,
-                  (res) => {
-                    // 로그인 성공
-                    if (res.status === 200) {
-                      // session에 로그인 회원 정보 저장
-                      this.$session.set("user", res.data);
-                      alert("충전이 완료되었습니다 새로고침을 눌러주세요!");
-                      // 결과페이지로 이동
-                    } else {
-                      return;
-                    }
-                  },
-                  (error) => {}
-                ); // 로그인 끝
-              },
-              (error) => {}
-            );
+            this.mainMethod();
+          } else {
+            // 결제 실패 시 로직,
+            // console.log("결제 완전 실패");
+          }
+        }
+      );
+    },
+    updatePointByInicis() {
+      // this.user.point += this.mypoint;
+      var IMP = window.IMP;
+      IMP.init("imp33126269"); // 맞음
+      IMP.request_pay(
+        {
+          pg: "html5_inicis", // 결제방식
+          /*
+          'html5_inicis':이니시스(웹표준결제),
+          'nice':나이스페이, 
+          'jtnet':제이티넷,
+          'uplus':LG유플러스, 
+          'danal':다날,
+          'payco':페이코,
+          'syrup':시럽페이, 
+          'paypal':페이팔
+          */
+          pay_method: "card",
+          merchant_uid:
+            "ORDER_POINT" + new Date().getTime() + this.user.nickname,
+          name: "PR Team point payment",
+          amount: this.mypoint,
+          buyer_email: this.user.email,
+          buyer_name: this.user.nickname,
+        },
+        (rsp) => {
+          if (rsp.success) {
+            this.mainMethod();
+          } else {
+            // 결제 실패 시 로직,
+            // console.log("결제 완전 실패");
+          }
+        }
+      );
+    },
+    updatePointByPayco() {
+      // this.user.point += this.mypoint;
+      var IMP = window.IMP;
+      IMP.init("imp33126269"); // 맞음
+      IMP.request_pay(
+        {
+          pg: "payco", // 결제방식
+          /*
+          'html5_inicis':이니시스(웹표준결제),
+          'nice':나이스페이, 
+          'jtnet':제이티넷,
+          'uplus':LG유플러스, 
+          'danal':다날,
+          'payco':페이코,
+          'syrup':시럽페이, 
+          'paypal':페이팔
+          */
+          pay_method: "card",
+          merchant_uid:
+            "ORDER_POINT" + new Date().getTime() + this.user.nickname,
+          name: "PR Team point payment",
+          amount: this.mypoint,
+          buyer_email: this.user.email,
+          buyer_name: this.user.nickname,
+        },
+        (rsp) => {
+          if (rsp.success) {
+            this.mainMethod();
           } else {
             // 결제 실패 시 로직,
             // console.log("결제 완전 실패");
