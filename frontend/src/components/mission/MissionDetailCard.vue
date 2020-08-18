@@ -45,6 +45,8 @@ export default {
   },
   created() {
     this.user = this.$session.get("user");
+  },
+  beforeMount() {
     EntryApi.requestEntryCountByMissionNo(
       this.mission.missionNo,
       (res) => {
