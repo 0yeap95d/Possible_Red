@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.security.auth.login.FailedLoginException;
+
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RestController
 @RequestMapping("/member")
@@ -76,7 +78,9 @@ public class MemberAPIController {
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
-        member.setMemberPhoto(defaultImage);
+
+        if (!member.getMemberPhoto().contains("http"))
+            member.setMemberPhoto(defaultImage);
 
         if(memberService.addMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -94,7 +98,7 @@ public class MemberAPIController {
 
         String originalFileName = file.getOriginalFilename();
         File dest = new File(imagePath + originalFileName);
-        file.transferTo(dest); // 왜 이미지 저장이 안되는거지,,?ㅠ
+        file.transferTo(dest);
 
         if(originalFileName.length() == 0)
             member.setMemberPhoto(null);
@@ -104,6 +108,14 @@ public class MemberAPIController {
         if (memberService.modifyMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
+        return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
+    }
+    @ApiOperation(value = " 사용자의 포인트를 수정한다.", response = String.class)
+    @PutMapping("point/{memberNo}/{point}")
+    public ResponseEntity<String> modifyMember(@PathVariable int memberNo, @PathVariable int point) throws Exception {
+        logger.info("modifyMemberPoint | " + memberNo + "update Point to "+point);
+        if(memberService.modifyMemberPoint(memberNo, point))
+            return new ResponseEntity<String>(SUCCESS,HttpStatus.NO_CONTENT);
         return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
     }
 

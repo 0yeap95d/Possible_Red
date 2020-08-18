@@ -16,10 +16,10 @@
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
             <v-list-item-group active-class="deep-purple--text text--accent-4">
-              <div class="px-3 py-2">
+              <div class="px-3 py-3">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img :src="user.memberPhoto" />
+                    <img :src="user.memberPhoto"/>
                   </div>
                 </div>
               </div>
@@ -116,15 +116,6 @@ export default {
     },
     methods: {
       Logout() {
-        this.$session.destroy();
-        window.Kakao.API.request({
-            url: '/v1/user/unlink',
-            success: function(res) { console.log(res) },
-            fail: function(err) { console.log(err) },
-        })
-        window.Kakao.Auth.logout(function() {
-          alert('로그아웃 완료!')
-        })
         this.$router.push("/");
       },
       post() {
@@ -214,6 +205,5 @@ export default {
 .v-slide-group__content.v-tabs-bar__content{
   background-color:white;
 }
-
 
 </style>
