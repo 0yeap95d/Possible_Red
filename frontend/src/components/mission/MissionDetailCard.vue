@@ -36,9 +36,24 @@
          
         </v-card-actions>
       </v-card>
+    
+      <!-- 미션에 해당하는 post 불러오기 --> 
+      <p class="jua" style="text-align:center;">{{mission.missionTitle}}'s POST</p>
+      <v-expansion-panels>
+        <v-expansion-panel
+          v-for="post in posts"
+          :key="post.etag"
+          class="jua"
+        >
+          <v-expansion-panel-header>{{  post.postContent }}</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            {{ post.postPhoto }}
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
       
     </v-app>
-  </div>
+  </div>  
 </template>
 <script>
 import EntryApi from "../../api/EntryApi.js";
@@ -53,10 +68,12 @@ export default {
   },
   created() {
     this.user = this.$session.get("user");
+    
 
     PostApi.requestPostByMission(
           this.num,
-          (res) => { this.posts = res.data; },
+          (res) => { this.posts = res.data; console.log(this.posts) },
+          
           (error) => { console.log("error") }
         );
   },
@@ -69,11 +86,11 @@ export default {
       },
       (error) => {}
     );
-    console.log("==============="+this.posts)
+    //console.log("==============="+this.posts)
   },
   data() {
     return {
-      post: [],
+      posts: [],
       user: {
         // 현재 로그인한 유저 정보
         email: "",
@@ -170,5 +187,7 @@ export default {
   font-family: "Jua", sans-serif;
   font-size: medium;
 }
-
+.v-expansion-panel{
+  margin-bottom:30px;
+}
 </style>
