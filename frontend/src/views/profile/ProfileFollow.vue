@@ -49,9 +49,34 @@
             </v-list-item>
           </v-list>
         </v-tab-item>
-
       </v-tabs>
     </v-card>
+    <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-btn @click="post">
+        <span>POST</span>
+        <v-icon>mdi-text</v-icon>
+      </v-btn>
+
+      <v-btn @click="mission">
+        <span>Mission</span>
+        <v-icon>mdi-clipboard</v-icon>
+      </v-btn>
+
+      <v-btn @click="writing">
+        <span>Writing</span>
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+
+      <v-btn @click="search">
+        <span>Search</span>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn @click="profile">
+        <span>Profile</span>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </div>
 </template>
 
@@ -123,7 +148,22 @@ export default {
           num: num, 
         },
       });
-    }
+    },
+    post() {
+      this.$router.push("/posts");
+    },
+    mission() {
+      this.$router.push("/missionmain");
+    },
+    writing() {
+      this.$router.push("/add");
+    },
+    search() {
+      this.$router.push("/search");
+    },
+    profile() {
+      this.$router.push("/profile");
+    },
   },
   data() {
     return {

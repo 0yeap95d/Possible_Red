@@ -49,9 +49,9 @@
         </div>
 
         <div class="wrap components-page p-0">
-          <select class="select-component jua">
+          <select v-model="mission.joinMem" class="select-component jua">
             <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
-            <option v-for="target in options" :value="target" :key="target.value">{{target.title}}</option>
+            <option v-for="target in options" :value="target.value" :key="target.value">{{target.title}}</option>
           </select>
         </div>
 
@@ -85,6 +85,7 @@
         <div>
           <button class="submit_button btn-bottom" @click="missionRegister">미션 등록하기</button>
         </div>
+        
       </div>
     </v-app>
   </div>
@@ -122,6 +123,9 @@ export default {
         description: "",
         v0: true,
       },
+      models:{
+        base:false,
+      },
       range: {},
       category: [],
       isOn: [
@@ -151,9 +155,11 @@ export default {
       ],
     };
   },
+  
   methods: {
     toggleSwitch(num) {
       this.isOn[num] = !this.isOn[num];
+    
     },
 
     getCategoryList() {
