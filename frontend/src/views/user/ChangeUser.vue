@@ -113,12 +113,14 @@ export default {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
-      console.log(isSubmit);
+      // console.log(isSubmit);
     },
     updateUser() {
-      console.log("이미지 " + this.postImg);
-      this.user.memberImg = this.memberImg;
       var formData = new FormData();
+      if (this.memberImg == "") {
+        alert("프로필사진은 꼭 입력하세요!!");
+        return;
+      }
       formData.append("memberImg", this.memberImg);
       formData.append("memberNo", this.user.memberNo);
       formData.append("email", this.user.email);
@@ -130,18 +132,33 @@ export default {
       UserApi.requestUpdate(
         formData,
         (res) => {
-          console.log(res.data);
           if (res.data === "success") {
-            // console.log("modify user success");
             this.isSubmit = false;
             this.$session.destroy();
 
             // 로그인 추가하기
-
-            // 결과페이지로 이동
-            this.$router.push("/profile");
+            let email = this.user.email;
+            let password = this.user.pwd;
+            let data = {
+              email,
+              password,
+            };
+            UserApi.requestLogin(
+              data,
+              (res) => {
+                // 로그인 성공
+                if (res.status === 200) {
+                  // session에 로그인 회원 정보 저장
+                  this.$session.set("user", res.data);
+                  this.$router.go(-1);
+                  // 결과페이지로 이동
+                } else {
+                  return;
+                }
+              },
+              (error) => {}
+            ); // 로그인 끝
           } else {
-            // console.log("modify user fail");
             // 에러페이지로 이동
           }
         },
@@ -159,7 +176,7 @@ export default {
         point: 0,
         pwd: "",
         stateMent: "",
-        membetPhoto: "",
+        memberPhoto: "",
       },
       passwordSchema: new PV(),
       error: {
