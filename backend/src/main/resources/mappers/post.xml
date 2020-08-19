@@ -23,7 +23,8 @@
     <select id="selectPost" resultType="Post">
         SELECT      *
           FROM      post
-         ORDER BY   postNo
+         ORDER BY   postDate DESC,
+                    postNo   DESC
     </select>
     <select id="selectPostByNo" resultType="Post">
         SELECT  p.*, m.nickname AS nickname
