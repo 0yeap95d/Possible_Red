@@ -1,7 +1,7 @@
 <template>
   <div class="wrapC">
     <v-app>
-      <v-col cols="12" sm="6" offset-sm="3">
+      <v-col cols="12" sm="6" class="mx-auto">
         <v-card>
           <v-subheader :inset="inset">{{user.nickname}}'s</v-subheader>
 
@@ -103,7 +103,7 @@ export default {
   display: block;
   margin: 0px auto;
 }
-.col-sm-6.offset-sm-3.col-12 {
+.col-sm-6.col-12 {
   padding: 0;
 }
 .v-icon.notranslate.mdi.mdi-facebook.theme--light{
