@@ -22,7 +22,7 @@ const requestLogin = (data, callback, errorCallback) => {
 }
 
 const requestRegister = (data, callback, errorCallback) => {
-    Axios.post('http://i3d201.p.ssafy.io:8080/member', data)
+    Axios.post('http://localhost:8080/member', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
