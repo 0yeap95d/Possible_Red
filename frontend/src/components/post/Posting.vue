@@ -25,7 +25,6 @@
 
       <p class="jua" style="font-size:small; ">{{$moment(this.lists.postDate).format("YYYY-MM-DD")}}</p>
     </div>
-
     <hr />
   </div>
 </template>
