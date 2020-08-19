@@ -1,46 +1,48 @@
 <template>
-    <div class="wrapC">
-        
-            <v-row justify="center">
-                <v-col cols="12" sm="8" md="6">
-                <v-card>
-                    <v-list two-line>
-                    <template v-for="mission in missions">
-                        <v-subheader
-                        v-if="mission.missionTitle"
-                        :key="mission.missionTitle"
-                        inset
-                        >
-                        {{ mission.missionTitle }}
-                        </v-subheader>
-
-                        <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
-                        <v-list-item
-                        v-else
-                        :key="mission.missionCat"
-                        ripple
-                        @click="gotopostdetail"
-                        >
-                        <v-list-item-avatar>
-                            <img :src="mission.missionPhoto">
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                          
-                            <v-list-item-title v-html="mission.missionNo" class="jua"></v-list-item-title>
-                        </v-list-item-content>
-                        
-                        </v-list-item>
-                        
-                    </template>
-                    </v-list>
-                </v-card>
-                </v-col>
-            </v-row>
-        
+    <div>
+      <v-row justify="center">
+        <v-col cols="12" sm="8" md="6">
+          <v-card>
+            <v-list two-line>
+              <template v-for="item in items">
+                <v-subheader
+                  :key="item.missionTitle"
+                  inset
+                >
+                  {{ item.missionTitle }}
+                </v-subheader>
+                  
+                <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
+                <div v-for="(post, i) in item.post" :key="i">
+                <v-list-item
+                  ripple
+                  @click="postdetail(item.post[i].postNo)"
+                >
+                  
+                  <v-list-item-avatar>
+                    <img :src="item.post[i].postPhoto">
+                  </v-list-item-avatar>
+                  
+                  <v-list-item-content>
+                      <v-list-item-title v-html="item.post[i].postContent" class="jua"></v-list-item-title>
+                  </v-list-item-content>
+                  
+                </v-list-item>
+                </div>
+                  
+              </template>
+            </v-list>
+          </v-card>
+        </v-col>
+      </v-row>
+      
     </div>
 </template>
 
 <script>
+
+  import PostApi from '../../api/PostApi'
+
   export default {
     name:"Post",
     props:{
@@ -48,72 +50,50 @@
     },
     created(){
       this.user = this.$session.get("user");
+
+      for (var i in this.missions) {
+        PostApi.requestPostByMission(
+          this.missions[i].missionNo,
+          (res) => {
+            let item = {
+              missionTitle: this.missions[i].missionTitle,
+              post: res.data,
+            }
+            
+            for (var j in item.post) {
+              this.imageSplit = item.post[j].postPhoto.split("/");
+              this.index = this.imageSplit.length - 1;
+              item.post[j].postPhoto = this.imagePath + this.imageSplit[this.index];
+            }
+
+            this.items.push(item);
+            console.log(this.items);
+          },
+          (error) => { console.log(error) }
+        )
+      }
+
+      
     },
     data () {
       return {
         user:Object,
+        items: [],
 
-        items: [
-          {
-            header: '조깅 매일 30분씩!',
-          },
-          { divider: true },
-          {
-            avatar: 'https://picsum.photos/250/300?image=660',
-            title: '조깅 3일차',
-            
-          },
-          {
-            avatar: 'https://picsum.photos/250/300?image=821',
-            title: '조깅 2일차',
-            
-          },
-          {
-            avatar: 'https://picsum.photos/250/300?image=783',
-            title: '조깅 1일차',
-            
-          },
-          {
-            header: '알고리즘 문제 매일 풀기!',
-          },
-          { divider: true },
-          {
-            avatar: 'https://picsum.photos/250/300?image=1006',
-            title: '알고리즘 4일차',
-            
-          },
-          {
-            avatar: 'https://picsum.photos/250/300?image=146',
-            title: '알고리즘 3일차',
-            
-          },
-          {
-            header: '금연 한달동안!',
-          },
-          { divider: true },
-          {
-            avatar: 'https://picsum.photos/250/300?image=1008',
-            title: '금연 25일차',
-            
-          },
-          {
-            avatar: 'https://picsum.photos/250/300?image=839',
-            title:
-              '금연 24일차',
-           
-          },
-          {
-            avatar: 'https://picsum.photos/250/300?image=145',
-            title: '금연 23일차',
-            
-          },
-        ],
+        imagePath: "http://i3d201.p.ssafy.io:8080/",
+        index: 0,
+        imageSplit: [],
       }
     },
     methods:{
-        gotopostdetail(){
-            this.$router.push('/postdetail')
-        }
+      postdetail(num) {
+        this.$router.push({
+          name: "PostDetail",
+          params: {
+            num: num,
+          },
+        });
+      },
     }
   }
 </script>
