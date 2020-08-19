@@ -141,17 +141,14 @@ export default {
     },
     onLogin() {
       if (this.isSubmit) {
-        let { email, password } = this;
-        let data = {
-          email,
-          password,
-        };
+        this.member.email = this.email;
+        this.member.pwd = this.password;
 
         //요청 후에는 버튼 비활성화
         this.isSubmit = false;
 
         UserApi.requestLogin(
-          data,
+          this.member,
           (res) => {
             console.log(res.data);
 
@@ -197,6 +194,15 @@ export default {
       },
       isSubmit: false,
       component: this,
+      member: {
+        email: "",
+        memberNo: 0,
+        memberPhoto: "",
+        nickname: "",
+        point: 0,
+        pwd: "",
+        stateMent: "",
+      }
     };
   },
 };
