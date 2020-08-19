@@ -1,28 +1,13 @@
-/*
- User API 예시
- */
-
 import Axios from "axios";
 
 const requestLogin = (data, callback, errorCallback) => {
-    //백앤드와 로그인 통신하는 부분
-    var params = {
-        "email": data.email,
-        "memberNo": 0,
-        "nickname": "",
-        "point": 0,
-        "pwd": data.password,
-        "stateMent": "",
-    }
-
-    Axios.post('http://i3d201.p.ssafy.io:8080/login', params)
+    Axios.post('http://i3d201.p.ssafy.io:8080/login', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
-
 }
 
 const requestRegister = (data, callback, errorCallback) => {
-    Axios.post('http://localhost:8080/member', data)
+    Axios.post('http://i3d201.p.ssafy.io:8080/member', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))
 }
