@@ -85,7 +85,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img src="../../assets/images/펭수프로필.jpg" />
+                    <img :src="profileImagePath" />
                   </div>
                 </div>
               </div>
@@ -185,10 +185,19 @@ export default {
     index: 0,
     imageSplit: [],
     comments: [],
+
+    profileImagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    profileIndex: 0,
+    profileImageSplit: [],
   }),
   created() {
     this.user = this.$session.get("user");
     this.num = this.$route.params.num;
+
+    this.profileImageSplit = this.user.memberPhoto.split("/");
+    this.profileIndex = this.profileImageSplit.length - 1;
+    this.profileImagePath += this.profileImageSplit[this.profileIndex];
+
     PostApi.requestSelectPostByNo(
       this.num,
       (res) => {
