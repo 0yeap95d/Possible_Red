@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
       <v-card class="mx-auto overflow-hidden missions">
         <v-app-bar color="deep-purlple" dark>
@@ -17,31 +17,33 @@
             잔여 포인트는 {{user.point}}P 입니다.
           </p>
           <div class="input-with-label jua">
-          <input
-            v-model="mypoint"
-            readonly
-            id="point"
-            placeholder="충전할 포인트 금액을 선택하세요."
-            type="text"
-          />
-          <label for="pointl" class="jua">포인트</label>
-          <br><br><br>
-          
-        </div>
+            <input
+              v-model="mypoint"
+              readonly
+              id="point"
+              placeholder="충전할 포인트 금액을 선택하세요."
+              type="text"
+            />
+            <label for="pointl" class="jua">포인트</label>
+            <br />
+            <br />
+            <br />
+          </div>
           <div style="text-align:center;">
-            <button @click="plus50000()" class="jua oman" style="margin-right:2%">💴+오만 </button>
+            <button @click="plus50000()" class="jua oman" style="margin-right:2%">💴+오만</button>
             <button @click="plus10000()" class="jua man" style="margin-right:2%">💵+만</button>
             <button @click="plus5000()" class="jua ocheon" style="margin-right:2%">💶+오천</button>
             <button @click="plus1000()" class="jua cheon">💷+천</button>
           </div>
-            <br>
+          <br />
           <div style="text-align:center;">
             <button @click="minus50000()" class="jua -oman" style="margin-right:2%">💴-오만</button>
             <button @click="minus10000()" class="jua -man" style="margin-right:2%">💵-만</button>
             <button @click="minus5000()" class="jua -ocheon" style="margin-right:2%">💶-오천</button>
             <button @click="minus1000()" class="jua -cheon">💷-천</button>
           </div>
-          <br><br>
+          <br />
+          <br />
           <div style="text-align:center;">
             <h3 class="jua" style="color:#AB47BC">┌결제방식 선택┐</h3>
             <button class="ma-2" @click="updatePointByKakao()">
@@ -50,19 +52,17 @@
             <button class="ma-2" @click="updatePointByPayco()">
               <img width="50px" src="../../assets/images/페이코.png" />
             </button>
-            <button class="ma-2"  @click="updatePointByInicis()">
-              <img width="80px" src="../../assets/images/이니시스.jpg" />   
+            <button class="ma-2" @click="updatePointByInicis()">
+              <img width="80px" src="../../assets/images/이니시스.jpg" />
             </button>
           </div>
-           <!--
+          <!--
           <v-btn
             class="ma-2"
             :loading="loading"
             :disabled="loading"
             @click="updatePointByInicis()"
           >이니시스</v-btn>-->
-           
-        
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -194,23 +194,16 @@ export default {
         pointData,
         (res) => {
           this.$session.destroy();
-
-          // 로그인 추가하기
-          let email = this.user.email;
-          let password = this.user.pwd;
-          let data = {
-            email,
-            password,
-          };
           UserApi.requestLogin(
-            data,
+            {
+              email: this.user.email,
+              pwd: this.user.pwd,
+            },
             (res) => {
-              // 로그인 성공
               if (res.status === 200) {
-                // session에 로그인 회원 정보 저장
                 this.$session.set("user", res.data);
-                alert("충전이 완료되었습니다 새로고침을 눌러주세요!");
-                // 결과페이지로 이동
+                alert("충전이 완료되었습니다!");
+                this.$router.push("/mypoint");
               } else {
                 return;
               }
@@ -490,61 +483,60 @@ export default {
 .wrapC {
   min-height: 500px;
 }
-.oman{
-  background:#C2185B;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.oman {
+  background: #c2185b;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.man{
-  background:#EC407A;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.man {
+  background: #ec407a;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.ocheon{
-  background:#F48FB1;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.ocheon {
+  background: #f48fb1;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.cheon{
-  background:#F8BBD0;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.cheon {
+  background: #f8bbd0;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.-oman{
-  background:#4527A0;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.-oman {
+  background: #4527a0;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.-man{
-  background:#5E35B1;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.-man {
+  background: #5e35b1;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.-ocheon{
-  background:#9575CD;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.-ocheon {
+  background: #9575cd;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-.-cheon{
-  background:#D1C4E9;
-  border-radius:5%;
-  color:white;
-  width:75px;
-  height:30px;
+.-cheon {
+  background: #d1c4e9;
+  border-radius: 5%;
+  color: white;
+  width: 75px;
+  height: 30px;
 }
-
 </style>
