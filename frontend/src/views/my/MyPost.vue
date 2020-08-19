@@ -18,7 +18,7 @@
 
                 <!--넣고 싶은거 넣으세요~-->
                 <div class="wrapC">
-                    <Post />
+                    <Post :missions="missionList" />
                 </div>
                 
 
@@ -121,15 +121,38 @@
 <script>
 import '../../components/css/style.css';
 import Post from '../../components/my/post.vue';
+import MissionApi from '../../api/MissionApi.js';
+import PostApi from '../../api/PostApi.js';
 
 export default {
     data: () => ({
         drawer: false,
         activeBtn:1,
+        missionList:[],
+        user:{
+            email: "",
+            memberNo: 0,
+            memberPhoto: "",
+            nickname: "",
+            point: 0,
+            pwd: "",
+            stateMent: "",
+        },
     }),
     components:{
         Post,
         
+    },
+    created(){
+        this.user=this.$session.get("user");
+        MissionApi.requestMissionByMember(
+            this.user.memberNo,
+            (res)=>{
+                this.missionList=res.data;
+                console.log(this.missionList[0].missionTitle);
+            },
+            (error)=>{}
+        );
     },
     methods:{
         kakaoLogout() {
