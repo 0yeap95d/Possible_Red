@@ -21,7 +21,7 @@
         class="jua"
         style="color:grey; font-weight:500; font-size:medium;"
         @click="postdetail(lists.postNo)"
-      >댓글 3개 모두 보기</span>
+      >댓글 {{this.commentCnt}}개 모두 보기</span>
 
       <p class="jua" style="font-size:small; ">{{$moment(this.lists.postDate).format("YYYY-MM-DD")}}</p>
     </div>
@@ -33,6 +33,7 @@
 <script>
 import UserApi from "../../api/UserApi";
 import LikeApi from "../../api/LikeApi";
+import CommentApi from "../../api/CommentApi";
 
 export default {
   name: "Posting",
@@ -40,29 +41,30 @@ export default {
     lists: Array,
   },
   created() {
+
     // 사용자 정보 불러오기
     this.user = this.$session.get("user");
 
     // 작성자 정보 불러오기
     UserApi.requestMemberByNo(
       this.lists.memberNo,
-      (res) => {
-        this.writer = res.data;
-      },
-      (error) => {
-        // console.log("Posting Error");
-      }
+      (res) => { this.writer = res.data },
+      (error) => { console.log(error) }
     ),
-      // 좋아요 개수
-      LikeApi.requestLikeList(
-        this.lists.postNo,
-        (res) => {
-          this.likeCnt = res.data.length;
-        },
-        (error) => {
-          // console.log("Posting Error");
-        }
-      );
+    
+    // 좋아요 개수
+    LikeApi.requestLikeList(
+      this.lists.postNo,
+      (res) => { this.likeCnt = res.data.length },
+      (error) => { console.log(error) }
+    );
+
+    // 댓글 개수
+    CommentApi.requestGetAllComment(
+      this.lists.postNo,
+      (res) => { this.commentCnt = res.data.length },
+      (error) => { console.log(error); }
+    )
   },
 
   mounted() {
@@ -77,20 +79,18 @@ export default {
         if (res.status == 200) this.like = true;
         else this.like = false;
       },
-      (error) => {
-        // console.log(error);
-      }
+      (error) => { console.log(error); }
     );
     this.imageSplit = this.lists.postPhoto.split("/");
     this.index = this.imageSplit.length - 1;
     this.imagePath += this.imageSplit[this.index];
-    console.log("포스트 이미지 : " + this.imagePath);
   },
 
   data() {
     return {
       like: false,
       likeCnt: 0,
+      commentCnt: 0,
       writer: Object,
       user: Object,
       likeInfo: Array,
