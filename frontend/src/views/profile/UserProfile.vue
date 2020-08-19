@@ -106,12 +106,20 @@ export default {
     },
     created() {
         this.user = this.$session.get('user');
+        if (this.user.pwd != "") {
+          this.imageSplit = this.user.memberPhoto.split("/");
+          this.index = this.imageSplit.length - 1;
+          this.user.memberPhoto = this.imagePath + this.imageSplit[this.index];
+        }
     },
     data() {
         return {
           drawer: false,
           activeBtn: 1,
           user: {},
+          imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+          index: 0,
+          imageSplit: [],
         }
     },
     methods: {

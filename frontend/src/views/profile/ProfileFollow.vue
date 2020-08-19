@@ -83,7 +83,6 @@ export default {
   name: "ProfileFollow",
   created() {
     this.user = this.$route.params.user;
-    console.log(this.user);
     this.getFollowing(this.user.memberNo);
     this.getFollower(this.user.memberNo);
   },
