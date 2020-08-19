@@ -19,7 +19,7 @@
       <div class="input-with-label jua">
         <input
           disabled
-          id="password"
+          id="pwd"
           v-model="user.pwd"
           v-bind:class="{error : error.password, complete:!error.password&&user.pwd.length!==0}"
           placeholder="비밀번호"
@@ -133,33 +133,24 @@ export default {
         formData,
         (res) => {
           if (res.data === "success") {
-            this.isSubmit = false;
             this.$session.destroy();
-
-            // 로그인 추가하기
-            let email = this.user.email;
-            let password = this.user.pwd;
-            let data = {
-              email,
-              password,
-            };
             UserApi.requestLogin(
-              data,
+              {
+                email: this.user.email,
+                pwd: this.user.pwd,
+              },
               (res) => {
-                // 로그인 성공
                 if (res.status === 200) {
                   // session에 로그인 회원 정보 저장
                   this.$session.set("user", res.data);
-                  this.$router.go(-1);
                   // 결과페이지로 이동
                 } else {
-                  return;
+                  alert("재로그인 하세요");
                 }
+                this.$router.push("/profile");
               },
               (error) => {}
             ); // 로그인 끝
-          } else {
-            // 에러페이지로 이동
           }
         },
         (error) => {}
