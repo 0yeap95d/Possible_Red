@@ -1,61 +1,45 @@
 <template>
   <div class="wrapC p-0 search-pg">
     <v-app>
-      <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching"/>
-      <SearchPost v-show="isPost" 
-                
-                 v-for="list in postList"
-                  :key="list"
-                  :list="list"
-          
-                  />
+      <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching" />
+      <SearchPost v-show="isPost" v-for="list in postList" :key="list" :list="list" />
 
-       <SearchPost v-show="isHashtag" 
-                
-                 v-for="list in hashtagList"
-                  :key="list"
-                  :list="list"
-          
-                  />           
+      <SearchPost v-show="isHashtag" v-for="list in hashtagList" :key="list" :list="list" />
 
-                  
+      <SearchUser
+        v-show="isUser"
+        v-for="memberList in memberList"
+        :key="memberList.memberNo"
+        :value="memberList.memberNo"
+        :memberList="memberList"
+        @gotoOtherProfile="gotoOtherProfile"
+      />
 
-      <SearchUser v-show="isUser" 
-      
-                 v-for="memberList in memberList"
-                  :key="memberList"
-                  :memberList="memberList"
-                  />
-
-      <v-bottom-navigation
-          v-model="bottomNav"
-          black
-          shift
-      >
-          <v-btn @click="post">
+      <v-bottom-navigation black shift>
+        <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
-          </v-btn>
+        </v-btn>
 
-          <v-btn @click="mission">
+        <v-btn @click="mission">
           <span>Mission</span>
           <v-icon>mdi-clipboard</v-icon>
-          </v-btn>
+        </v-btn>
 
-          <v-btn @click="writing">
+        <v-btn @click="writing">
           <span>Writing</span>
           <v-icon>mdi-pencil</v-icon>
-          </v-btn>
+        </v-btn>
 
-          <v-btn @click="search">
+        <v-btn @click="search">
           <span>Search</span>
           <v-icon>mdi-magnify</v-icon>
-          </v-btn>
+        </v-btn>
 
-          <v-btn @click="profile">
+        <v-btn @click="profile">
           <span>Profile</span>
           <v-icon>mdi-account</v-icon>
-          </v-btn>
+        </v-btn>
       </v-bottom-navigation>
     </v-app>
   </div>
@@ -68,22 +52,32 @@ import SearchBar from "../../components/search/Searchbar.vue";
 import SearchPost from "../../components/search/SearchPost.vue";
 import SearchUser from "../../components/search/SearchUser.vue";
 import SearchApi from "../../api/SearchApi";
+import UserApi from "../../api/UserApi";
 
 export default {
   name: "Search",
   data() {
     return {
-      isPost:false,
-      isUser:false,
-      isHashtag:false,
-      isSearching:false,
+      isPost: false,
+      isUser: false,
+      isHashtag: false,
+      isSearching: false,
       searchItem: {
         type: null,
         keyword: null,
       },
-      postList : [],
+      postList: [],
       memberList: [],
       hashtagList: [],
+      user: {
+        email: "",
+        memberNo: 0,
+        memberPhoto: "",
+        nickname: "",
+        point: 0,
+        pwd: "",
+        stateMent: "",
+      },
     };
   },
   components: {
@@ -91,77 +85,75 @@ export default {
     SearchPost,
     SearchUser,
   },
-  methods:{
-    post(){
-        this.$router.push("/posts");
+  methods: {
+    gotoOtherProfile(otherMemberNo) {
+      UserApi.requestMemberByNo(
+        otherMemberNo,
+        (res) => {
+          this.user = res.data;
+          this.$router.push({
+            name: "OtherProfile",
+            params: {
+              other: this.user,
+            },
+          });
+        },
+        (error) => {}
+      );
     },
-    mission(){
-        this.$router.push("/missionmain");
+    post() {
+      this.$router.push("/posts");
     },
-    writing(){
-        this.$router.push("/add");
+    mission() {
+      this.$router.push("/missionmain");
+    },
+    writing() {
+      this.$router.push("/add");
     },
     search() {
-        this.$router.push("/search");
+      this.$router.push("/search");
     },
-    profile(){
-        this.$router.push("/profile");
+    profile() {
+      this.$router.push("/profile");
     },
-    searching(data){
-      console.log(data)
-      this.searchItem = data
-      if (this.searchItem.type=="post") {
+    searching(data) {
+      this.searchItem = data;
+      if (this.searchItem.type == "post") {
         this.isPost = true;
         this.isUser = false;
         this.isHashtag = false;
         this.isSearching = true;
-        // console.log(this.searchItem);
-          SearchApi.requestPostBySearch(
-                this.searchItem.keyword,
-                (res) => {
-                  console.log("post!")
-                  this.postList = res.data;
-                  console.log(this.postList)
-                },
-                (error) => {
-                  console.log("error!")
-                }
-              )
-        
-            
+        SearchApi.requestPostBySearch(
+          this.searchItem.keyword,
+          (res) => {
+            this.postList = res.data;
+          },
+          (error) => {}
+        );
       } else if (this.searchItem.type == "user") {
         this.isPost = false;
         this.isUser = true;
         this.isHashtag = false;
         this.isSearching = true;
         SearchApi.requestMemberBySearch(
-              this.searchItem.keyword,
-              (res) => {
-                console.log("user!")
-                this.memberList = res.data;
-                console.log(this.memberList)
-              },
-              (error) => {
-                console.log("error!")
-              }
-        )
-      } else if (this.searchItem.type == "hashtag"){
+          this.searchItem.keyword,
+          (res) => {
+            this.memberList = res.data;
+          },
+          (error) => {}
+        );
+      } else if (this.searchItem.type == "hashtag") {
         this.isPost = false;
         this.isUser = false;
         this.isHashtag = true;
         this.isSearching = true;
         SearchApi.requestHashtagBySearch(
-                  this.searchItem.keyword,
-                  (res) => {
-                    console.log("hashtag!")
-                    this.hashtagList = res.data;
-                    console.log(this.hashtagList)
-                  },
-                  (error) => {
-                    console.log("error!")
-                  }
-            )
-
+          this.searchItem.keyword,
+          (res) => {
+            this.hashtagList = res.data;
+          },
+          (error) => {}
+        );
       } else if (this.searchItem.type == "none") {
         this.isPost = false;
         this.isUser = false;
@@ -172,9 +164,9 @@ export default {
         this.isUser = false;
         this.isHashtag = false;
         this.isSearching = false;
-      }      
+      }
     },
-  }
+  },
 };
 </script>
 
@@ -183,7 +175,7 @@ export default {
   margin-bottom: 1%;
 }
 
-.v-bottom-navigation{
+.v-bottom-navigation {
   position: fixed;
   left: 0;
   right: 0;

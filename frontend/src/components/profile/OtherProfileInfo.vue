@@ -4,7 +4,7 @@
       <div class="thumbnail-wrapper my-auto">
         <div class="thumbnail">
           <div class="centered">
-            <img v-if="other.memberPhoto" class="profile" :src="other.memberPhoto" alt="안뜸">
+            <img v-if="other.memberPhoto" class="profile" :src="other.memberPhoto" alt="안뜸" />
           </div>
         </div>
       </div>
@@ -46,7 +46,6 @@
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
 
     <v-btn class="follow-btn" block color="primary" dark>Block Button</v-btn>
-
   </div>
 </template>
 
@@ -62,7 +61,6 @@ export default {
   },
   created() {
     this.user = this.$session.get("user");
-    console.log(this.other);
     if (this.other.pwd != "") {
       this.imageSplit = this.other.memberPhoto.split("/");
       this.index = this.imageSplit.length - 1;
@@ -80,22 +78,28 @@ export default {
     getCountPost(num) {
       PostApi.requestSelectPostByMember(
         num,
-        (res) => { this.postNum = res.data.length },
-        (error) => { console.log(error) }
-      )
+        (res) => {
+          this.postNum = res.data.length;
+        },
+        (error) => {}
+      );
     },
     getCountFollower(num) {
       FollowApi.requestCountFollower(
         num,
-        (res) => { this.follower = res.data },
-        (error) => { console.log(error) }
+        (res) => {
+          this.follower = res.data;
+        },
+        (error) => {}
       );
     },
     getCountFollowing(num) {
       FollowApi.requestCountFollowing(
         num,
-        (res) => { this.following = res.data },
-        (error) => { console.log(error) }
+        (res) => {
+          this.following = res.data;
+        },
+        (error) => {}
       );
     },
     toFollower() {
@@ -127,7 +131,7 @@ export default {
 
 <style scoped>
 .thumbnail-wrapper {
-  width:25%;
+  width: 25%;
   margin-left: 5%;
   margin-right: 15%;
 }
@@ -139,23 +143,23 @@ export default {
 }
 .thumbnail .centered {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  -webkit-transform: translate(50%,50%); 
-  -ms-transform: translate(50%,50%); 
-  transform: translate(50%,50%); 
-  }
-.thumbnail .centered img { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  max-width: 100%; 
-  height: auto; 
-  -webkit-transform: translate(-50%,-50%); 
-  -ms-transform: translate(-50%,-50%); 
-  transform: translate(-50%,-50%); 
+  -webkit-transform: translate(50%, 50%);
+  -ms-transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
+}
+.thumbnail .centered img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 /* 
 .box {
