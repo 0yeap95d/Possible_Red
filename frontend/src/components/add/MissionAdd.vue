@@ -236,7 +236,7 @@ export default {
   padding-bottom: 3rem;
 }
 .v-slide-group__content {
-  background: linear-gradient(to left, #f48fb1, #3949ab);
+  background:white !important;
 }
 .jua {
   font-family: "Jua", sans-serif;
@@ -320,4 +320,13 @@ label.jua {
   margin: 10px 10px;
   float: left;
 }
+span.v-chip__content{
+  font-family: "Jua", sans-serif;
+  color:white;
+}
+.v-chip.primary--text.v-chip--active.v-chip--clickable.v-chip--no-color.theme--light.v-size--default{
+  background:navy;
+
+}
+
 </style>

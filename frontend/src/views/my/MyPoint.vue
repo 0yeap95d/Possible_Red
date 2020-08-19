@@ -29,17 +29,17 @@
           
         </div>
           <div style="text-align:center;">
-            <button @click="plus50000()" class="jua oman" style="margin-right:2%">+50,000 </button>
-            <button @click="plus10000()" class="jua man" style="margin-right:2%">+10,000</button>
-            <button @click="plus5000()" class="jua ocheon" style="margin-right:2%">+5,000</button>
-            <button @click="plus1000()" class="jua cheon">+1,000</button>
+            <button @click="plus50000()" class="jua oman" style="margin-right:2%">💴+오만 </button>
+            <button @click="plus10000()" class="jua man" style="margin-right:2%">💵+만</button>
+            <button @click="plus5000()" class="jua ocheon" style="margin-right:2%">💶+오천</button>
+            <button @click="plus1000()" class="jua cheon">💷+천</button>
           </div>
             <br>
           <div style="text-align:center;">
-            <button @click="minus50000()" class="jua -oman" style="margin-right:2%">-50,000</button>
-            <button @click="minus10000()" class="jua -man" style="margin-right:2%">-10,000</button>
-            <button @click="minus5000()" class="jua -ocheon" style="margin-right:2%">-5,000</button>
-            <button @click="minus1000()" class="jua -cheon">-1,000</button>
+            <button @click="minus50000()" class="jua -oman" style="margin-right:2%">💴-오만</button>
+            <button @click="minus10000()" class="jua -man" style="margin-right:2%">💵-만</button>
+            <button @click="minus5000()" class="jua -ocheon" style="margin-right:2%">💶-오천</button>
+            <button @click="minus1000()" class="jua -cheon">💷-천</button>
           </div>
           <br><br>
           <div style="text-align:center;">

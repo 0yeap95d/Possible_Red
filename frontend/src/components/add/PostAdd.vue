@@ -32,6 +32,7 @@
         <div class="textarea-wrap jua">
           <h4 class="jua">게시글 작성하기</h4>
           <span class="jua">{{post.postContent.length}}/{{this.maxLength}}</span>
+          <br><hr>
           <textarea v-model="post.postContent" placeholder="내용을 입력하세요" />
         </div>      
       </div>
@@ -239,6 +240,7 @@ export default {
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
   border-radius: 0.25em;
+  font-family: "Jua", sans-serif;
 } /* named upload */
 
 .filebox .upload-name {
@@ -265,5 +267,18 @@ export default {
 
 .v-select.v-select--chips input {
   min-height: 32px;
+}
+b,strong{
+  font-family: "Jua", sans-serif;
+  color:white;
+}
+.theme--light.v-chip:not(.v-chip--active){
+  background:#FF80AB;
+}
+.v-icon.notranslate.v-chip__close.v-icon--link.v-icon--right.mdi.mdi-close-circle.theme--light{
+  color:black;
+}
+#input-119{
+  font-family: "Jua", sans-serif;
 }
 </style>
