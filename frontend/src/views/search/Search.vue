@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap search-pg">
+  <div class="wrapC p-0 search-pg">
     <v-app>
       <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching"/>
       <SearchPost v-show="isPost" 
