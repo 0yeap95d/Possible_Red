@@ -262,4 +262,8 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.v-select.v-select--chips input {
+  min-height: 32px;
+}
 </style>
