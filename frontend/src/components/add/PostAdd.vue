@@ -1,7 +1,7 @@
 <!-- https://kanetami.tistory.com/97 -->
 <template>
   <div class="wrapC">
-    <div class="form-wrap post-adds">
+    <div class="post-adds">
       <div class="wrap components-page p-0">
         <select @change="getvalue($event)" class="select-component jua">
           <option :value="null" disabled selected>게시글을 올릴 미션을 선택하세요</option>
@@ -13,7 +13,7 @@
         </select>
       </div>
 
-      <div class="filebox jua">
+      <div class="filebox jua" style="vertical-align:middle;">
         <input class="upload-name" :value="postImg.name" disabled="disabled" />
         <label for="ex_filename">업로드</label>
         <input
@@ -33,8 +33,33 @@
           <h4 class="jua">게시글 작성하기</h4>
           <span class="jua">{{post.postContent.length}}/{{this.maxLength}}</span>
           <textarea v-model="post.postContent" placeholder="내용을 입력하세요" />
-        </div>
+        </div>      
       </div>
+
+      <v-combobox
+        v-model="chips"
+        chips
+        clearable
+        label="Hashtags"
+        multiple
+        solo
+        class="jua"
+        style="height:30%; width:100%"
+        >
+          <template v-slot:selection="{ attrs, item, select, selected }">
+            <v-chip
+            v-bind="attrs"
+            :input-value="selected"
+            close
+            @click="select"
+            @click:close="remove(item)"
+            >
+            <strong>{{ item }}</strong>&nbsp;
+            </v-chip>
+          </template>
+        </v-combobox>
+
+      <!-- <HashtagBar style="height: 30%; width: 100%;" /> -->
 
       <div>
         <button class="submit_button btn-bottom" @click="postRegister">인증하기</button>
@@ -46,6 +71,7 @@
 <script>
 import MissionApi from "../../api/MissionApi"; // 멤버넘버별 포스트 받아오기
 import PostApi from "../../api/PostApi";
+import HashtagApi from "../../api/HashtagApi"
 
 export default {
   watch: {
@@ -78,6 +104,9 @@ export default {
       (error) => {}
     );
   },
+  components: {
+    // HashtagBar,
+  },
   data() {
     return {
       post: {
@@ -96,6 +125,8 @@ export default {
       maxLength: 25,
 
       options: [],
+      chips: [],
+      hashtag: "",
     };
   },
   methods: {
@@ -104,6 +135,7 @@ export default {
     },
     postRegister() {
       console.log("이미지 " + this.postImg);
+
       this.post.postImg = this.postImg;
       var formData = new FormData();
 
@@ -119,6 +151,26 @@ export default {
         },
         (error) => {}
       );
+
+      for(var i in this.chips) {
+        this.hashtag += '#' + this.chips[i]
+      }
+
+      console.log("hashtag!!!!!! " + this.hashtag)
+
+      // HashtagApi.requestAddHashtag(
+      //   {
+      //     hashtagContent:this.hashtag,
+      //     postNo:this.post.postNo,
+      //   },
+      //   (res) => {
+      //     console.log("hashtag 등록")
+      //   },
+      //   (error) => {
+      //     console.log("error")
+      //   }
+      // )
+
     },
 
     fileSelect() {
@@ -128,6 +180,11 @@ export default {
       // 미리보기
       this.preView = URL.createObjectURL(this.$refs.postImg.files[0]);
     },
+    remove (item) {
+      this.chips.splice(this.chips.indexOf(item), 1)
+      this.chips = [...this.chips]
+    },
+
   },
 };
 </script>
