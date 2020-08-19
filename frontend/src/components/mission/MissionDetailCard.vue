@@ -219,9 +219,7 @@ export default {
 .v-expansion-panel {
   margin-bottom: 30px;
 }
-.v-application--wrap {
-  background-color: whitesmoke;
-}
+
 .v-expansion-panel-content__wrap {
   font-family: "Jua", sans-serif;
   color: rebeccapurple;
