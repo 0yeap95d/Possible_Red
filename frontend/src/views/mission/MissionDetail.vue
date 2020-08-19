@@ -12,7 +12,7 @@
 
         <!--넣고 싶은거 넣으세요~-->
         <div v-if="this.mission">
-          <MissionDetailCard :mission="mission" :num="num"/>
+          <MissionDetailCard :mission="mission" :num="num" :entryNum="entryNum" />
         </div>
       </v-card>
 
@@ -54,12 +54,14 @@ import MissionDetailCard from "../../components/mission/MissionDetailCard.vue";
 import MissionApi from "../../api/MissionApi";
 import UserApi from "../../api/UserApi";
 import HeaderComponent from "../../components/common/Header.vue";
+import EntryApi from "../../api/EntryApi.js";
 
 export default {
   data: () => ({
     drawer: false,
     activeBtn: 1,
     num: 0,
+    entryNum: 0,
     mission: {
       missionNo: 0,
       missionTitle: "",
@@ -78,12 +80,10 @@ export default {
   }),
   created() {
     this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
-    console.log("지금 찾아올 미션 넘버 : " + this.num);
+    // console.log("지금 찾아올 미션 넘버 : " + this.num);
     MissionApi.requestMissionDetail(
       this.num,
       (res) => {
-        console.log("success")
-        console.log(res.data);
         this.mission.missionNo = this.num;
         this.mission.missionTitle = res.data.missionTitle;
         this.mission.startDate = res.data.startDate;
@@ -101,19 +101,20 @@ export default {
           this.mission.memberNo,
           (res) => {
             this.mission.master = res.data.nickname;
-            console.log(this.mission.master);
           },
           (error) => {}
         );
-        console.log("여기오니?")
-        
-        
       },
-      (error) => {
-        console.log("error")
-      }
+      (error) => {}
     );
-    
+    // 엔트리정보
+    EntryApi.requestEntryCountByMissionNo(
+      this.num,
+      (res) => {
+        this.entryNum = res.data;
+      },
+      (error) => {}
+    );
   },
   components: {
     MissionDetailCard,

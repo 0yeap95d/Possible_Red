@@ -48,4 +48,10 @@
             AND missionNo= #{missionNo};
     </select>
 
+    <select id="selectMemberByMissionNo" resultType="Entry">
+        SELECT *
+         FROM entry
+        WHERE missionNo= #{missionNo};
+    </select>
+
 </mapper>

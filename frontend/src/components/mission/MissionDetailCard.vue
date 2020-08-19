@@ -3,7 +3,7 @@
     <v-app>
       <v-card class="mx-auto">
         <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg"></v-img>
-      
+
         <v-card-subtitle
           class="pb-0 jua"
         >{{$moment(mission.startDate).format('YYYY-MM-DD')}} ~ {{$moment(mission.endDate).format('YYYY-MM-DD')}}</v-card-subtitle>
@@ -33,64 +33,54 @@
             style="font-size:medium"
             @click="gotomodify(mission.missionNo)"
           >수정하기</v-btn>
-         
+        </v-card-actions>
+
+        <v-card-actions
+          v-if="!getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))&&isSame(user.memberNo, mission.memberNo)"
+        >
+          <v-btn
+            text
+            style="font-size:medium"
+            @click="cuttingPoint($moment().format('YYYY-MM-DD'))"
+          >미션 마감하기 이제 여기서 미션 안한사람들은 돈 깎아야함ㅎㅎ</v-btn>
         </v-card-actions>
       </v-card>
-    
-      <!-- 미션에 해당하는 post 불러오기 --> 
+
+      <!-- 미션에 해당하는 post 불러오기 -->
       <p class="jua" style="text-align:center;">{{mission.missionTitle}}'s POST</p>
       <v-expansion-panels>
-        <v-expansion-panel
-          v-for="post in posts"
-          :key="post.etag"
-          class="jua"
-        >
-          <v-expansion-panel-header>
-           {{$moment(post.postDate).format("YYYY-MM-DD")}}
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            {{  post.postContent }}
-          </v-expansion-panel-content>
+        <v-expansion-panel v-for="post in posts" :key="post.etag" class="jua">
+          <v-expansion-panel-header>{{$moment(post.postDate).format("YYYY-MM-DD")}}</v-expansion-panel-header>
+          <v-expansion-panel-content>{{ post.postContent }}</v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
-      
     </v-app>
-  </div>  
+  </div>
 </template>
 <script>
 import EntryApi from "../../api/EntryApi.js";
 import PostApi from "../../api/PostApi";
-
 
 export default {
   name: "MissionDetailCard",
   props: {
     mission: Object,
     num: Number,
+    entryNum: Number,
   },
   created() {
     this.user = this.$session.get("user");
-    
 
     PostApi.requestPostByMission(
-          this.num,
-          (res) => { this.posts = res.data; console.log(this.posts) },
-          
-          (error) => { console.log("error") }
-        );
-    console.log("제바아아아아앙아아알")
-    
-  },
-  beforeMount() {
-    EntryApi.requestEntryCountByMissionNo(
-      this.mission.missionNo,
+      this.num,
       (res) => {
-        this.entryNum = res.data;
-        console.log(this.entryNum);
+        this.posts = res.data; // 현재 미션넘버로 찾아온 포스트
       },
-      (error) => {}
+
+      (error) => {
+        // console.log("error");
+      }
     );
-    //console.log("==============="+this.posts)
   },
   data() {
     return {
@@ -104,11 +94,23 @@ export default {
         pwd: "",
         stateMent: "",
       },
-      entryNum: 0,
-      
     };
   },
   methods: {
+    cuttingPoint(today) {
+      /*
+          3. 날짜가 오늘인 미션들만 가져온다 => 이거 어떻게함?
+          4. 포스트를 작성하지 않은 사람을 골라낸다
+          5. 그 사람들의 포인트를 깎는다
+        */
+      var tempPost = new Array(Object);
+      for (var i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].postDate.substr(0, 10) == today) {
+          tempPost.push(this.posts[i].memberNo);
+        }
+      }
+      // 오늘 포스트 쓴 사람 다 골라냈음
+    },
     gotomodify(num) {
       this.$router.push({
         name: "MissionModify",
@@ -119,7 +121,6 @@ export default {
       });
     },
     isSame(itsMe, writer) {
-      // console.log("잇츠미 : " + itsMe + " writer : " + writer);
       if (itsMe == writer) {
         // console.log("내가 쓴 글입니다.");
         return true;
@@ -152,7 +153,7 @@ export default {
             entry.memberNo = uNo;
             entry.missionNo = mm;
             entry.reward = 0;
-            entry.nonCnt = 0;
+            entry.nonCnt = this.mission.cutCnt;
             EntryApi.requestEntryRegister(
               entry,
               (resentry) => {
@@ -160,7 +161,7 @@ export default {
                 alert("미션에 참여합니다");
               },
               (error) => {
-                console.log("엔트리 등록 안됐음");
+                // console.log("엔트리 등록 안됐음");
               }
             );
             this.$router.push("/mymission");
@@ -192,14 +193,14 @@ export default {
   font-family: "Jua", sans-serif;
   font-size: medium;
 }
-.v-expansion-panel{
-  margin-bottom:30px;
+.v-expansion-panel {
+  margin-bottom: 30px;
 }
-.v-application--wrap{
-  background-color:whitesmoke;
+.v-application--wrap {
+  background-color: whitesmoke;
 }
-.v-expansion-panel-content__wrap{
+.v-expansion-panel-content__wrap {
   font-family: "Jua", sans-serif;
-  color:rebeccapurple
+  color: rebeccapurple;
 }
 </style>
