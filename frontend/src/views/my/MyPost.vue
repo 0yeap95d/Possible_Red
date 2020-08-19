@@ -11,12 +11,12 @@
 
         <!--넣고 싶은거 넣으세요~-->
         <div class="wrapC">
-          <Post :missions="missionList" />
+          <Post v-if="missionList.length !== 0" :missions="missionList" />
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
@@ -53,7 +53,7 @@
                 <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="kakaologout">
+              <v-list-item @click="logout">
                 <v-list-item-icon>
                   <i class="fas fa-sign-out-alt"></i>
                 </v-list-item-icon>
@@ -63,7 +63,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -101,23 +101,18 @@ import MissionApi from "../../api/MissionApi.js";
 import PostApi from "../../api/PostApi.js";
 
 export default {
-  data: () => ({
+  data() {
+    return {
     drawer: false,
     activeBtn: 1,
     missionList: [],
-    user: {
-      email: "",
-      memberNo: 0,
-      memberPhoto: "",
-      nickname: "",
-      point: 0,
-      pwd: "",
-      stateMent: "",
-    },
+    user: {},
     imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
     index: 0,
     imageSplit: [],
-  }),
+    }
+  },
+
   components: {
     Post,
   },
@@ -130,57 +125,21 @@ export default {
 
     MissionApi.requestMissionByMember(
       this.user.memberNo,
-      (res) => {
-        this.missionList = res.data;
-        console.log(this.missionList[0].missionTitle);
-      },
-      (error) => {}
+      (res) => { this.missionList = res.data },
+      (error) => { console.log(error) }
     );
   },
   methods: {
-    kakaoLogout() {
-      this.$session.destroy();
-      window.Kakao.API.request({
-        url: "/v1/user/unlink",
-        success: function (res) {
-          console.log(res);
-        },
-        fail: function (err) {
-          console.log(err);
-        },
-      });
-      window.Kakao.Auth.logout(function () {
-        alert("로그아웃 완료!");
-      });
-      this.$router.push("/");
-    },
-    post() {
-      this.$router.push("/posts");
-    },
-    mission() {
-      this.$router.push("/missionmain");
-    },
-    writing() {
-      this.$router.push("/add");
-    },
-    search() {
-      this.$router.push("/search");
-    },
-    profile() {
-      this.$router.push("/profile");
-    },
-    mymission() {
-      this.$router.push("/mymission");
-    },
-    mypost() {
-      this.$router.push("/mypost");
-    },
-    mypoint() {
-      this.$router.push("/mypoint");
-    },
-    myaccount() {
-      this.$router.push("/changeuser");
-    },
+    logout() { this.$router.push("/") },
+    post() { this.$router.push("/posts") },
+    mission() { this.$router.push("/missionmain") },
+    writing() { this.$router.push("/add") },
+    search() { this.$router.push("/search") },
+    profile() { this.$router.push("/profile") },
+    mymission() { this.$router.push("/mymission") },
+    mypost() { this.$router.push("/mypost") },
+    mypoint() { this.$router.push("/mypoint") },
+    myaccount() { this.$router.push("/changeuser") },
   },
 };
 </script>
