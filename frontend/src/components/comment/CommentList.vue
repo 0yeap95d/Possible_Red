@@ -2,10 +2,11 @@
   <div>
     <section>
       <transition-group name="list" tag="ul">
-        <li v-for="comment in comments" :key="comment.commentNo" class="shadow jua">
-          <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-          {{ comment.commentContent }}
-          <span v-if="comment.memberNo==user.memberNo" class="removeBtn" type="button" @click="removeComment(comment.commentNo)">
+        <li v-for="comment in comments" :key="comment.commentNo" class="shadow jua" style="vertical-align: middle;">
+          <!-- <i class="checkBtn fas fa-check" aria-hidden="true"></i> -->
+          <span class="my-auto" style="font-family: Nanum Pen Script, cursive; font-size: x-large; color: navy; margin-right:3%;">{{ comment.nickname}}</span>
+          <span class="my-auto jua">{{ comment.commentContent }}</span>
+          <span v-if="comment.memberNo==user.memberNo" class="removeBtn my-auto" type="button" @click="removeComment(comment.commentNo)">
               <i class="far fa-trash-alt" aria-hidden="true"></i>
           </span>
         </li>
