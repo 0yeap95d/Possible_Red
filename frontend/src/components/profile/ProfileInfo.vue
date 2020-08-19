@@ -72,25 +72,28 @@ export default {
     getCountPost(num) {
       PostApi.requestSelectPostByMember(
         num,
-        (res) => { this.postNum = res.data.length },
-        (error) => { console.log(error) }
-      )
+        (res) => {
+          this.postNum = res.data.length;
+        },
+        (error) => {}
+      );
     },
     getCountFollower(num) {
       FollowApi.requestCountFollower(
         num,
-        (res) => { 
-          this.follower = res.data
-          console.log("get Count Follower : " + this.follower);
+        (res) => {
+          this.follower = res.data;
         },
-        (error) => { console.log(error) }
+        (error) => {}
       );
     },
     getCountFollowing(num) {
       FollowApi.requestCountFollowing(
         num,
-        (res) => { this.following = res.data },
-        (error) => { console.log(error) }
+        (res) => {
+          this.following = res.data;
+        },
+        (error) => {}
       );
     },
     toFollower() {

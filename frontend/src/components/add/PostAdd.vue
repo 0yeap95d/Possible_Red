@@ -32,9 +32,10 @@
         <div class="textarea-wrap jua">
           <h4 class="jua">게시글 작성하기</h4>
           <span class="jua">{{post.postContent.length}}/{{this.maxLength}}</span>
-          <br><hr>
+          <br />
+          <hr />
           <textarea v-model="post.postContent" placeholder="내용을 입력하세요" />
-        </div>      
+        </div>
       </div>
 
       <v-combobox
@@ -46,19 +47,19 @@
         solo
         class="jua"
         style="height:30%; width:100%"
-        >
-          <template v-slot:selection="{ attrs, item, select, selected }">
-            <v-chip
+      >
+        <template v-slot:selection="{ attrs, item, select, selected }">
+          <v-chip
             v-bind="attrs"
             :input-value="selected"
             close
             @click="select"
             @click:close="remove(item)"
-            >
+          >
             <strong>{{ item }}</strong>&nbsp;
-            </v-chip>
-          </template>
-        </v-combobox>
+          </v-chip>
+        </template>
+      </v-combobox>
 
       <!-- <HashtagBar style="height: 30%; width: 100%;" /> -->
 
@@ -72,7 +73,7 @@
 <script>
 import MissionApi from "../../api/MissionApi"; // 멤버넘버별 포스트 받아오기
 import PostApi from "../../api/PostApi";
-import HashtagApi from "../../api/HashtagApi"
+import HashtagApi from "../../api/HashtagApi";
 
 export default {
   watch: {
@@ -84,7 +85,6 @@ export default {
   },
 
   created() {
-    console.log("포스트Add 유저 넘버 : " + this.$session.get("user").memberNo);
     this.post.memberNo = this.$session.get("user").memberNo;
 
     //지금 접속해 있는 사람의 아이디를 기반으로 참여하고있는 미션 리스트 가져오기
@@ -143,44 +143,41 @@ export default {
       formData.append("postContent", this.post.postContent);
       formData.append("missionNo", this.post.missionNo);
 
-      for(var i in this.chips) {
-        this.hashtag += '#' + this.chips[i]
+      for (var i in this.chips) {
+        this.hashtag += "#" + this.chips[i];
       }
 
       PostApi.requestInsertPost(
         formData,
-        (res) => { 
+        (res) => {
           PostApi.requestMaxPostNo(
-            (res) => { 
+            (res) => {
               HashtagApi.requestAddHashtag(
                 {
                   hashtagContent: this.hashtag,
-                  postNo: res.data
+                  postNo: res.data,
                 },
-                (res) => { console.log(res) },
-                (error) => { console.log(error) }
-              )
+                (res) => {},
+                (error) => {}
+              );
             },
-            (error) => {console.log(error) }
-          )
-          this.$router.push("/posts"); 
+            (error) => {}
+          );
+          this.$router.push("/posts");
         },
-        (error) => { console.log(error) }
+        (error) => {}
       );
     },
 
     fileSelect() {
       this.postImg = this.$refs.postImg.files[0];
-      console.log("here");
-      console.log(this.postImg);
       // 미리보기
       this.preView = URL.createObjectURL(this.$refs.postImg.files[0]);
     },
-    remove (item) {
-      this.chips.splice(this.chips.indexOf(item), 1)
-      this.chips = [...this.chips]
+    remove(item) {
+      this.chips.splice(this.chips.indexOf(item), 1);
+      this.chips = [...this.chips];
     },
-
   },
 };
 </script>
@@ -230,7 +227,7 @@ export default {
   font-size: inherit;
   line-height: normal;
   vertical-align: middle;
-  background-color: #9575CD;
+  background-color: #9575cd;
   cursor: pointer;
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
@@ -263,17 +260,18 @@ export default {
 .v-select.v-select--chips input {
   min-height: 32px;
 }
-b,strong{
+b,
+strong {
   font-family: "Jua", sans-serif;
-  color:white;
+  color: white;
 }
-.theme--light.v-chip:not(.v-chip--active){
-  background:#FF80AB;
+.theme--light.v-chip:not(.v-chip--active) {
+  background: #ff80ab;
 }
-.v-icon.notranslate.v-chip__close.v-icon--link.v-icon--right.mdi.mdi-close-circle.theme--light{
-  color:black;
+.v-icon.notranslate.v-chip__close.v-icon--link.v-icon--right.mdi.mdi-close-circle.theme--light {
+  color: black;
 }
-#input-119{
+#input-119 {
   font-family: "Jua", sans-serif;
 }
 </style>
