@@ -35,19 +35,25 @@
             <v-card-text>
               <span class="jua">{{post.postContent}}</span>
               <br />
-              <span class="jua">#풍경 #운동</span>
+              <span class="jua">{{hashtag}}</span>
               <!--해시태그-->
             </v-card-text>
 
             <v-card-actions>
               <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
               <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
+
+              <!-- 여기부터 -->
+              <h4 @click="good" v-show="like" class="jua_big">
+                <i class="fas fa-heart" style="color:crimson;"></i>
+                &nbsp;&nbsp;&nbsp;{{this.likeCnt}}&nbsp;&nbsp;&nbsp;
+              </h4>
+              <h4 @click="good" v-show="!like" class="jua_big">
+                <i class="fas fa-heart" style="color:palegoldenrod;"></i>
+                &nbsp;&nbsp;&nbsp;{{this.likeCnt}}&nbsp;&nbsp;&nbsp;
+              </h4>
+              <!-- 여기까지 -->
+
             </v-card-actions>
             <div v-if="isSame(user.memberNo, post.memberNo)">
               <v-btn
@@ -81,7 +87,7 @@
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
@@ -118,7 +124,7 @@
                 <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="kakaologout">
+              <v-list-item @click="logout">
                 <v-list-item-icon>
                   <i class="fas fa-sign-out-alt"></i>
                 </v-list-item-icon>
@@ -128,7 +134,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -167,6 +173,8 @@ import PostApi from "../../api/PostApi";
 import FollowApi from "../../api/FollowApi";
 import CommentApi from "../../api/CommentApi";
 import UserApi from "../../api/UserApi";
+import LikeApi from "../../api/LikeApi";
+import HashtagApi from "../../api/HashtagApi";
 
 export default {
   data: () => ({
@@ -181,6 +189,16 @@ export default {
       postContent: "",
       missionNo: 0,
     },
+
+    hashtag: "",
+    like: false,
+    likeCnt: 0,
+    likeInfo: Array,
+    likeData: {
+      memberNo: 0,
+      postNo: 0,
+    },
+
     imagePath: "http://i3d201.p.ssafy.io:8080/",
     index: 0,
     imageSplit: [],
@@ -204,36 +222,58 @@ export default {
         this.postOne.postNo = res.data.postNo;
         this.postOne.memberNo = res.data.memberNo;
         this.postOne.postPhoto = res.data.postPhoto;
-        console.log(res.data.memberNo)
-        console.log(this.postOne.memberNo)
         this.postOne.postContent = res.data.postContent;
         this.postOne.mission = res.data.missionNo;
 
-        console.log(this.postOne.postPhoto);
         this.imageSplit = this.postOne.postPhoto.split("/");
         this.index = this.imageSplit.length - 1;
         this.imagePath += this.imageSplit[this.index];
-        console.log(this.imagePath);
         
         UserApi.requestMemberByNo(
-        this.postOne.memberNo,
-        (res) => {
-          console.log(res.data)
-          this.member = res.data;
-        },
-        (error) => {
-          console.log("error")
-        }
-    );
-        
+          this.postOne.memberNo,
+          (res) => { this.member = res.data },
+          (error) => { console.log("error") }
+        );
       },
       (error) => {}
     );
+
+    // 좋아요 개수
+    LikeApi.requestLikeList(
+      this.num,
+      (res) => { this.likeCnt = res.data.length },
+      (error) => { console.log(error) }
+    );
     
-    
+    // 해시 태그
+    HashtagApi.requestFindAllHastags(
+      this.num,
+      (res) => { 
+        if (res.data.length != 0) 
+          this.hashtag = res.data[0].hashtagContent
+      },
+      (error) => { console.log(error) }
+    )
     
     this.getComments(this.num);
   },
+
+  mounted() {
+    // LikeApi에 보낼 params 설정
+    this.likeData.memberNo = this.user.memberNo;
+    this.likeData.postNo = this.num;
+
+    // 좋아요 유무에 따라 버튼 활성/비활성
+    LikeApi.requestIsLike(
+      this.likeData,
+      (res) => {
+        if (res.status == 200) this.like = true;
+        else this.like = false;
+      },
+      (error) => { console.log(error); }
+    );
+  },
+
   components: {
     // PostingDetailCard,
     PostComment,
@@ -275,20 +315,30 @@ export default {
         (error) => {}
       );
     },
-    kakaoLogout() {
-      this.$session.destroy();
-      window.Kakao.API.request({
-        url: "/v1/user/unlink",
-        success: function (res) {
-          console.log(res);
-        },
-        fail: function (err) {
-          console.log(err);
-        },
-      });
-      window.Kakao.Auth.logout(function () {
-        alert("로그아웃 완료!");
-      });
+
+    good() {
+      // 사용자 반응을 우선시하기 때문에 프론트 변화 후 백엔드 통신
+      // 통신에 실패했을때 원래 상태로 돌아와야함
+      this.like = !this.like;
+
+      if (this.like) { // like 삽입
+        LikeApi.requestAddLike(
+          this.likeData,
+          (res) => { this.likeCnt++ },
+          (error) => { this.like = !this.like }
+        );
+      } 
+      
+      else { // like 삭제
+        LikeApi.requestRemoveLike(
+          this.likeData,
+          (res) => { this.likeCnt--; },
+          (error) => { this.like = !this.like }
+        );
+      }
+    },
+
+    logout() {
       this.$router.push("/");
     },
     post() {
