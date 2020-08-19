@@ -83,4 +83,15 @@ public class EntryAPIController {
         }
         return new ResponseEntity<String>("fail", HttpStatus.NO_CONTENT);
     }
+
+    @ApiOperation(value = "미션 넘버별 엔트리를 반환한다.", response = List.class)
+    @GetMapping("/missionByEntry/{missionNo}")
+    public ResponseEntity<List<Entry>> findMemberNoByMissionNo(@PathVariable int missionNo ) throws Exception {
+        logger.info("1-------------get MemberNo Entry by Mission No-----------------------------"+new Date());
+        List<Entry> list = entryService.findMemberByMissionNo(missionNo);
+        if(list.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Entry>>(list,HttpStatus.OK);
+    }
 }

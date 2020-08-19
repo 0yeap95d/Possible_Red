@@ -43,4 +43,9 @@ public class EntryServiceImpl implements EntryService {
     public int findCountByMemberNoAndMissionNo(int memberNo, int missionNo) {
         return mapper.selectCountByMemberNoAndMissionNo(memberNo,missionNo);
     }
+
+    @Override
+    public List<Entry> findMemberByMissionNo(int missionNo) {
+        return mapper.selectMemberByMissionNo(missionNo);
+    }
 }
