@@ -143,9 +143,6 @@ export default {
 };
 </script>
 <style>
-.v-application--wrap {
-  min-height: 400px;
-}
 .jua {
   font-family: "Jua", sans-serif;
 }

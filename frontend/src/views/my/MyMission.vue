@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
       <v-card class="mx-auto overflow-hidden missions" color="white">
         <v-app-bar color="deep-purlple" dark>

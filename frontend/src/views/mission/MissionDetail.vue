@@ -1,6 +1,6 @@
 <!--미션 디테일 하나만 뽑아와서 미션 디테일카드로 값 넘겨줌-->
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
       <v-card class="mx-auto overflow-hidden missions" color="white">
         <v-app-bar color="deep-purlple" dark>
@@ -11,8 +11,9 @@
         <br />
 
         <!--넣고 싶은거 넣으세요~-->
-        <div v-if="this.mission">
+        <div>
           <MissionDetailCard
+            v-if="this.mission"
             :mission="mission"
             :num="num"
             :entryNum="entryNum"
@@ -232,7 +233,7 @@ export default {
   margin: 0 auto;
 }
 .v-application--wrap {
-  height: auto;
+  height: 100% !important;
 }
 .white {
   background-color: whitesmoke !important;
