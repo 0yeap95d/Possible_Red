@@ -14,7 +14,7 @@
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
@@ -61,7 +61,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -128,7 +128,6 @@ export default {
       this.user.memberNo,
       (res) => {
         this.missionList = res.data;
-        console.log(this.missionList[0].missionTitle);
       },
       (error) => {}
     );
@@ -138,12 +137,8 @@ export default {
       this.$session.destroy();
       window.Kakao.API.request({
         url: "/v1/user/unlink",
-        success: function (res) {
-          console.log(res);
-        },
-        fail: function (err) {
-          console.log(err);
-        },
+        success: function (res) {},
+        fail: function (err) {},
       });
       window.Kakao.Auth.logout(function () {
         alert("로그아웃 완료!");

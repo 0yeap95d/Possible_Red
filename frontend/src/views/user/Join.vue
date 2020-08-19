@@ -1,21 +1,20 @@
 <template>
   <div class="wrapC">
-
     <div class="wrap components-page p-1">
       <HeaderComponent headerTitle="Sign In" :isBack="true" />
     </div>
-    
+
     <!-- 이메일 입력 -->
     <div class="input-with-label jua">
-      <input 
+      <input
         v-model="user.email"
         v-bind:class="{
           error : error.email, 
           complete: !error.email&&user.email.length!==0
         }"
-        id="email" 
-        placeholder="이메일을 입력하세요." 
-        type="text" 
+        id="email"
+        placeholder="이메일을 입력하세요."
+        type="text"
         :disabled="isEmailOK"
       />
       <label for="email" class="jua">이메일</label>
@@ -24,31 +23,29 @@
 
     <!-- 이메일 인증받기 전 -->
     <div v-if="!isEmailOK">
-      <button @click="sendMail" class="sign">인증번호 받기</button><br><br>
+      <button @click="sendMail" class="sign">인증번호 받기</button>
+      <br />
+      <br />
       <div class="input-with-label jua">
-        <input 
-          v-model="randNum" 
-          id="randNum" 
-          placeholder="인증번호를 입력하세요" 
-          type="text" 
-        />
+        <input v-model="randNum" id="randNum" placeholder="인증번호를 입력하세요" type="text" />
         <label for="randNum" class="jua">인증번호</label>
-      </div><br /> 
+      </div>
+      <br />
       <button @click="isSameNum" class="sign">인증하기</button>
     </div>
 
     <!-- 이메일 인증받은 후  -->
     <div v-else>
       <div class="form-wrap">
-        
         <!-- 닉네임 입력 -->
         <div class="input-with-label jua">
-          <input 
-            v-model="user.nickname" 
-            id="nickname" 
+          <input
+            v-model="user.nickname"
+            id="nickname"
             v-bind:class="{error : error.nickname, complete:!error.nickname&&user.nickname.length!==0}"
-            placeholder="닉네임을 입력하세요." 
-            type="text" />
+            placeholder="닉네임을 입력하세요."
+            type="text"
+          />
           <label for="nickname" class="jua">닉네임</label>
           <div class="error-text" v-if="error.nickname">{{error.nickname}}</div>
         </div>
@@ -56,12 +53,13 @@
         <!-- 패스워드 입력 -->
         <div class="input-with-label jua">
           <input
-            v-model="user.pwd" 
-            id="pwd" 
+            v-model="user.pwd"
+            id="pwd"
             type="password"
             v-bind:class="{error : error.pwd, complete:!error.pwd&&user.pwd.length!==0}"
-            placeholder="비밀번호를 입력하세요." />
-          <label for="pwd"  class="jua">비밀번호</label>
+            placeholder="비밀번호를 입력하세요."
+          />
+          <label for="pwd" class="jua">비밀번호</label>
           <div class="error-text" v-if="error.pwd">{{error.pwd}}</div>
         </div>
 
@@ -72,7 +70,8 @@
             id="password-confirm"
             type="password"
             v-bind:class="{error : error.pwdCheck, complete:!error.pwdCheck&&pwdCheck.length!==0}"
-            placeholder="비밀번호를 다시한번 입력하세요."/>
+            placeholder="비밀번호를 다시한번 입력하세요."
+          />
           <label for="password-confirm" class="jua">비밀번호 확인</label>
           <div class="error-text" v-if="error.pwdCheck">{{error.pwdCheck}}</div>
         </div>
@@ -80,7 +79,7 @@
 
       <label>
         <input v-model="isTerm" type="checkbox" id="term" />
-        <span  class="jua">약관을 동의합니다.</span>
+        <span class="jua">약관을 동의합니다.</span>
       </label>
       <br />
       <br />
@@ -95,9 +94,9 @@
                 <v-card-title>
                   <span class="headline jua">POSSIBLE RED 이용약관</span>
                 </v-card-title>
-                  <v-btn icon dark @click="dialog = false">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
+                <v-btn icon dark @click="dialog = false">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
               </div>
               <v-card-text class="jua">
                 <br />
@@ -208,13 +207,12 @@
       </v-app>
     </div>
 
-    <button 
-      class="btn-bottom sign2" 
+    <button
+      class="btn-bottom sign2"
       @click="onRegister"
       :disabled="!isSubmit"
-      :class="{disabled : !isSubmit}" 
+      :class="{disabled : !isSubmit}"
     >가입하기</button>
-
   </div>
 </template>
 
@@ -245,40 +243,57 @@ export default {
   },
 
   watch: {
-    'user.email': function (v) { this.checkEmailForm(); },
-    'user.nickname': function (v) { this.checkNicknameForm(); },
-    'user.pwd': function (v) { this.checkPwdForm(); },
-    'pwdCheck': function (v) { this.checkPwdConfirm(); },
-    'isTerm': function (v) { this.checkIsTerm(); },
+    "user.email": function (v) {
+      this.checkEmailForm();
+    },
+    "user.nickname": function (v) {
+      this.checkNicknameForm();
+    },
+    "user.pwd": function (v) {
+      this.checkPwdForm();
+    },
+    pwdCheck: function (v) {
+      this.checkPwdConfirm();
+    },
+    isTerm: function (v) {
+      this.checkIsTerm();
+    },
   },
 
-
   methods: {
-
     checkEmailForm() {
       // 이메일 유효성 검사
-      console.log("email validate")
-      if (this.user.email.length >= 0 && !EmailValidator.validate(this.user. email))
+      // console.log("email validate");
+      if (
+        this.user.email.length >= 0 &&
+        !EmailValidator.validate(this.user.email)
+      )
         this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
     },
 
     checkNicknameForm() {
-      console.log("nickname validate")
+      // console.log("nickname validate");
       if (this.user.nickname.length >= 0 && this.user.nickname.length <= 1)
         this.error.nickname = "닉네임은 2글자 이상만 가능합니다.";
       else this.error.nickname = false;
 
-      if (( this.user.nickname.length > 0 && !this.error.nickname &&
-            this.user.pwd.length > 0 && !this.error.pwd && 
-            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+      if (
+        this.user.nickname.length > 0 &&
+        !this.error.nickname &&
+        this.user.pwd.length > 0 &&
+        !this.error.pwd &&
+        this.pwdCheck.length > 0 &&
+        !this.error.pwdCheck &&
+        this.isTerm
+      )
         this.isSubmit = true;
       else this.isSubmit = false;
     },
 
     checkPwdForm() {
       // password 유효성 검사
-      console.log("password validate")
+      // console.log("password validate");
       if (
         this.user.pwd.length >= 0 &&
         !this.passwordSchema.validate(this.user.pwd)
@@ -286,32 +301,50 @@ export default {
         this.error.pwd = "영문,숫자 포함 8 자리이상이어야 합니다.";
       else this.error.pwd = false;
 
-      if (( this.user.nickname.length > 0 && !this.error.nickname &&
-            this.user.pwd.length > 0 && !this.error.pwd && 
-            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+      if (
+        this.user.nickname.length > 0 &&
+        !this.error.nickname &&
+        this.user.pwd.length > 0 &&
+        !this.error.pwd &&
+        this.pwdCheck.length > 0 &&
+        !this.error.pwdCheck &&
+        this.isTerm
+      )
         this.isSubmit = true;
       else this.isSubmit = false;
     },
 
     checkPwdConfirm() {
       // password 일치 검사
-      console.log("pwdConfirm")
-      if ( this.pwdCheck.length >= 0 && this.pwdCheck != this.user.pwd )
+      // console.log("pwdConfirm");
+      if (this.pwdCheck.length >= 0 && this.pwdCheck != this.user.pwd)
         this.error.pwdCheck = "비밀번호가 일치하지 않습니다.";
       else this.error.pwdCheck = false;
 
-      if (( this.user.nickname.length > 0 && !this.error.nickname &&
-            this.user.pwd.length > 0 && !this.error.pwd && 
-            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+      if (
+        this.user.nickname.length > 0 &&
+        !this.error.nickname &&
+        this.user.pwd.length > 0 &&
+        !this.error.pwd &&
+        this.pwdCheck.length > 0 &&
+        !this.error.pwdCheck &&
+        this.isTerm
+      )
         this.isSubmit = true;
       else this.isSubmit = false;
     },
 
     checkIsTerm() {
       // 약관 동의 체크 검사
-      if (( this.user.nickname.length > 0 && !this.error.nickname &&
-            this.user.pwd.length > 0 && !this.error.pwd && 
-            this.pwdCheck.length > 0 && !this.error.pwdCheck && this.isTerm))
+      if (
+        this.user.nickname.length > 0 &&
+        !this.error.nickname &&
+        this.user.pwd.length > 0 &&
+        !this.error.pwd &&
+        this.pwdCheck.length > 0 &&
+        !this.error.pwdCheck &&
+        this.isTerm
+      )
         this.isSubmit = true;
       else this.isSubmit = false;
     },
@@ -341,9 +374,10 @@ export default {
     onRegister() {
       UserApi.requestRegister(
         this.user,
-        (res) => { 
-          console.log(res);
-          this.$router.push("/"); },
+        (res) => {
+          alert("회원가입을 축하합니다!");
+          this.$router.push("/");
+        },
         (error) => {}
       );
     },
@@ -355,7 +389,8 @@ export default {
         email: "",
         pwd: "",
         nickname: "",
-        memberPhoto: "/home/ubuntu/backend/src/main/webapp/profile/profile_default.png"
+        memberPhoto:
+          "/home/ubuntu/backend/src/main/webapp/profile/profile_default.png",
       },
 
       pwdCheck: "",
@@ -380,19 +415,19 @@ export default {
 };
 </script>
 <style scoped>
-  .jua{
-    font-family: 'Jua', sans-serif;
-  }
-  .components-page .header-default{
-    font-family: 'Luckiest Guy', cursive;
-  }
-  .sign{
-    font-family: 'Jua', sans-serif;
-    margin-left:2%;
-    color:navy;
-  }
-  .sign2{
-    font-family: 'Jua', sans-serif;
-    background:linear-gradient(to right , #f48fb1, #3949ab);
-  }
+.jua {
+  font-family: "Jua", sans-serif;
+}
+.components-page .header-default {
+  font-family: "Luckiest Guy", cursive;
+}
+.sign {
+  font-family: "Jua", sans-serif;
+  margin-left: 2%;
+  color: navy;
+}
+.sign2 {
+  font-family: "Jua", sans-serif;
+  background: linear-gradient(to right, #f48fb1, #3949ab);
+}
 </style>
