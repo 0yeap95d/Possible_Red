@@ -16,7 +16,7 @@
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">

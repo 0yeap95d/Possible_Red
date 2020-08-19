@@ -45,7 +45,7 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-    <v-bottom-navigation v-model="bottomNav" black shift>
+    <v-bottom-navigation black shift>
       <v-btn @click="post">
         <span>POST</span>
         <v-icon>mdi-text</v-icon>

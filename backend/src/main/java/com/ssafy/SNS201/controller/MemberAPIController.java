@@ -79,7 +79,7 @@ public class MemberAPIController {
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
 
-        if (!member.getMemberPhoto().contains("http"))
+        if (member.getMemberPhoto() == "")
             member.setMemberPhoto(defaultImage);
 
         if(memberService.addMember(member)) {

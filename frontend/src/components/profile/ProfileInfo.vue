@@ -79,7 +79,10 @@ export default {
     getCountFollower(num) {
       FollowApi.requestCountFollower(
         num,
-        (res) => { this.follower = res.data },
+        (res) => { 
+          this.follower = res.data
+          console.log("get Count Follower : " + this.follower);
+        },
         (error) => { console.log(error) }
       );
     },
