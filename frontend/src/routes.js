@@ -12,7 +12,6 @@ import UserProfile from './views/profile/UserProfile.vue';
 import Add from './views/add/Add.vue';
 import NotFound from './views/NotFound.vue';
 import MissionMain from './views/mission/MissionMain.vue';
-import AddOrigin from './views/add/Add_origin.vue';
 import PostDetail from './views/post/PostDetail.vue';
 import MissionDetail from './views/mission/MissionDetail.vue';
 import MyMission from './views/my/MyMission.vue';
@@ -96,11 +95,6 @@ export default [
     path: '/missionmain',
     name: 'MissionMain',
     component: MissionMain
-  },
-  {
-    path: '/addorigin',
-    name: 'AddOrigin',
-    component: AddOrigin
   },
   {
     path: '/postdetail',
