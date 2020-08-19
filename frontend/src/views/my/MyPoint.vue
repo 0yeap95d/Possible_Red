@@ -29,25 +29,16 @@
             <button @click="minus1000()" class="jua">-1,000</button>
           </div>
 
+          <button class="ma-2" @click="updatePointByKakao()">
+            <img width="50px" src="../../assets/images/카카오페이.png" />
+          </button>
+          <button class="ma-2" @click="updatePointByPayco()">
+            <img width="50px" src="../../assets/images/페이코.png" />
+          </button>
           <v-btn
             class="ma-2"
             :loading="loading"
             :disabled="loading"
-            color="#B388FF"
-            @click="updatePointByKakao()"
-          >카카오페이</v-btn>
-          <v-btn
-            class="ma-2"
-            :loading="loading"
-            :disabled="loading"
-            color="#B388FF"
-            @click="updatePointByPayco()"
-          >페이코</v-btn>
-          <v-btn
-            class="ma-2"
-            :loading="loading"
-            :disabled="loading"
-            color="#B388FF"
             @click="updatePointByInicis()"
           >이니시스</v-btn>
         </div>
@@ -413,6 +404,10 @@ export default {
 </script>
 
 <style scoped>
+.btn_kakao {
+  background: url("../../assets/images/카카오페이.png") no-repeat;
+  border: none;
+}
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
   background: linear-gradient(to left, #f48fb1, #3949ab);
 }
