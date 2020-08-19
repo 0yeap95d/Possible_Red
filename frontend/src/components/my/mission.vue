@@ -7,11 +7,11 @@
 
           <v-list>
             <template v-for="mission in missions">
-              <v-list-item :item="mission" :key="mission.etag" @click="gotomissiondetail(mission.missionNo)">
+              <v-list-item :item="mission" :key="mission.etag" >
                 <v-list-item-action class="mx-auto">
-                  <v-img src="https://picsum.photos/400" alt></v-img>
+                  <v-img src="https://picsum.photos/400" @click="gotomissiondetail(mission.missionNo)" alt></v-img>
                   <br />
-                  <v-list-item-title class="jua">{{ mission.missionTitle }}</v-list-item-title>
+                  <v-list-item-title class="jua" @click="gotomissiondetail(mission.missionNo)">{{ mission.missionTitle }}</v-list-item-title>
 
 
                   <v-card-actions class="white justify-center">
@@ -20,6 +20,7 @@
                       :key="i"
                       :color="social.color"
                       class="white--text"
+                      @click="goto(i)"
                       fab
                       icon
                       small
@@ -75,6 +76,17 @@ export default {
         },
       });
     },
+    goto(i){
+      if (i==0){
+        window.open("https://www.facebook.com", "_blank");
+      }
+      else if (i==1){
+        window.open("https://www.linkedin.com","_blank");
+      }
+      else{
+        window.open("https://www.instagram.com","_blank");
+      }
+    }
   },
 }
 
