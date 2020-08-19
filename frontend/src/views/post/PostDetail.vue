@@ -19,7 +19,7 @@
                 <v-img src="../../assets/images/background1.jpg"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title class="headline">by {{user.nickname}}</v-list-item-title>
+                <v-list-item-title class="headline">by {{member.nickname}}</v-list-item-title>
                 <!--v-list-item-subtitle>by {{user.nickname}}</v-list-item-subtitle-->
               </v-list-item-content>
             </v-list-item>
@@ -165,35 +165,15 @@ import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
 import PostComment from "../../views/post/PostComment.vue";
 import PostApi from "../../api/PostApi";
 import FollowApi from "../../api/FollowApi";
-import CommentApi from "../../api/CommentApi"
+import CommentApi from "../../api/CommentApi";
+import UserApi from "../../api/UserApi";
 
 export default {
-  created() {
-    this.user = this.$session.get("user");
-    this.num = this.$route.params.num;
-    PostApi.requestSelectPostByNo(
-      this.num,
-      (res) => {
-        this.postOne.postNo = res.data.postNo;
-        this.postOne.memberNo = res.data.memberNo;
-        this.postOne.postPhoto = res.data.postPhoto;
-        this.postOne.postContent = res.data.postContent;
-        this.postOne.mission = res.data.missionNo;
-
-        console.log(this.postOne.postPhoto);
-        this.imageSplit = this.postOne.postPhoto.split("/");
-        this.index = this.imageSplit.length - 1;
-        this.imagePath += this.imageSplit[this.index];
-        console.log(this.imagePath);
-      },
-      (error) => {}
-    );
-    this.getComments(this.num);
-  },
   data: () => ({
     drawer: false,
     activeBtn: 1,
     num: 0,
+    member: [],
     postOne: {
       postNo: 0,
       memberNo: 0,
@@ -206,6 +186,45 @@ export default {
     imageSplit: [],
     comments: [],
   }),
+  created() {
+    this.user = this.$session.get("user");
+    this.num = this.$route.params.num;
+    PostApi.requestSelectPostByNo(
+      this.num,
+      (res) => {
+        this.postOne.postNo = res.data.postNo;
+        this.postOne.memberNo = res.data.memberNo;
+        this.postOne.postPhoto = res.data.postPhoto;
+        console.log(res.data.memberNo)
+        console.log(this.postOne.memberNo)
+        this.postOne.postContent = res.data.postContent;
+        this.postOne.mission = res.data.missionNo;
+
+        console.log(this.postOne.postPhoto);
+        this.imageSplit = this.postOne.postPhoto.split("/");
+        this.index = this.imageSplit.length - 1;
+        this.imagePath += this.imageSplit[this.index];
+        console.log(this.imagePath);
+        
+        UserApi.requestMemberByNo(
+        this.postOne.memberNo,
+        (res) => {
+          console.log(res.data)
+          this.member = res.data;
+        },
+        (error) => {
+          console.log("error")
+        }
+    );
+        
+      },
+      (error) => {}
+    );
+    
+    
+    
+    this.getComments(this.num);
+  },
   components: {
     // PostingDetailCard,
     PostComment,
