@@ -5,33 +5,28 @@
                 <v-col cols="12" sm="8" md="6">
                 <v-card>
                     <v-list two-line>
-                    <template v-for="(item, index) in items">
+                    <template v-for="mission in missions">
                         <v-subheader
-                        v-if="item.header"
-                        :key="item.header"
+                        v-if="mission.missionTitle"
+                        :key="mission.missionTitle"
                         inset
                         >
-                        {{ item.header }}
+                        {{ mission.missionTitle }}
                         </v-subheader>
 
-                        <v-divider
-                        v-else-if="item.divider"
-                        :key="index"
-                        inset
-                        ></v-divider>
-
+                        <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
                         <v-list-item
                         v-else
-                        :key="item.title"
+                        :key="mission.missionCat"
                         ripple
                         @click="gotopostdetail"
                         >
                         <v-list-item-avatar>
-                            <img :src="item.avatar">
+                            <img :src="mission.missionPhoto">
                         </v-list-item-avatar>
                         <v-list-item-content>
                           
-                            <v-list-item-title v-html="item.title" class="jua"></v-list-item-title>
+                            <v-list-item-title v-html="mission.missionNo" class="jua"></v-list-item-title>
                         </v-list-item-content>
                         
                         </v-list-item>
@@ -47,8 +42,17 @@
 
 <script>
   export default {
+    name:"Post",
+    props:{
+      missions:Array,
+    },
+    created(){
+      this.user = this.$session.get("user");
+    },
     data () {
       return {
+        user:Object,
+
         items: [
           {
             header: '조깅 매일 30분씩!',
