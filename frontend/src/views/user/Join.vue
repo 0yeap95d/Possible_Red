@@ -341,7 +341,9 @@ export default {
     onRegister() {
       UserApi.requestRegister(
         this.user,
-        (res) => { this.$router.push("/"); },
+        (res) => { 
+          console.log(res);
+          this.$router.push("/"); },
         (error) => {}
       );
     },
@@ -353,6 +355,7 @@ export default {
         email: "",
         pwd: "",
         nickname: "",
+        memberPhoto: "/home/ubuntu/backend/src/main/webapp/profile/profile_default.png"
       },
 
       pwdCheck: "",

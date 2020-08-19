@@ -7,8 +7,6 @@ const requestLikeList = (data, callback, errorCallback) => {
 }
 
 const requestIsLike = (data, callback, errorCallback) => {
-    console.log("isLike");
-    console.log(data);
     Axios.post('http://i3d201.p.ssafy.io:8080/likey/islike', data)
         .then(res => callback(res))
         .catch(error => errorCallback(error))

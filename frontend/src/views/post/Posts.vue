@@ -11,7 +11,7 @@
 
         <!--넣고 싶은거 넣으세요~-->
 
-        <Posting v-for="lists in lists" :key="lists" :lists="lists" />
+        <Posting v-for="(lists, key) in lists" :key="key" :lists="lists" />
         <infinite-loading @infinite="infiniteHandler" spinner="default"></infinite-loading>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -20,7 +20,7 @@
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img :src="imagePath" />
+                    <img :src="this.user.memberPhoto" />
                   </div>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                 <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="kakaologout">
+              <v-list-item @click="logout">
                 <v-list-item-icon>
                   <i class="fas fa-sign-out-alt"></i>
                 </v-list-item-icon>
@@ -63,7 +63,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -123,32 +123,17 @@ export default {
       setTimeout(() => {
         const temp = [];
         for (let i = this.limit; i < this.limit + 5; i++) {
-          console.log(i);
           temp.push(this.posts[i]);
         }
         this.limit += 5;
         this.lists = this.lists.concat(temp);
-        console.log(this.lists);
         $state.loaded();
         if (this.lists[this.limit - 1] == null) {
           $state.complete();
         }
       }, 2000);
     },
-    kakaoLogout() {
-      this.$session.destroy();
-      window.Kakao.API.request({
-        url: "/v1/user/unlink",
-        success: function (res) {
-          console.log(res);
-        },
-        fail: function (err) {
-          console.log(err);
-        },
-      });
-      window.Kakao.Auth.logout(function () {
-        alert("로그아웃 완료!");
-      });
+    logout() {
       this.$router.push("/");
     },
     post() {
@@ -181,16 +166,16 @@ export default {
   },
 
   created() {
-    this.user = this.$session.get("user");
-    this.imageSplit = this.user.memberPhoto.split("/");
-    this.index = this.imageSplit.length - 1;
-    this.imagePath += this.imageSplit[this.index];
+    this.user = this.$session.get('user');
+    if (this.user.pwd != "") {
+      this.imageSplit = this.user.memberPhoto.split("/");
+      this.index = this.imageSplit.length - 1;
+      this.user.memberPhoto = this.imagePath + this.imageSplit[this.index];
+    }
+
     PostApi.requestSelectPost(
-      (res) => {
-        console.log(res);
-        this.posts = res.data;
-      },
-      (error) => {}
+      (res) => { this.posts = res.data; },
+      (error) => { console.log(error) }
     );
   },
 };

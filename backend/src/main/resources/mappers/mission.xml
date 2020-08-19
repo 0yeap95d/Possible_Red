@@ -12,7 +12,7 @@
     <select id="selectMissionByMember" resultType="Mission">
         SELECT 	*
           FROM	mission
-         WHERE	isStart = 1 AND
+         WHERE	1 = 1 AND
                 missionNo IN (
                     SELECT  missionNo
                       FROM	entry

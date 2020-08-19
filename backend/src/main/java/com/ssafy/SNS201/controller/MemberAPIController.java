@@ -28,9 +28,6 @@ public class MemberAPIController {
     private static final String FAIL = "fail";
     private static final String imagePath = "/home/ubuntu/backend/src/main/webapp/profile/";
 
-    private static final String defaultImage = "/home/ubuntu/backend/src/main/webapp/profile/profile_default.png";
-    // 이거 수정하기 
-
     @Autowired
     private MemberService memberService;
 
@@ -78,9 +75,6 @@ public class MemberAPIController {
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody Member member) throws Exception {
         logger.info("addMember | " + member);
-
-        if (member.getMemberPhoto() == "")
-            member.setMemberPhoto(defaultImage);
 
         if(memberService.addMember(member)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
