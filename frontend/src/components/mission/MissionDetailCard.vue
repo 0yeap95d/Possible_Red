@@ -45,9 +45,11 @@
           :key="post.etag"
           class="jua"
         >
-          <v-expansion-panel-header>{{  post.postContent }}</v-expansion-panel-header>
+          <v-expansion-panel-header>
+           {{$moment(post.postDate).format("YYYY-MM-DD")}}
+          </v-expansion-panel-header>
           <v-expansion-panel-content>
-            {{ post.postPhoto }}
+            {{  post.postContent }}
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -76,6 +78,8 @@ export default {
           
           (error) => { console.log("error") }
         );
+    console.log("제바아아아아앙아아알")
+    
   },
   beforeMount() {
     EntryApi.requestEntryCountByMissionNo(
@@ -101,6 +105,7 @@ export default {
         stateMent: "",
       },
       entryNum: 0,
+      
     };
   },
   methods: {
@@ -189,5 +194,12 @@ export default {
 }
 .v-expansion-panel{
   margin-bottom:30px;
+}
+.v-application--wrap{
+  background-color:whitesmoke;
+}
+.v-expansion-panel-content__wrap{
+  font-family: "Jua", sans-serif;
+  color:rebeccapurple
 }
 </style>
