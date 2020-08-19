@@ -52,8 +52,8 @@
                         const kakao_account = res.kakao_account;
 
                         this.member.email = kakao_account.email;
-                        this.memberPhoto = kakao_account.profile.profile_image_url;
-                        this.nickname = kakao_account.profile.nickname;
+                        this.member.memberPhoto = kakao_account.profile.profile_image_url;
+                        this.member.nickname = kakao_account.profile.nickname;
 
                         UserApi.requestLogin(
                             this.member,
@@ -62,7 +62,6 @@
                                     UserApi.requestRegister(
                                         this.member,
                                         (res) => { 
-                                            console.log("kakao regist success");
                                             UserApi.requestEmailCheck(
                                                 this.member.email,
                                                 (res) => {
@@ -81,7 +80,7 @@
                                     this.$router.push("/posts");
                                 }
                             },
-                            (error) => { console.log("kakao login fail"); }
+                            (error) => { console.log(error); }
                         )
                     },
                     fail : error => {
