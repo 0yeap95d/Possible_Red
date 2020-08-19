@@ -3,20 +3,15 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
-
-        <v-chip-group
-          mandatory
-          active-class="primary--text"
-          class="jua"
-          style="color: black;"
-        >
-          <v-chip v-for="cat in category" :key="cat.categoryNo" @click="toggleSwitch(cat.categoryNo)">
-            {{ cat.categoryContent }}
-          </v-chip>
+        <v-chip-group mandatory active-class="primary--text" class="jua" style="color: black;">
+          <v-chip
+            v-for="cat in category"
+            :key="cat.categoryNo"
+            @click="toggleSwitch(cat.categoryNo)"
+          >{{ cat.categoryContent }}</v-chip>
         </v-chip-group>
 
         <br />
-
 
         <div class="input-with-label jua">
           <label for="missionTitle" class="jua">미션 이름</label>
@@ -49,7 +44,11 @@
         <div class="wrap components-page p-0">
           <select v-model="mission.joinMem" class="select-component jua">
             <option :value="null" disabled selected>미션 참여 인원을 설정하세요.</option>
-            <option v-for="target in options" :value="target.value" :key="target.value">{{target.title}}</option>
+            <option
+              v-for="target in options"
+              :value="target.value"
+              :key="target.value"
+            >{{target.title}}</option>
           </select>
         </div>
 
@@ -83,7 +82,6 @@
         <div>
           <button class="submit_button btn-bottom" @click="missionRegister">미션 등록하기</button>
         </div>
-        
       </div>
     </v-app>
   </div>
@@ -121,14 +119,14 @@ export default {
         description: "",
         v0: true,
       },
-      models:{
-        base:false,
+      models: {
+        base: false,
       },
       range: {},
       category: [],
       isOn: [
-        true,
         false,
+        true,
         false,
         false,
         false,
@@ -153,12 +151,12 @@ export default {
       ],
     };
   },
-  
+
   methods: {
     toggleSwitch(num) {
       this.isOn[num] = true;
-      for(var i in this.isOn){
-        if(i != num) {
+      for (var i in this.isOn) {
+        if (i != num) {
           this.isOn[i] = false;
         }
       }
@@ -195,7 +193,7 @@ export default {
       if (today == this.mission.startDate) this.mission.isStart = true;
 
       for (var i = 0; i < 10; i++) {
-        if (this.isOn[i]) this.mission.missionCat += i;
+        if (this.isOn[i]) this.mission.missionCat = i;
       }
 
       MissionApi.requestMissionRegister(
@@ -236,7 +234,7 @@ export default {
   padding-bottom: 3rem;
 }
 .v-slide-group__content {
-  background:white !important;
+  background: white !important;
 }
 .jua {
   font-family: "Jua", sans-serif;
@@ -320,13 +318,11 @@ label.jua {
   margin: 10px 10px;
   float: left;
 }
-span.v-chip__content{
+span.v-chip__content {
   font-family: "Jua", sans-serif;
-  color:white;
+  color: white;
 }
-.v-chip.primary--text.v-chip--active.v-chip--clickable.v-chip--no-color.theme--light.v-size--default{
-  background:navy;
-
+.v-chip.primary--text.v-chip--active.v-chip--clickable.v-chip--no-color.theme--light.v-size--default {
+  background: navy;
 }
-
 </style>
