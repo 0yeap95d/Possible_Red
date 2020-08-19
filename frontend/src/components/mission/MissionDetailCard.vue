@@ -42,7 +42,7 @@
             text
             style="font-size:medium"
             @click="cuttingPoint($moment().format('YYYY-MM-DD'))"
-          >미션 마감하기 이제 여기서 미션 안한사람들은 돈 깎아야함ㅎㅎ</v-btn>
+          >미션 마감하기 (하루에 한번만 누르세요!)</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -67,6 +67,7 @@ export default {
     mission: Object,
     num: Number,
     entryNum: Number,
+    entryList: Array,
   },
   created() {
     this.user = this.$session.get("user");
@@ -76,10 +77,7 @@ export default {
       (res) => {
         this.posts = res.data; // 현재 미션넘버로 찾아온 포스트
       },
-
-      (error) => {
-        // console.log("error");
-      }
+      (error) => {}
     );
   },
   data() {
@@ -98,18 +96,43 @@ export default {
   },
   methods: {
     cuttingPoint(today) {
-      /*
-          3. 날짜가 오늘인 미션들만 가져온다 => 이거 어떻게함?
-          4. 포스트를 작성하지 않은 사람을 골라낸다
-          5. 그 사람들의 포인트를 깎는다
-        */
-      var tempPost = new Array(Object);
+      var tempPost = new Array();
       for (var i = 0; i < this.posts.length; i++) {
         if (this.posts[i].postDate.substr(0, 10) == today) {
-          tempPost.push(this.posts[i].memberNo);
+          tempPost.push(this.posts[i].memberNo); // 오늘 포스트 쓴 사람
         }
       }
-      // 오늘 포스트 쓴 사람 다 골라냈음
+      for (var p = 0; p < tempPost.length; p++) {
+        for (var e = 0; e < this.entryList.length; e++) {
+          if (tempPost[p] == this.entryList[e].memberNo) {
+            if (this.entryList[e].memberNo != -1) {
+              this.entryList[e].memberNo = -1;
+              break;
+            }
+          }
+        }
+      }
+      // 여기서 entryList에 -1 아닌 사람들은 글을 안쓴거임
+      for (var j = 0; j < this.entryList.length; j++) {
+        if (this.entryList[j].memberNo == -1) continue;
+        if (this.entryList[j].nonCnt == 0) {
+          // 딜리트 해주기
+          EntryApi.requestEntryDelete(
+            this.entryList[j].memberNo,
+            (res) => {},
+            (error) => {}
+          );
+        } else {
+          // 업데이트해주기
+          this.entryList[j].nonCnt -= 1;
+          EntryApi.requestEntryUpdate(
+            this.entryList[j],
+            (res) => {},
+            (error) => {}
+          );
+        }
+      }
+      alert("마감이 완료되었습니다");
     },
     gotomodify(num) {
       this.$router.push({

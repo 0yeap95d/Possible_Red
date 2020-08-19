@@ -12,7 +12,12 @@
 
         <!--넣고 싶은거 넣으세요~-->
         <div v-if="this.mission">
-          <MissionDetailCard :mission="mission" :num="num" :entryNum="entryNum" />
+          <MissionDetailCard
+            :mission="mission"
+            :num="num"
+            :entryNum="entryNum"
+            :entryList="entryList"
+          />
         </div>
       </v-card>
 
@@ -77,10 +82,11 @@ export default {
       missionCat: "",
       master: "",
     },
+    entryList: [],
   }),
   created() {
     this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
-    // console.log("지금 찾아올 미션 넘버 : " + this.num);
+
     MissionApi.requestMissionDetail(
       this.num,
       (res) => {
@@ -107,11 +113,21 @@ export default {
       },
       (error) => {}
     );
+
     // 엔트리정보
     EntryApi.requestEntryCountByMissionNo(
       this.num,
       (res) => {
-        this.entryNum = res.data;
+        this.entryNum = res.data; // 엔트리 카운트
+      },
+      (error) => {}
+    );
+
+    // 지금 미션 참여하고 있는 사람 리스트 가져오기
+    EntryApi.requestEntryListByMissionNo(
+      this.num,
+      (res) => {
+        this.entryList = res.data;
       },
       (error) => {}
     );
