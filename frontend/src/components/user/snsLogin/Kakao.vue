@@ -50,33 +50,36 @@
                     url:'/v2/user/me',
                     success : res => {
                         const kakao_account = res.kakao_account;
-                        const member = {
-                            email: kakao_account.email,
-                            memberNo: 0,
-                            memberPhoto: kakao_account.profile.profile_image_url,
-                            nickname: kakao_account.profile.nickname,
-                            point: 0,
-                            pwd: "",
-                            stateMent: "",
-                        };
 
-                        let data = {
-                            email: member.email,
-                            password: "",
-                        };
+                        this.member.email = kakao_account.email;
+                        this.memberPhoto = kakao_account.profile.profile_image_url;
+                        this.nickname = kakao_account.profile.nickname;
 
                         UserApi.requestLogin(
-                            data,
+                            this.member,
                             (res) => {
                                 if (res.status == 204) {
                                     UserApi.requestRegister(
-                                        member,
-                                        (res) => { console.log("kakao regist success") },
-                                        (error) => { console.log("kakao regist fail") }
+                                        this.member,
+                                        (res) => { 
+                                            console.log("kakao regist success");
+                                            UserApi.requestEmailCheck(
+                                                this.member.email,
+                                                (res) => {
+                                                    this.$session.set("user", res.data);
+                                                    this.$router.push("/posts");
+                                                },
+                                                (error) => { console.log(error) }
+                                            )
+                                        },
+                                        (error) => { console.log(error) }
                                     )
                                 }
-                                this.$session.set("user", member);
-                                this.$router.push("/posts");
+
+                                else {
+                                    this.$session.set("user", res.data);
+                                    this.$router.push("/posts");
+                                }
                             },
                             (error) => { console.log("kakao login fail"); }
                         )
@@ -87,6 +90,20 @@
                     }
                 })
             }
-        }
+        },
+
+        data() {
+            return {
+                member: {
+                    email: "",
+                    memberNo: 0,
+                    memberPhoto: "",
+                    nickname: "",
+                    point: 0,
+                    pwd: "",
+                    stateMent: "",
+                }
+            }
+        },
     }
 </script>
