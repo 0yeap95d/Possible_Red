@@ -233,6 +233,7 @@ export default {
   margin: 0 auto;
 }
 .v-application--wrap {
+  height: 100% !important;
 }
 .white {
   background-color: whitesmoke !important;

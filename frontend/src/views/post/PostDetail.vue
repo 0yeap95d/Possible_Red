@@ -167,7 +167,6 @@
 
 <script>
 import "../../components/css/style.css";
-import PostingDetailCard from "../../components/post/PostingDetailCard.vue";
 import PostComment from "../../views/post/PostComment.vue";
 import PostApi from "../../api/PostApi";
 import FollowApi from "../../api/FollowApi";
@@ -275,7 +274,6 @@ export default {
   },
 
   components: {
-    // PostingDetailCard,
     PostComment,
   },
   methods: {
