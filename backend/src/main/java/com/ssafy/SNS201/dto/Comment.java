@@ -11,6 +11,16 @@ public class Comment {
     private String commentContent;
     private int postNo;
     private Date commentDate;
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
 
     public int getCommentNo() {
         return commentNo;

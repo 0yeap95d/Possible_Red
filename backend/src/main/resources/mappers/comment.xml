@@ -3,9 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.SNS201.mapper.CommentMapper">
-
     <select id="selectComment" resultType="Comment">
-		SELECT  c.*, m.nickname
+		SELECT  c.*, m.nickname as nickname
 		  FROM  comment c, member m
 		 WHERE  postNo    = #{postNo} AND c.memberNo = m.memberNo
 	</select>
