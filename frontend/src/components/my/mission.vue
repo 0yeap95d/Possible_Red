@@ -94,4 +94,13 @@ export default {
 .col-sm-6.offset-sm-3.col-12 {
   padding: 0;
 }
+.v-icon.notranslate.mdi.mdi-facebook.theme--light{
+  color:indigo;
+}
+.v-icon.notranslate.mdi.mdi-linkedin.theme--light{
+  color:skyblue;
+}
+.v-icon.notranslate.mdi.mdi-instagram.theme--light{
+  color:palevioletred;
+}
 </style>

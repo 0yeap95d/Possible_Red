@@ -16,31 +16,53 @@
             <br />
             잔여 포인트는 {{user.point}}P 입니다.
           </p>
-          <v-text-field v-model="mypoint" readonly style="min-width:330px;">{{mypoint}}</v-text-field>
-          <div>
-            <button @click="plus50000()" class="jua" style="margin-right:10px">+50,000</button>
-            <button @click="plus10000()" class="jua" style="margin-right:10px">+10,000</button>
-            <button @click="plus5000()" class="jua" style="margin-right:10px">+5,000</button>
-            <button @click="plus1000()" class="jua">+1,000</button>
-            <br />
-            <button @click="minus50000()" class="jua" style="margin-right:10px">-50,000</button>
-            <button @click="minus10000()" class="jua" style="margin-right:10px">-10,000</button>
-            <button @click="minus5000()" class="jua">-5,000</button>
-            <button @click="minus1000()" class="jua">-1,000</button>
+          <div class="input-with-label jua">
+          <input
+            v-model="mypoint"
+            readonly
+            id="point"
+            placeholder="충전할 포인트 금액을 선택하세요."
+            type="text"
+          />
+          <label for="pointl" class="jua">포인트</label>
+          <br><br><br>
+          
+        </div>
+          <div style="text-align:center;">
+            <button @click="plus50000()" class="jua oman" style="margin-right:2%">+50,000 </button>
+            <button @click="plus10000()" class="jua man" style="margin-right:2%">+10,000</button>
+            <button @click="plus5000()" class="jua ocheon" style="margin-right:2%">+5,000</button>
+            <button @click="plus1000()" class="jua cheon">+1,000</button>
           </div>
-
-          <button class="ma-2" @click="updatePointByKakao()">
-            <img width="50px" src="../../assets/images/카카오페이.png" />
-          </button>
-          <button class="ma-2" @click="updatePointByPayco()">
-            <img width="50px" src="../../assets/images/페이코.png" />
-          </button>
+            <br>
+          <div style="text-align:center;">
+            <button @click="minus50000()" class="jua -oman" style="margin-right:2%">-50,000</button>
+            <button @click="minus10000()" class="jua -man" style="margin-right:2%">-10,000</button>
+            <button @click="minus5000()" class="jua -ocheon" style="margin-right:2%">-5,000</button>
+            <button @click="minus1000()" class="jua -cheon">-1,000</button>
+          </div>
+          <br><br>
+          <div style="text-align:center;">
+            <h3 class="jua" style="color:#AB47BC">┌결제방식 선택┐</h3>
+            <button class="ma-2" @click="updatePointByKakao()">
+              <img width="50px" src="../../assets/images/카카오페이.png" />
+            </button>
+            <button class="ma-2" @click="updatePointByPayco()">
+              <img width="50px" src="../../assets/images/페이코.png" />
+            </button>
+            <button class="ma-2"  @click="updatePointByInicis()">
+              <img width="80px" src="../../assets/images/이니시스.jpg" />   
+            </button>
+          </div>
+           <!--
           <v-btn
             class="ma-2"
             :loading="loading"
             :disabled="loading"
             @click="updatePointByInicis()"
-          >이니시스</v-btn>
+          >이니시스</v-btn>-->
+           
+        
         </div>
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -468,4 +490,61 @@ export default {
 .wrapC {
   min-height: 500px;
 }
+.oman{
+  background:#C2185B;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.man{
+  background:#EC407A;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.ocheon{
+  background:#F48FB1;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.cheon{
+  background:#F8BBD0;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.-oman{
+  background:#4527A0;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.-man{
+  background:#5E35B1;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.-ocheon{
+  background:#9575CD;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+.-cheon{
+  background:#D1C4E9;
+  border-radius:5%;
+  color:white;
+  width:75px;
+  height:30px;
+}
+
 </style>
