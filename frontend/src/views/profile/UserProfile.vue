@@ -9,8 +9,8 @@
         </v-app-bar>
 
         <ProfileInfo class="pt-3" />
-        <ProfileBody :user="this.user"/>
-        
+        <ProfileBody :user="this.user" />
+
         <!--미션 props를 MissionItem으로 넘김-->
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -19,46 +19,45 @@
               <div class="px-3 py-3">
                 <div class="thumbnail">
                   <div class="centered">
-                    <img :src="user.memberPhoto"/>
+                    <img :src="user.memberPhoto" />
                   </div>
                 </div>
               </div>
               <hr />
-               <v-list-item @click="mymission">
+              <v-list-item @click="mymission">
                 <v-list-item-icon>
                   <i class="far fa-list-alt"></i>
                 </v-list-item-icon>
-                <p class="jua" >내가 참여한 미션</p>
+                <p class="jua">내가 참여한 미션</p>
               </v-list-item>
 
               <v-list-item @click="mypost">
-                  <v-list-item-icon >
-                      <i class="fas fa-user-edit"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내가 쓴 글</p>
+                <v-list-item-icon>
+                  <i class="fas fa-user-edit"></i>
+                </v-list-item-icon>
+                <p class="jua">내가 쓴 글</p>
               </v-list-item>
 
               <v-list-item @click="mypoint">
-                  <v-list-item-icon >
-                      <i class="fas fa-coins"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내 포인트</p>
+                <v-list-item-icon>
+                  <i class="fas fa-coins"></i>
+                </v-list-item-icon>
+                <p class="jua">내 포인트</p>
               </v-list-item>
 
               <v-list-item @click="myaccount">
-                  <v-list-item-icon >
-                      <i class="fas fa-users-cog"></i>
-                  </v-list-item-icon>
-                  <p class="jua">내 계정설정</p>
+                <v-list-item-icon>
+                  <i class="fas fa-users-cog"></i>
+                </v-list-item-icon>
+                <p class="jua">내 계정설정</p>
               </v-list-item>
 
               <v-list-item @click="Logout">
-                  <v-list-item-icon >
-                      <i class="fas fa-sign-out-alt"></i>
-                  </v-list-item-icon>
-                  <p class="jua">로그아웃</p>
+                <v-list-item-icon>
+                  <i class="fas fa-sign-out-alt"></i>
+                </v-list-item-icon>
+                <p class="jua">로그아웃</p>
               </v-list-item>
-
             </v-list-item-group>
           </v-list>
         </v-navigation-drawer>
@@ -98,68 +97,68 @@ import ProfileBody from "../../components/profile/ProfileBody.vue";
 import ProfileInfo from "../../components/profile/ProfileInfo.vue";
 import "../../assets/css/components.scss";
 
-export default {    
-    name: "UserProfile",
-    components: {
-        ProfileInfo,
-        ProfileBody,
+export default {
+  name: "UserProfile",
+  components: {
+    ProfileInfo,
+    ProfileBody,
+  },
+  created() {
+    this.user = this.$session.get("user");
+    if (this.user.pwd != "") {
+      this.imageSplit = this.user.memberPhoto.split("/");
+      this.index = this.imageSplit.length - 1;
+      this.user.memberPhoto = this.imagePath + this.imageSplit[this.index];
+    }
+  },
+  data() {
+    return {
+      drawer: false,
+      activeBtn: 1,
+      user: {},
+      imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+      index: 0,
+      imageSplit: [],
+    };
+  },
+  methods: {
+    Logout() {
+      this.$router.push("/");
     },
-    created() {
-        this.user = this.$session.get('user');
-        if (this.user.pwd != "") {
-          this.imageSplit = this.user.memberPhoto.split("/");
-          this.index = this.imageSplit.length - 1;
-          this.user.memberPhoto = this.imagePath + this.imageSplit[this.index];
-        }
+    post() {
+      this.$router.push("/posts");
     },
-    data() {
-        return {
-          drawer: false,
-          activeBtn: 1,
-          user: {},
-          imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
-          index: 0,
-          imageSplit: [],
-        }
+    mission() {
+      this.$router.push("/missionmain");
     },
-    methods: {
-      Logout() {
-        this.$router.push("/");
-      },
-      post() {
-        this.$router.push("/posts");
-      },
-      mission() {
-        this.$router.push("/missionmain");
-      },
-      writing() {
-        this.$router.push("/add");
-      },
-      search() {
-        this.$router.push("/search");
-      },
-      profile() {
-        this.$router.push("/profile");
-      },
-      mymission() {
-        this.$router.push("/mymission");
-      },
-      mypost() {
-        this.$router.push("/mypost");
-      },
-      mypoint() {
-        this.$router.push("/mypoint");
-      },
-      myaccount(){
-        this.$router.push("/changeuser");
-      },
+    writing() {
+      this.$router.push("/add");
     },
-} 
+    search() {
+      this.$router.push("/search");
+    },
+    profile() {
+      this.$router.push("/profile");
+    },
+    mymission() {
+      this.$router.push("/mymission");
+    },
+    mypost() {
+      this.$router.push("/mypost");
+    },
+    mypoint() {
+      this.$router.push("/mypoint");
+    },
+    myaccount() {
+      this.$router.push("/changeuser");
+    },
+  },
+};
 </script>
 
 <style scoped>
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
-  background:linear-gradient(to left , #f48fb1, #3949ab);
+  background: linear-gradient(to left, #f48fb1, #3949ab);
 }
 .thumbnail {
   position: relative;
@@ -200,18 +199,18 @@ export default {
   min-width: 100px;
   width: 100%;
   margin: 0 auto;
-}.white{
-  background-color:whitesmoke !important;
 }
-.v-toolbar__title{
-  font-family: 'Jua', sans-serif;
-  font-size:x-large;
+.white {
+  background-color: whitesmoke !important;
 }
-.v-icon.notranslate.mdi.mdi-menu.theme--dark{
-  color:white;
+.v-toolbar__title {
+  font-family: "Jua", sans-serif;
+  font-size: x-large;
 }
-.v-slide-group__content.v-tabs-bar__content{
-  background-color:white;
+.v-icon.notranslate.mdi.mdi-menu.theme--dark {
+  color: white;
 }
-
+.v-slide-group__content.v-tabs-bar__content {
+  background-color: white;
+}
 </style>
