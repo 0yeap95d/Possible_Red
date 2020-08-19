@@ -58,10 +58,11 @@
                         UserApi.requestLogin(
                             this.member,
                             (res) => {
+                                console.log(res);
                                 if (res.status == 204) {
                                     UserApi.requestRegister(
                                         this.member,
-                                        (res) => { 
+                                        (res) => {
                                             UserApi.requestEmailCheck(
                                                 this.member.email,
                                                 (res) => {
