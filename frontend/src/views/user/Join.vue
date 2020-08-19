@@ -92,11 +92,13 @@
             <v-card>
               <div class="d-flex">
                 <v-card-title>
-                  <span class="headline jua">POSSIBLE RED 이용약관</span>
+                  <span class="headline jua">POSSIBLE RED 이용약관
+                    <v-btn icon dark @click="dialog = false" style="background:black;">
+                      <v-icon style="color:white;">mdi-close</v-icon>
+                    </v-btn>
+                  </span>
                 </v-card-title>
-                <v-btn icon dark @click="dialog = false">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
+                
               </div>
               <v-card-text class="jua">
                 <br />

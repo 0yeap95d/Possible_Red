@@ -20,14 +20,15 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="#1A237E" text @click="gotomissiondetail(mission.missionNo)">자세히</v-btn>
+        <button class="jua" style="font-size:medium; color:#1A237E; margin:0 3% 0 2%;" @click="gotomissiondetail(mission.missionNo)">자세히</button>
+        <button class="jua" style="font-size:medium; color:purple; margin:0 3% 0 0" @click="gotopeople(mission.missionNo)">참여자 목록보기</button>
 
-        <v-btn
+        <button
           v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
-          color="pink"
-          text
+          style="font-size:medium; color:hotpink; margin:0 3% 0 0"
+          class="jua"
           @click="entryJoin(mission.memberNo, user.memberNo, mission.missionNo,mission.joinMem)"
-        >신청하기</v-btn>
+        >신청하기</button>
       </v-card-actions>
     </v-card>
   </div>
@@ -138,6 +139,9 @@ export default {
         },
       });
     },
+    gotopeople(num){
+      this.$router.push("/missionpeople")
+    }
   },
 };
 </script>

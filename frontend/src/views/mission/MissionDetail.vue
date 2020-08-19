@@ -169,18 +169,6 @@ export default {
     profile() {
       this.$router.push("/profile");
     },
-    mymission() {
-      this.$router.push("/mymission");
-    },
-    mypost() {
-      this.$router.push("/mypost");
-    },
-    mypoint() {
-      this.$router.push("/mypoint");
-    },
-    myaccount() {
-      this.$router.push("/changeuser");
-    },
   },
 };
 </script>
