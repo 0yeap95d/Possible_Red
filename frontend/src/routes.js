@@ -22,6 +22,7 @@ import MissionModify from './views/mission/MissionModify.vue';
 import ProfileFollow from './views/profile/ProfileFollow.vue';
 import PostModify from './views/post/PostModify.vue';
 import OtherProfile from './views/profile/OtherProfile.vue';
+import MissionPeople from './views/mission/MissionPeople.vue';
 
 export default [
   {
@@ -145,5 +146,10 @@ export default [
     path: '/otherprofile',
     name: 'OtherProfile',
     component: OtherProfile
+  },
+  {
+    path:'/missionpeople',
+    name:'MissionPeople',
+    component:MissionPeople
   },
 ];

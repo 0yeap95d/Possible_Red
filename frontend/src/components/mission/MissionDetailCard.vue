@@ -2,7 +2,7 @@
   <div class="wrapC">
     <v-app>
       <v-card class="mx-auto">
-        <v-img class="white--text align-end" height="200px" src="../../assets/images/조깅.jpg"></v-img>
+        <v-img class="white--text align-end" height="200px" src="https://picsum.photos/400"></v-img>
 
         <v-card-subtitle
           class="pb-0 jua"
