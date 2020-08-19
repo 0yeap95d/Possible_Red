@@ -57,6 +57,7 @@
     </v-app>
   </div>
 </template>
+
 <script>
 import EntryApi from "../../api/EntryApi.js";
 import PostApi from "../../api/PostApi";
