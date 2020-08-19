@@ -1,4 +1,5 @@
 <template>
+ <div class="wrapC p-0">
   <v-app>
     <v-card style="margin-bottom: 10rem; box-shadow: none;">
       <v-tabs v-model="tab" >
@@ -61,7 +62,8 @@
           <v-icon>mdi-account</v-icon>
         </v-btn>
       </v-bottom-navigation>
-  </v-app>
+    </v-app>
+  </div>
 </template>
 
 <script>
