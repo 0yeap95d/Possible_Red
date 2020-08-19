@@ -100,4 +100,12 @@ public class PostAPIController {
         logger.debug("findPostByMissionNo");
         return new ResponseEntity<List<Post>>(postService.findPostByMissionNo(missionNo), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "가장 마지막에 추가된 포스트의 번호를 반환한다", response = Integer.class)
+    @GetMapping("/last")
+    public ResponseEntity<Integer> findMaxPostNo(){
+        Integer result = postService.findMaxPostNo();
+        logger.debug("findMaxPostNo | " + result);
+        return new ResponseEntity<Integer>(result, HttpStatus.OK);
+    }
 }

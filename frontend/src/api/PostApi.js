@@ -46,21 +46,36 @@ const requestPostByMission = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 } // 미션별 포스트 리스트를 반환한다.
 
+const requestMaxPostNo = (callback, errorCallback) => {
+    Axios.get('http://i3d201.p.ssafy.io:8080/post/last')
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 const PostApi = {
     requestSelectPost: (data, callback, errorCallback) =>
         requestSelectPost(data, callback, errorCallback),
+
     requestSelectPostByNo: (data, callback, errorCallback) =>
         requestSelectPostByNo(data, callback, errorCallback),
+
     requestSelectPostByMember: (data, callback, errorCallback) =>
         requestSelectPostByMember(data, callback, errorCallback),
+
     requestInsertPost: (data, callback, errorCallback) =>
         requestInsertPost(data, callback, errorCallback),
+
     requestPostUpdate: (data, callback, errorCallback) =>
         requestPostUpdate(data, callback, errorCallback),
+
     requestPostDelete: (data, callback, errorCallback) =>
         requestPostDelete(data, callback, errorCallback),   
+
     requestPostByMission: (data, callback, errorCallback) =>
         requestPostByMission(data, callback, errorCallback),
+
+    requestMaxPostNo: (callback, errorCallback) =>
+        requestMaxPostNo(callback, errorCallback),
 };
 
 export default PostApi;

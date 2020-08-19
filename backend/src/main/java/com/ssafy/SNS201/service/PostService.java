@@ -15,4 +15,5 @@ public interface PostService {
     List<Post> findPostByMemberNo(int memberNo);
     List<Post> findPostByMissionNo(int missionNo);
     public List<Post> findAllPostsBySearch(String keyword);
+    public int findMaxPostNo();
 }

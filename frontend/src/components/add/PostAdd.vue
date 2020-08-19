@@ -135,8 +135,6 @@ export default {
       this.post.missionNo = event.target.value;
     },
     postRegister() {
-      console.log("이미지 " + this.postImg);
-
       this.post.postImg = this.postImg;
       var formData = new FormData();
 
@@ -145,33 +143,30 @@ export default {
       formData.append("postContent", this.post.postContent);
       formData.append("missionNo", this.post.missionNo);
 
-      PostApi.requestInsertPost(
-        formData,
-        (res) => {
-          this.$router.push("/posts");
-        },
-        (error) => {}
-      );
-
       for(var i in this.chips) {
         this.hashtag += '#' + this.chips[i]
       }
 
-      console.log("hashtag!!!!!! " + this.hashtag)
-
-      // HashtagApi.requestAddHashtag(
-      //   {
-      //     hashtagContent:this.hashtag,
-      //     postNo:this.post.postNo,
-      //   },
-      //   (res) => {
-      //     console.log("hashtag 등록")
-      //   },
-      //   (error) => {
-      //     console.log("error")
-      //   }
-      // )
-
+      PostApi.requestInsertPost(
+        formData,
+        (res) => { 
+          PostApi.requestMaxPostNo(
+            (res) => { 
+              HashtagApi.requestAddHashtag(
+                {
+                  hashtagContent: this.hashtag,
+                  postNo: res.data
+                },
+                (res) => { console.log(res) },
+                (error) => { console.log(error) }
+              )
+            },
+            (error) => {console.log(error) }
+          )
+          this.$router.push("/posts"); 
+        },
+        (error) => { console.log(error) }
+      );
     },
 
     fileSelect() {

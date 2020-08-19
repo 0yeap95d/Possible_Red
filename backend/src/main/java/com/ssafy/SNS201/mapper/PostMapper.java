@@ -16,4 +16,5 @@ public interface PostMapper {
     List<Post> selectPostByMemberNo(int memberNo);
     List<Post> selectPostByMissionNo(int missionNo);
     public List<Post> selectPostBySearch(String keyword);
+    public int selectMaxPostNo();
 }

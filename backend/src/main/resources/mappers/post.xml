@@ -63,4 +63,9 @@
         WHERE missionNo = #{missionNo}
     </select>
 
+    <select id="selectMaxPostNo" resultType="int">
+        SELECT MAX(postNo)
+          FROM post
+    </select>
+
 </mapper>

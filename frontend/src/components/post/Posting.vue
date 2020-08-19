@@ -15,7 +15,7 @@
       <span class="pen">{{this.writer.nickname}}</span>
 
       <span class="jua">&nbsp;&nbsp;{{this.lists.postContent}}</span>
-      <p class="jua">#Hashtag</p>
+      <p class="jua">{{this.hashtag}}</p>
 
       <span
         class="jua"
@@ -34,6 +34,7 @@
 import UserApi from "../../api/UserApi";
 import LikeApi from "../../api/LikeApi";
 import CommentApi from "../../api/CommentApi";
+import HashtagApi from "../../api/HashtagApi";
 
 export default {
   name: "Posting",
@@ -65,6 +66,16 @@ export default {
       (res) => { this.commentCnt = res.data.length },
       (error) => { console.log(error); }
     )
+
+    // 해시 태그
+    HashtagApi.requestFindAllHastags(
+      this.lists.postNo,
+      (res) => { 
+        if (res.data.length != 0) 
+          this.hashtag = res.data[0].hashtagContent
+      },
+      (error) => { console.log(error) }
+    )
   },
 
   mounted() {
@@ -91,6 +102,7 @@ export default {
       like: false,
       likeCnt: 0,
       commentCnt: 0,
+      hashtag: "",
       writer: Object,
       user: Object,
       likeInfo: Array,
