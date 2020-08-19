@@ -3,20 +3,24 @@
   <div class="wrapC">
     <v-app>
       <div class="form-wrap mission-adds">
-
-        <v-chip-group
-          mandatory
-          active-class="primary--text"
-          class="jua"
-          style="color: black;"
-        >
-          <v-chip v-for="cat in category" :key="cat.categoryNo" @click="toggleSwitch(cat.categoryNo)">
-            {{ cat.categoryContent }}
-          </v-chip>
-        </v-chip-group>
-
-        <br />
-
+        <div class="input-with-label">
+        <v-btn-toggle v-model="toggle_excluesive" mandatory color="deep-purple accent-3">
+          <v-btn
+            small
+            v-for="cat in category"
+            :key="cat.categoryNo"
+            @click="toggleSwitch(cat.categoryNo)"
+            class="ma-2 mx-1"
+            outlined
+          >
+            <div class="v-tabs-slider-wrapper" style="height:2px; left:118px; width;90px;">
+              <div class="v-tabs-slider"></div>
+            </div>
+            <p class="categories my-auto">{{cat.categoryContent}}</p>
+          </v-btn>
+        </v-btn-toggle>
+          <br />
+        </div>
 
         <div class="input-with-label jua">
           <label for="missionTitle" class="jua">미션 이름</label>
@@ -151,6 +155,7 @@ export default {
         { value: 9, title: "9 명" },
         { value: 10, title: "10 명" },
       ],
+      toggle_excluesive: 1,
     };
   },
   
@@ -162,6 +167,7 @@ export default {
           this.isOn[i] = false;
         }
       }
+      console.log(this.isOn)
     },
 
     getCategoryList() {
