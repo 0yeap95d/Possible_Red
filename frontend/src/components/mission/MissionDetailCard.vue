@@ -2,7 +2,7 @@
   <div class="wrapC">
     <v-app>
       <v-card class="mx-auto">
-        <v-img class="white--text align-end" src="https://picsum.photos/540"></v-img>
+        <v-img class="white--text align-end" :src="mission.missionPhoto"></v-img>
 
         <v-card-subtitle
           class="pb-0 jua"
