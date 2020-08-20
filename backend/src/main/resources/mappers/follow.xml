@@ -32,11 +32,7 @@
     <delete id="deleteFollow" parameterType="int">
 		DELETE
 		  FROM follow
-		 WHERE followNo   = (
-		    SELECT followNo
-		      FROM follow
-             WHERE me = #{me} AND you = #{you}
-		    )
+		 WHERE me = #{me} AND you = #{you}
 	</delete>
 
 	<select id="countFollowMe" parameterType="int" resultType="INTEGER">

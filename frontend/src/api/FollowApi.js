@@ -20,6 +20,12 @@ const requestFollowRegister = (data, callback, errorCallback) => {
         .catch(error => errorCallback(error))
 }
 // 언팔로우 버튼을 눌렀을 때 내가 상대방을 언팔로우
+const requestFollowRemover = (data1, data2, callback, errorCallback) => {
+    Axios.delete('http://i3d201.p.ssafy.io:8080/follow/' + data1 + '/' + data2)
+        .then(res => callback(res))
+        .catch(error => errorCallback(error))
+}
+
 // 나를 follow 하는 사용자의 리스트
 const requestAllFollowerByNo = (data, callback, errorCallback) => {
     Axios.get("http://i3d201.p.ssafy.io:8080/follow/all/follower/" + data)
@@ -36,8 +42,9 @@ const FollowApi = {
     requestCountFollower: (data, callback, errorCallback) => requestCountFollower(data, callback, errorCallback),
     requestCountFollowing: (data, callback, errorCallback) => requestCountFollowing(data, callback, errorCallback),
     requestFollowRegister: (data, callback, errorCallback) => requestFollowRegister(data, callback, errorCallback),
+    requestFollowRemover: (data1, data2, callback, errorCallback) => requestFollowRemover(data1, data2, callback, errorCallback),
     requestAllFollowerByNo: (data, callback, errorCallback) => requestAllFollowerByNo(data, callback, errorCallback),
-    requestAllFollowingByNo: (data, callback, errorCallback) => requestAllFollowingByNo(data, callback, errorCallback)
+    requestAllFollowingByNo: (data, callback, errorCallback) => requestAllFollowingByNo(data, callback, errorCallback),
 }
 
 export default FollowApi

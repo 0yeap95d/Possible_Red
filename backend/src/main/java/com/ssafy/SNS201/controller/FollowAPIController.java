@@ -60,10 +60,10 @@ public class FollowAPIController {
     }
 
     @ApiOperation(value = " 해당 사용자를 언팔로우한다.", response = String.class)
-    @DeleteMapping("/{followNo}")
-    public ResponseEntity<String> removeFollow(@PathVariable int followNo) throws Exception {
-        logger.info("1-------------removeFollow-----------------------------" + followNo);
-        if (followService.removeFollow(followNo)) {
+    @DeleteMapping("/{me}/{you}")
+    public ResponseEntity<String> removeFollow(@PathVariable int me, @PathVariable int you) throws Exception {
+        logger.info("1-------------removeFollow-----------------------------" + me + you);
+        if (followService.removeFollow(me, you)) {
             return new ResponseEntity<String>("success", HttpStatus.OK);
         }
         return new ResponseEntity<String>("fail",HttpStatus.NO_CONTENT);
