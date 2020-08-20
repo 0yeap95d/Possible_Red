@@ -9,9 +9,6 @@
         </v-app-bar>
         <br />
 
-        <!--포스트 디테일 카드 여기있음!!-->
-        <!-- <PostingDetailCard :propsPost="postOne" /> -->
-
         <div class="wrapC">
           <v-card class="mx-auto">
             <v-list-item>
@@ -26,21 +23,24 @@
             <div>
               <div class="thumbnail">
                 <div class="centered">
-                  <v-img :src="imagePath" class="min_size" ></v-img>
+                  <v-img :src="imagePath" class="min_size"></v-img>
                 </div>
               </div>
             </div>
             <!-- <img :src="imagePath" height="auto" style="min-width:100%"/> -->
 
             <v-card-text>
-              <span class="jua">{{post.postContent}}</span>
+              <span class="jua">{{postOne.postContent}}</span>
               <br />
               <span class="jua">{{hashtag}}</span>
               <!--해시태그-->
             </v-card-text>
 
             <v-card-actions>
-              <v-btn text color="deep-purple accent-4">{{$moment(post.postDate).format('YYYY-MM-DD')}}</v-btn>
+              <v-btn
+                text
+                color="deep-purple accent-4"
+              >{{$moment(postOne.postDate).format('YYYY-MM-DD')}}</v-btn>
               <v-spacer></v-spacer>
 
               <!-- 여기부터 -->
@@ -53,14 +53,13 @@
                 &nbsp;&nbsp;&nbsp;{{this.likeCnt}}&nbsp;&nbsp;&nbsp;
               </h4>
               <!-- 여기까지 -->
-
             </v-card-actions>
-            <div v-if="isSame(user.memberNo, post.memberNo)">
+            <div v-if="isSame(user.memberNo, postOne.memberNo)">
               <v-btn
                 color="#FF4081"
                 text
                 style="font-size:medium"
-                @click="gotomodify(post.postNo)"
+                @click="gotomodify(postOne.postNo)"
               >수정하기</v-btn>
 
               <v-dialog v-model="dialog" persistent max-width="290">
@@ -71,7 +70,7 @@
                   <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="gotodelete(post.postNo)">네</v-btn>
+                    <v-btn color="green darken-1" text @click="gotodelete(postOne.postNo)">네</v-btn>
                     <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
                   </v-card-actions>
                 </v-card>
@@ -79,13 +78,16 @@
             </div>
           </v-card>
 
-        <!-- <img :src="imagePath" height="auto" /> -->
+          <!-- <img :src="imagePath" height="auto" /> -->
 
-        
-          <PostComment @removeComment="updateComment" @updateComment="updateComment" :postNo="postOne.postNo" :comment-lists="comments" />
+          <PostComment
+            @removeComment="updateComment"
+            @updateComment="updateComment"
+            :postNo="postOne.postNo"
+            :comment-lists="comments"
+          />
         </div>
       </v-card>
-
 
       <v-bottom-navigation black shift>
         <v-btn @click="post">
@@ -165,11 +167,8 @@ export default {
     this.user = this.$session.get("user");
     this.num = this.$route.params.num;
 
-    this.profileImageSplit = this.user.memberPhoto.split("/");
-    this.profileIndex = this.profileImageSplit.length - 1;
-    this.profileImagePath += this.profileImageSplit[this.profileIndex];
-
     PostApi.requestSelectPostByNo(
+      // 포스트 번호로 포스트 상세정보 불러옴
       this.num,
       (res) => {
         this.postOne.postNo = res.data.postNo;
@@ -180,12 +179,17 @@ export default {
 
         this.imageSplit = this.postOne.postPhoto.split("/");
         this.index = this.imageSplit.length - 1;
-        this.imagePath += this.imageSplit[this.index];
-        
+        this.imagePath += this.imageSplit[this.index]; // 포스트 이미지
+
         UserApi.requestMemberByNo(
           this.postOne.memberNo,
-          (res) => { this.member = res.data },
-          (error) => { console.log("error") }
+          (res) => {
+            this.member = res.data; // 포스트 작성자 정보를 가져옴
+            this.profileImageSplit = this.member.memberPhoto.split("/");
+            this.profileIndex = this.profileImageSplit.length - 1;
+            this.profileImagePath += this.profileImageSplit[this.profileIndex]; // 사람 프로필 이미지
+          },
+          (error) => {}
         );
       },
       (error) => {}
@@ -194,20 +198,25 @@ export default {
     // 좋아요 개수
     LikeApi.requestLikeList(
       this.num,
-      (res) => { this.likeCnt = res.data.length },
-      (error) => { console.log(error) }
+      (res) => {
+        this.likeCnt = res.data.length;
+      },
+      (error) => {
+        console.log(error);
+      }
     );
-    
+
     // 해시 태그
     HashtagApi.requestFindAllHastags(
       this.num,
-      (res) => { 
-        if (res.data.length != 0) 
-          this.hashtag = res.data[0].hashtagContent
+      (res) => {
+        if (res.data.length != 0) this.hashtag = res.data[0].hashtagContent;
       },
-      (error) => { console.log(error) }
-    )
-    
+      (error) => {
+        console.log(error);
+      }
+    );
+
     this.getComments(this.num);
   },
 
@@ -223,7 +232,9 @@ export default {
         if (res.status == 200) this.like = true;
         else this.like = false;
       },
-      (error) => { console.log(error); }
+      (error) => {
+        console.log(error);
+      }
     );
   },
 
@@ -258,35 +269,32 @@ export default {
       PostApi.requestPostDelete(num);
       this.$router.push("/posts");
     },
-    insertFollow() {
-      FollowApi.requestFollowRegister(
-        {
-          me: this.$session.get("user").memberNo,
-          you: this.post.memberNo,
-        },
-        (res) => {},
-        (error) => {}
-      );
-    },
-
     good() {
       // 사용자 반응을 우선시하기 때문에 프론트 변화 후 백엔드 통신
       // 통신에 실패했을때 원래 상태로 돌아와야함
       this.like = !this.like;
 
-      if (this.like) { // like 삽입
+      if (this.like) {
+        // like 삽입
         LikeApi.requestAddLike(
           this.likeData,
-          (res) => { this.likeCnt++ },
-          (error) => { this.like = !this.like }
+          (res) => {
+            this.likeCnt++;
+          },
+          (error) => {
+            this.like = !this.like;
+          }
         );
-      } 
-      
-      else { // like 삭제
+      } else {
+        // like 삭제
         LikeApi.requestRemoveLike(
           this.likeData,
-          (res) => { this.likeCnt--; },
-          (error) => { this.like = !this.like }
+          (res) => {
+            this.likeCnt--;
+          },
+          (error) => {
+            this.like = !this.like;
+          }
         );
       }
     },
@@ -313,17 +321,17 @@ export default {
       CommentApi.requestGetAllComment(
         num,
         (res) => {
-          console.log(res.data)
-          this.comments = res.data
+          console.log(res.data);
+          this.comments = res.data;
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
-    updateComment(){
-      console.log("업데이트한다.")
-      this.getComments(this.num)
+    updateComment() {
+      console.log("업데이트한다.");
+      this.getComments(this.num);
     },
   },
 };
@@ -344,7 +352,7 @@ export default {
   margin-bottom: 3.5rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width:580px;
+  max-width: 580px;
   width: 100%;
   margin: 0 auto;
 }
@@ -365,5 +373,4 @@ export default {
 .min_size {
   min-width: 328px;
 }
-
 </style>
