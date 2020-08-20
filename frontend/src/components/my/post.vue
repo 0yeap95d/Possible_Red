@@ -15,22 +15,24 @@
                     
                   <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
                   <div v-for="(post, i) in item.post" :key="i">
-                  <v-list-item
-                    ripple
-                    @click="postdetail(item.post[i].postNo)"
-                  >
-                    
-                    <v-list-item-avatar>
-                      <img :src="item.post[i].postPhoto">
-                    </v-list-item-avatar>
-                    
-                    <v-list-item-content>
-                        <v-list-item-title v-html="item.post[i].postContent" class="jua"></v-list-item-title>
-                    </v-list-item-content>
-                    
-                  </v-list-item>
-                  <hr>
-                  <br>
+                    <div v-if="item.post[i].memberNo == user.memberNo">
+                      <v-list-item
+                        ripple
+                        @click="postdetail(item.post[i].postNo)"
+                      >
+                        
+                        <v-list-item-avatar>
+                          <img :src="item.post[i].postPhoto">
+                        </v-list-item-avatar>
+                        
+                        <v-list-item-content>
+                            <v-list-item-title v-html="item.post[i].postContent" class="jua"></v-list-item-title>
+                        </v-list-item-content>
+                        
+                      </v-list-item>
+                      <hr>
+                      <br>
+                    </div>
                   </div>
                     
                 </template>
