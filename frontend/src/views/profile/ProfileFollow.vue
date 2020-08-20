@@ -84,6 +84,7 @@ export default {
   name: "ProfileFollow",
   created() {
     this.user = this.$route.params.user;
+    this.userMe = this.$session.get("user");
     this.getFollowing(this.user.memberNo);
     this.getFollower(this.user.memberNo);
   },
@@ -95,7 +96,9 @@ export default {
           for ( let i in res.data ){ 
             UserApi.requestMemberByNo(
               res.data[i].me,
-              (res) => { this.followers.push(res.data) },
+              (res) => { 
+                this.followers.push(res.data)
+                },
               (error) => { console.log(error) }
             )
           }
@@ -120,12 +123,18 @@ export default {
       )
     },
     toProfile(other){
+      if(other.memberNo == this.userMe.memberNo){
+        this.$router.push({
+        name: "UserProfile",
+      });
+      } else {
       this.$router.push({
         name: "OtherProfile",
         params: { 
           other: other, 
         },
       });
+      }
     },
     post() {
       this.$router.push("/posts");
@@ -147,15 +156,7 @@ export default {
     return {
       active_tab : "",
       user: {},
-      items: [
-        { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
-        { active: true, title: 'Ranee Carlson', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg' },
-        { title: 'Cindy Baker', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg' },
-        { title: 'Ali Connors', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg' },
-      ],
-      items2: [
-          { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg' },
-      ],
+      userMe: {},
       icons: {
         mdiAccount,
       },
