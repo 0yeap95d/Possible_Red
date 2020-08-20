@@ -127,7 +127,6 @@ export default {
     this.missionNum = this.$route.params.num;
     this.followings = this.$route.params.followings;
     
-    console.log(this.missionNum)
     EntryApi.requestEntryListByMissionNo(
       this.missionNum,
       (res) => {
@@ -148,7 +147,6 @@ export default {
           )
         }
         this.checkFollow(this.memberNum)
-        console.log("isFollowings", this.isFollowing)
       },
       (error) => {}
     )
@@ -191,7 +189,6 @@ export default {
           this.isFollowing.push(false)
         }   
       }
-      console.log("isFollowings", this.isFollowing)
     },
     logout() {
       this.$router.push("/");

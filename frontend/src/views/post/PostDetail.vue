@@ -330,7 +330,6 @@ export default {
       CommentApi.requestGetAllComment(
         num,
         (res) => {
-          console.log(res.data);
           this.comments = res.data;
         },
         (error) => {
