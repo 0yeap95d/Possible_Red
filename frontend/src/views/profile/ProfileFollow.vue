@@ -179,4 +179,7 @@ export default {
 </script>
 
 <style>
+.v-tab.v-tab--active {
+  color: blueviolet;
+}
 </style>
