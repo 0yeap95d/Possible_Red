@@ -128,7 +128,6 @@ export default {
         SearchApi.requestPostBySearch(
           this.searchItem.keyword,
           (res) => {
-            console.log("postList" + res.data)
             this.postList = res.data;
           },
           (error) => {}

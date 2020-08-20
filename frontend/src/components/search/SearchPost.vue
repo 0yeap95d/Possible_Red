@@ -1,9 +1,6 @@
 <template>
   <div>
     <div v-if="isPost">
-      <!-- <p>검색되는 포스트 내용이 뜹니다 -> {{list.postContent}}</p>
-      <p>포스트를 작성한 memberNo가 뜹니다 -> {{list.memberNo}}</p>
-      <p>해시태그 -> <span v-for="h in hashtagList" :key="h.hashtagNo">{{h.hashtagContent}}</span></p> -->
       <div class="wrapC">
         <v-card class="mx-auto">
           <div>
@@ -13,8 +10,7 @@
               </div>
             </div>
           </div>
-
-          <v-card-text>
+          <v-card-text @click="goPostDetail(list.postNo)">
             <span class="jua">{{list.postContent}}</span>
             <br />
             <span v-for="h in hashtagList" :key="h.hashtagNo">{{h.hashtagContent}}</span>
@@ -23,11 +19,8 @@
         </v-card>
       </div>
     </div>
+
     <div v-else-if="isHashtag">
-      <!-- <p>해시태그</p>
-      <p>검색되는 포스트 내용이 뜹니다 -> {{postList.postContent}}</p>
-      <p>포스트를 작성한 memberNo가 뜹니다 -> {{postList.memberNo}}</p>
-      <p>해시태그 -> {{list.hashtagContent}}</p> -->
       <div class="wrapC">
         <v-card class="mx-auto">
           <div>
@@ -38,11 +31,10 @@
             </div>
           </div>
 
-          <v-card-text>
+          <v-card-text @click="goPostDetail(postList.postNo)">
             <span class="jua">{{postList.postContent}}</span>
             <br />
             <span>{{list.hashtagContent}}</span>
-            <!--해시태그-->
           </v-card-text>
         </v-card>
       </div>
@@ -78,7 +70,6 @@ export default {
       PostApi.requestSelectPostByNo(
         this.list.postNo,
         (res) => {
-          console.log("해시태그"+ res.data)
           this.postList = res.data
 
           this.imageSplit = this.postList.postPhoto.split("/");
@@ -98,10 +89,8 @@ export default {
       HashtagApi.requestFindAllHastags(
         this.list.postNo,
         (res) => {
-          console.log("포스트"+res.data);
           this.hashtagList = res.data;
-          console.log(this.hashtagList.hashtagContent)
-          
+
         },
         (error) => {
           console.log("error")
@@ -111,9 +100,18 @@ export default {
         this.index = this.imageSplit.length - 1;
         this.list.postPhoto =
           this.imagePath + this.imageSplit[this.index];
-      console.log("this.list.postPhoto", this.list.postPhoto)
     }
-  }
+  },
+  methods: {
+    goPostDetail(num){
+      this.$router.push({
+        name: "PostDetail",
+        params: {
+          num: num,
+        },
+      });
+    },
+  },
 }
 </script>
 
