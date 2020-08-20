@@ -56,23 +56,23 @@
     created(){
       this.user = this.$session.get("user");
 
+      let pos = 0;
       for (var i in this.missions) {
+        console.log(this.missions[pos].missionTitle)
         PostApi.requestPostByMission(
           this.missions[i].missionNo,
           (res) => {
             let item = {
-              missionTitle: this.missions[i].missionTitle,
+              missionTitle: this.missions[pos++].missionTitle,
               post: res.data,
             }
-            
             for (var j in item.post) {
               this.imageSplit = item.post[j].postPhoto.split("/");
               this.index = this.imageSplit.length - 1;
               item.post[j].postPhoto = this.imagePath + this.imageSplit[this.index];
             }
-
-            this.items.push(item);
-            console.log(this.items);
+            console.log(item);
+            this.items.push(item)
           },
           (error) => { console.log(error) }
         )
