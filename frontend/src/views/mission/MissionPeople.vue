@@ -10,7 +10,6 @@
         <br />
 
         <!--this part-->
-        <div>
           <v-list>
             <v-list-item v-for="mem in member" :key="mem.memberNo" :value="mem.memberNo"  @click="toProfile(mem.memberNo)">
               <v-list-item-avatar>
@@ -22,7 +21,6 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
-        </div>
         <br />
 
       
@@ -104,6 +102,7 @@
         </v-btn>
       </v-bottom-navigation>
     </v-app>
+    <div v-bind="update"></div>
   </div>
 </template>
 
@@ -120,35 +119,48 @@ export default {
   created (){
     this.missionNum = this.$route.params.num;
     
-
-    this.user = this.$session.get("user");
-    this.imageSplit = this.user.memberPhoto.split("/");
-    this.index = this.imageSplit.length - 1;
-    this.imagePath += this.imageSplit[this.index];
-
+    console.log(this.missionNum)
     EntryApi.requestEntryListByMissionNo(
       this.missionNum,
       (res) => {
+        console.log(res);
         this.memberNum = res.data; // 엔트리에 있는 멤번넘버 가져오는거
         for (let j in this.memberNum){
           UserApi.requestMemberByNo(
               this.memberNum[j].memberNo, // 그 멤버넘버로 멤버정보 가져오기
               (res) => {
+                console.log("userapi " + j);
                 this.member[j] = res.data;
                   if (this.member[j].pwd != "") {
                     this.joinImageSplit = this.member[j].memberPhoto.split("/");
                     this.joinIndex = this.joinImageSplit.length - 1;
                     this.member[j].memberPhoto = this.joinImagePath+ this.joinImageSplit[this.joinIndex];
                     console.log("되니?")
-                  } 
+                  }
+                this.update = !this.update
               },
-              (error) => {}
+              (error) => {console.log(error)}
           )
         }
       },
       (error) => {}
     )
+
+    this.user = this.$session.get("user");
+    this.imageSplit = this.user.memberPhoto.split("/");
+    this.index = this.imageSplit.length - 1;
+    this.imagePath += this.imageSplit[this.index];
+
   },
+
+  mounted() {
+    console.log("mounted");
+  },
+
+  updated() {
+    console.log("updated");
+  },
+
   methods: {
     toProfile(otherMemberNo) {
       this.$emit("gotoOtherProfile", otherMemberNo);
@@ -200,6 +212,8 @@ export default {
     missionNum: 0,
     memberNum: [],
     member: [],
+
+    update: false,
   }),
 };
 </script>
