@@ -2,18 +2,20 @@
   <div class="wrapC p-0 search-pg">
     <v-app>
       <SearchBar class="search-bar" @search-items="searching" :isSearching="isSearching" />
-      <SearchPost v-show="isPost" v-for="list in postList" :key="list" :list="list" />
+      <div style="margin-bottom: 3rem;">
+        <SearchPost v-show="isPost" v-for="list in postList" :key="list" :list="list" />
 
-      <SearchPost v-show="isHashtag" v-for="list in hashtagList" :key="list" :list="list" />
+        <SearchPost v-show="isHashtag" v-for="list in hashtagList" :key="list" :list="list" />
 
-      <SearchUser
-        v-show="isUser"
-        v-for="memberList in memberList"
-        :key="memberList.memberNo"
-        :value="memberList.memberNo"
-        :memberList="memberList"
-        @gotoOtherProfile="gotoOtherProfile"
-      />
+        <SearchUser
+          v-show="isUser"
+          v-for="memberList in memberList"
+          :key="memberList.memberNo"
+          :value="memberList.memberNo"
+          :memberList="memberList"
+          @gotoOtherProfile="gotoOtherProfile"
+        />
+      </div>
 
       <v-bottom-navigation black shift>
         <v-btn @click="post">
