@@ -1,9 +1,6 @@
 <template>
   <div class="pt-0">
-    <v-card
-        color="red lighten-2"
-        dark
-    >
+    <v-card color="red lighten-2" dark>
       <v-card-text>
       <v-autocomplete
           v-model="model"
@@ -56,15 +53,13 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
         else this.tab = null
       },
       search (val) {
-        console.log("길이",this.search.length)
-
         if (this.search.length > 0) {
           this.searchItem.keyword = this.search
           
           if (this.search[0]=='@') {
             if (this.search.length >= 2){
             this.searchItem.keyword = this.search.substring(1);
-            console.log("uesr")
+            // console.log("uesr")
             this.searchItem.type="user"
             this.$emit('search-items', this.searchItem)
             } else {
@@ -75,7 +70,7 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
           } else if (this.search[0]=="#"){
             if (this.search.length >= 2){
             this.searchItem.keyword = this.search.substring(1);
-            console.log("hashtag")
+            // console.log("hashtag")
             this.searchItem.type="hashtag"
             this.$emit('search-items', this.searchItem)
             } else {
@@ -84,7 +79,7 @@ import SearchCategoryBar from "./SearchCategoryBar.vue";
               this.$emit('search-items', this.searchItem)
             }
           } else {
-            console.log("post")
+            // console.log("post")
             this.searchItem.type="post"
             this.$emit('search-items', this.searchItem)
           }
