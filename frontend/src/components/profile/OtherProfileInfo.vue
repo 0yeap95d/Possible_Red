@@ -45,8 +45,8 @@
     >{{other.stateMent}}</p>
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
 
-    <v-btn  class="follow-btn" block color="primary" dark @click="insertFollowing()">FOLLOW</v-btn>
-    <v-btn  class="follow-btn" block color="primary" dark @click="deleteFollowing()">UNFOLLOW</v-btn>
+    <v-btn v-if="!isFollow" class="follow-btn" color="primary" dark @click="insertFollowing()">FOLLOW</v-btn>
+    <v-btn v-if="isFollow"  class="follow-btn" color="primary" dark @click="deleteFollowing()">UNFOLLOW</v-btn>
   </div>
 </template>
 
@@ -148,7 +148,7 @@ export default {
       imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
       index: 0,
       imageSplit: [],
-      isFollow: false
+      isFollow: false,
     };
   },
 };
@@ -186,19 +186,6 @@ export default {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-/* 
-.box {
-  width: 15%;
-  height: 15%; 
-  border-radius: 50%;
-  overflow: hidden;
-  margin-left: 5%;
-}
-.profile {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
 .stat {
   margin-left: 5%;
   margin-top: 5%;
@@ -210,7 +197,7 @@ export default {
   margin: auto;
 }
 .follow-btn {
-  width: 100%;
+  width: 80%;
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 5%;
