@@ -1,13 +1,12 @@
 <template>
-  <div class="wrapC">
+  <div class="wrapC p-0">
     <v-app>
-      <div class="wrap components-page p-1 jua">
-        <HeaderComponent2 :headerTitle="category" :isBack="true" />
+      <div class="wrapC components-page p-1 jua">
+        <HeaderComponent2 :headerTitle="category.categoryContent" :isBack="true" />
       </div>
       
-    
     <!-- <v-btn small v-for="item in items" :key="item.missionNo" class="ma-2 mx-1" outlined color="indigo">{{item.missionTitle}}</v-btn> -->
-      <SearchMissionCard />
+      <SearchMissionCard :items="items" />
       <v-bottom-navigation
           v-model="bottomNav"
           black
@@ -57,9 +56,11 @@ export default {
     },
     data() {
       return {
-        category: String,
+        category: Array,
         items: [],
-
+        index: 0,
+        imagePath: "http://i3d201.p.ssafy.io:8080/",
+        imageSplit: [],
       }
     },
     methods: {
@@ -84,9 +85,16 @@ export default {
       console.log(this.category)
 
       SearchApi.requestMissionByCategory(
-        this.category,
+        this.category.categoryNo,
         (res) => {
           this.items = res.data
+          console.log(res.data)
+          for (let i in this.items) {
+          this.imageSplit = this.items[i].missionPhoto.split("/");
+          this.index = this.imageSplit.length - 1;
+          this.items[i].missionPhoto =
+            this.imagePath + this.imageSplit[this.index];
+        }
         },
         (error) => {
           console.error(error)

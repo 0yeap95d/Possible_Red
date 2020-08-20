@@ -1,6 +1,6 @@
 <template>
   <div class="text-center search-category">
-    <v-btn small v-for="item in items" :key="item.categoryNo" class="ma-2 mx-1 jua" outlined @click="searchByCategory(item.categoryContent)">{{item.categoryContent}}</v-btn>
+    <v-btn small v-for="item in items" :key="item.categoryNo" class="ma-2 mx-1 jua" outlined @click="searchByCategory(item)">{{item.categoryContent}}</v-btn>
   </div>
 </template>
 
