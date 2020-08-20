@@ -45,7 +45,8 @@
     >{{other.stateMent}}</p>
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
 
-    <v-btn class="follow-btn" block color="primary" dark>Block Button</v-btn>
+    <v-btn  class="follow-btn" block color="primary" dark @click="insertFollowing()">FOLLOW</v-btn>
+    <v-btn  class="follow-btn" block color="primary" dark @click="deleteFollowing()">UNFOLLOW</v-btn>
   </div>
 </template>
 
@@ -60,6 +61,7 @@ export default {
     other: {},
   },
   created() {
+    console.log(this.isFollow)
     this.user = this.$session.get("user");
     if (this.other.pwd != "") {
       this.imageSplit = this.other.memberPhoto.split("/");
@@ -75,6 +77,28 @@ export default {
   },
 
   methods: {
+    insertFollowing(){
+      this.isFollow = true;
+      FollowApi.requestFollowRegister(
+        {
+          me: this.$session.get("user").memberNo,
+          you: this.other.memberNo,
+        },
+        (res) => {},
+        (error) => {}
+      )
+    },
+    deleteFollowing(){
+      this.isFollow = false;
+      FollowApi.requestFollowRemover(
+        this.$session.get("user").memberNo,
+        this.other.memberNo,
+        
+          (res) => {},
+        (error) => {}
+        
+      )
+    },
     getCountPost(num) {
       PostApi.requestSelectPostByMember(
         num,
@@ -124,6 +148,7 @@ export default {
       imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
       index: 0,
       imageSplit: [],
+      isFollow: false
     };
   },
 };

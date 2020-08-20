@@ -31,8 +31,8 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     @Transactional
-    public boolean removeFollow(int followNo) {
-        return mapper.deleteFollow(followNo) == 1;
+    public boolean removeFollow(int me, int you) {
+        return mapper.deleteFollow(me, you) == 1;
     }
 
     @Override
