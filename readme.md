@@ -1,8 +1,12 @@
-  <h1 align="center">Possible Red</h1>
+ <h2 align="center" style="color: navy;">
+     Possible
+     <span style="color: #D50000;">Red</span>
+</h2>
 
   <p align="center">
-    작심삼일이 몸에 베인 사람들을 위한 계획 수행 PWA
+    🔊작심삼일이 몸에 베인 사람들을 위한 계획 수행 PWA🔊
 </p>
+
 
 
 
@@ -37,7 +41,8 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 
 ## 💾 프로젝트 결과물
 
-
+- http://i3d201.p.ssafy.io/
+- https://lab.ssafy.com/s03-webmobile2-sub3/s03p13d201
 
 
 
@@ -65,6 +70,8 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 
 
 
+
+
 ## How To Use❓❗
 
 Mobile || PC
@@ -82,10 +89,10 @@ Mobile || PC
 🎨 Frontend Developer
 
 - 김희정 - dhodhody@gmail.com
-- 강해솔 - 
+- 강해솔 - tashu3101@gmail.com
 
 🔨 Backend Developer
 
-- 최재혁 - 
-- 오혜영 - [에영이 깃 블로그](oheong.github.io) enffl9568@naver.com
-- 배성재 - 
+- 최재혁 - hyeok9sae@naver.com
+- 오혜영 - enffl9568@naver.com || [에영이 깃 블로그](oheong.github.io)
+- 배성재 - tjdwob@gmail.com
