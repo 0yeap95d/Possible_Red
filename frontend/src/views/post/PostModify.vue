@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapC">
+  <div class="wrapC p-0">
     <v-app>
       <v-card class="mx-auto">
         <v-list-item>
@@ -12,22 +12,24 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-img src="https://picsum.photos/400" height="194"></v-img>
+        <v-img src="https://picsum.photos/540" height="auto"></v-img>
 
         <div class="input-with-label jua">
           <textarea
             v-model="post.postContent"
             id="postContent"
             placeholder="내용을 입력하세요"
-            type="text"
+            type="text" 
             cols="35%"
             rows="7"
           />
         </div>
-        <div>
-          <v-btn color="#FF4081" text style="font-size:medium" @click="gotomodify(post.postNo)">저장하기</v-btn>
+        <div class="jua" style="text-align:center;">
+          <button text style="font-size:medium; color:navy;" @click="gotomodify(post.postNo)">저장하기</button>
         </div>
       </v-card>
+
+      
     </v-app>
   </div>
 </template>
@@ -76,6 +78,21 @@ export default {
         (error) => {}
       );
     },
+    posts() {
+      this.$router.push("/posts");
+    },
+    mission() {
+      this.$router.push("/missionmain");
+    },
+    writing() {
+      this.$router.push("/add");
+    },
+    search() {
+      this.$router.push("/search");
+    },
+    profile() {
+      this.$router.push("/profile");
+    },
   },
 };
 </script>
@@ -97,6 +114,6 @@ export default {
 #postContent {
   text-align: center;
   float: left;
-  margin: 10% 10%;
+  margin: 0 15%;
 }
 </style>
