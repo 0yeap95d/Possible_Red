@@ -6,8 +6,8 @@
         <v-tab style="font-family: 'Jua', sans-serif;">미션</v-tab>
 
         <v-tab-item>
-          <v-row style="padding:0 2%">
-            <v-col cols="12" sm="6" offset-sm="3">
+          <v-row style="padding:0 2%" class="mx-auto">
+            <v-col cols="12" sm="12" class="mx-auto">
               <v-card>
                 <v-container fluid>
                   <v-row style="padding: 0;">
@@ -41,8 +41,8 @@
         </v-tab-item>
 
         <v-tab-item>
-          <v-row style="padding:0 2%">
-            <v-col cols="12" sm="6" offset-sm="3">
+          <v-row style="padding:0 2%" class="mx-auto">
+            <v-col cols="12" sm="12" class="mx-auto">
               <v-card>
                 <v-container fluid>
                   <v-row style="padding: 0;">
