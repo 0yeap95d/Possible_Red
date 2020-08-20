@@ -39,8 +39,8 @@
       </div>
 
       <div class="input-with-label jua">
-        <input v-on:change="fileSelect()" type="file" ref="memberImg" />
-        <div v-if="memberImg">
+        <input v-on:change="fileSelect()" type="file" ref="memberImg"  style="width:580px" />
+        <div v-if="memberImg" >
           <img :src="preView" />
         </div>
       </div>

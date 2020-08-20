@@ -116,6 +116,6 @@ export default {
   color:palevioletred;
 }
 .theme--light.v-application{
-  background:whitesmoke;
+  background:white;
 }
 </style>

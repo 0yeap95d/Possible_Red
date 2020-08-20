@@ -467,7 +467,9 @@ export default {
   color: white;
 }
 .wrapC {
-  min-height: 500px;
+  min-height: 800px;
+  max-width:580px;
+  min-width:400px;
 }
 .oman {
   background: #c2185b;
