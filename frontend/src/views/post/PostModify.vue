@@ -4,7 +4,7 @@
       <v-card class="mx-auto">
         <v-list-item>
           <v-list-item-avatar>
-            <v-img src="../../assets/images/background1.jpg"></v-img>
+            <v-img :src="profileImagePath"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="headline">by {{nickname}}</v-list-item-title>
@@ -12,7 +12,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-img src="https://picsum.photos/540" height="auto"></v-img>
+        <v-img :src="imagePath" height="auto"></v-img>
 
         <div class="input-with-label jua">
           <textarea
@@ -38,12 +38,23 @@
 import PostApi from "../../api/PostApi";
 export default {
   created() {
+    this.user = this.$session.get("user");
+
+    this.profileImageSplit = this.user.memberPhoto.split("/");
+    this.profileIndex = this.profileImageSplit.length - 1;
+    this.profileImagePath += this.profileImageSplit[this.profileIndex];
+
     this.num = this.$route.params.num;
     this.nickname = this.$route.params.nickname;
     PostApi.requestSelectPostByNo(
       this.num,
       (res) => {
         this.post = res.data;
+        
+        this.imageSplit = this.post.postPhoto.split("/");
+        this.index = this.imageSplit.length - 1;
+        this.imagePath += this.imageSplit[this.index]; // 포스트 이미지
+
       },
       (error) => {}
     );
@@ -61,6 +72,11 @@ export default {
       num: 0,
       postImg: "",
       nickname: "",
+    profileImagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    
+    imagePath: "http://i3d201.p.ssafy.io:8080/",
+    index: 0,
+    imageSplit: [],
     };
   },
   methods: {
