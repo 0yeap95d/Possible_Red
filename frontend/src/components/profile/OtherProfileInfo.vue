@@ -45,8 +45,8 @@
     >{{other.stateMent}}</p>
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
 
-    <v-btn v-if="!isFollow" class="follow-btn" color="primary" dark @click="insertFollowing()">FOLLOW</v-btn>
-    <v-btn v-if="isFollow"  class="follow-btn" color="primary" dark @click="deleteFollowing()">UNFOLLOW</v-btn>
+    <v-btn v-if="!isFollow" class="follow-btn" color="primary" dark @click="insertFollowing">FOLLOW</v-btn>
+    <v-btn v-if="isFollow"  class="follow-btn" color="primary" dark @click="deleteFollowing">UNFOLLOW</v-btn>
   </div>
 </template>
 
@@ -74,6 +74,23 @@ export default {
     this.getCountPost(this.other.memberNo);
     this.getCountFollower(this.other.memberNo);
     this.getCountFollowing(this.other.memberNo);
+    
+    FollowApi.requestAllFollowingByNo(
+      this.user.memberNo,
+      (res) => {
+        this.members = res.data;
+        for (let i in this.members){
+
+          if(this.members[i].you == this.other.memberNo){
+            this.isFollow = true;
+          } else {
+            this.isFollow = false;
+          }
+          
+        }
+      },
+      (error) => {},
+    )
   },
 
   methods: {
@@ -87,17 +104,20 @@ export default {
         (res) => {},
         (error) => {}
       )
+      this.getCountFollower(this.other.memberNo);
     },
     deleteFollowing(){
       this.isFollow = false;
       FollowApi.requestFollowRemover(
         this.$session.get("user").memberNo,
-        this.other.memberNo,
-        
-          (res) => {},
+        this.other.memberNo, 
+        (res) => {
+          console.log("삭제성공")
+        },
         (error) => {}
         
       )
+      this.getCountFollower(this.other.memberNo);
     },
     getCountPost(num) {
       PostApi.requestSelectPostByMember(

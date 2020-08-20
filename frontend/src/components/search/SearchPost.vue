@@ -1,11 +1,13 @@
 <template>
   <div v-if="isPost">
+    <p>포스트</p>
     <p>검색되는 포스트 내용이 뜹니다 -> {{list.postContent}}</p>
     <p>포스트를 작성한 memberNo가 뜹니다 -> {{list.memberNo}}</p>
     <p>해시태그 -> <span v-for="h in hashtagList" :key="h.hashtagNo">{{h.hashtagContent}}</span></p>
     <hr>
   </div>
   <div v-else-if="isHashtag">
+    <p>해시태그</p>
     <p>검색되는 포스트 내용이 뜹니다 -> {{postList.postContent}}</p>
     <p>포스트를 작성한 memberNo가 뜹니다 -> {{postList.memberNo}}</p>
     <p>해시태그 -> {{list.hashtagContent}}</p>
