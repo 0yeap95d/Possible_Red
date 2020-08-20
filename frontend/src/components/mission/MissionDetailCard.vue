@@ -2,15 +2,16 @@
   <div class="wrapC">
     <v-app>
       <v-card class="mx-auto">
-        <v-img class="white--text align-end"  src="https://picsum.photos/540"></v-img>
-        
+        <v-img class="white--text align-end" src="https://picsum.photos/540"></v-img>
+
         <v-card-subtitle
           class="pb-0 jua"
         >{{$moment(mission.startDate).format('YYYY-MM-DD')}} ~ {{$moment(mission.endDate).format('YYYY-MM-DD')}}</v-card-subtitle>
         <v-card-text class="jua">{{entryNum}}명 / {{mission.joinMem}}명</v-card-text>
 
         <v-card-text class="text--primary">
-          <div class="jua">👩‍⚖️방장 : {{mission.master}}</div><br>
+          <div class="jua">👩‍⚖️방장 : {{mission.master}}</div>
+          <br />
           <div class="jua">커트라인 : {{mission.cutCnt}}</div>
           <div class="jua">배당 포인트 : {{mission.point}}</div>
           <div class="jua">차감 포인트 : {{mission.minusPoint}}</div>
@@ -45,13 +46,24 @@
           >미션 마감하기 (하루에 한번만 누르세요!)</v-btn>
         </v-card-actions>
       </v-card>
-       <!-- 미션에 해당하는 post 불러오기 -->
+      <!-- 미션에 해당하는 post 불러오기 -->
       <div style="z-index:1;" class="jua">
-        <p class="jua" style="text-align:center; font-size:x-large;">📌{{mission.missionTitle}}'s POST</p>
+        <p
+          class="jua"
+          style="text-align:center; font-size:x-large;"
+        >📌{{mission.missionTitle}}'s POST</p>
         <v-expansion-panels>
           <v-expansion-panel v-for="post in posts" :key="post.etag" class="jua">
-            <v-expansion-panel-header>{{$moment(post.postDate).format("YYYY-MM-DD")}}</v-expansion-panel-header>
-            <v-expansion-panel-content><div style="width:100%" @click="goPostDetail(post.postNo)">{{ post.postContent }}</div></v-expansion-panel-content>
+            <v-expansion-panel-header @click="getImage(post.postPhoto)">
+              📅{{$moment(post.postDate).format("YYYY-MM-DD")}}
+              <div>📝{{ post.postContent }}</div>
+            </v-expansion-panel-header>
+
+            <v-expansion-panel-content>
+              <div style="align:center width:60%" @click="goPostDetail(post.postNo)">
+                <v-img :src="imagePath" />
+              </div>
+            </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
       </div>
@@ -94,9 +106,18 @@ export default {
         pwd: "",
         stateMent: "",
       },
+      imagePath: "",
+      index: 0,
+      imageSplit: [],
     };
   },
   methods: {
+    getImage(postPhoto) {
+      this.imagePath = "http://i3d201.p.ssafy.io:8080/";
+      this.imageSplit = postPhoto.split("/");
+      this.index = this.imageSplit.length - 1;
+      this.imagePath += this.imageSplit[this.index]; // 포스트 이미지
+    },
     cuttingPoint(today) {
       var tempPost = new Array();
       for (var i = 0; i < this.posts.length; i++) {
@@ -217,7 +238,7 @@ export default {
           num: num,
         },
       });
-    }
+    },
   },
 };
 </script>
@@ -227,16 +248,16 @@ export default {
   font-size: medium;
 }
 .v-expansion-panel {
-  margin-bottom: 10px
+  margin-bottom: 10px;
 }
 .v-expansion-panel-content__wrap {
   font-family: "Jua", sans-serif;
   color: rebeccapurple;
 }
-.theme--light.v-application{
-  background:whitesmoke;
+.theme--light.v-application {
+  background: whitesmoke;
 }
-.v-expansion-panel-content__wrap{
+.v-expansion-panel-content__wrap {
   font-family: "Jua", sans-serif;
 }
 </style>

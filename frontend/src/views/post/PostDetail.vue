@@ -182,9 +182,10 @@ export default {
         this.imagePath += this.imageSplit[this.index]; // 포스트 이미지
 
         UserApi.requestMemberByNo(
+          // 포스트 작성자 정보
           this.postOne.memberNo,
           (res) => {
-            this.member = res.data; // 포스트 작성자 정보를 가져옴
+            this.member = res.data;
             this.profileImageSplit = this.member.memberPhoto.split("/");
             this.profileIndex = this.profileImageSplit.length - 1;
             this.profileImagePath += this.profileImageSplit[this.profileIndex]; // 사람 프로필 이미지
