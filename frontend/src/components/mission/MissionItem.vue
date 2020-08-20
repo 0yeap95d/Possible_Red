@@ -149,7 +149,12 @@ export default {
       });
     },
     gotopeople(num) {
-      this.$router.push("/missionpeople");
+      this.$router.push({
+        name: "MissionPeople",
+        params: {
+          num: num,
+        }
+      });
     },
   },
 };

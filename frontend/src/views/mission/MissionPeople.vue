@@ -10,13 +10,26 @@
         <br />
 
         <!--this part-->
+        <div>
+          <v-list>
+            <v-list-item v-for="mem in member" :key="mem.memberNo" :value="mem.memberNo"  @click="toProfile(mem.memberNo)">
+              <v-list-item-avatar>
+                <v-img :src="mem.memberPhoto" />
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title style="font-family: 'Jua', sans-serif;">{{mem.nickname}}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </div>
         <br />
 
       
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
-            <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+            <v-list-item-group  active-class="deep-purple--text text--accent-4">
               <div class="px-3 py-2">
                 <div class="thumbnail">
                   <div class="centered">
@@ -64,7 +77,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation   black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -97,21 +110,49 @@
 
 <script>
 import "../../components/css/style.css";
-
+import EntryApi from "../../api/EntryApi";
+import UserApi from "../../api/UserApi";
 
 export default {
-  data: () => ({
-    drawer: false,
-    activeBtn: 1,
-    user: Object,
-    imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
-    index: 0,
-    imageSplit: [],
-  }),
   components: {
     
   },
+  created (){
+    this.missionNum = this.$route.params.num;
+    
+
+    this.user = this.$session.get("user");
+    this.imageSplit = this.user.memberPhoto.split("/");
+    this.index = this.imageSplit.length - 1;
+    this.imagePath += this.imageSplit[this.index];
+
+    EntryApi.requestEntryListByMissionNo(
+      this.missionNum,
+      (res) => {
+        this.memberNum = res.data; // 엔트리에 있는 멤번넘버 가져오는거
+        for (let j in this.memberNum){
+          UserApi.requestMemberByNo(
+              this.memberNum[j].memberNo, // 그 멤버넘버로 멤버정보 가져오기
+              (res) => {
+                this.member[j] = res.data;
+                  if (this.member[j].pwd != "") {
+                    this.joinImageSplit = this.member[j].memberPhoto.split("/");
+                    this.joinIndex = this.joinImageSplit.length - 1;
+                    this.member[j].memberPhoto = this.joinImagePath+ this.joinImageSplit[this.joinIndex];
+                    console.log("되니?")
+                  } 
+              },
+              (error) => {}
+          )
+        }
+      },
+      (error) => {}
+    )
+  },
   methods: {
+    toProfile(otherMemberNo) {
+      this.$emit("gotoOtherProfile", otherMemberNo);
+    },
     logout() {
       this.$router.push("/");
     },
@@ -143,6 +184,23 @@ export default {
       this.$router.push("/changeuser");
     },
   },
+   data: () => ({
+    drawer: false,
+    activeBtn: 1,
+    user: Object,
+    
+    joinImagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    joinIndex: 0,
+    joinImageSplit: [],
+
+    imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+    index: 0,
+    imageSplit: [],
+
+    missionNum: 0,
+    memberNum: [],
+    member: [],
+  }),
 };
 </script>
 
