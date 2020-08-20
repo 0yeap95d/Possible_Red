@@ -136,29 +136,6 @@ export default {
   color: white;
 }
 .min_size {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 70%;
-  height: auto;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  /* min-width: 328px; */
-}
-.thumbnail {
-  position: relative;
-  padding-top: 100%;
-  overflow: hidden;
-}
-.thumbnail .centered {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transform: translate(50%, 50%);
-  -ms-transform: translate(50%, 50%);
-  transform: translate(50%, 50%);
+  min-width: 328px;
 }
 </style>
