@@ -44,9 +44,10 @@
       style="font-family: 'Jua', sans-serif; text-align: left;"
     >{{other.stateMent}}</p>
     <p v-else class="stat" style="font-family: 'Jua', sans-serif; text-align: left;">상태 메세지가 없습니다.</p>
-
-    <v-btn v-if="!isFollow" class="follow-btn" color="primary" dark @click="insertFollowing">FOLLOW</v-btn>
-    <v-btn v-if="isFollow"  class="follow-btn" color="primary" dark @click="deleteFollowing">UNFOLLOW</v-btn>
+    <div align="center" style="width:100% vertical-align:middle;">
+      <button v-if="!isFollow" class="mx-auto follow-btn" @click="insertFollowing">FOLLOW</button>
+      <button v-if="isFollow"  class="mx-auto follow-btn" @click="deleteFollowing">UNFOLLOW</button>
+    </div>
   </div>
 </template>
 
@@ -217,11 +218,15 @@ export default {
   margin: auto;
 }
 .follow-btn {
-  width: 80%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-  padding-bottom: 5%;
+  width: 30%;
+  padding-bottom: 0;
+  background: #5C6BC0;
+  border-color: transparent;
+  color: white;
+  border-radius: 5px;
+  font-family: "Jua", sans-serif;
+  font-size: large;
+  vertical-align: middle;
 }
 
 .v-application p {
