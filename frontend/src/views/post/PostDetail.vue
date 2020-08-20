@@ -55,23 +55,23 @@
               <!-- 여기까지 -->
             </v-card-actions>
             <div v-if="isSame(user.memberNo, postOne.memberNo)">
-              <v-btn
-                color="#FF4081"
+              <button
+                class="jua"
                 text
-                style="font-size:medium"
+                style="margin:0 10px 0 16px; color:navy;"
                 @click="gotomodify(postOne.postNo)"
-              >수정하기</v-btn>
+              >수정하기</button>
 
               <v-dialog v-model="dialog" persistent max-width="290">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="#FF4081" text style="font-size:medium" v-bind="attrs" v-on="on">삭제하기</v-btn>
+                  <button class="jua" text style="margin:0 10px 0 0; color:hotpink" v-bind="attrs" v-on="on">삭제하기</button>
                 </template>
                 <v-card>
-                  <v-card-title color="#FF4081" text style="font-size:medium">정말로 삭제하시겠습니까?</v-card-title>
+                  <v-card-title color="#FF4081" text style="font-size:medium" class="jua">정말로 삭제하시겠습니까?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="gotodelete(postOne.postNo)">네</v-btn>
-                    <v-btn color="green darken-1" text @click="returnpost()">니요</v-btn>
+                    <button style="color:navy" text @click="gotodelete(postOne.postNo)">🙆‍♀️네</button>
+                    <button style="color:red" text @click="returnpost()">🙅‍♀️아니요</button>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -300,9 +300,6 @@ export default {
       }
     },
 
-    logout() {
-      this.$router.push("/");
-    },
     post() {
       this.$router.push("/posts");
     },
