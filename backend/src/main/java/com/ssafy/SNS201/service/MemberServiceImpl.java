@@ -52,4 +52,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean modifyMemberPoint(int memberNo, int point) {
         return mapper.updateMemberPoint(memberNo, point);
     }
+
+    @Override
+    public boolean modifyPassword(Member member) {
+        return mapper.updatePassword(member);
+    }
 }

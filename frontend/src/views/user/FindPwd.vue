@@ -35,7 +35,7 @@
         <!-- 이메일 인증이 확인되면 버튼 생성 -->
         <div class="wrap components-page">
           <LargeButton
-            text="확인"
+            text="비밀번호 변경하기"
             :isBackground="isSubmit"
             @click.native="onSubmit"
             :disabled="!isSubmit"
@@ -84,12 +84,10 @@ export default {
 
   methods: {
     sendMail() {
-      //console.log(this.isEmailOK);
       EmailApi.requestRandomNumber(
         this.email,
         (res) => {
           this.num = res.data;
-          //console.log(this.num);
           alert("인증번호가 발송되었습니다.\n메일을 확인해주세요");
         },
         (error) => {
@@ -98,8 +96,6 @@ export default {
       );
     },
     isSameNum() {
-      console.log("randNum : " + this.randNum);
-      console.log("num : " + this.num);
       if (this.randNum == this.num) {
         alert("이메일 인증이 완료되었습니다");
         this.isEmailOK = true;
@@ -124,18 +120,13 @@ export default {
       UserApi.requestEmailCheck(
         this.email,
         (res) => {
-          // console.log(res);
           // 입력된 이메일이 존재하지 않을 때
           if (res.data == 0) {
-            console.log("Email does not exist");
             this.isSubmit = false;
             this.error.email = "일치하는 이메일이 없습니다.";
             // 피드백 필요
-          }
-
-          // 입력된 이메일 존재할 때
-          else {
-            console.log("Email check completed");
+          } else {
+            // 입력된 이메일 존재할 때
             // 반환받은 멤버정보를 전달
             this.$router.push({
               name: "ChangePwd",
@@ -143,10 +134,7 @@ export default {
             });
           }
         },
-        (error) => {
-          console.log(error);
-          // error page 이동 추가해야함
-        }
+        (error) => {}
       );
     },
   },
@@ -154,12 +142,12 @@ export default {
 </script>
 
 <style>
-.jua{
-    font-family: 'Jua', sans-serif;
+.jua {
+  font-family: "Jua", sans-serif;
 }
-.sign{
-    font-family: 'Jua', sans-serif;
-    margin-left:2%;
-    color:navy;
-  }
+.sign {
+  font-family: "Jua", sans-serif;
+  margin-left: 2%;
+  color: navy;
+}
 </style>

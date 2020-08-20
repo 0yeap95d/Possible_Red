@@ -52,6 +52,12 @@
          WHERE  memberNo    = #{memberNo}
     </update>
 
+    <update id="updatePassword" parameterType="Member">
+        UPDATE  member
+           SET  pwd         = #{pwd}
+         WHERE  memberNo    = #{memberNo}
+    </update>
+
     <delete id="deleteMember" parameterType="int">
 		DELETE
 		  FROM  member
