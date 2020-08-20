@@ -17,7 +17,7 @@
               @click="toProfile(item)"
             >
               <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+                <v-img :src="item.memberPhoto"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -35,7 +35,7 @@
               @click="toProfile(item)"
             >
               <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/lists/3.jpg"></v-img>
+                <v-img :src="item.memberPhoto"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -98,6 +98,9 @@ export default {
               res.data[i].me,
               (res) => { 
                 this.followers.push(res.data)
+                this.imageSplit = this.followers[i].memberPhoto.split("/");
+                this.index = this.imageSplit.length - 1;
+                this.followers[i].memberPhoto = this.imagePath + this.imageSplit[this.index];
                 },
               (error) => { console.log(error) }
             )
@@ -113,7 +116,12 @@ export default {
           for ( let i in res.data ){
             UserApi.requestMemberByNo(
               res.data[i].you,
-              (res) => { this.followings.push(res.data) },
+              (res) => { 
+                this.followings.push(res.data)
+                this.imageSplit = this.followings[i].memberPhoto.split("/");
+                this.index = this.imageSplit.length - 1;
+                this.followings[i].memberPhoto = this.imagePath + this.imageSplit[this.index];
+              },
               (error) => { console.log(error) }
             )
           }
@@ -161,7 +169,10 @@ export default {
         mdiAccount,
       },
       followers: [],
-      followings: []
+      followings: [],
+      imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
+      index: 0,
+      imageSplit: [],
     }  
   },
 }
