@@ -1,7 +1,7 @@
 <template>
-  <div class="wrap">
+  <div class="wrapC p-0">
     <v-app>
-      <v-card class="mx-auto overflow-hidden missions" color="white">
+      <v-card class="overflow-hidden missions" color="white" style="height:100%">
         <v-app-bar color="deep-purlple" dark>
           <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -11,7 +11,7 @@
 
         <!--this part-->
           <v-list>
-            <v-list-item v-for="mem in member" :key="mem.memberNo" :value="mem.memberNo"  @click="toProfile(mem.memberNo)">
+            <v-list-item v-for="(mem, i) in member" :key="i" :value="mem.memberNo"  @click="toProfile(mem)">
               <v-list-item-avatar>
                 <v-img :src="mem.memberPhoto" />
               </v-list-item-avatar>
@@ -19,6 +19,11 @@
               <v-list-item-content>
                 <v-list-item-title style="font-family: 'Jua', sans-serif;">{{mem.nickname}}</v-list-item-title>
               </v-list-item-content>
+
+              <!-- <v-list-item-icon>
+                <v-icon :color="isFollowing[i] ? 'deep-purple accent-4' : 'grey'">mdi-account</v-icon>
+              </v-list-item-icon> -->
+
             </v-list-item>
           </v-list>
         <br />
@@ -75,7 +80,7 @@
           </v-list>
         </v-navigation-drawer>
       </v-card>
-      <v-bottom-navigation   black shift>
+      <v-bottom-navigation black shift>
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -111,6 +116,8 @@
 import "../../components/css/style.css";
 import EntryApi from "../../api/EntryApi";
 import UserApi from "../../api/UserApi";
+import FollowApi from "../../api/FollowApi";
+import { mdiAccount } from '@mdi/js';
 
 export default {
   components: {
@@ -118,30 +125,30 @@ export default {
   },
   created (){
     this.missionNum = this.$route.params.num;
+    this.followings = this.$route.params.followings;
     
     console.log(this.missionNum)
     EntryApi.requestEntryListByMissionNo(
       this.missionNum,
       (res) => {
-        console.log(res);
         this.memberNum = res.data; // 엔트리에 있는 멤번넘버 가져오는거
         for (let j in this.memberNum){
           UserApi.requestMemberByNo(
               this.memberNum[j].memberNo, // 그 멤버넘버로 멤버정보 가져오기
               (res) => {
-                console.log("userapi " + j);
                 this.member[j] = res.data;
                   if (this.member[j].pwd != "") {
                     this.joinImageSplit = this.member[j].memberPhoto.split("/");
                     this.joinIndex = this.joinImageSplit.length - 1;
                     this.member[j].memberPhoto = this.joinImagePath+ this.joinImageSplit[this.joinIndex];
-                    console.log("되니?")
                   }
                 this.update = !this.update
               },
               (error) => {console.log(error)}
           )
         }
+        this.checkFollow(this.memberNum)
+        console.log("isFollowings", this.isFollowing)
       },
       (error) => {}
     )
@@ -162,8 +169,29 @@ export default {
   },
 
   methods: {
-    toProfile(otherMemberNo) {
-      this.$emit("gotoOtherProfile", otherMemberNo);
+    toProfile(other) {
+      if(other.memberNo == this.user.memberNo){
+          this.$router.push({
+          name: "UserProfile",
+        });
+      } else {
+        this.$router.push({
+          name: "OtherProfile",
+          params: { 
+            other: other, 
+          },
+        });
+      }
+    },
+    checkFollow(array){
+      for (let i in array){
+        if(array[i] in this.followings){
+          this.isFollowing.push(true)
+        } else {
+          this.isFollowing.push(false)
+        }   
+      }
+      console.log("isFollowings", this.isFollowing)
     },
     logout() {
       this.$router.push("/");
@@ -195,6 +223,7 @@ export default {
     myaccount() {
       this.$router.push("/changeuser");
     },
+
   },
    data: () => ({
     drawer: false,
@@ -213,7 +242,13 @@ export default {
     memberNum: [],
     member: [],
 
+    followers: [],
+    isFollowing: [],
+
     update: false,
+    icons: {
+      mdiAccount,
+    },
   }),
 };
 </script>

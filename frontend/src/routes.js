@@ -1,6 +1,5 @@
 import Login from "./views/user/Login.vue";
 import Join from "./views/user/Join.vue";
-import FeedMain from "./views/feed/IndexFeed.vue";
 import Components from "./views/Components.vue";
 import FindPwd from "./views/user/FindPwd.vue";
 import ChangePwd from "./views/user/ChangePwd.vue";
@@ -34,12 +33,6 @@ export default [
     path: "/user/join",
     name: "Join",
     component: Join,
-  },
-
-  {
-    path: "/feed/main",
-    name: "FeedMain",
-    component: FeedMain,
   },
   {
     path: "/components",
