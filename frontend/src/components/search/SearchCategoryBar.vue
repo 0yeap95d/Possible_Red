@@ -1,6 +1,6 @@
 <template>
   <div class="text-center search-category">
-    <v-btn small v-for="item in items" :key="item.categoryNo" class="ma-2 mx-1 jua" outlined color="indigo" @click="searchByCategory(item.categoryContent)">{{item.categoryContent}}</v-btn>
+    <v-btn small v-for="item in items" :key="item.categoryNo" class="ma-2 mx-1 jua" outlined @click="searchByCategory(item.categoryContent)">{{item.categoryContent}}</v-btn>
   </div>
 </template>
 
@@ -50,5 +50,10 @@ export default {
 }
 .v-btn:not(.v-btn--round).v-size--small {
   border-color:black;
+}
+.ma-2.mx-1.v-btn.v-btn--depressed.v-btn--flat.v-btn--outlined.theme--light.v-size--small {
+    background-color: #BA68C8;
+    border-color:white;
+    border-radius:10%;
 }
 </style>

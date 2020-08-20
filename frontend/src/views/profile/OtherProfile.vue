@@ -52,7 +52,7 @@
                   <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="Logout">
+              <v-list-item @click="logout">
                   <v-list-item-icon >
                       <i class="fas fa-sign-out-alt"></i>
                   </v-list-item-icon>
@@ -119,17 +119,8 @@ export default {
         }
     },
     methods: {
-      Logout() {
-        this.$session.destroy();
-        window.Kakao.API.request({
-            url: '/v1/user/unlink',
-            success: function(res) { console.log(res) },
-            fail: function(err) { console.log(err) },
-        })
-        window.Kakao.Auth.logout(function() {
-          alert('로그아웃 완료!')
-        })
-        this.$router.push("/");
+      logout() {
+      this.$router.push("/");
       },
       post() {
         this.$router.push("/posts");
@@ -201,11 +192,11 @@ export default {
   height: 3rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width: 440px;
-  min-width: 100px;
+  max-width:580px;
   width: 100%;
   margin: 0 auto;
-}.white{
+}
+.white{
   background-color:whitesmoke !important;
 }
 .v-toolbar__title{

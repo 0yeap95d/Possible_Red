@@ -52,7 +52,7 @@
                 <p class="jua">내 계정설정</p>
               </v-list-item>
 
-              <v-list-item @click="Logout">
+              <v-list-item @click="logout">
                 <v-list-item-icon>
                   <i class="fas fa-sign-out-alt"></i>
                 </v-list-item-icon>
@@ -122,7 +122,7 @@ export default {
     };
   },
   methods: {
-    Logout() {
+    logout() {
       this.$router.push("/");
     },
     post() {
@@ -195,8 +195,7 @@ export default {
   height: 3rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width: 440px;
-  min-width: 100px;
+  max-width:580px;
   width: 100%;
   margin: 0 auto;
 }
