@@ -11,18 +11,18 @@
         <br />
 
         <!--넣고 싶은거 넣으세요~-->
-        <div>
-          <MissionDetailCard
-            v-if="this.mission"
-            :mission="mission"
-            :num="num"
-            :entryNum="entryNum"
-            :entryList="entryList"
-          />
-        </div>
+        
+        <MissionDetailCard
+          v-if="this.mission"
+          :mission="mission"
+          :num="num"
+          :entryNum="entryNum"
+          :entryList="entryList"
+        />
+        
       </v-card>
 
-      <v-bottom-navigation v-model="bottomNav" black shift>
+      <v-bottom-navigation v-model="bottomNav" black shift style="z-index:2;">
         <v-btn @click="post">
           <span>POST</span>
           <v-icon>mdi-text</v-icon>
@@ -215,8 +215,7 @@ export default {
   margin-bottom: 3.5rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width: 440px;
-  min-width: 100px;
+  max-width:580px;
   width: 100%;
   margin: 0 auto;
 }

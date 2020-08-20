@@ -9,11 +9,11 @@
       ></i>
       <i v-else-if="mission.start" class="fas fa-cookie-bite" style="color:#827717"></i>
 
-      <v-img class="white--text align-end" height="200px" src="https://picsum.photos/400"></v-img>
+      <v-img class="white--text align-end"  src="https://picsum.photos/540"></v-img>
 
       <v-card-text class="text--primary">
-        <div class="jua">미션 타이틀 : {{ mission.missionTitle }}</div>
-        <div class="jua">최대 인원 : {{ mission.joinMem }}</div>
+        <div class="nanum" style="font-size:xx-large; font-weight:500">{{ mission.missionTitle }}</div><br>
+        <div class="jua">Max : {{ mission.joinMem }} 명</div>
         <div
           class="jua"
         >{{ $moment(mission.startDate).format('YYYY-MM-DD') }} ~ {{ $moment(mission.endDate).format('YYYY-MM-DD') }}</div>
@@ -145,7 +145,7 @@ export default {
   },
 };
 </script>
-<style >
+<style>
 .mx-auto.v-card.v-sheet.theme--light {
   margin-bottom: 30px;
 }
@@ -157,5 +157,11 @@ export default {
 }
 .v-responsive__content {
   background: transparent !important;
+}
+.wrapC{
+  max-width:580px;
+}
+.nanum{
+  font-family: 'Nanum Pen Script', cursive;
 }
 </style>

@@ -91,7 +91,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-bottom-navigation {
   position: fixed;
   left: 0;
@@ -101,5 +101,10 @@ export default {
 }
 .v-tab.v-tab--active {
   color: blueviolet;
+}
+.v-item-group.v-bottom-navigation {
+  max-width:580px;
+  width: 100%;
+  margin: 0 auto;
 }
 </style>

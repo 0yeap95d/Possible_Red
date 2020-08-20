@@ -1,15 +1,15 @@
 <template>
   <div class="wrapC">
     <v-app>
-      <v-col cols="12" sm="6" class="mx-auto">
-        <v-card>
+      <v-col >
+        <v-card class="max-auto">
           <v-subheader :inset="inset">{{user.nickname}}'s</v-subheader>
 
           <v-list>
             <template v-for="mission in missions">
               <v-list-item :item="mission" :key="mission.etag" >
                 <v-list-item-action class="mx-auto">
-                  <v-img src="https://picsum.photos/400" @click="gotomissiondetail(mission.missionNo)" alt></v-img>
+                  <v-img src="https://picsum.photos/540" @click="gotomissiondetail(mission.missionNo)" alt></v-img>
                   <br />
                   <v-list-item-title class="jua" @click="gotomissiondetail(mission.missionNo)">{{ mission.missionTitle }}</v-list-item-title>
 
@@ -114,5 +114,8 @@ export default {
 }
 .v-icon.notranslate.mdi.mdi-instagram.theme--light{
   color:palevioletred;
+}
+.theme--light.v-application{
+  background:whitesmoke;
 }
 </style>

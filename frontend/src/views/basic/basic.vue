@@ -212,12 +212,12 @@ export default {
     .missions {
         margin-bottom: 3.5rem;
     }
-    .v-item-group.v-bottom-navigation{
-        max-width: 440px;
-        min-width:100px;
-        width: 100%;
-        margin: 0 auto;
-    }.white{
+   .v-item-group.v-bottom-navigation {
+    max-width:580px;
+    width: 100%;
+    margin: 0 auto;
+    }
+    .white{
     background-color:whitesmoke !important;
     }
     .v-toolbar__title{

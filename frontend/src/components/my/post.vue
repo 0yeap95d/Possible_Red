@@ -1,41 +1,44 @@
 <template>
-    <div>
-      <v-row justify="center">
-        <v-col cols="12" sm="8" md="6">
-          <v-card>
-            <v-list two-line>
-              <template v-for="item in items">
-                <v-subheader
-                  :key="item.missionTitle"
-                  inset
-                >
-                  {{ item.missionTitle }}
-                </v-subheader>
-                  
-                <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
-                <div v-for="(post, i) in item.post" :key="i">
-                <v-list-item
-                  ripple
-                  @click="postdetail(item.post[i].postNo)"
-                >
-                  
-                  <v-list-item-avatar>
-                    <img :src="item.post[i].postPhoto">
-                  </v-list-item-avatar>
-                  
-                  <v-list-item-content>
-                      <v-list-item-title v-html="item.post[i].postContent" class="jua"></v-list-item-title>
-                  </v-list-item-content>
-                  
-                </v-list-item>
-                </div>
-                  
-              </template>
-            </v-list>
-          </v-card>
-        </v-col>
-      </v-row>
-      
+    <div class="wrapC">
+      <v-app>
+        <v-row justify="center">
+          <v-col >
+            <v-card>
+              <v-list two-line>
+                <template v-for="item in items">
+                  <v-subheader
+                    :key="item.missionTitle"
+                    inset
+                  >
+                    {{ item.missionTitle }}
+                  </v-subheader>
+                    
+                  <!--여기서 부터는 그 미션에 대한 포스터들  그래서 지우고 다시-->
+                  <div v-for="(post, i) in item.post" :key="i">
+                  <v-list-item
+                    ripple
+                    @click="postdetail(item.post[i].postNo)"
+                  >
+                    
+                    <v-list-item-avatar>
+                      <img :src="item.post[i].postPhoto">
+                    </v-list-item-avatar>
+                    
+                    <v-list-item-content>
+                        <v-list-item-title v-html="item.post[i].postContent" class="jua"></v-list-item-title>
+                    </v-list-item-content>
+                    
+                  </v-list-item>
+                  <hr>
+                  <br>
+                  </div>
+                    
+                </template>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-app>
     </div>
 </template>
 

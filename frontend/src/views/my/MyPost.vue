@@ -10,9 +10,9 @@
         <br />
 
         <!--넣고 싶은거 넣으세요~-->
-        <div class="wrapC">
-          <Post v-if="missionList.length !== 0" :missions="missionList" />
-        </div>
+        
+        <Post v-if="missionList.length !== 0" :missions="missionList" />
+        
 
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
@@ -186,8 +186,7 @@ export default {
   margin-bottom: 3.5rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width: 440px;
-  min-width: 100px;
+  max-width:580px;
   width: 100%;
   margin: 0 auto;
 }
