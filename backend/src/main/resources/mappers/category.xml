@@ -6,6 +6,6 @@
     <select id="selectCategory" resultType="Category">
         SELECT *
          FROM Category
-        ORDER BY categoryContent
+        ORDER BY categoryNo
     </select>
 </mapper>

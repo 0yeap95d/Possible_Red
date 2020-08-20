@@ -1,10 +1,9 @@
 <template>
   <div class="user" id="changePwd">
     <div class="wrapC">
-      
       <!-- header -->
       <div class="wrap components-page p-1">
-        <HeaderComponent headerTitle="Change Password" :isBack="true"/>
+        <HeaderComponent headerTitle="Change Password" :isBack="true" />
       </div>
 
       <!-- new password -->
@@ -35,14 +34,14 @@
 
       <!--  -->
       <div class="wrap components-page">
-        <LargeButton 
-          text="확인" 
+        <LargeButton
+          text="확인"
           :isBackground="isSubmit"
           @click.native="pwdchanged"
           :disabled="!isSubmit"
-          :class="{disabled : !isSubmit}"  />
+          :class="{disabled : !isSubmit}"
+        />
       </div>
-
     </div>
   </div>
 </template>
@@ -57,12 +56,10 @@ import UserApi from "../../api/UserApi";
 
 export default {
   name: "ChangePwd",
-
   components: {
-   HeaderComponent,
-   LargeButton
- },
-
+    HeaderComponent,
+    LargeButton,
+  },
   created() {
     this.component = this;
     this.member = this.$route.params.member;
@@ -77,16 +74,14 @@ export default {
       .letters();
   },
 
-  
   watch: {
-      password: function(v) {
-        this.checkForm();
-      },
-      passwordChk: function(v) {
-        this.checkForm();
-      }
+    password: function (v) {
+      this.checkForm();
     },
-
+    passwordChk: function (v) {
+      this.checkForm();
+    },
+  },
 
   methods: {
     checkForm() {
@@ -99,42 +94,33 @@ export default {
       else this.error.password = false;
 
       // password 일치 검사
-      if (
-        this.passwordChk.length >= 0 && 
-        this.passwordChk != this.password
-      )
+      if (this.passwordChk.length >= 0 && this.passwordChk != this.password)
         this.error.passwordChk = "비밀번호가 일치하지 않습니다.";
       else this.error.passwordChk = false;
 
       // 위의 두 조건 모두 만족시 버튼 활성화
       let isSubmit = true;
-      Object.values(this.error).map(v => {
+      Object.values(this.error).map((v) => {
         if (v) isSubmit = false;
       });
       this.isSubmit = isSubmit;
     },
 
-    pwdchanged(){
-      this.member.pwd = this.password
-      
+    pwdchanged() {
+      this.member.pwd = this.password;
       // password 변경 요청
       UserApi.requestUpdate(
         this.member,
-        res => {
-          // 비밀번호 변경 성공 시 로그인 페이지로 이동
-          console.log("email update success");
+        (res) => {
           this.$router.push("/");
         },
-        error => {
-          console.log("email update fail");
-          // error page 이동 추가해야함
-        }
+        (error) => {}
       );
     },
   },
 
- data() {
-   return {
+  data() {
+    return {
       password: "",
       passwordChk: "",
       member: Object,
@@ -144,29 +130,28 @@ export default {
         passwordChk: false,
       },
       isSubmit: false,
-      component: this
-   };
- },
-
+      component: this,
+    };
+  },
 };
 </script>
 
 <style>
-.jua{
-    font-family: 'Jua', sans-serif;
-  }
-.btn-default.noneBackground.disabled{
-    font-family: 'Jua', sans-serif;
-    color:white;
-    background:linear-gradient(to right , #f48fb1, #3949ab);
-    border-color:white;
-    border-radius:5px;
-  }
-  .components-page .btn-default{
-    font-family: 'Jua', sans-serif;
-    color:white;
-    border-color:white;
-    border-radius:5px;
-    background:linear-gradient(to left , #f48fb1, #3949ab);
-  }
+.jua {
+  font-family: "Jua", sans-serif;
+}
+.btn-default.noneBackground.disabled {
+  font-family: "Jua", sans-serif;
+  color: white;
+  background: linear-gradient(to right, #f48fb1, #3949ab);
+  border-color: white;
+  border-radius: 5px;
+}
+.components-page .btn-default {
+  font-family: "Jua", sans-serif;
+  color: white;
+  border-color: white;
+  border-radius: 5px;
+  background: linear-gradient(to left, #f48fb1, #3949ab);
+}
 </style>

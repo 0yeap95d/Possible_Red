@@ -104,13 +104,22 @@ public class MemberAPIController {
         }
         return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
     }
+
     @ApiOperation(value = " 사용자의 포인트를 수정한다.", response = String.class)
     @PutMapping("point/{memberNo}/{point}")
-    public ResponseEntity<String> modifyMember(@PathVariable int memberNo, @PathVariable int point) throws Exception {
+    public ResponseEntity<String> modifyMemberPoint(@PathVariable int memberNo, @PathVariable int point) throws Exception {
         logger.info("modifyMemberPoint | " + memberNo + "update Point to "+point);
         if(memberService.modifyMemberPoint(memberNo, point))
             return new ResponseEntity<String>(SUCCESS,HttpStatus.NO_CONTENT);
         return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
     }
 
+    @ApiOperation(value = " 사용자의 비밀번호를 수정한다.", response = String.class)
+    @PutMapping("password")
+    public ResponseEntity<String> modifyPassword(@RequestBody Member member) throws Exception {
+        logger.info("password update");
+        if(memberService.modifyPassword(member))
+            return new ResponseEntity<String>(SUCCESS,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<String>(FAIL,HttpStatus.NO_CONTENT);
+    }
 }
