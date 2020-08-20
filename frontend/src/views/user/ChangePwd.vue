@@ -109,9 +109,10 @@ export default {
     pwdchanged() {
       this.member.pwd = this.password;
       // password 변경 요청
-      UserApi.requestUpdate(
+      UserApi.requestUpdatePassword(
         this.member,
         (res) => {
+          alert("비밀번호가 변경되었습니다! 로그인을 다시 해 주세요!");
           this.$router.push("/");
         },
         (error) => {}
