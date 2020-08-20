@@ -32,6 +32,7 @@
             <v-list-item
               v-for="item in followings"
               :key="item.nickname"
+              @click="toProfile(item)"
             >
               <v-list-item-avatar>
                 <v-img src="https://cdn.vuetifyjs.com/images/lists/3.jpg"></v-img>
