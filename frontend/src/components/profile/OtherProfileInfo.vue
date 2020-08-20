@@ -62,7 +62,6 @@ export default {
     other: {},
   },
   created() {
-    console.log(this.isFollow)
     this.user = this.$session.get("user");
     if (this.other.pwd != "") {
       this.imageSplit = this.other.memberPhoto.split("/");

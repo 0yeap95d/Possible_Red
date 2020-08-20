@@ -185,7 +185,6 @@ export default {
       this.num,
       (res) => {
         this.mission = res.data;
-        console.log(this.mission);
       },
       (error) => {}
     );
@@ -222,11 +221,10 @@ export default {
       MissionApi.requestMissionUpdate(
         this.mission,
         (res) => {
-          console.log("업데이트 성공");
           this.$router.push("/mymission");
         },
         (error) => {
-          console.log("업데이트 안됨");
+          console.log("error");
         }
       );
     },
@@ -237,7 +235,6 @@ export default {
     getCategoryList() {
       SearchApi.requestCategory(
         (res) => {
-          // console.log(res.data);
           this.category = res.data;
         },
         (error) => {

@@ -46,7 +46,6 @@ export default {
     },
     methods:{
       addComment(comment){
-        console.log("댓글내용: " + comment)
         this.comments.commentContent = comment
         this.comments.memberNo = this.user.memberNo
         this.comments.postNo = this.postNo
@@ -64,11 +63,9 @@ export default {
         CommentApi.requestCommentDelete(
           num,
           (res) => {
-            console.log("지웠다" + res)
             this.$emit("removeComment")
           },
           (error) => {
-            console.log("못지웠다" + error)
           }
         )
       },

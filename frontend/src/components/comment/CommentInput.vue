@@ -37,17 +37,16 @@ export default {
     methods:{
       addComment(){
         if(this.comment.commentContent!=""){ //인풋 박스의 입력 값이 있을 때만 저장
-          console.log("after"+this.comment.commentContent);
+          // console.log("after"+this.comment.commentContent);
           var value=this.comment.commentContent && this.comment.commentContent.trim(); //인풋 박스에 입력된 텍스트의 앞뒤 공백 문자열 제거
           this.$emit('addComment', value);
           this.clearInput(); //인풋 박스의 입력 값을 초기화
-          ////////////////////////////////
 
         }else{
           this.showModal=!this.showModal;
         }
-        console.log(this.comment)
-        console.log("before"+this.comment.commentContent);
+        // console.log(this.comment)
+        // console.log("before"+this.comment.commentContent);
           
       },
       clearInput(){

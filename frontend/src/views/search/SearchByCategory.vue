@@ -79,7 +79,6 @@ export default {
   },
   created() {
     this.category = this.$route.params.category;
-    console.log(this.category);
 
     SearchApi.requestMissionByCategory(
       this.category.categoryNo,
