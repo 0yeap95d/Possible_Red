@@ -51,7 +51,7 @@
         <v-expansion-panels>
           <v-expansion-panel v-for="post in posts" :key="post.etag" class="jua">
             <v-expansion-panel-header>{{$moment(post.postDate).format("YYYY-MM-DD")}}</v-expansion-panel-header>
-            <v-expansion-panel-content >{{ post.postContent }}</v-expansion-panel-content>
+            <v-expansion-panel-content><div style="width:100%" @click="goPostDetail(post.postNo)">{{ post.postContent }}</div></v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
       </div>
@@ -210,6 +210,14 @@ export default {
         return false;
       }
     },
+    goPostDetail(num) {
+      this.$router.push({
+        name: "PostDetail",
+        params: {
+          num: num,
+        },
+      });
+    }
   },
 };
 </script>
