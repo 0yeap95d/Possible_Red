@@ -64,16 +64,27 @@
 
               <v-dialog v-model="dialog" persistent max-width="290">
                 <template v-slot:activator="{ on, attrs }">
-                  <button class="jua" text style="margin:0 10px 0 0; color:hotpink" v-bind="attrs" v-on="on">삭제하기</button>
+                  <button
+                    class="jua"
+                    text
+                    style="margin:0 10px 0 0; color:hotpink"
+                    v-bind="attrs"
+                    v-on="on"
+                  >삭제하기</button>
                 </template>
-                <v-card>
-                  <v-card-title color="#FF4081" text style="font-size:medium" class="jua">정말로 삭제하시겠습니까?</v-card-title>
+                <!-- <v-card>
+                  <v-card-title
+                    color="#FF4081"
+                    text
+                    style="font-size:medium"
+                    class="jua"
+                  >정말로 삭제하시겠습니까?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <button style="color:navy" text @click="gotodelete(postOne.postNo)">🙆‍♀️네</button>
+                    <button style="color:navy" text @click="gotodelete()">🙆‍♀️네</button>
                     <button style="color:red" text @click="returnpost()">🙅‍♀️아니요</button>
                   </v-card-actions>
-                </v-card>
+                </v-card>-->
               </v-dialog>
             </div>
           </v-card>
@@ -266,8 +277,8 @@ export default {
         },
       });
     },
-    gotodelete(num) {
-      PostApi.requestPostDelete(num);
+    gotodelete() {
+      PostApi.requestPostDelete(this.postOne.postNo);
       this.$router.push("/posts");
     },
     good() {
