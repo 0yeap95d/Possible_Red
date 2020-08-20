@@ -9,10 +9,11 @@
       ></i>
       <i v-else-if="mission.start" class="fas fa-cookie-bite" style="color:#827717"></i>
 
-      <v-img class="white--text align-end"  src="https://picsum.photos/540"></v-img>
+      <v-img class="white--text align-end" :src="mission.missionPhoto"></v-img>
 
       <v-card-text class="text--primary">
-        <div class="nanum" style="font-size:xx-large; font-weight:500">{{ mission.missionTitle }}</div><br>
+        <div class="nanum" style="font-size:xx-large; font-weight:500">{{ mission.missionTitle }}</div>
+        <br />
         <div class="jua">Max : {{ mission.joinMem }} 명</div>
         <div
           class="jua"
@@ -20,8 +21,16 @@
       </v-card-text>
 
       <v-card-actions>
-        <button class="jua" style="font-size:medium; color:#1A237E; margin:0 3% 0 2%;" @click="gotomissiondetail(mission.missionNo)">자세히</button>
-        <button class="jua" style="font-size:medium; color:purple; margin:0 3% 0 0" @click="gotopeople(mission.missionNo)">참여자 목록보기</button>
+        <button
+          class="jua"
+          style="font-size:medium; color:#1A237E; margin:0 3% 0 2%;"
+          @click="gotomissiondetail(mission.missionNo)"
+        >자세히</button>
+        <button
+          class="jua"
+          style="font-size:medium; color:purple; margin:0 3% 0 0"
+          @click="gotopeople(mission.missionNo)"
+        >참여자 목록보기</button>
 
         <button
           v-if="getCookie(mission.startDate,mission.endDate,$moment().format('YYYY-MM-DD'))"
@@ -139,9 +148,9 @@ export default {
         },
       });
     },
-    gotopeople(num){
-      this.$router.push("/missionpeople")
-    }
+    gotopeople(num) {
+      this.$router.push("/missionpeople");
+    },
   },
 };
 </script>
@@ -158,10 +167,10 @@ export default {
 .v-responsive__content {
   background: transparent !important;
 }
-.wrapC{
-  max-width:580px;
+.wrapC {
+  max-width: 580px;
 }
-.nanum{
-  font-family: 'Nanum Pen Script', cursive;
+.nanum {
+  font-family: "Nanum Pen Script", cursive;
 }
 </style>

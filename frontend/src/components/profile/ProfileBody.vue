@@ -103,10 +103,8 @@ export default {
       (res) => {
         this.myMission = res.data;
         for (let i in this.myMission) {
-          this.imageSplit = this.myMission[i].missionPhoto.split("/");
-          this.index = this.imageSplit.length - 1;
           this.myMission[i].missionPhoto =
-            this.imagePath + this.imageSplit[this.index];
+            this.missionImagePath + this.myMission[i].missionCat + ".jpg";
         }
       },
       (error) => {}
@@ -129,6 +127,8 @@ export default {
       imagePath: "http://i3d201.p.ssafy.io:8080/",
       index: 0,
       imageSplit: [],
+
+      missionImagePath: "http://i3d201.p.ssafy.io:8080/category/",
     };
   },
 };
