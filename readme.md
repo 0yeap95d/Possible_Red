@@ -87,5 +87,5 @@ Mobile || PC
 🔨 Backend Developer
 
 - 최재혁 - 
-- 오혜영 - [에영이 깃 블로그](oheong.github.io) enffl9568@naver.com
-- 배성재 - 
+- 오혜영 - enffl9568@naver.com [에영이 깃 블로그](oheong.github.io)
+- 배성재 - tjdwob@gmail.com
