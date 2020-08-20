@@ -49,6 +49,7 @@ export default {
   name: "MissionItem",
   props: {
     missions: Array, // 전체 미션 리스트
+    followins: Array,
   },
   created() {
     this.user = this.$session.get("user");
@@ -153,6 +154,7 @@ export default {
         name: "MissionPeople",
         params: {
           num: num,
+          followings: this.followings,
         }
       });
     },

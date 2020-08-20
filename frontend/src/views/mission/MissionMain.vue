@@ -9,7 +9,7 @@
         </v-app-bar>
         <br />
 
-        <MissionItem :missions="missionList" />
+        <MissionItem :missions="missionList" :followings="followings" />
         <br />
         <br />
 
@@ -100,6 +100,7 @@
 import MissionItem from "../../components/mission/MissionItem.vue";
 import "../../components/css/style.css";
 import MissionApi from "../../api/MissionApi";
+import FollowApi from "../../api/FollowApi"
 
 export default {
   data: () => ({
@@ -111,6 +112,8 @@ export default {
     index: 0,
     imageSplit: [],
     missionImagePath: "http://i3d201.p.ssafy.io:8080/category/",
+    followings: [],
+    members: [],
   }),
   components: {
     MissionItem,
@@ -131,6 +134,17 @@ export default {
       },
       (error) => {}
     );
+
+    FollowApi.requestAllFollowingByNo(
+      this.user.memberNo,
+      (res) => {
+        this.members = res.data;
+        for (let i in this.members){
+          this.followings.push(this.members[i].you)
+        }
+      },
+      (error) => {},
+    )
   },
   methods: {
     logout() {
