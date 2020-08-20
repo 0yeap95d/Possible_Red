@@ -1,18 +1,24 @@
 <template>
   <div class="wrapC">
     <v-app>
-      <v-col >
+      <v-col>
         <v-card class="max-auto">
           <v-subheader :inset="inset">{{user.nickname}}'s</v-subheader>
 
           <v-list>
             <template v-for="mission in missions">
-              <v-list-item :item="mission" :key="mission.etag" >
+              <v-list-item :item="mission" :key="mission.etag">
                 <v-list-item-action class="mx-auto">
-                  <v-img src="https://picsum.photos/540" @click="gotomissiondetail(mission.missionNo)" alt></v-img>
+                  <v-img
+                    :src="mission.missionPhoto"
+                    @click="gotomissiondetail(mission.missionNo)"
+                    alt
+                  ></v-img>
                   <br />
-                  <v-list-item-title class="jua" @click="gotomissiondetail(mission.missionNo)">{{ mission.missionTitle }}</v-list-item-title>
-
+                  <v-list-item-title
+                    class="jua"
+                    @click="gotomissiondetail(mission.missionNo)"
+                  >{{ mission.missionTitle }}</v-list-item-title>
 
                   <v-card-actions class="white justify-center">
                     <v-btn
@@ -67,29 +73,26 @@ export default {
     ],
   }),
 
-  methods:{
-    gotomissiondetail(num){
+  methods: {
+    gotomissiondetail(num) {
       this.$router.push({
-        name:"MissionDetail",
-        params:{
-          num:num,
+        name: "MissionDetail",
+        params: {
+          num: num,
         },
       });
     },
-    goto(i){
-      if (i==0){
+    goto(i) {
+      if (i == 0) {
         window.open("https://www.facebook.com", "_blank");
+      } else if (i == 1) {
+        window.open("https://www.linkedin.com", "_blank");
+      } else {
+        window.open("https://www.instagram.com", "_blank");
       }
-      else if (i==1){
-        window.open("https://www.linkedin.com","_blank");
-      }
-      else{
-        window.open("https://www.instagram.com","_blank");
-      }
-    }
+    },
   },
-}
-
+};
 </script>
 
 <style>
@@ -106,16 +109,16 @@ export default {
 .col-sm-6.col-12 {
   padding: 0;
 }
-.v-icon.notranslate.mdi.mdi-facebook.theme--light{
-  color:indigo;
+.v-icon.notranslate.mdi.mdi-facebook.theme--light {
+  color: indigo;
 }
-.v-icon.notranslate.mdi.mdi-linkedin.theme--light{
-  color:skyblue;
+.v-icon.notranslate.mdi.mdi-linkedin.theme--light {
+  color: skyblue;
 }
-.v-icon.notranslate.mdi.mdi-instagram.theme--light{
-  color:palevioletred;
+.v-icon.notranslate.mdi.mdi-instagram.theme--light {
+  color: palevioletred;
 }
-.theme--light.v-application{
-  background:white;
+.theme--light.v-application {
+  background: white;
 }
 </style>

@@ -11,7 +11,7 @@
         <br />
 
         <!--넣고 싶은거 넣으세요~-->
-        
+
         <MissionDetailCard
           v-if="this.mission"
           :mission="mission"
@@ -19,7 +19,6 @@
           :entryNum="entryNum"
           :entryList="entryList"
         />
-        
       </v-card>
 
       <v-bottom-navigation v-model="bottomNav" black shift style="z-index:2;">
@@ -84,6 +83,7 @@ export default {
       master: "",
     },
     entryList: [],
+    missionImagePath: "http://i3d201.p.ssafy.io:8080/category/",
   }),
   created() {
     this.num = this.$route.params.num; // 상세하게 찾아올 미션 넘버
@@ -101,7 +101,8 @@ export default {
         this.mission.minusPoint = res.data.minusPoint;
         this.mission.cutCnt = res.data.cutCnt;
         this.mission.joinMem = res.data.joinMem;
-        this.mission.missionPhoto = res.data.missionPhoto;
+        this.mission.missionPhoto =
+          this.missionImagePath + res.data.missionCat + ".jpg";
         this.mission.missionCat = res.data.missionCat;
         UserApi.requestMemberByNo(
           // 사용자의 상세 정보를 반환한다.
@@ -215,7 +216,7 @@ export default {
   margin-bottom: 3.5rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width:580px;
+  max-width: 580px;
   width: 100%;
   margin: 0 auto;
 }

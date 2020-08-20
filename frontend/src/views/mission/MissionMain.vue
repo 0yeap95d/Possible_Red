@@ -10,7 +10,8 @@
         <br />
 
         <MissionItem :missions="missionList" />
-        <br /><br>
+        <br />
+        <br />
 
         <!--미션 props를 MissionItem으로 넘김-->
 
@@ -109,6 +110,7 @@ export default {
     imagePath: "http://i3d201.p.ssafy.io:8080/profile/",
     index: 0,
     imageSplit: [],
+    missionImagePath: "http://i3d201.p.ssafy.io:8080/category/",
   }),
   components: {
     MissionItem,
@@ -122,7 +124,10 @@ export default {
       // 미션 전체 리스트 받아오기
       (res) => {
         this.missionList = res.data;
-        console.log(this.missionList);
+        for (let i in this.missionList) {
+          this.missionList[i].missionPhoto =
+            this.missionImagePath + this.missionList[i].missionCat + ".jpg";
+        }
       },
       (error) => {}
     );
@@ -204,7 +209,7 @@ export default {
   margin-bottom: 3.5rem;
 }
 .v-item-group.v-bottom-navigation {
-  max-width:580px;
+  max-width: 580px;
   width: 100%;
   margin: 0 auto;
 }
