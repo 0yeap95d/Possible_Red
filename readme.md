@@ -62,13 +62,14 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 - [mriadb](https://mariadb.com/?_ga=2.5990458.828530280.1597933163-1220428684.1595376782&_gac=1.253048443.1597933163.Cj0KCQjwvvj5BRDkARIsAGD9vlJI4NHCwXQd0QPXHgi7Ah0FALfoOK6sEDeNHixB2aYjmILXUwDGdrEaAqEQEALw_wcB)
 - [Vue](https://vuejs.org/)
 - [AWS ec2](https://aws.amazon.com/ko/?nc2=h_lg) 
+- [Ubuntu](https://ubuntu.com/download/desktop)
+- Open API
 
 **개발 Tool**
 
 - [Visual Code](https://code.visualstudio.com/)
 - [Intellij](https://www.jetbrains.com/ko-kr/idea/)
-
-
+- [Docker](https://www.docker.com/)
 
 
 
@@ -84,8 +85,6 @@ Mobile || PC
 
 ## 📞 Contact to '#편한세상'
 
-
-
 🎨 Frontend Developer
 
 - 김희정 - dhodhody@gmail.com
@@ -94,5 +93,5 @@ Mobile || PC
 🔨 Backend Developer
 
 - 최재혁 - hyeok9sae@naver.com
-- 오혜영 - enffl9568@naver.com || [에영이 깃 블로그](oheong.github.io)
+- 오혜영 - enffl9568@naver.com || [에영이 깃 블로그](https://oheong.github.io/)
 - 배성재 - tjdwob@gmail.com
