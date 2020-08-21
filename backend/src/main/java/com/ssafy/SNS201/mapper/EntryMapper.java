@@ -12,4 +12,6 @@ public interface EntryMapper {
     public int insertEntry(Entry entry);
     public int updateEntry(Entry entry);
     public int deleteEntry(int entryNo);
+    public int selectCountByMemberNoAndMissionNo(int memberNo, int missionNo);
+    public List<Entry> selectMemberByMissionNo(int missionNo);
 }

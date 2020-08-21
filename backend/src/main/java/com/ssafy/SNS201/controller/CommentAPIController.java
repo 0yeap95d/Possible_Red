@@ -24,7 +24,7 @@ public class CommentAPIController {
     @Autowired
     CommentService commentService;
 
-    @ApiOperation(value = "해당 게시글의 모든 댓글의 정보를 반환한다.", response = List.class)
+    @ApiOperation(value = "해당 게시글의 모든 댓글의 정보와 닉네임을 반환한다.", response = List.class)
     @GetMapping("{postNo}")
     public ResponseEntity<List<Comment>> findAllComments(@PathVariable int postNo) throws Exception {
         logger.info("findAllComments | " + postNo);

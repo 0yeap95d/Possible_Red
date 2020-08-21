@@ -38,4 +38,14 @@ public class EntryServiceImpl implements EntryService {
     public boolean removeEntry(int entryNo) {
         return mapper.deleteEntry(entryNo) == 1;
     }
+
+    @Override
+    public int findCountByMemberNoAndMissionNo(int memberNo, int missionNo) {
+        return mapper.selectCountByMemberNoAndMissionNo(memberNo,missionNo);
+    }
+
+    @Override
+    public List<Entry> findMemberByMissionNo(int missionNo) {
+        return mapper.selectMemberByMissionNo(missionNo);
+    }
 }

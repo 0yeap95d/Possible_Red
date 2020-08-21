@@ -15,17 +15,31 @@
 		 WHERE  memberNo    = #{memberNo}
 	</select>
 
+    <select id="selectMemberByEmail" resultType="Member">
+		SELECT  *
+		  FROM  member
+		 WHERE  email       = #{email}
+	</select>
+
+    <select id="selectMemberBySearch" parameterType="String" resultType="Member">
+        SELECT  *
+          FROM  member
+         WHERE  nickname LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <insert id="insertMember" parameterType="Member">
         INSERT INTO member(
             email,
             pwd,
             nickname,
-            point
+            point,
+            memberPhoto
         ) VALUES (
             #{email},
             #{pwd},
             #{nickname},
-            0
+            0,
+            #{memberPhoto}
         )
     </insert>
 
@@ -33,7 +47,14 @@
         UPDATE  member
            SET  pwd         = #{pwd},
                 nickname    = #{nickname},
-                stateMent   = #{stateMent}
+                stateMent   = #{stateMent},
+                memberPhoto = #{memberPhoto}
+         WHERE  memberNo    = #{memberNo}
+    </update>
+
+    <update id="updatePassword" parameterType="Member">
+        UPDATE  member
+           SET  pwd         = #{pwd}
          WHERE  memberNo    = #{memberNo}
     </update>
 
@@ -42,5 +63,11 @@
 		  FROM  member
 		 WHERE  memberNo   = #{memberNo}
 	</delete>
+
+    <update id="updateMemberPoint" parameterType="int" >
+        UPDATE member
+        SET POINT = #{point}
+        WHERE memberNo = #{memberNo};
+    </update>
 
 </mapper>

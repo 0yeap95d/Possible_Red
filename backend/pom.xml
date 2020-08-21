@@ -131,9 +131,27 @@
 			<version>4.3.9.RELEASE</version>
 		</dependency>
 
+		<!-- 이메일 인증 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 
 
+		<!-- 이미지 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

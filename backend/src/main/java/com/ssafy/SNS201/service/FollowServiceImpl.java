@@ -17,13 +17,13 @@ public class FollowServiceImpl implements FollowService {
     private FollowMapper mapper;
 
     @Override
-    public List<Follow> findAllFollowMe() {
-        return mapper.selectFollowMe();
+    public List<Follow> findAllFollowMe(int memberNo) {
+        return mapper.selectFollowMe(memberNo);
     }
 
     @Override
-    public List<Follow> findAllFollowYou() {
-        return mapper.selectFollowYou();
+    public List<Follow> findAllFollowYou(int memberNo) {
+        return mapper.selectFollowYou(memberNo);
     }
 
     @Override
@@ -31,7 +31,13 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     @Transactional
-    public boolean removeFollow(int followNo) {
-        return mapper.deleteFollow(followNo) == 1;
+    public boolean removeFollow(int me, int you) {
+        return mapper.deleteFollow(me, you) == 1;
     }
+
+    @Override
+    public Integer countFollowMe(int memberNo) { return mapper.countFollowMe(memberNo); }
+
+    @Override
+    public Integer countFollowYou(int memberNo) { return mapper.countFollowYou(memberNo); }
 }

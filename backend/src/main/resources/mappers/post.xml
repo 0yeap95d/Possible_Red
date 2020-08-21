@@ -6,24 +6,25 @@
 
     <insert id="insertPost" parameterType="Post">
         INSERT INTO post(
-        link,
-        postContent,
-        memberNo,
-        postDate,
-        missionNo
+            postPhoto,
+            postContent,
+            memberNo,
+            postDate,
+            missionNo
         ) VALUES (
-        #{link},
-        #{postContent},
-        #{memberNo},
-        now(),
-        #{missionNo}
+            #{postPhoto},
+            #{postContent},
+            #{memberNo},
+            now(),
+            #{missionNo}
         )
 
     </insert>
     <select id="selectPost" resultType="Post">
         SELECT      *
           FROM      post
-         ORDER BY   postNo
+         ORDER BY   postDate DESC,
+                    postNo   DESC
     </select>
     <select id="selectPostByNo" resultType="Post">
         SELECT  p.*, m.nickname AS nickname
@@ -31,11 +32,17 @@
          WHERE  p.memberNo = m.memberNo AND postNo = #{postNo}
     </select>
 
+    <select id="selectPostBySearch" parameterType="String" resultType="Post">
+        SELECT  *
+          FROM  post
+         WHERE  postContent LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <update id="updatePost" parameterType="Post">
         UPDATE  post
-           SET  link        = #{link},
+           SET  postPhoto   = #{postPhoto},
                 postContent = #{postContent},
-                postDate    = now()
+                postDate    = #{postDate}
          WHERE  postNo      = #{postNo}
     </update>
 
@@ -44,5 +51,22 @@
           FROM  post
          WHERE  postNo = #{postNo}
     </delete>
+
+    <select id="selectPostByMemberNo" resultType="Post">
+        SELECT *
+         FROM post
+        WHERE memberNo = #{memberNo}
+    </select>
+
+    <select id="selectPostByMissionNo" resultType="Post">
+        SELECT *
+         FROM post
+        WHERE missionNo = #{missionNo}
+    </select>
+
+    <select id="selectMaxPostNo" resultType="int">
+        SELECT MAX(postNo)
+          FROM post
+    </select>
 
 </mapper>

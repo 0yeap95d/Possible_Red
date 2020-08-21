@@ -19,6 +19,16 @@ public class MissionServiceImpl implements MissionService{
     }
 
     @Override
+    public List<Mission> findMissionByMember(int memberNo) {
+        return mapper.selectMissionByMember(memberNo);
+    }
+
+    @Override
+    public List<Mission> findMissionByTitle(String word) {
+        return mapper.selectMissionByTitle(word);
+    }
+
+    @Override
     public Mission findMissionByNo(int missionNo) {
         return mapper.selectMissionByNo(missionNo);
     }
@@ -36,6 +46,21 @@ public class MissionServiceImpl implements MissionService{
     @Override
     public boolean removeMission(int missionNo) {
         return mapper.deleteMission(missionNo) == 1;
+    }
+
+    @Override
+    public List<Mission> findMissionByCategory(String missionCat) {
+        return mapper.selectMissionByCategory(missionCat);
+    }
+
+    @Override
+    public int findMissionMaxCount() {
+        return mapper.selectMaxCount();
+    }
+
+    @Override
+    public int findMissionCountByMissionNo(int missionNo) {
+        return mapper.selectCountByMissionNo(missionNo);
     }
 
 

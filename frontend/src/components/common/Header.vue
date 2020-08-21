@@ -2,11 +2,11 @@
     <div class="header-default">
 
         <button class="menu" v-if="!isBack"></button>
-        <button v-if="isBack" class="back">
+        <button v-if="isBack" class="back" @click="goBack">
             <i class="fas fa-chevron-left"></i>
         </button>
 
-        <h4 class="title">
+        <h4 class="title lucky">
             {{headerTitle}}
         </h4>
 
@@ -24,5 +24,14 @@
     export default {
         name: "header",
         props : ['headerTitle', 'isBack', 'isSearch', 'rightText', 'isDisabled'],
+        methods: {
+            goBack(){ this.$router.go(-1) },
+        }
     }
 </script>
+
+<style>
+.lucky{
+    font-family: 'Luckiest Guy', cursive;
+  }
+</style>

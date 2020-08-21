@@ -15,8 +15,8 @@ public class HashtagServiceImpl implements HashtagService{
     private HashtagMapper mapper;
 
     @Override
-    public List<Hashtag> findAllHashtags(int missionNo) {
-        return mapper.selectHashtag(missionNo);
+    public List<Hashtag> findAllHashtags(int postNo) {
+        return mapper.selectHashtag(postNo);
     }
 
     @Override
@@ -28,5 +28,10 @@ public class HashtagServiceImpl implements HashtagService{
     @Transactional
     public boolean removeHashtag(int hashtagNo) {
         return mapper.deleteHashtag(hashtagNo);
+    }
+
+    @Override
+    public List<Hashtag> findAllHashtagsBySearch(String keyword) {
+        return mapper.selectHashtagBySearch(keyword);
     }
 }

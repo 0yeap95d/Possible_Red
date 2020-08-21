@@ -8,8 +8,10 @@ import java.util.List;
 
 @Mapper
 public interface FollowMapper {
-    public List<Follow> selectFollowMe();
-    public List<Follow> selectFollowYou();
+    public List<Follow> selectFollowMe(int memberNo);
+    public List<Follow> selectFollowYou(int memberNo);
     public int insertFollow(Follow follow);
-    public int deleteFollow(int followNo);
+    public int deleteFollow(int me, int you);
+    public Integer countFollowMe(int memberNo);
+    public Integer countFollowYou(int memberNo);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.List;
 
 @Service
@@ -25,6 +26,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Member findMemberByEmail(String email) {
+        return mapper.selectMemberByEmail(email);
+    }
+
+    @Override
     public boolean addMember(Member member) { return mapper.insertMember(member); }
 
     @Override
@@ -35,5 +41,20 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public boolean removeMember(int memberNo) {
         return mapper.deleteMember(memberNo);
+    }
+
+    @Override
+    public List<Member> findAllMembersBySearch(String keyword) {
+        return mapper.selectMemberBySearch(keyword);
+    }
+
+    @Override
+    public boolean modifyMemberPoint(int memberNo, int point) {
+        return mapper.updateMemberPoint(memberNo, point);
+    }
+
+    @Override
+    public boolean modifyPassword(Member member) {
+        return mapper.updatePassword(member);
     }
 }

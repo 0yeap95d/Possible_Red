@@ -7,39 +7,39 @@ import java.util.Date;
 @Component
 public class Hashtag {
     private int hashtagNo;
-    private int missionNo;
+    private int postNo;
     private String hashtagContent;
-    private int hashtagCnt;
 
     public int getHashtagNo() {
         return hashtagNo;
     }
 
-    public int getMissionNo() {
-        return missionNo;
+    public int getPostNo() {
+        return postNo;
     }
 
     public String getHashtagContent() {
         return hashtagContent;
     }
 
-    public int getHashtagCnt() {
-        return hashtagCnt;
-    }
-
     public void setHashtagNo(int hashtagNo) {
         this.hashtagNo = hashtagNo;
     }
 
-    public void setMissionNo(int missionNo) {
-        this.missionNo = missionNo;
+    public void setPostNo(int postNo) {
+        this.postNo = postNo;
     }
 
     public void setHashtagContent(String hashtagContent) {
         this.hashtagContent = hashtagContent;
     }
 
-    public void setHashtagCnt(int hashtagCnt) {
-        this.hashtagCnt = hashtagCnt;
+    @Override
+    public String toString() {
+        return "Hashtag{" +
+                "hashtagNo=" + hashtagNo +
+                ", postNo=" + postNo +
+                ", hashtagContent='" + hashtagContent + '\'' +
+                '}';
     }
 }
