@@ -59,7 +59,7 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 **개발 환경**
 
 - [Spring boot](https://spring.io/projects/spring-boot/)
-- [mriadb](https://mariadb.com/?_ga=2.5990458.828530280.1597933163-1220428684.1595376782&_gac=1.253048443.1597933163.Cj0KCQjwvvj5BRDkARIsAGD9vlJI4NHCwXQd0QPXHgi7Ah0FALfoOK6sEDeNHixB2aYjmILXUwDGdrEaAqEQEALw_wcB)
+- [mariadb](https://mariadb.com/?_ga=2.5990458.828530280.1597933163-1220428684.1595376782&_gac=1.253048443.1597933163.Cj0KCQjwvvj5BRDkARIsAGD9vlJI4NHCwXQd0QPXHgi7Ah0FALfoOK6sEDeNHixB2aYjmILXUwDGdrEaAqEQEALw_wcB)
 - [Vue](https://vuejs.org/)
 - [AWS ec2](https://aws.amazon.com/ko/?nc2=h_lg) 
 - [Ubuntu](https://ubuntu.com/download/desktop)
