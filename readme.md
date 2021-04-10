@@ -39,14 +39,6 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 
 
 
-## 💾 프로젝트 결과물
-
-- http://i3d201.p.ssafy.io/
-- https://lab.ssafy.com/s03-webmobile2-sub3/s03p13d201
-
-
-
-
 
 ## 🔍 개발 스택
 
@@ -77,7 +69,7 @@ Possible Red (이하 PR)는 여러 사람들과 함께 목표를 정하고, 달�
 
 Mobile || PC
 
-- http://i3d201.p.ssafy.io/
+- http://i3d201.p.ssafy.io/ (서비스 종료)
 
 
 
